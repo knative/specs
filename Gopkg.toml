@@ -42,7 +42,7 @@ required = [
 
 [[override]]
   name = "knative.dev/pkg"
-  branch = "master"
+  branch = "release-0.11"
 
 [[override]]
   name = "cloud.google.com/go"
@@ -52,20 +52,25 @@ required = [
   name = "knative.dev/eventing"
   branch = "master"
 
+# Required for opencensus.
 [[override]]
   name = "google.golang.org/genproto"
-  revision = "e7d98fc518a78c9f8b5ee77be7b0b317475d89e1"
-
-[[override]]
-  name = "contrib.go.opencensus.io/exporter/stackdriver"
-  # The build fails against 0.12.6 and newer because
-  # stackdriver.Options.GetMonitoredResource was removed.
-  version = "<=v0.12.5"
+  revision = "357c62f0e4bbba7e6cc403ae09edcf3e2b9028fe"
 
 [[override]]
   name = "go.opencensus.io"
   # Needed because this includes the appropriate version of metricsdata
   version = "v0.22.0"
+  
+# Required for opencensus.
+[[override]]
+  name = "github.com/census-instrumentation/opencensus-proto"
+  version = "0.2.0"
+
+# Required for opencensus.
+[[override]]
+  name="github.com/golang/protobuf"
+  version = "1.3.2"
 
 [prune]
   go-tests = true
