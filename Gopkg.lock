@@ -547,13 +547,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:7eb3fb46bfc7073576536471c99f3d9b797c3174b9b03038fe926d86eba3a7dd"
+  digest = "1:465abb885b4ded040d8b379643959fab7916fc5ab20fc46dad067e8163efa0ea"
   name = "golang.org/x/net"
   packages = [
     "context",
     "context/ctxhttp",
     "http/httpguts",
     "http2",
+    "http2/h2c",
     "http2/hpack",
     "idna",
     "internal/timeseries",
@@ -1228,8 +1229,8 @@
   version = "v0.10.1"
 
 [[projects]]
-  branch = "release-0.11"
-  digest = "1:21f168f0b1eed03be1e28d463b35f23683697554be0e473f498318c9984efcc4"
+  branch = "master"
+  digest = "1:fd0a9998fe007e1d20ea859e93590525147081a9acb498a4445065d514e1fcef"
   name = "knative.dev/pkg"
   packages = [
     "apis",
@@ -1270,7 +1271,7 @@
     "webhook/certificates/resources",
   ]
   pruneopts = "T"
-  revision = "94a34e416c4486376a21d934f4bfebd730c82c12"
+  revision = "bebd5557feae665ccf77bb1d8fee2758aa658264"
 
 [[projects]]
   branch = "master"
