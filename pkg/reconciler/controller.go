@@ -28,7 +28,7 @@ import (
 	"knative.dev/pkg/controller"
 	"knative.dev/pkg/resolver"
 
-	"knative.dev/sample-source/pkg/client/injection/client"
+	samplesourceClient "knative.dev/sample-source/pkg/client/injection/client"
 	samplesourceinformer "knative.dev/sample-source/pkg/client/injection/informers/samples/v1alpha1/samplesource"
 )
 
@@ -55,7 +55,7 @@ func NewController(
 		Base:                  reconciler.NewBase(ctx, controllerAgentName, cmw),
 		samplesourceLister:    sampleSourceInformer.Lister(),
 		deploymentLister:      deploymentInformer.Lister(),
-		samplesourceClientSet: client.Get(ctx),
+		samplesourceClientSet: samplesourceClient.Get(ctx),
 	}
 	impl := controller.NewImpl(r, r.Logger, ReconcilerName)
 	r.sinkResolver = resolver.NewURIResolver(ctx, impl.EnqueueKey)

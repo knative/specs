@@ -17,17 +17,15 @@ package adapter
 
 import (
 	"context"
-	"net/url"
-	"time"
-
-	"github.com/cloudevents/sdk-go/pkg/cloudevents"
-	"github.com/cloudevents/sdk-go/pkg/cloudevents/client"
+	cloudevents "github.com/cloudevents/sdk-go"
 	"github.com/cloudevents/sdk-go/pkg/cloudevents/types"
 	"github.com/google/uuid"
 	"go.uber.org/zap"
 	"knative.dev/eventing/pkg/adapter"
 	"knative.dev/pkg/logging"
 	"knative.dev/pkg/source"
+	"net/url"
+	"time"
 )
 
 type envConfig struct {
@@ -45,7 +43,7 @@ type Adapter struct {
 	logger   *zap.Logger
 	interval time.Duration
 	nextID   int
-	sink     client.Client
+	client   cloudevents.Client
 }
 
 type dataExample struct {
@@ -86,7 +84,7 @@ func (a *Adapter) Start(stopCh <-chan struct{}) error {
 		case <-time.After(a.interval):
 			event := a.newEvent()
 			a.logger.Info("Sending new event: ", zap.String("event", event.String()))
-			_, _, err := a.sink.Send(context.Background(), event)
+			_, _, err := a.client.Send(context.Background(), event)
 			if err != nil {
 				return err
 			}
@@ -97,13 +95,13 @@ func (a *Adapter) Start(stopCh <-chan struct{}) error {
 	}
 }
 
-func NewAdapter(ctx context.Context, aEnv adapter.EnvConfigAccessor, sink client.Client, reporter source.StatsReporter) adapter.Adapter {
+func NewAdapter(ctx context.Context, aEnv adapter.EnvConfigAccessor, ceClient cloudevents.Client, reporter source.StatsReporter) adapter.Adapter {
 	env := aEnv.(*envConfig) // Will always be our own envConfig type
 	logger := logging.FromContext(ctx).Desugar()
 	logger.Info("Heartbeat example", zap.Duration("interval", env.Interval))
 	return &Adapter{
 		interval: env.Interval,
-		sink:     sink,
+		client:   ceClient,
 		logger:   logger,
 	}
 }
