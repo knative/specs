@@ -19,10 +19,7 @@ package reconciler
 import (
 	"context"
 	"fmt"
-	"reflect"
-	"time"
 
-	"github.com/kelseyhightower/envconfig"
 	"go.uber.org/zap"
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
@@ -31,28 +28,20 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/client-go/kubernetes"
 	appsv1listers "k8s.io/client-go/listers/apps/v1"
-	"k8s.io/client-go/tools/cache"
-	eventingv1alpha1 "knative.dev/eventing/pkg/apis/eventing/v1alpha1"
+	eventingclientset "knative.dev/eventing/pkg/client/clientset/versioned"
 	eventinglisters "knative.dev/eventing/pkg/client/listers/eventing/v1alpha1"
-	"knative.dev/eventing/pkg/logging"
-	"knative.dev/eventing/pkg/reconciler"
 	"knative.dev/pkg/apis"
+	"knative.dev/pkg/logging"
+	pkgreconciler "knative.dev/pkg/reconciler"
 	"knative.dev/pkg/resolver"
 
 	"knative.dev/sample-source/pkg/apis/samples/v1alpha1"
 	versioned "knative.dev/sample-source/pkg/client/clientset/versioned"
+	"knative.dev/sample-source/pkg/client/injection/reconciler/samples/v1alpha1/samplesource"
 	listers "knative.dev/sample-source/pkg/client/listers/samples/v1alpha1"
 	"knative.dev/sample-source/pkg/reconciler/resources"
-)
-
-const (
-	// Name of the corev1.Events emitted from the reconciliation process
-	samplesourceReconciled         = "SampleSourceReconciled"
-	samplesourceReadinessChanged   = "SampleSourceReadinessChanged"
-	samplesourceUpdateStatusFailed = "SampleSourceUpdateStatusFailed"
-	samplesourceDeploymentCreated  = "SampleSourceDeploymentCreated"
-	samplesourceDeploymentUpdated  = "SampleSourceDeploymentUpdated"
 )
 
 var (
@@ -62,15 +51,39 @@ var (
 	}
 )
 
-type envConfig struct {
-	Image string `envconfig:"SAMPLE_SOURCE_RA_IMAGE" required:"true"`
+// newReconciledNormal makes a new reconciler event with event type Normal, and
+// reason SampleSourceReconciled.
+func newReconciledNormal(namespace, name string) pkgreconciler.Event {
+	return pkgreconciler.NewEvent(corev1.EventTypeNormal, "SampleSourceReconciled", "SampleSource reconciled: \"%s/%s\"", namespace, name)
+}
+
+// newDeploymentCreated makes a new reconciler event with event type Normal, and
+// reason SampleSourceDeploymentCreated.
+func newDeploymentCreated(namespace, name string) pkgreconciler.Event {
+	return pkgreconciler.NewEvent(corev1.EventTypeNormal, "SampleSourceDeploymentCreated", "SampleSource created deployment: \"%s/%s\"", namespace, name)
+}
+
+// newDeploymentFailed makes a new reconciler event with event type Warning, and
+// reason SampleSourceDeploymentFailed.
+func newDeploymentFailed(namespace, name string, err error) pkgreconciler.Event {
+	return pkgreconciler.NewEvent(corev1.EventTypeWarning, "SampleSourceDeploymentFailed", "SampleSource failed to create deployment: \"%s/%s\", %w", namespace, name, err)
+}
+
+// newDeploymentUpdated makes a new reconciler event with event type Normal, and
+// reason SampleSourceDeploymentUpdated.
+func newDeploymentUpdated(namespace, name string) pkgreconciler.Event {
+	return pkgreconciler.NewEvent(corev1.EventTypeNormal, "SampleSourceDeploymentUpdated", "SampleSource updated deployment: \"%s/%s\"", namespace, name)
 }
 
 // Reconciler reconciles a SampleSource object
 type Reconciler struct {
-	*reconciler.Base
+	// KubeClientSet allows us to talk to the k8s for core APIs
+	KubeClientSet kubernetes.Interface
 
-	receiveAdapterImage string
+	// EventingClientSet allows us to configure Eventing objects
+	EventingClientSet eventingclientset.Interface
+
+	ReceiveAdapterImage string `envconfig:"SAMPLE_SOURCE_RA_IMAGE" required:"true"`
 
 	// listers index properties about resources
 	samplesourceLister listers.SampleSourceLister
@@ -82,51 +95,11 @@ type Reconciler struct {
 	sinkResolver *resolver.URIResolver
 }
 
-// Reconcile compares the actual state with the desired, and attempts to
-// converge the two. It then updates the Status block of the SampleSource
-// resource with the current status of the resource.
-func (r *Reconciler) Reconcile(ctx context.Context, key string) error {
-	// Convert the namespace/name string into a distinct namespace and name
-	namespace, name, err := cache.SplitMetaNamespaceKey(key)
-	if err != nil {
-		r.Logger.Errorf("invalid resource key: %s", key)
-		return nil
-	}
+// Check that our Reconciler implements Interface
+var _ samplesource.Interface = (*Reconciler)(nil)
 
-	// Get the SampleSource resource with this namespace/name
-	original, err := r.samplesourceLister.SampleSources(namespace).Get(name)
-	if apierrors.IsNotFound(err) {
-		// The resource may no longer exist, in which case we stop processing.
-		logging.FromContext(ctx).Error("SampleSource key in work queue no longer exists", zap.Any("key", key))
-		return nil
-	} else if err != nil {
-		return err
-	}
-
-	// Don't modify the informers copy
-	samplesource := original.DeepCopy()
-
-	// Reconcile this copy of the SampleSource and then write back any status
-	// updates regardless of whether the reconcile error out.
-	err = r.reconcile(ctx, samplesource)
-	if err != nil {
-		logging.FromContext(ctx).Warn("Error reconciling SampleSource", zap.Error(err))
-	} else {
-		logging.FromContext(ctx).Debug("SampleSource reconciled")
-		r.Recorder.Eventf(samplesource, corev1.EventTypeNormal, samplesourceReconciled, `SampleSource reconciled: "%s/%s"`, samplesource.Namespace, samplesource.Name)
-	}
-
-	if _, updateStatusErr := r.updateStatus(ctx, samplesource.DeepCopy()); updateStatusErr != nil {
-		logging.FromContext(ctx).Warn("Failed to update the SampleSource", zap.Error(err))
-		r.Recorder.Eventf(samplesource, corev1.EventTypeWarning, samplesourceUpdateStatusFailed, "Failed to update SampleSource's status: %v", err)
-		return updateStatusErr
-	}
-
-	// Requeue if the resource is not ready:
-	return err
-}
-
-func (r *Reconciler) reconcile(ctx context.Context, source *v1alpha1.SampleSource) error {
+// ReconcileKind implements Interface.ReconcileKind.
+func (r *Reconciler) ReconcileKind(ctx context.Context, source *v1alpha1.SampleSource) pkgreconciler.Event {
 	source.Status.InitializeConditions()
 
 	if source.Spec.Sink == nil {
@@ -152,13 +125,14 @@ func (r *Reconciler) reconcile(ctx context.Context, source *v1alpha1.SampleSourc
 	}
 	source.Status.MarkSink(sinkURI)
 
-	ra, err := r.createReceiveAdapter(ctx, source, sinkURI)
-	if err != nil {
-		r.Logger.Error("Unable to create the receive adapter", zap.Error(err))
-		return err
-	}
+	ra, event := r.createReceiveAdapter(ctx, source, sinkURI)
 	// Update source status
-	source.Status.PropagateDeploymentAvailability(ra)
+	if ra != nil {
+		source.Status.PropagateDeploymentAvailability(ra)
+	}
+	if event != nil {
+		return event
+	}
 
 	err = r.reconcileEventTypes(ctx, source)
 	if err != nil {
@@ -167,21 +141,16 @@ func (r *Reconciler) reconcile(ctx context.Context, source *v1alpha1.SampleSourc
 	}
 	source.Status.MarkEventTypes()
 
-	return nil
+	return newReconciledNormal(source.Namespace, source.Name)
 }
 
-func (r *Reconciler) createReceiveAdapter(ctx context.Context, src *v1alpha1.SampleSource, sinkURI *apis.URL) (*appsv1.Deployment, error) {
+func (r *Reconciler) createReceiveAdapter(ctx context.Context, src *v1alpha1.SampleSource, sinkURI *apis.URL) (*appsv1.Deployment, pkgreconciler.Event) {
 	eventSource := r.makeEventSource(src)
 	logging.FromContext(ctx).Debug("event source", zap.Any("source", eventSource))
 
-	env := &envConfig{}
-	if err := envconfig.Process("", env); err != nil {
-		r.Logger.Panicf("required environment variable is not defined: %v", err)
-	}
-
 	adapterArgs := resources.ReceiveAdapterArgs{
 		EventSource: eventSource,
-		Image:       env.Image,
+		Image:       r.ReceiveAdapterImage,
 		Source:      src,
 		Labels:      resources.Labels(src.Name),
 		SinkURI:     sinkURI,
@@ -191,8 +160,10 @@ func (r *Reconciler) createReceiveAdapter(ctx context.Context, src *v1alpha1.Sam
 	ra, err := r.KubeClientSet.AppsV1().Deployments(src.Namespace).Get(expected.Name, metav1.GetOptions{})
 	if apierrors.IsNotFound(err) {
 		ra, err = r.KubeClientSet.AppsV1().Deployments(src.Namespace).Create(expected)
-		r.Recorder.Eventf(src, corev1.EventTypeNormal, samplesourceDeploymentCreated, "Deployment created, error: %v", err)
-		return ra, err
+		if err != nil {
+			return nil, newDeploymentFailed(expected.Namespace, expected.Name, err)
+		}
+		return ra, newDeploymentCreated(ra.Namespace, ra.Name)
 	} else if err != nil {
 		return nil, fmt.Errorf("error getting receive adapter: %v", err)
 	} else if !metav1.IsControlledBy(ra, src) {
@@ -202,122 +173,11 @@ func (r *Reconciler) createReceiveAdapter(ctx context.Context, src *v1alpha1.Sam
 		if ra, err = r.KubeClientSet.AppsV1().Deployments(src.Namespace).Update(ra); err != nil {
 			return ra, err
 		}
-		r.Recorder.Eventf(src, corev1.EventTypeNormal, samplesourceDeploymentUpdated, "Deployment updated")
-		return ra, nil
+		return ra, newDeploymentUpdated(ra.Namespace, ra.Name)
 	} else {
 		logging.FromContext(ctx).Debug("Reusing existing receive adapter", zap.Any("receiveAdapter", ra))
 	}
 	return ra, nil
-}
-
-func (r *Reconciler) reconcileEventTypes(ctx context.Context, src *v1alpha1.SampleSource) error {
-	current, err := r.getEventTypes(ctx, src)
-	if err != nil {
-		logging.FromContext(ctx).Error("Unable to get existing event types", zap.Error(err))
-		return err
-	}
-
-	expected, err := r.makeEventTypes(src)
-	if err != nil {
-		return err
-	}
-
-	toCreate, toDelete := r.computeDiff(current, expected)
-
-	for _, eventType := range toDelete {
-		if err = r.EventingClientSet.EventingV1alpha1().EventTypes(src.Namespace).Delete(eventType.Name, &metav1.DeleteOptions{}); err != nil {
-			logging.FromContext(ctx).Error("Error deleting eventType", zap.Any("eventType", eventType))
-			return err
-		}
-	}
-
-	for _, eventType := range toCreate {
-		if _, err = r.EventingClientSet.EventingV1alpha1().EventTypes(src.Namespace).Create(&eventType); err != nil {
-			logging.FromContext(ctx).Error("Error creating eventType", zap.Any("eventType", eventType))
-			return err
-		}
-	}
-
-	return err
-}
-
-func (r *Reconciler) getEventTypes(ctx context.Context, src *v1alpha1.SampleSource) ([]eventingv1alpha1.EventType, error) {
-	etl, err := r.EventingClientSet.EventingV1alpha1().EventTypes(src.Namespace).List(metav1.ListOptions{
-		LabelSelector: r.getLabelSelector(src).String(),
-	})
-	if err != nil {
-		logging.FromContext(ctx).Error("Unable to list event types: %v", zap.Error(err))
-		return nil, err
-	}
-	eventTypes := make([]eventingv1alpha1.EventType, 0)
-	for _, et := range etl.Items {
-		if metav1.IsControlledBy(&et, src) {
-			eventTypes = append(eventTypes, et)
-		}
-	}
-	return eventTypes, nil
-}
-
-func (r *Reconciler) makeEventTypes(src *v1alpha1.SampleSource) ([]eventingv1alpha1.EventType, error) {
-	eventTypes := make([]eventingv1alpha1.EventType, 0)
-
-	// Only create EventTypes for Broker sinks.
-	// We add this check here in case the SampleSource was changed from Broker to non-Broker sink.
-	// If so, we need to delete the existing ones, thus we return empty expected.
-	if ref := src.Spec.Sink.GetRef(); ref == nil || ref.Kind != "Broker" {
-		return eventTypes, nil
-	}
-
-	args := &resources.EventTypeArgs{
-		Src:    src,
-		Source: r.makeEventSource(src),
-	}
-	for _, apiEventType := range samplesourceEventTypes {
-		args.Type = apiEventType
-		eventType := resources.MakeEventType(args)
-		eventTypes = append(eventTypes, eventType)
-	}
-	return eventTypes, nil
-}
-
-func (r *Reconciler) computeDiff(current []eventingv1alpha1.EventType, expected []eventingv1alpha1.EventType) ([]eventingv1alpha1.EventType, []eventingv1alpha1.EventType) {
-	toCreate := make([]eventingv1alpha1.EventType, 0)
-	toDelete := make([]eventingv1alpha1.EventType, 0)
-	currentMap := asMap(current, keyFromEventType)
-	expectedMap := asMap(expected, keyFromEventType)
-
-	// Iterate over the slices instead of the maps for predictable UT expectations.
-	for _, e := range expected {
-		if c, ok := currentMap[keyFromEventType(&e)]; !ok {
-			toCreate = append(toCreate, e)
-		} else {
-			if !equality.Semantic.DeepEqual(e.Spec, c.Spec) {
-				toDelete = append(toDelete, c)
-				toCreate = append(toCreate, e)
-			}
-		}
-	}
-	// Need to check whether the current EventTypes are not in the expected map. If so, we have to delete them.
-	// This could happen if the SampleSource CO changes its broker.
-	for _, c := range current {
-		if _, ok := expectedMap[keyFromEventType(&c)]; !ok {
-			toDelete = append(toDelete, c)
-		}
-	}
-	return toCreate, toDelete
-}
-
-func asMap(eventTypes []eventingv1alpha1.EventType, keyFunc func(*eventingv1alpha1.EventType) string) map[string]eventingv1alpha1.EventType {
-	eventTypesAsMap := make(map[string]eventingv1alpha1.EventType, 0)
-	for _, eventType := range eventTypes {
-		key := keyFunc(&eventType)
-		eventTypesAsMap[key] = eventType
-	}
-	return eventTypesAsMap
-}
-
-func keyFromEventType(eventType *eventingv1alpha1.EventType) string {
-	return fmt.Sprintf("%s_%s_%s_%s", eventType.Spec.Type, eventType.Spec.Source, eventType.Spec.Schema, eventType.Spec.Broker)
 }
 
 func (r *Reconciler) podSpecChanged(oldPodSpec corev1.PodSpec, newPodSpec corev1.PodSpec) bool {
@@ -353,36 +213,6 @@ func (r *Reconciler) getReceiveAdapter(ctx context.Context, src *v1alpha1.Sample
 
 func (r *Reconciler) getLabelSelector(src *v1alpha1.SampleSource) labels.Selector {
 	return labels.SelectorFromSet(resources.Labels(src.Name))
-}
-
-func (r *Reconciler) updateStatus(ctx context.Context, desired *v1alpha1.SampleSource) (*v1alpha1.SampleSource, error) {
-	samplesource, err := r.samplesourceLister.SampleSources(desired.Namespace).Get(desired.Name)
-	if err != nil {
-		return nil, err
-	}
-
-	// If there's nothing to update, just return.
-	if reflect.DeepEqual(samplesource.Status, desired.Status) {
-		return samplesource, nil
-	}
-
-	becomesReady := desired.Status.IsReady() && !samplesource.Status.IsReady()
-
-	// Don't modify the informers copy.
-	existing := samplesource.DeepCopy()
-	existing.Status = desired.Status
-
-	cj, err := r.samplesourceClientSet.SamplesV1alpha1().SampleSources(desired.Namespace).UpdateStatus(existing)
-	if err == nil && becomesReady {
-		duration := time.Since(cj.ObjectMeta.CreationTimestamp.Time)
-		r.Logger.Infof("SampleSource %q became ready after %v", samplesource.Name, duration)
-		r.Recorder.Event(samplesource, corev1.EventTypeNormal, samplesourceReadinessChanged, fmt.Sprintf("SampleSource %q became ready", samplesource.Name))
-		if err := r.StatsReporter.ReportReady("SampleSource", samplesource.Namespace, samplesource.Name, duration); err != nil {
-			logging.FromContext(ctx).Sugar().Infof("failed to record ready for SampleSource, %v", err)
-		}
-	}
-
-	return cj, err
 }
 
 // makeEventSource computes the Cloud Event source attribute for the given source

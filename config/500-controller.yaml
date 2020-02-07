@@ -13,48 +13,52 @@
 # limitations under the License.
 
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
-  name: sample-source-controller-manager
+  name: sample-source-controller
   namespace: knative-samples
   labels:
     samples.knative.dev/release: devel
-    control-plane: sample-source-controller-manager
 spec:
+  replicas: 1
   selector:
-    matchLabels: &labels
-      control-plane: sample-source-controller-manager
-  serviceName: sample-source-controller-manager
+    matchLabels:
+      app: sample-source-controller
   template:
     metadata:
-      labels: *labels
+      labels:
+        app: sample-source-controller
+        samples.knative.dev/release: devel
     spec:
       serviceAccountName: sample-source-controller-manager
+
       containers:
-      - image: knative.dev/sample-source/cmd/controller
-        name: manager
-        env:
-        - name: SYSTEM_NAMESPACE
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.namespace
-        - name: CONFIG_LOGGING_NAME
-          value: config-logging
-        - name: CONFIG_OBSERVABILITY_NAME
-          value: config-observability
-        - name: METRICS_DOMAIN
-          value: knative.dev/sources
-        - name: SAMPLE_SOURCE_RA_IMAGE
-          value: knative.dev/sample-source/cmd/receive_adapter
+      - name: controller
+        terminationMessagePolicy: FallbackToLogsOnError
+        image: knative.dev/sample-source/cmd/controller
+
         resources:
           requests:
             cpu: 100m
             memory: 100Mi
-          limits:
-            cpu: 1000m
-            memory: 1000Mi
-      terminationGracePeriodSeconds: 10
-      volumes:
-        - name: config-logging
-          configMap:
-            name: config-logging
+
+        env:
+          - name: SYSTEM_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+          - name: CONFIG_LOGGING_NAME
+            value: config-logging
+          - name: CONFIG_OBSERVABILITY_NAME
+            value: config-observability
+          - name: METRICS_DOMAIN
+            value: knative.dev/sources
+          - name: SAMPLE_SOURCE_RA_IMAGE
+            value: knative.dev/sample-source/cmd/receive_adapter
+
+        securityContext:
+          allowPrivilegeEscalation: false
+
+        ports:
+          - name: metrics
+            containerPort: 9090

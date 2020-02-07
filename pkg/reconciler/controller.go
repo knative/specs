@@ -18,27 +18,23 @@ package reconciler
 
 import (
 	"context"
+	"knative.dev/pkg/logging"
+
+	"github.com/kelseyhightower/envconfig"
 
 	"k8s.io/client-go/tools/cache"
 	"knative.dev/eventing/pkg/apis/sources/v1alpha1"
-	eventtypeinformer "knative.dev/eventing/pkg/client/injection/informers/eventing/v1alpha1/eventtype"
-	"knative.dev/eventing/pkg/reconciler"
-	deploymentinformer "knative.dev/pkg/client/injection/kube/informers/apps/v1/deployment"
 	"knative.dev/pkg/configmap"
 	"knative.dev/pkg/controller"
 	"knative.dev/pkg/resolver"
 
+	eventingclient "knative.dev/eventing/pkg/client/injection/client"
+	eventtypeinformer "knative.dev/eventing/pkg/client/injection/informers/eventing/v1alpha1/eventtype"
+	kubeclient "knative.dev/pkg/client/injection/kube/client"
+	deploymentinformer "knative.dev/pkg/client/injection/kube/informers/apps/v1/deployment"
 	samplesourceClient "knative.dev/sample-source/pkg/client/injection/client"
 	samplesourceinformer "knative.dev/sample-source/pkg/client/injection/informers/samples/v1alpha1/samplesource"
-)
-
-const (
-	// ReconcilerName is the name of the reconciler
-	ReconcilerName = "SampleSource"
-
-	// controllerAgentName is the string used by this controller to identify
-	// itself when creating events.
-	controllerAgentName = "sample-source-controller"
+	"knative.dev/sample-source/pkg/client/injection/reconciler/samples/v1alpha1/samplesource"
 )
 
 // NewController initializes the controller and is called by the generated code
@@ -52,15 +48,20 @@ func NewController(
 	eventTypeInformer := eventtypeinformer.Get(ctx)
 
 	r := &Reconciler{
-		Base:                  reconciler.NewBase(ctx, controllerAgentName, cmw),
+		KubeClientSet:         kubeclient.Get(ctx),
+		EventingClientSet:     eventingclient.Get(ctx),
 		samplesourceLister:    sampleSourceInformer.Lister(),
 		deploymentLister:      deploymentInformer.Lister(),
 		samplesourceClientSet: samplesourceClient.Get(ctx),
 	}
-	impl := controller.NewImpl(r, r.Logger, ReconcilerName)
+	if err := envconfig.Process("", r); err != nil {
+		logging.FromContext(ctx).Panicf("required environment variable is not defined: %v", err)
+	}
+
+	impl := samplesource.NewImpl(ctx, r)
 	r.sinkResolver = resolver.NewURIResolver(ctx, impl.EnqueueKey)
 
-	r.Logger.Info("Setting up event handlers")
+	logging.FromContext(ctx).Info("Setting up event handlers")
 	sampleSourceInformer.Informer().AddEventHandler(controller.HandleAll(impl.Enqueue))
 
 	deploymentInformer.Informer().AddEventHandler(cache.FilteringResourceEventHandler{

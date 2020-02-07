@@ -41,26 +41,12 @@ rules:
   - ""
   resources:
   - events
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - update
-  - patch
-  - delete
+  verbs: *everything
 - apiGroups:
   - samples.knative.dev
   resources:
   - samplesources
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - update
-  - patch
-  - delete
+  verbs: *everything
 - apiGroups:
   - samples.knative.dev
   resources:
