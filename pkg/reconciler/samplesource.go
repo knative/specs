@@ -39,7 +39,7 @@ import (
 
 	"knative.dev/sample-source/pkg/apis/samples/v1alpha1"
 	versioned "knative.dev/sample-source/pkg/client/clientset/versioned"
-	"knative.dev/sample-source/pkg/client/injection/reconciler/samples/v1alpha1/samplesource"
+	reconcilersamplesource "knative.dev/sample-source/pkg/client/injection/reconciler/samples/v1alpha1/samplesource"
 	listers "knative.dev/sample-source/pkg/client/listers/samples/v1alpha1"
 	"knative.dev/sample-source/pkg/reconciler/resources"
 )
@@ -96,7 +96,7 @@ type Reconciler struct {
 }
 
 // Check that our Reconciler implements Interface
-var _ samplesource.Interface = (*Reconciler)(nil)
+var _ reconcilersamplesource.Interface = (*Reconciler)(nil)
 
 // ReconcileKind implements Interface.ReconcileKind.
 func (r *Reconciler) ReconcileKind(ctx context.Context, source *v1alpha1.SampleSource) pkgreconciler.Event {

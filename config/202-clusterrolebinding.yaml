@@ -24,7 +24,7 @@ roleRef:
   name: sample-source-controller
 subjects:
 - kind: ServiceAccount
-  name: sample-source-controller-manager
+  name: sample-source-controller
   namespace: knative-samples
 
 ---
@@ -37,7 +37,7 @@ metadata:
     samples.knative.dev/release: devel
 subjects:
 - kind: ServiceAccount
-  name: sample-source-controller-manager
+  name: sample-source-controller
   namespace: knative-samples
 # An aggregated ClusterRole for all Addressable CRDs.
 # Ref: https://knative.dev/eventing/blob/master/config/200-addressable-resolvers-clusterrole.yaml

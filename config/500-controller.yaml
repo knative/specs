@@ -30,7 +30,7 @@ spec:
         app: sample-source-controller
         samples.knative.dev/release: devel
     spec:
-      serviceAccountName: sample-source-controller-manager
+      serviceAccountName: sample-source-controller
 
       containers:
       - name: controller
