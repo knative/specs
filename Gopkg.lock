@@ -129,7 +129,7 @@
   version = "v0.2.1"
 
 [[projects]]
-  digest = "1:902544577dcb868a5ae31529d73a1ce5031e224923290caedf6176241ee304e0"
+  digest = "1:6de99e67463d76ced5748442c9d9737ed414df440e446e482222b17f1bc7204e"
   name = "github.com/cloudevents/sdk-go"
   packages = [
     ".",
@@ -140,14 +140,15 @@
     "pkg/cloudevents/datacodec/json",
     "pkg/cloudevents/datacodec/text",
     "pkg/cloudevents/datacodec/xml",
+    "pkg/cloudevents/extensions",
     "pkg/cloudevents/observability",
     "pkg/cloudevents/transport",
     "pkg/cloudevents/transport/http",
     "pkg/cloudevents/types",
   ]
   pruneopts = "NUT"
-  revision = "2fa4bb1fbb4aac4d906b0173a2a408f701439b82"
-  version = "v0.10.0"
+  revision = "34d69b7defc3335958291705a9b1b02579779e61"
+  version = "v1.1.1"
 
 [[projects]]
   digest = "1:ffe9824d294da03b391f44e1ae8281281b4afc1bdaa9588c9097785e3af10cec"
@@ -333,6 +334,17 @@
 
 [[projects]]
   branch = "master"
+  digest = "1:a12508addb76a16593d8a3cee41d782fdf738f727d421f0bcc2dd2ee76821c01"
+  name = "github.com/lightstep/tracecontext.go"
+  packages = [
+    "traceparent",
+    "tracestate",
+  ]
+  pruneopts = "NUT"
+  revision = "1757c391b1acf4147823503f13e003115ea4e5df"
+
+[[projects]]
+  branch = "master"
   digest = "1:0e9bfc47ab9941ecc3344e580baca5deb4091177e84dd9773b48b38ec26b93d5"
   name = "github.com/mattbaird/jsonpatch"
   packages = ["."]
@@ -474,7 +486,7 @@
   version = "v1.4.0"
 
 [[projects]]
-  digest = "1:b3125df339c80dd88259bd401103be60df5f5181335e8e717ec8d3edbd50e90e"
+  digest = "1:2aab8e692974e44edbb877ebf695400f5e357962d0e1077f84af192cb7e4e8d3"
   name = "go.opencensus.io"
   packages = [
     ".",
@@ -486,6 +498,7 @@
     "plugin/ocgrpc",
     "plugin/ochttp",
     "plugin/ochttp/propagation/b3",
+    "plugin/ochttp/propagation/tracecontext",
     "resource",
     "resource/resourcekeys",
     "stats",

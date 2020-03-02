@@ -6,9 +6,11 @@ import (
 	"sync"
 
 	"github.com/cloudevents/sdk-go/pkg/cloudevents"
+	"github.com/cloudevents/sdk-go/pkg/cloudevents/extensions"
 	"github.com/cloudevents/sdk-go/pkg/cloudevents/observability"
 	"github.com/cloudevents/sdk-go/pkg/cloudevents/transport"
 	"github.com/cloudevents/sdk-go/pkg/cloudevents/transport/http"
+	"go.opencensus.io/trace"
 )
 
 // Client interface defines the runtime contract the CloudEvents client supports.
@@ -55,14 +57,15 @@ func New(t transport.Transport, opts ...Option) (Client, error) {
 // Transport client. The http transport has had WithBinaryEncoding http
 // transport option applied to it. The client will always send Binary
 // encoding but will inspect the outbound event context and match the version.
-// The WithtimeNow and WithUUIDs client options are also applied to the client,
-// all outbound events will have a time and id set if not already present.
+// The WithTimeNow, WithUUIDs and WithDataContentType("application/json")
+// client options are also applied to the client, all outbound events will have
+// a time and id set if not already present.
 func NewDefault() (Client, error) {
 	t, err := http.New(http.WithBinaryEncoding())
 	if err != nil {
 		return nil, err
 	}
-	c, err := New(t, WithTimeNow(), WithUUIDs())
+	c, err := New(t, WithTimeNow(), WithUUIDs(), WithDataContentType(cloudevents.ApplicationJSON))
 	if err != nil {
 		return nil, err
 	}
@@ -77,6 +80,8 @@ type ceClient struct {
 
 	receiverMu        sync.Mutex
 	eventDefaulterFns []EventDefaulter
+
+	disableTracePropagation bool
 }
 
 // Send transmits the provided event on a preconfigured Transport.
@@ -85,6 +90,13 @@ type ceClient struct {
 // error.
 func (c *ceClient) Send(ctx context.Context, event cloudevents.Event) (context.Context, *cloudevents.Event, error) {
 	ctx, r := observability.NewReporter(ctx, reportSend)
+
+	ctx, span := trace.StartSpan(ctx, clientSpanName, trace.WithSpanKind(trace.SpanKindClient))
+	defer span.End()
+	if span.IsRecordingEvents() {
+		span.AddAttributes(eventTraceAttributes(event.Context)...)
+	}
+
 	rctx, resp, err := c.obsSend(ctx, event)
 	if err != nil {
 		r.Error()
@@ -106,6 +118,15 @@ func (c *ceClient) obsSend(ctx context.Context, event cloudevents.Event) (contex
 		}
 	}
 
+	// Set distributed tracing extension.
+	if !c.disableTracePropagation {
+		if span := trace.FromContext(ctx); span != nil {
+			if err := extensions.FromSpanContext(span.SpanContext()).AddTracingAttributes(event.Context); err != nil {
+				return ctx, nil, fmt.Errorf("error setting distributed tracing extension: %w", err)
+			}
+		}
+	}
+
 	// Validate the event conforms to the CloudEvents Spec.
 	if err := event.Validate(); err != nil {
 		return ctx, nil, err
@@ -117,6 +138,21 @@ func (c *ceClient) obsSend(ctx context.Context, event cloudevents.Event) (contex
 // Receive is called from from the transport on event delivery.
 func (c *ceClient) Receive(ctx context.Context, event cloudevents.Event, resp *cloudevents.EventResponse) error {
 	ctx, r := observability.NewReporter(ctx, reportReceive)
+
+	var span *trace.Span
+	if !c.transport.HasTracePropagation() {
+		if ext, ok := extensions.GetDistributedTracingExtension(event); ok {
+			ctx, span = ext.StartChildSpan(ctx, clientSpanName, trace.WithSpanKind(trace.SpanKindServer))
+		}
+	}
+	if span == nil {
+		ctx, span = trace.StartSpan(ctx, clientSpanName, trace.WithSpanKind(trace.SpanKindServer))
+	}
+	defer span.End()
+	if span.IsRecordingEvents() {
+		span.AddAttributes(eventTraceAttributes(event.Context)...)
+	}
+
 	err := c.obsReceive(ctx, event, resp)
 	if err != nil {
 		r.Error()
@@ -128,13 +164,7 @@ func (c *ceClient) Receive(ctx context.Context, event cloudevents.Event, resp *c
 
 func (c *ceClient) obsReceive(ctx context.Context, event cloudevents.Event, resp *cloudevents.EventResponse) error {
 	if c.fn != nil {
-		ctx, rFn := observability.NewReporter(ctx, reportReceiveFn)
 		err := c.fn.invoke(ctx, event, resp)
-		if err != nil {
-			rFn.Error()
-		} else {
-			rFn.OK()
-		}
 
 		// Apply the defaulter chain to the outgoing event.
 		if err == nil && resp != nil && resp.Event != nil && len(c.eventDefaulterFns) > 0 {

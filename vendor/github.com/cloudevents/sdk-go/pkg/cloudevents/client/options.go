@@ -27,6 +27,16 @@ func WithUUIDs() Option {
 	}
 }
 
+// WithDataContentType adds the resulting defaulter from
+// NewDefaultDataContentTypeIfNotSet event defaulter to the end of the
+// defaulter chain.
+func WithDataContentType(contentType string) Option {
+	return func(c *ceClient) error {
+		c.eventDefaulterFns = append(c.eventDefaulterFns, NewDefaultDataContentTypeIfNotSet(contentType))
+		return nil
+	}
+}
+
 // WithTimeNow adds DefaultTimeToNowIfNotSet event defaulter to the end of the
 // defaulter chain.
 func WithTimeNow() Option {
@@ -48,6 +58,15 @@ func WithConverterFn(fn ConvertFn) Option {
 		}
 		c.convertFn = fn
 		c.transport.SetConverter(c)
+		return nil
+	}
+}
+
+// WithoutTracePropagation disables automatic trace propagation via
+// the distributed tracing extension.
+func WithoutTracePropagation() Option {
+	return func(c *ceClient) error {
+		c.disableTracePropagation = true
 		return nil
 	}
 }
