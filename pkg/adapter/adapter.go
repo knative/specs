@@ -17,6 +17,9 @@ package adapter
 
 import (
 	"context"
+	"net/url"
+	"time"
+
 	cloudevents "github.com/cloudevents/sdk-go"
 	"github.com/cloudevents/sdk-go/pkg/cloudevents/types"
 	"github.com/google/uuid"
@@ -24,8 +27,6 @@ import (
 	"knative.dev/eventing/pkg/adapter"
 	"knative.dev/pkg/logging"
 	"knative.dev/pkg/source"
-	"net/url"
-	"time"
 )
 
 type envConfig struct {
