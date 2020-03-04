@@ -1,5 +1,5 @@
 /*
-Copyright 2019 The Knative Authors
+Copyright 2020 The Knative Authors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ limitations under the License.
 package eventtype
 
 import (
-	"context"
+	context "context"
 
 	v1alpha1 "knative.dev/eventing/pkg/client/informers/externalversions/eventing/v1alpha1"
 	factory "knative.dev/eventing/pkg/client/injection/informers/factory"

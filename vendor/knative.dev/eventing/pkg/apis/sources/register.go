@@ -1,5 +1,5 @@
 /*
-Copyright 2019 The Knative Authors
+Copyright 2020 The Knative Authors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -16,6 +16,26 @@ limitations under the License.
 
 package sources
 
+import "k8s.io/apimachinery/pkg/runtime/schema"
+
 const (
-	GroupName = "sources.eventing.knative.dev"
+	GroupName = "sources.knative.dev"
+)
+
+var (
+	// ApiServerSourceResource respresents a Knative Eventing Sources ApiServerSource
+	ApiServerSourceResource = schema.GroupResource{
+		Group:    GroupName,
+		Resource: "apiserversources",
+	}
+	// PingSourceResource respresents a Knative Eventing Sources PingSource
+	PingSourceResource = schema.GroupResource{
+		Group:    GroupName,
+		Resource: "pingsources",
+	}
+	// SinkBindingResource respresents a Knative Eventing Sources SinkBinding
+	SinkBindingResource = schema.GroupResource{
+		Group:    GroupName,
+		Resource: "sinkbindings",
+	}
 )

@@ -167,6 +167,14 @@
   version = "v4.5.0"
 
 [[projects]]
+  digest = "1:81466b4218bf6adddac2572a30ac733a9255919bc2f470b4827a317bd4ee1756"
+  name = "github.com/ghodss/yaml"
+  packages = ["."]
+  pruneopts = "NUT"
+  revision = "0ca9ea5df5451ffdf184b4428c902747c2c11cd7"
+  version = "v1.0.0"
+
+[[projects]]
   digest = "1:2b0e6c0bea11257c646616ebd6a62be0ef2b6a0fd8210ac3caeaf57ee136123b"
   name = "github.com/gogo/protobuf"
   packages = [
@@ -342,14 +350,6 @@
   ]
   pruneopts = "NUT"
   revision = "1757c391b1acf4147823503f13e003115ea4e5df"
-
-[[projects]]
-  branch = "master"
-  digest = "1:0e9bfc47ab9941ecc3344e580baca5deb4091177e84dd9773b48b38ec26b93d5"
-  name = "github.com/mattbaird/jsonpatch"
-  packages = ["."]
-  pruneopts = "NUT"
-  revision = "81af80346b1a01caae0cbc27fd3c1ba5b11e189f"
 
 [[projects]]
   digest = "1:5985ef4caf91ece5d54817c11ea25f182697534f8ae6521eadcd628c142ac4b6"
@@ -699,6 +699,14 @@
   revision = "f5828fc9a10359e54e99dbe0f1eb477417b1ff24"
 
 [[projects]]
+  digest = "1:79c5b7c79609e7e2d0c5a6509cc5894bb8ee9c2ca6e741214f8aa4317beeea59"
+  name = "gomodules.xyz/jsonpatch"
+  packages = ["v2"]
+  pruneopts = "NUT"
+  revision = "1c2a0262323edc27502942d9727c95646b1c3cbe"
+  version = "v2.1.0"
+
+[[projects]]
   branch = "master"
   digest = "1:d145ea97d93277cd7f3a19aaf9e0de92b0d02a2d6efd263f1f7bd72451abd821"
   name = "google.golang.org/api"
@@ -922,7 +930,7 @@
   version = "kubernetes-1.16.4"
 
 [[projects]]
-  digest = "1:814703684a5e0baf4a4dc15fe892bfb266c57d66db5d6d89996cdec36efb2fc1"
+  digest = "1:90bae9a26d98f85900a8fd7ce76ea9bc429e90b279efbcdfd8814d92b39ccfe0"
   name = "k8s.io/apimachinery"
   packages = [
     "pkg/api/equality",
@@ -962,6 +970,7 @@
     "pkg/util/runtime",
     "pkg/util/sets",
     "pkg/util/strategicpatch",
+    "pkg/util/uuid",
     "pkg/util/validation",
     "pkg/util/validation/field",
     "pkg/util/wait",
@@ -976,7 +985,7 @@
   version = "kubernetes-1.16.4"
 
 [[projects]]
-  digest = "1:d5b26b8dfb8f6a0c8486b8d5957ae31b7605c3168e2e13b8ae5531c62eb3e98d"
+  digest = "1:bc47f1dc5e4413e331a87d5412955654148df35bbf83d7057d0c45c35a3a2e09"
   name = "k8s.io/client-go"
   packages = [
     "discovery",
@@ -1124,6 +1133,8 @@
     "tools/clientcmd/api",
     "tools/clientcmd/api/latest",
     "tools/clientcmd/api/v1",
+    "tools/leaderelection",
+    "tools/leaderelection/resourcelock",
     "tools/metrics",
     "tools/pager",
     "tools/record",
@@ -1218,50 +1229,78 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:a7534dcc1069c88de9303f9cc27baf29beb6af70edf91e229452c974679a97ef"
+  digest = "1:fbf808b30c9e684c4a1231c77d009013f7c54536aaa894cdf86269d6881c4e0a"
   name = "knative.dev/eventing"
   packages = [
     "pkg/adapter",
+    "pkg/apis/config",
+    "pkg/apis/configs",
+    "pkg/apis/configs/v1alpha1",
     "pkg/apis/duck",
     "pkg/apis/duck/v1alpha1",
+    "pkg/apis/duck/v1beta1",
     "pkg/apis/eventing",
     "pkg/apis/eventing/v1alpha1",
+    "pkg/apis/eventing/v1beta1",
     "pkg/apis/flows",
     "pkg/apis/flows/v1alpha1",
+    "pkg/apis/flows/v1beta1",
+    "pkg/apis/legacysources",
+    "pkg/apis/legacysources/v1alpha1",
     "pkg/apis/messaging",
+    "pkg/apis/messaging/config",
     "pkg/apis/messaging/v1alpha1",
+    "pkg/apis/messaging/v1beta1",
     "pkg/apis/sources",
     "pkg/apis/sources/v1alpha1",
+    "pkg/apis/sources/v1alpha2",
     "pkg/client/clientset/versioned",
     "pkg/client/clientset/versioned/scheme",
+    "pkg/client/clientset/versioned/typed/configs/v1alpha1",
     "pkg/client/clientset/versioned/typed/eventing/v1alpha1",
+    "pkg/client/clientset/versioned/typed/eventing/v1beta1",
     "pkg/client/clientset/versioned/typed/flows/v1alpha1",
+    "pkg/client/clientset/versioned/typed/flows/v1beta1",
     "pkg/client/clientset/versioned/typed/messaging/v1alpha1",
+    "pkg/client/clientset/versioned/typed/messaging/v1beta1",
     "pkg/client/clientset/versioned/typed/sources/v1alpha1",
+    "pkg/client/clientset/versioned/typed/sources/v1alpha2",
     "pkg/client/informers/externalversions",
+    "pkg/client/informers/externalversions/configs",
+    "pkg/client/informers/externalversions/configs/v1alpha1",
     "pkg/client/informers/externalversions/eventing",
     "pkg/client/informers/externalversions/eventing/v1alpha1",
+    "pkg/client/informers/externalversions/eventing/v1beta1",
     "pkg/client/informers/externalversions/flows",
     "pkg/client/informers/externalversions/flows/v1alpha1",
+    "pkg/client/informers/externalversions/flows/v1beta1",
     "pkg/client/informers/externalversions/internalinterfaces",
     "pkg/client/informers/externalversions/messaging",
     "pkg/client/informers/externalversions/messaging/v1alpha1",
+    "pkg/client/informers/externalversions/messaging/v1beta1",
     "pkg/client/informers/externalversions/sources",
     "pkg/client/informers/externalversions/sources/v1alpha1",
+    "pkg/client/informers/externalversions/sources/v1alpha2",
     "pkg/client/injection/client",
     "pkg/client/injection/informers/eventing/v1alpha1/eventtype",
     "pkg/client/injection/informers/factory",
+    "pkg/client/listers/configs/v1alpha1",
     "pkg/client/listers/eventing/v1alpha1",
+    "pkg/client/listers/eventing/v1beta1",
     "pkg/client/listers/flows/v1alpha1",
+    "pkg/client/listers/flows/v1beta1",
     "pkg/client/listers/messaging/v1alpha1",
+    "pkg/client/listers/messaging/v1beta1",
     "pkg/client/listers/sources/v1alpha1",
+    "pkg/client/listers/sources/v1alpha2",
     "pkg/configmap",
     "pkg/kncloudevents",
+    "pkg/logging",
     "pkg/tracing",
     "pkg/utils",
   ]
   pruneopts = "NUT"
-  revision = "67225efe772a97d170029be0930f877ab7121cc2"
+  revision = "18cb5d220c78f7ad00c681d3b089dba9d6e98cb8"
 
 [[projects]]
   digest = "1:e8a4a3bf152c48ae4888a863f9db83782a6464b6f6a6e6b8d587a9b692d37473"
@@ -1273,7 +1312,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:3e85a1ba2f762dd2ff12b7ec5ccc0a67600a75909504695d137ad1f21d6b6171"
+  digest = "1:594e2e8f9e26efdd32cef30b5c099d422bbe23ac6a9f38f3aed473b610351268"
   name = "knative.dev/pkg"
   packages = [
     "apis",
@@ -1296,12 +1335,14 @@
     "injection/sharedmain",
     "kmeta",
     "kmp",
+    "leaderelection",
     "logging",
     "logging/logkey",
     "metrics",
     "metrics/metricskey",
     "network",
     "profiling",
+    "ptr",
     "reconciler",
     "resolver",
     "signals",
@@ -1315,18 +1356,18 @@
     "webhook/certificates/resources",
   ]
   pruneopts = "T"
-  revision = "b63641488ab8d3a70e24a44e465495c7bfbf77b2"
+  revision = "5605ade5242dbce408f2d2e5cf6bbc43355dfd6c"
 
 [[projects]]
   branch = "master"
-  digest = "1:85fe0cadd6ab83f3d7f948c60b6d422dc9cd16664246249968dab5d828ae8dfd"
+  digest = "1:e7ea104eff9c91ce48f1730ab8b4098faa1ea519162ccbbbca68c205428f0e21"
   name = "knative.dev/test-infra"
   packages = [
     "scripts",
     "tools/dep-collector",
   ]
   pruneopts = "UT"
-  revision = "fad831028edbe066665977ea7bf366c3d5c0a2d1"
+  revision = "b818eb8b5c3c93358da6aa219172981c8f79d247"
 
 [[projects]]
   digest = "1:8730e0150dfb2b7e173890c8b9868e7a273082ef8e39f4940e3506a481cf895c"
@@ -1360,6 +1401,7 @@
     "k8s.io/apimachinery/pkg/runtime/serializer",
     "k8s.io/apimachinery/pkg/types",
     "k8s.io/apimachinery/pkg/util/runtime",
+    "k8s.io/apimachinery/pkg/util/sets",
     "k8s.io/apimachinery/pkg/watch",
     "k8s.io/client-go/discovery",
     "k8s.io/client-go/discovery/fake",
@@ -1372,7 +1414,6 @@
     "k8s.io/client-go/tools/cache",
     "k8s.io/client-go/tools/record",
     "k8s.io/client-go/util/flowcontrol",
-    "k8s.io/client-go/util/retry",
     "k8s.io/code-generator/cmd/client-gen",
     "k8s.io/code-generator/cmd/deepcopy-gen",
     "k8s.io/code-generator/cmd/defaulter-gen",

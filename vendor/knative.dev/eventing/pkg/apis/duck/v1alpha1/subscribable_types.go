@@ -23,7 +23,11 @@ import (
 	"k8s.io/apimachinery/pkg/types"
 	"knative.dev/pkg/apis"
 	"knative.dev/pkg/apis/duck"
+
+	duckv1beta1 "knative.dev/eventing/pkg/apis/duck/v1beta1"
 )
+
+// +genduck
 
 // Subscribable is the schema for the subscribable portion of the spec
 // section of the resource.
@@ -43,9 +47,6 @@ var _ duck.Implementable = (*Subscribable)(nil)
 // ReplyURI is the endpoint for the reply
 // At least one of SubscriberURI and ReplyURI must be present
 type SubscriberSpec struct {
-	// Deprecated: use UID.
-	// +optional
-	DeprecatedRef *corev1.ObjectReference `json:"ref,omitempty" yaml:"ref,omitempty"`
 	// UID is used to understand the origin of the subscriber.
 	// +optional
 	UID types.UID `json:"uid,omitempty"`
@@ -53,11 +54,13 @@ type SubscriberSpec struct {
 	// +optional
 	Generation int64 `json:"generation,omitempty"`
 	// +optional
-	SubscriberURI string `json:"subscriberURI,omitempty"`
+	SubscriberURI *apis.URL `json:"subscriberURI,omitempty"`
 	// +optional
-	ReplyURI string `json:"replyURI,omitempty"`
+	ReplyURI *apis.URL `json:"replyURI,omitempty"`
 	// +optional
-	DeadLetterSinkURI string `json:"deadLetterSink,omitempty"`
+	DeadLetterSinkURI *apis.URL `json:"deadLetterSink,omitempty"`
+	// +optional
+	Delivery *duckv1beta1.DeliverySpec `json:"delivery,omitempty"`
 }
 
 // SubscribableStatus is the schema for the subscribable's status portion of the status
@@ -85,7 +88,6 @@ type SubscriberStatus struct {
 	Message string `json:"message,omitempty"`
 }
 
-// +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // SubscribableType is a skeleton type wrapping Subscribable in the manner we expect resource writers
@@ -127,7 +129,6 @@ var (
 // Having this function here makes it convinient to read the default value at runtime.
 func (s *SubscribableTypeStatus) GetSubscribableTypeStatus() *SubscribableStatus {
 	return s.SubscribableStatus
-
 }
 
 // SetSubscribableTypeStatus method sets the SubscribableStatus Values in th SubscribableTypeStatus structs
@@ -156,13 +157,13 @@ func (c *SubscribableType) Populate() {
 		Subscribers: []SubscriberSpec{{
 			UID:           "2f9b5e8e-deb6-11e8-9f32-f2801f1b9fd1",
 			Generation:    1,
-			SubscriberURI: "call1",
-			ReplyURI:      "sink2",
+			SubscriberURI: apis.HTTP("call1"),
+			ReplyURI:      apis.HTTP("sink2"),
 		}, {
 			UID:           "34c5aec8-deb6-11e8-9f32-f2801f1b9fd1",
 			Generation:    2,
-			SubscriberURI: "call2",
-			ReplyURI:      "sink2",
+			SubscriberURI: apis.HTTP("call2"),
+			ReplyURI:      apis.HTTP("sink2"),
 		}},
 	}
 	c.Status.SetSubscribableTypeStatus(SubscribableStatus{

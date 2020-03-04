@@ -1,5 +1,5 @@
 /*
-Copyright 2019 The Knative Authors
+Copyright 2020 The Knative Authors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@ import (
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	cache "k8s.io/client-go/tools/cache"
 	versioned "knative.dev/eventing/pkg/client/clientset/versioned"
+	configs "knative.dev/eventing/pkg/client/informers/externalversions/configs"
 	eventing "knative.dev/eventing/pkg/client/informers/externalversions/eventing"
 	flows "knative.dev/eventing/pkg/client/informers/externalversions/flows"
 	internalinterfaces "knative.dev/eventing/pkg/client/informers/externalversions/internalinterfaces"
@@ -175,10 +176,15 @@ type SharedInformerFactory interface {
 	ForResource(resource schema.GroupVersionResource) (GenericInformer, error)
 	WaitForCacheSync(stopCh <-chan struct{}) map[reflect.Type]bool
 
+	Configs() configs.Interface
 	Eventing() eventing.Interface
 	Flows() flows.Interface
 	Messaging() messaging.Interface
 	Sources() sources.Interface
+}
+
+func (f *sharedInformerFactory) Configs() configs.Interface {
+	return configs.New(f, f.namespace, f.tweakListOptions)
 }
 
 func (f *sharedInformerFactory) Eventing() eventing.Interface {

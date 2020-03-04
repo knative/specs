@@ -19,9 +19,9 @@ limitations under the License.
 package samplesource
 
 import (
-	"context"
+	context "context"
 
-	"knative.dev/pkg/configmap"
+	configmap "knative.dev/pkg/configmap"
 	controller "knative.dev/pkg/controller"
 	logging "knative.dev/pkg/logging"
 	samplesource "knative.dev/sample-source/pkg/client/injection/informers/samples/v1alpha1/samplesource"

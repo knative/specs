@@ -1,5 +1,5 @@
 /*
-Copyright 2019 The Knative Authors
+Copyright 2020 The Knative Authors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,10 +26,10 @@ import (
 type Interface interface {
 	// ApiServerSources returns a ApiServerSourceInformer.
 	ApiServerSources() ApiServerSourceInformer
-	// ContainerSources returns a ContainerSourceInformer.
-	ContainerSources() ContainerSourceInformer
-	// CronJobSources returns a CronJobSourceInformer.
-	CronJobSources() CronJobSourceInformer
+	// PingSources returns a PingSourceInformer.
+	PingSources() PingSourceInformer
+	// SinkBindings returns a SinkBindingInformer.
+	SinkBindings() SinkBindingInformer
 }
 
 type version struct {
@@ -48,12 +48,12 @@ func (v *version) ApiServerSources() ApiServerSourceInformer {
 	return &apiServerSourceInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }
 
-// ContainerSources returns a ContainerSourceInformer.
-func (v *version) ContainerSources() ContainerSourceInformer {
-	return &containerSourceInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+// PingSources returns a PingSourceInformer.
+func (v *version) PingSources() PingSourceInformer {
+	return &pingSourceInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }
 
-// CronJobSources returns a CronJobSourceInformer.
-func (v *version) CronJobSources() CronJobSourceInformer {
-	return &cronJobSourceInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+// SinkBindings returns a SinkBindingInformer.
+func (v *version) SinkBindings() SinkBindingInformer {
+	return &sinkBindingInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }

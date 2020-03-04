@@ -20,6 +20,7 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
+	eventingduckv1beta1 "knative.dev/eventing/pkg/apis/duck/v1beta1"
 	"knative.dev/pkg/apis"
 	"knative.dev/pkg/apis/duck"
 	duckv1 "knative.dev/pkg/apis/duck/v1"
@@ -27,7 +28,7 @@ import (
 	duckv1beta1 "knative.dev/pkg/apis/duck/v1beta1"
 )
 
-// +genclient
+// +genduck
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // Channelable is a skeleton type wrapping Subscribable and Addressable in the manner we expect resource writers
@@ -49,7 +50,7 @@ type ChannelableSpec struct {
 
 	// DeliverySpec contains options controlling the event delivery
 	// +optional
-	Delivery *DeliverySpec `json:"delivery,omitempty"`
+	Delivery *eventingduckv1beta1.DeliverySpec `json:"delivery,omitempty"`
 }
 
 // ChannelableStatus contains the Status of a Channelable object.
@@ -69,8 +70,9 @@ type ChannelableStatus struct {
 
 var (
 	// Verify Channelable resources meet duck contracts.
-	_ duck.Populatable = (*Channelable)(nil)
-	_ apis.Listable    = (*Channelable)(nil)
+	_ duck.Populatable   = (*Channelable)(nil)
+	_ duck.Implementable = (*Channelable)(nil)
+	_ apis.Listable      = (*Channelable)(nil)
 )
 
 // Populate implements duck.Populatable
@@ -80,21 +82,21 @@ func (c *Channelable) Populate() {
 		Subscribers: []SubscriberSpec{{
 			UID:           "2f9b5e8e-deb6-11e8-9f32-f2801f1b9fd1",
 			Generation:    1,
-			SubscriberURI: "call1",
-			ReplyURI:      "sink2",
+			SubscriberURI: apis.HTTP("call1"),
+			ReplyURI:      apis.HTTP("sink2"),
 		}, {
 			UID:           "34c5aec8-deb6-11e8-9f32-f2801f1b9fd1",
 			Generation:    2,
-			SubscriberURI: "call2",
-			ReplyURI:      "sink2",
+			SubscriberURI: apis.HTTP("call2"),
+			ReplyURI:      apis.HTTP("sink2"),
 		}},
 	}
 	retry := int32(5)
-	linear := BackoffPolicyLinear
+	linear := eventingduckv1beta1.BackoffPolicyLinear
 	delay := "5s"
-	c.Spec.Delivery = &DeliverySpec{
-		DeadLetterSink: &duckv1beta1.Destination{
-			Ref: &corev1.ObjectReference{
+	c.Spec.Delivery = &eventingduckv1beta1.DeliverySpec{
+		DeadLetterSink: &duckv1.Destination{
+			Ref: &duckv1.KReference{
 				Name: "aname",
 			},
 			URI: &apis.URL{
@@ -135,6 +137,11 @@ func (c *Channelable) Populate() {
 			},
 		},
 	}
+}
+
+// GetFullType implements duck.Implementable
+func (s *Channelable) GetFullType() duck.Populatable {
+	return &Channelable{}
 }
 
 // GetListType implements apis.Listable
