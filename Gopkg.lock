@@ -1229,7 +1229,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:fbf808b30c9e684c4a1231c77d009013f7c54536aaa894cdf86269d6881c4e0a"
+  digest = "1:d3f1db43763ef9ae990d346e1fbeb4d7e831c19498fb3fb585bd1707e294afd3"
   name = "knative.dev/eventing"
   packages = [
     "pkg/adapter",
@@ -1245,8 +1245,6 @@
     "pkg/apis/flows",
     "pkg/apis/flows/v1alpha1",
     "pkg/apis/flows/v1beta1",
-    "pkg/apis/legacysources",
-    "pkg/apis/legacysources/v1alpha1",
     "pkg/apis/messaging",
     "pkg/apis/messaging/config",
     "pkg/apis/messaging/v1alpha1",
@@ -1300,7 +1298,7 @@
     "pkg/utils",
   ]
   pruneopts = "NUT"
-  revision = "18cb5d220c78f7ad00c681d3b089dba9d6e98cb8"
+  revision = "3548f283ca809a7bec05663685b5e363fcd42d1e"
 
 [[projects]]
   digest = "1:e8a4a3bf152c48ae4888a863f9db83782a6464b6f6a6e6b8d587a9b692d37473"
@@ -1312,7 +1310,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:594e2e8f9e26efdd32cef30b5c099d422bbe23ac6a9f38f3aed473b610351268"
+  digest = "1:65776685a16dfccc0e9c3845092c38ec253c13101365c37a9ce11d876461fad5"
   name = "knative.dev/pkg"
   packages = [
     "apis",
@@ -1356,18 +1354,18 @@
     "webhook/certificates/resources",
   ]
   pruneopts = "T"
-  revision = "5605ade5242dbce408f2d2e5cf6bbc43355dfd6c"
+  revision = "312b1be35ceb863caf610109960158898d23a502"
 
 [[projects]]
   branch = "master"
-  digest = "1:e7ea104eff9c91ce48f1730ab8b4098faa1ea519162ccbbbca68c205428f0e21"
+  digest = "1:5d6439b7856df77cf6df3597a4711e0b39f85cab9986b7784b2521a8b7bdbfbb"
   name = "knative.dev/test-infra"
   packages = [
     "scripts",
     "tools/dep-collector",
   ]
   pruneopts = "UT"
-  revision = "b818eb8b5c3c93358da6aa219172981c8f79d247"
+  revision = "a8e82a4213f65ffcee2c08cdb05f7636e76c51b6"
 
 [[projects]]
   digest = "1:8730e0150dfb2b7e173890c8b9868e7a273082ef8e39f4940e3506a481cf895c"
