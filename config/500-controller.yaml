@@ -35,7 +35,7 @@ spec:
       containers:
       - name: controller
         terminationMessagePolicy: FallbackToLogsOnError
-        image: knative.dev/sample-source/cmd/controller
+        image: ko://knative.dev/sample-source/cmd/controller
 
         resources:
           requests:
@@ -54,7 +54,7 @@ spec:
           - name: METRICS_DOMAIN
             value: knative.dev/sources
           - name: SAMPLE_SOURCE_RA_IMAGE
-            value: knative.dev/sample-source/cmd/receive_adapter
+            value: ko://knative.dev/sample-source/cmd/receive_adapter
 
         securityContext:
           allowPrivilegeEscalation: false
