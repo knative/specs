@@ -65,12 +65,12 @@ func NewController(
 	sampleSourceInformer.Informer().AddEventHandler(controller.HandleAll(impl.Enqueue))
 
 	deploymentInformer.Informer().AddEventHandler(cache.FilteringResourceEventHandler{
-		FilterFunc: controller.Filter(v1alpha1.SchemeGroupVersion.WithKind("SampleSource")),
+		FilterFunc: controller.FilterGroupKind(v1alpha1.Kind("SampleSource")),
 		Handler:    controller.HandleAll(impl.EnqueueControllerOf),
 	})
 
 	eventTypeInformer.Informer().AddEventHandler(cache.FilteringResourceEventHandler{
-		FilterFunc: controller.Filter(v1alpha1.SchemeGroupVersion.WithKind("SampleSource")),
+		FilterFunc: controller.FilterGroupKind(v1alpha1.Kind("SampleSource")),
 		Handler:    controller.HandleAll(impl.EnqueueControllerOf),
 	})
 
