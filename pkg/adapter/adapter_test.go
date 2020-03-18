@@ -21,15 +21,15 @@ import (
 	"testing"
 	"time"
 
-	ce "github.com/cloudevents/sdk-go"
-	cloudevents "github.com/cloudevents/sdk-go"
-	"github.com/cloudevents/sdk-go/pkg/cloudevents/transport"
-	cehttp "github.com/cloudevents/sdk-go/pkg/cloudevents/transport/http"
+	ce "github.com/cloudevents/sdk-go/v1"
+	cloudevents "github.com/cloudevents/sdk-go/v1"
+	"github.com/cloudevents/sdk-go/v1/cloudevents/transport"
+	cehttp "github.com/cloudevents/sdk-go/v1/cloudevents/transport/http"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
-	"knative.dev/eventing-contrib/pkg/kncloudevents"
 	"knative.dev/eventing/pkg/adapter"
+	"knative.dev/eventing/pkg/kncloudevents"
 	"knative.dev/pkg/logging"
 )
 
