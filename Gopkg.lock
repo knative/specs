@@ -1243,7 +1243,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:923e995b3cb3cbc522c7cc6933a7ae58c3f9bd3832d977397e22f72f6446607e"
+  digest = "1:1adaf87367c198e965243dc86394bc6372fc81955f848868d6c1083188a9f0c5"
   name = "knative.dev/eventing"
   packages = [
     "pkg/adapter",
@@ -1312,7 +1312,7 @@
     "pkg/utils",
   ]
   pruneopts = "NUT"
-  revision = "0c37ce85acfdbc23576a076b964156ad8c4ac182"
+  revision = "cee67274b65447e8a1dbe988aea17d6b3439d82e"
 
 [[projects]]
   branch = "master"
@@ -1365,14 +1365,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:115d2f6e72ee06327259bdba21d26f28c359c62464afd73538fbab66ae2b7698"
+  digest = "1:3f2366ce9a05503ac8da902b58e898c285cc9a972e0e89fda0b2a2fedcd4fb46"
   name = "knative.dev/test-infra"
   packages = [
     "scripts",
     "tools/dep-collector",
   ]
   pruneopts = "UT"
-  revision = "244b563932f959a3e18c1e03cffed8798f52d59d"
+  revision = "e7f947d615d5eb623e80824f71d139a958c4019f"
 
 [[projects]]
   digest = "1:8730e0150dfb2b7e173890c8b9868e7a273082ef8e39f4940e3506a481cf895c"
