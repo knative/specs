@@ -233,7 +233,7 @@
   version = "v1.3.2"
 
 [[projects]]
-  digest = "1:010d46ea3c1e730897e53058d1013a963f3f987675dda87df64f891b945281db"
+  digest = "1:f0ae868d945753df81e797524bb7f3c577bcf751ce515c18162d259ca3ff8de7"
   name = "github.com/google/go-cmp"
   packages = [
     "cmp",
@@ -244,7 +244,8 @@
     "cmp/internal/value",
   ]
   pruneopts = "NUT"
-  revision = "6f77996f0c42f7b84e5a2b252227263f93432e9b"
+  revision = "5a6f75716e1203a923a78c9efb94089d857df0f6"
+  version = "v0.4.0"
 
 [[projects]]
   digest = "1:52c5834e2bebac9030c97cc0798ac11c3aa8a39f098aeb419f142533da6cd3cc"
@@ -711,6 +712,17 @@
   ]
   pruneopts = "NUT"
   revision = "f5828fc9a10359e54e99dbe0f1eb477417b1ff24"
+
+[[projects]]
+  branch = "master"
+  digest = "1:325a1b73817aa79fc85f10376ed41ea607f7dd7f6c6bfa46df6a28ef2857941f"
+  name = "golang.org/x/xerrors"
+  packages = [
+    ".",
+    "internal",
+  ]
+  pruneopts = "NUT"
+  revision = "9bdfabe68543c54f90421aeb9a60ef8061b5b544"
 
 [[projects]]
   digest = "1:79c5b7c79609e7e2d0c5a6509cc5894bb8ee9c2ca6e741214f8aa4317beeea59"
@@ -1243,7 +1255,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:1adaf87367c198e965243dc86394bc6372fc81955f848868d6c1083188a9f0c5"
+  digest = "1:6e1e3d8ea753e4ef95f00498d4754fae3c9efb60f2206ae967507ca7a4f41666"
   name = "knative.dev/eventing"
   packages = [
     "pkg/adapter",
@@ -1312,11 +1324,11 @@
     "pkg/utils",
   ]
   pruneopts = "NUT"
-  revision = "f3561270b28b3759cdb198f1fab0d187c0ab6d65"
+  revision = "7127ab3c3b39adc1a8099a7ad9611c9cbafc65a6"
 
 [[projects]]
   branch = "master"
-  digest = "1:94d7cfde4eee652c089b47f0200b86bc28e618de18a2e5368b0bbc8e2b601026"
+  digest = "1:b866a374c5f954ec0830aa3c31962f4f8777624a77eba2b99fb19c732d5c2452"
   name = "knative.dev/pkg"
   packages = [
     "apis",
@@ -1361,7 +1373,7 @@
     "webhook/certificates/resources",
   ]
   pruneopts = "T"
-  revision = "c13e86e2d4f484f1dd3b8ca6474994c16da74f20"
+  revision = "aa5b1f2211ac4a538128a4a4e03797e9232b0431"
 
 [[projects]]
   branch = "master"
@@ -1372,7 +1384,7 @@
     "tools/dep-collector",
   ]
   pruneopts = "UT"
-  revision = "64929018c86389e47a88782619565b6d099c0a5a"
+  revision = "0bc1e8bb1582a8738da1b5c485084a84bf76f17c"
 
 [[projects]]
   digest = "1:8730e0150dfb2b7e173890c8b9868e7a273082ef8e39f4940e3506a481cf895c"
