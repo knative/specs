@@ -1255,7 +1255,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:609be3bfa95b6c334c849a099947ad30e13d70d96fa04f0e5e283ad3483d9854"
+  digest = "1:6e7a7843c3dcc533bb3050cb4af608c37ca962c38f306b72763b056764099d2a"
   name = "knative.dev/eventing"
   packages = [
     "pkg/adapter",
@@ -1324,7 +1324,7 @@
     "pkg/utils",
   ]
   pruneopts = "NUT"
-  revision = "bf7b1bcb500c0bd1ec2b9300ebbf246152a7ab7c"
+  revision = "bcfe43a96be1b0dca208921971f98f118dbff328"
 
 [[projects]]
   branch = "master"
@@ -1384,7 +1384,7 @@
     "tools/dep-collector",
   ]
   pruneopts = "UT"
-  revision = "9a6c4b1d41ce980537cebe2b34c4b8c92fbd2b47"
+  revision = "5c80391d7529640b44e193307289baac4b53b20b"
 
 [[projects]]
   digest = "1:8730e0150dfb2b7e173890c8b9868e7a273082ef8e39f4940e3506a481cf895c"
