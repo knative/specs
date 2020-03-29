@@ -31,22 +31,26 @@ rules:
   - update
   - patch
   - delete
+
 - apiGroups:
   - rbac.authorization.k8s.io
   resources:
   - clusterroles
   verbs:
   - list
+
 - apiGroups:
   - ""
   resources:
   - events
   verbs: *everything
+
 - apiGroups:
   - samples.knative.dev
   resources:
   - samplesources
   verbs: *everything
+
 - apiGroups:
   - samples.knative.dev
   resources:
@@ -56,6 +60,18 @@ rules:
   - get
   - update
   - patch
+
+- apiGroups:
+    - sources.knative.dev
+  resources:
+    - sinkbindings
+  verbs: *everything
+- apiGroups:
+    - sources.knative.dev
+  resources:
+    - sinkbindings/status
+  verbs: *everything
+
 - apiGroups:
   - ""
   resources:
@@ -65,13 +81,6 @@ rules:
   - get
   - list
   - watch
-
-# EventTypes admin
-- apiGroups:
-    - eventing.knative.dev
-  resources:
-    - eventtypes
-  verbs: *everything
 
 ---
 # The role is needed for the aggregated role source-observer in knative-eventing to provide readonly access to "Sources".

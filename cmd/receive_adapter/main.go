@@ -15,7 +15,7 @@ limitations under the License.
 package main
 
 import (
-	"knative.dev/eventing/pkg/adapter"
+	"knative.dev/eventing/pkg/adapter/v2"
 	myadapter "knative.dev/sample-source/pkg/adapter"
 )
 

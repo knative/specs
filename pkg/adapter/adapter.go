@@ -17,16 +17,13 @@ package adapter
 
 import (
 	"context"
-	"net/url"
 	"time"
 
-	cloudevents "github.com/cloudevents/sdk-go/v1"
-	"github.com/cloudevents/sdk-go/v1/cloudevents/types"
-	"github.com/google/uuid"
+	cloudevents "github.com/cloudevents/sdk-go/v2"
 	"go.uber.org/zap"
-	"knative.dev/eventing/pkg/adapter"
+
+	"knative.dev/eventing/pkg/adapter/v2"
 	"knative.dev/pkg/logging"
-	"knative.dev/pkg/source"
 )
 
 type envConfig struct {
@@ -41,53 +38,46 @@ func NewEnv() adapter.EnvConfigAccessor { return &envConfig{} }
 
 // Adapter generates events at a regular interval.
 type Adapter struct {
-	logger   *zap.Logger
-	interval time.Duration
-	nextID   int
 	client   cloudevents.Client
+	interval time.Duration
+	logger   *zap.SugaredLogger
+
+	nextID int
 }
 
 type dataExample struct {
-	Sequence  int
-	Heartbeat string
+	Sequence  int    `json:"sequence"`
+	Heartbeat string `json:"heartbeat"`
 }
 
-var sourceURI = types.URIRef{URL: url.URL{Scheme: "http", Host: "sample.knative.dev", Path: "/heartbeat-source"}}
-
-func strptr(s string) *string { return &s }
-
 func (a *Adapter) newEvent() cloudevents.Event {
+	event := cloudevents.NewEvent()
+	event.SetType("dev.knative.sample")
+	event.SetSource("sample.knative.dev/heartbeat-source")
 
-	e := cloudevents.Event{
-		Context: cloudevents.EventContextV1{
-			ID:              uuid.New().String(),
-			Type:            "dev.knative.sample",
-			Source:          sourceURI,
-			Time:            &types.Timestamp{Time: time.Now()},
-			DataContentType: strptr("application/json"),
-		}.AsV1(),
-		Data: &dataExample{
-			Sequence:  a.nextID,
-			Heartbeat: a.interval.String(),
-		},
+	if err := event.SetData(cloudevents.ApplicationJSON, &dataExample{
+		Sequence:  a.nextID,
+		Heartbeat: a.interval.String(),
+	}); err != nil {
+		a.logger.Errorw("failed to set data")
 	}
 	a.nextID++
-	return e
+	return event
 }
 
 // Start runs the adapter.
 // Returns if stopCh is closed or Send() returns an error.
 func (a *Adapter) Start(stopCh <-chan struct{}) error {
-	a.logger.Info("Starting with: ",
-		zap.String("Interval: ", a.interval.String()))
+	a.logger.Infow("Starting heartbeat", zap.String("interval", a.interval.String()))
 	for {
 		select {
 		case <-time.After(a.interval):
 			event := a.newEvent()
-			a.logger.Info("Sending new event: ", zap.String("event", event.String()))
-			_, _, err := a.client.Send(context.Background(), event)
-			if err != nil {
-				return err
+			a.logger.Infow("Sending new event", zap.String("event", event.String()))
+			if err := a.client.Send(context.Background(), event); err != nil {
+				a.logger.Infow("failed to send event", zap.String("event", event.String()), zap.Error(err))
+				// We got an error but it could be transient, try again next interval.
+				continue
 			}
 		case <-stopCh:
 			a.logger.Info("Shutting down...")
@@ -96,10 +86,10 @@ func (a *Adapter) Start(stopCh <-chan struct{}) error {
 	}
 }
 
-func NewAdapter(ctx context.Context, aEnv adapter.EnvConfigAccessor, ceClient cloudevents.Client, reporter source.StatsReporter) adapter.Adapter {
+func NewAdapter(ctx context.Context, aEnv adapter.EnvConfigAccessor, ceClient cloudevents.Client) adapter.Adapter {
 	env := aEnv.(*envConfig) // Will always be our own envConfig type
-	logger := logging.FromContext(ctx).Desugar()
-	logger.Info("Heartbeat example", zap.Duration("interval", env.Interval))
+	logger := logging.FromContext(ctx)
+	logger.Infow("Heartbeat example", zap.Duration("interval", env.Interval))
 	return &Adapter{
 		interval: env.Interval,
 		client:   ceClient,

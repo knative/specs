@@ -23,7 +23,6 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"knative.dev/eventing/pkg/utils"
-	"knative.dev/pkg/apis"
 	"knative.dev/pkg/kmeta"
 
 	"knative.dev/sample-source/pkg/apis/samples/v1alpha1"
@@ -32,20 +31,15 @@ import (
 // ReceiveAdapterArgs are the arguments needed to create a Sample Source Receive Adapter.
 // Every field is required.
 type ReceiveAdapterArgs struct {
-	EventSource string
 	Image       string
-	Source      *v1alpha1.SampleSource
 	Labels      map[string]string
-	SinkURI     *apis.URL
+	Source      *v1alpha1.SampleSource
+	EventSource string
 }
 
 // MakeReceiveAdapter generates (but does not insert into K8s) the Receive Adapter Deployment for
 // Sample sources.
 func MakeReceiveAdapter(args *ReceiveAdapterArgs) *v1.Deployment {
-	_, err := apis.ParseURL(args.SinkURI.String())
-	if err != nil {
-		panic("should NEVER happen")
-	}
 	replicas := int32(1)
 	return &v1.Deployment{
 		ObjectMeta: metav1.ObjectMeta{
@@ -71,7 +65,7 @@ func MakeReceiveAdapter(args *ReceiveAdapterArgs) *v1.Deployment {
 						{
 							Name:  "receive-adapter",
 							Image: args.Image,
-							Env:   makeEnv(args.EventSource, args.SinkURI.String(), &args.Source.Spec),
+							Env:   makeEnv(args.EventSource, &args.Source.Spec),
 						},
 					},
 				},
@@ -80,11 +74,8 @@ func MakeReceiveAdapter(args *ReceiveAdapterArgs) *v1.Deployment {
 	}
 }
 
-func makeEnv(eventSource, sinkURI string, spec *v1alpha1.SampleSourceSpec) []corev1.EnvVar {
+func makeEnv(eventSource string, spec *v1alpha1.SampleSourceSpec) []corev1.EnvVar {
 	return []corev1.EnvVar{{
-		Name:  "SINK_URI",
-		Value: sinkURI,
-	}, {
 		Name:  "EVENT_SOURCE",
 		Value: eventSource,
 	}, {
@@ -95,6 +86,13 @@ func makeEnv(eventSource, sinkURI string, spec *v1alpha1.SampleSourceSpec) []cor
 		ValueFrom: &corev1.EnvVarSource{
 			FieldRef: &corev1.ObjectFieldSelector{
 				FieldPath: "metadata.namespace",
+			},
+		},
+	}, {
+		Name: "NAME",
+		ValueFrom: &corev1.EnvVarSource{
+			FieldRef: &corev1.ObjectFieldSelector{
+				FieldPath: "metadata.name",
 			},
 		},
 	}, {

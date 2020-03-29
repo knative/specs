@@ -14,25 +14,26 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package reconciler
+package sample
 
 import (
 	"context"
 
+	"knative.dev/sample-source/pkg/apis/samples/v1alpha1"
+
 	"github.com/kelseyhightower/envconfig"
 	"k8s.io/client-go/tools/cache"
 
-	"knative.dev/eventing/pkg/apis/sources/v1alpha1"
 	"knative.dev/pkg/configmap"
 	"knative.dev/pkg/controller"
 	"knative.dev/pkg/logging"
-	"knative.dev/pkg/resolver"
+
+	"knative.dev/sample-source/pkg/reconciler"
 
 	eventingclient "knative.dev/eventing/pkg/client/injection/client"
-	eventtypeinformer "knative.dev/eventing/pkg/client/injection/informers/eventing/v1alpha1/eventtype"
+	sinkbindinginformer "knative.dev/eventing/pkg/client/injection/informers/sources/v1alpha2/sinkbinding"
 	kubeclient "knative.dev/pkg/client/injection/kube/client"
 	deploymentinformer "knative.dev/pkg/client/injection/kube/informers/apps/v1/deployment"
-	samplesourceClient "knative.dev/sample-source/pkg/client/injection/client"
 	samplesourceinformer "knative.dev/sample-source/pkg/client/injection/informers/samples/v1alpha1/samplesource"
 	"knative.dev/sample-source/pkg/client/injection/reconciler/samples/v1alpha1/samplesource"
 )
@@ -44,24 +45,21 @@ func NewController(
 	cmw configmap.Watcher,
 ) *controller.Impl {
 	deploymentInformer := deploymentinformer.Get(ctx)
+	sinkBindingInformer := sinkbindinginformer.Get(ctx)
 	sampleSourceInformer := samplesourceinformer.Get(ctx)
-	eventTypeInformer := eventtypeinformer.Get(ctx)
 
 	r := &Reconciler{
-		KubeClientSet:         kubeclient.Get(ctx),
-		EventingClientSet:     eventingclient.Get(ctx),
-		samplesourceLister:    sampleSourceInformer.Lister(),
-		deploymentLister:      deploymentInformer.Lister(),
-		samplesourceClientSet: samplesourceClient.Get(ctx),
+		dr:  &reconciler.DeploymentReconciler{KubeClientSet: kubeclient.Get(ctx)},
+		sbr: &reconciler.SinkBindingReconciler{EventingClientSet: eventingclient.Get(ctx)},
 	}
 	if err := envconfig.Process("", r); err != nil {
 		logging.FromContext(ctx).Panicf("required environment variable is not defined: %v", err)
 	}
 
 	impl := samplesource.NewImpl(ctx, r)
-	r.sinkResolver = resolver.NewURIResolver(ctx, impl.EnqueueKey)
 
 	logging.FromContext(ctx).Info("Setting up event handlers")
+
 	sampleSourceInformer.Informer().AddEventHandler(controller.HandleAll(impl.Enqueue))
 
 	deploymentInformer.Informer().AddEventHandler(cache.FilteringResourceEventHandler{
@@ -69,7 +67,7 @@ func NewController(
 		Handler:    controller.HandleAll(impl.EnqueueControllerOf),
 	})
 
-	eventTypeInformer.Informer().AddEventHandler(cache.FilteringResourceEventHandler{
+	sinkBindingInformer.Informer().AddEventHandler(cache.FilteringResourceEventHandler{
 		FilterFunc: controller.FilterGroupKind(v1alpha1.Kind("SampleSource")),
 		Handler:    controller.HandleAll(impl.EnqueueControllerOf),
 	})

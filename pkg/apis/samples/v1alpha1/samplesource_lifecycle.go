@@ -18,7 +18,6 @@ package v1alpha1
 
 import (
 	appsv1 "k8s.io/api/apps/v1"
-	corev1 "k8s.io/api/core/v1"
 	"knative.dev/eventing/pkg/apis/duck"
 	"knative.dev/pkg/apis"
 )
@@ -32,15 +31,11 @@ const (
 
 	// SampleConditionDeployed has status True when the SampleSource has had it's deployment created.
 	SampleConditionDeployed apis.ConditionType = "Deployed"
-
-	// SampleConditionEventTypeProvided has status True when the SampleSource has been configured with its event types.
-	SampleConditionEventTypeProvided apis.ConditionType = "EventTypesProvided"
 )
 
 var SampleCondSet = apis.NewLivingConditionSet(
 	SampleConditionSinkProvided,
 	SampleConditionDeployed,
-	SampleConditionEventTypeProvided,
 )
 
 // GetCondition returns the condition currently associated with the given type, or nil.
@@ -53,29 +48,13 @@ func (s *SampleSourceStatus) InitializeConditions() {
 	SampleCondSet.Manage(s).InitializeConditions()
 }
 
-// MarkSinkWarnDeprecated sets the condition that the source has a sink configured and warns ref is deprecated.
-func (s *SampleSourceStatus) MarkSinkWarnRefDeprecated(uri *apis.URL) {
-	s.SinkURI = uri
-	if len(uri.String()) > 0 {
-		c := apis.Condition{
-			Type:     SampleConditionSinkProvided,
-			Status:   corev1.ConditionTrue,
-			Severity: apis.ConditionSeverityError,
-			Message:  "Using deprecated object ref fields when specifying spec.sink. These will be removed in a future release. Update to spec.sink.ref.",
-		}
-		SampleCondSet.Manage(s).SetCondition(c)
-	} else {
-		SampleCondSet.Manage(s).MarkUnknown(SampleConditionSinkProvided, "SinkEmpty", "Sink has resolved to empty.%s", "")
-	}
-}
-
 // MarkSink sets the condition that the source has a sink configured.
 func (s *SampleSourceStatus) MarkSink(uri *apis.URL) {
 	s.SinkURI = uri
 	if len(uri.String()) > 0 {
 		SampleCondSet.Manage(s).MarkTrue(SampleConditionSinkProvided)
 	} else {
-		SampleCondSet.Manage(s).MarkUnknown(SampleConditionSinkProvided, "SinkEmpty", "Sink has resolved to empty.%s", "")
+		SampleCondSet.Manage(s).MarkUnknown(SampleConditionSinkProvided, "SinkEmpty", "Sink has resolved to empty.")
 	}
 }
 
@@ -94,16 +73,6 @@ func (s *SampleSourceStatus) PropagateDeploymentAvailability(d *appsv1.Deploymen
 		// for now.
 		SampleCondSet.Manage(s).MarkFalse(SampleConditionDeployed, "DeploymentUnavailable", "The Deployment '%s' is unavailable.", d.Name)
 	}
-}
-
-// MarkEventTypes sets the condition that the source has set its event type.
-func (s *SampleSourceStatus) MarkEventTypes() {
-	SampleCondSet.Manage(s).MarkTrue(SampleConditionEventTypeProvided)
-}
-
-// MarkNoEventTypes sets the condition that the source does not its event type configured.
-func (s *SampleSourceStatus) MarkNoEventTypes(reason, messageFormat string, messageA ...interface{}) {
-	SampleCondSet.Manage(s).MarkFalse(SampleConditionEventTypeProvided, reason, messageFormat, messageA...)
 }
 
 // IsReady returns true if the resource is ready overall.

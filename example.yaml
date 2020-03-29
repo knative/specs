@@ -21,3 +21,19 @@ spec:
       apiVersion: serving.knative.dev/v1
       kind: Service
       name: event-display
+---
+apiVersion: samples.knative.dev/v1alpha1
+kind: SampleSource
+metadata:
+  name: sample-source-overrides
+  namespace: knative-samples
+spec:
+  interval: "10s"
+  ceOverrides:
+    extensions:
+      foo: bar
+  sink:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: event-display

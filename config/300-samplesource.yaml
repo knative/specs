@@ -38,81 +38,29 @@ spec:
   scope: Namespaced
   subresources:
     status: {}
+  preserveUnknownFields: false
   validation:
     openAPIV3Schema:
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-        metadata:
-          type: object
-        spec:
-          properties:
-            serviceAccountName:
-              type: string
-              description: >
-                ServiceAccountName holds the name of the Kubernetes service account
-                as which the sample source should run. If unspecified
-                this will default to the "default" service account for the namespace
-                in which the SampleSource exists
-            interval:
-              type: string
-              minLength: 2
-              description:
-                Interval between events, number and unit. For example "5s", "100ms"
-            sink:
-              anyOf:
-              - type: object
-                description: "The destination that should receive events"
-                properties:
-                  ref:
-                    type: object
-                    description: "The reference to a Kubernetes object from which to retrieve the target URI"
-                    required:
-                    - apiVersion
-                    - kind
-                    - name
-                    properties:
-                      apiVersion:
-                        type: string
-                        minLength: 1
-                      kind:
-                        type: string
-                        minLength: 1
-                      name:
-                        type: string
-                        minLength: 1
-                  uri:
-                    type: string
-                    description: "The target URI. If ref is provided, this must be a relative URI reference"
-          required:
-              - interval
-              - sink
-          type: object
-        status:
-          properties:
-            conditions:
-              items:
-                properties:
-                  lastTransitionTime:
-                    type: string
-                  message:
-                    type: string
-                  reason:
-                    type: string
-                  severity:
-                    type: string
-                  status:
-                    type: string
-                  type:
-                    type: string
-                required:
-                - type
-                - status
-                type: object
-              type: array
-            sinkUri:
-              type: string
-          type: object
-  version: v1alpha1
+      type: object
+      # this is a work around so we don't need to flesh out the
+      # schema for each version at this time
+      #
+      # see issue: https://github.com/knative/serving/issues/912
+      x-kubernetes-preserve-unknown-fields: true
+  additionalPrinterColumns:
+    - name: Ready
+      type: string
+      JSONPath: ".status.conditions[?(@.type=='Ready')].status"
+    - name: Reason
+      type: string
+      JSONPath: ".status.conditions[?(@.type=='Ready')].reason"
+    - name: Sink
+      type: string
+      JSONPath: .status.sinkUri
+    - name: Age
+      type: date
+      JSONPath: .metadata.creationTimestamp
+  versions:
+    - name: v1alpha1
+      served: true
+      storage: true

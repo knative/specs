@@ -22,14 +22,13 @@ import (
 	"time"
 
 	ce "github.com/cloudevents/sdk-go/v1"
-	cloudevents "github.com/cloudevents/sdk-go/v1"
 	"github.com/cloudevents/sdk-go/v1/cloudevents/transport"
 	cehttp "github.com/cloudevents/sdk-go/v1/cloudevents/transport/http"
+	cloudevents "github.com/cloudevents/sdk-go/v2"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
-	"knative.dev/eventing/pkg/adapter"
-	"knative.dev/eventing/pkg/kncloudevents"
+	"knative.dev/eventing/pkg/adapter/v2"
 	"knative.dev/pkg/logging"
 )
 
@@ -37,14 +36,20 @@ func TestAdapter(t *testing.T) {
 	// Test sink to receive events.
 	sink := newSink(t)
 	defer sink.close()
-	c, err := kncloudevents.NewDefaultClient(sink.URL())
+
+	tr, err := cloudevents.NewHTTP(cloudevents.WithTarget(sink.URL()))
+	c, err := cloudevents.NewClient(tr, cloudevents.WithUUIDs())
 	require.NoError(t, err)
 
 	// Keep the adapter logging quiet for tests.
 	ctx := logging.WithLogger(context.Background(), zap.NewNop().Sugar())
-	a := NewAdapter(ctx, &envConfig{Interval: time.Duration(time.Millisecond)}, c, nil)
+	a := NewAdapter(ctx, &envConfig{Interval: time.Duration(time.Millisecond)}, c)
 	stop := make(chan struct{})
-	go a.Start(stop)
+	go func() {
+		if err := a.Start(stop); err != nil {
+			logging.FromContext(ctx).Errorw("failed to start adapter", zap.Error(err))
+		}
+	}()
 	defer func() { close(stop) }()
 	verify(t, sink.received)
 }
@@ -78,13 +83,17 @@ func TestAdapterMain(t *testing.T) {
 	cmd := exec.Command(os.Args[0], "-test.run="+t.Name())
 	cmd.Env = append(os.Environ(),
 		t.Name()+"=main",
-		"SINK_URI="+sink.URL(),
+		"K_SINK="+sink.URL(),
 		"INTERVAL="+"1ms",
 		"NAMESPACE=namespace",
+		"NAME=name",
 		`K_METRICS_CONFIG={"domain":"x", "component":"x", "prometheusport":0, "configmap":{}}`,
 		`K_LOGGING_CONFIG={}`,
 	)
-	cmd.Start()
+	err := cmd.Start()
+	if err != nil {
+		t.Error(err)
+	}
 	defer func() { cmd.Process.Kill(); cmd.Wait() }()
 	verify(t, sink.received)
 }
@@ -99,13 +108,14 @@ type sink struct {
 
 func newSink(t *testing.T) *sink {
 	s := &sink{received: make(chan ce.Event)}
+	//s.ctx, s.close = context.WithTimeout(context.Background(), 5*time.Second)
 	s.ctx, s.close = context.WithCancel(context.Background())
 	var err error
 	s.listener, err = net.Listen("tcp", ":0")
 	require.NoError(t, err)
 	s.transport, err = cehttp.New(cehttp.WithListener(s.listener))
 	s.transport.SetReceiver(transport.ReceiveFunc(
-		func(ctx context.Context, e cloudevents.Event, _ *cloudevents.EventResponse) error {
+		func(ctx context.Context, e ce.Event, _ *ce.EventResponse) error {
 			select {
 			case s.received <- e:
 				return nil
@@ -114,7 +124,10 @@ func newSink(t *testing.T) *sink {
 			}
 		}))
 	go func() {
-		_ = s.transport.StartReceiver(s.ctx)
+		if err := s.transport.StartReceiver(s.ctx); err != nil {
+			t.Error(err)
+		}
+
 		close(s.received)
 	}()
 	return s

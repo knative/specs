@@ -19,55 +19,43 @@ package adapter
 import (
 	"context"
 	"flag"
-	"fmt"
 	"log"
 	"net/http"
 	"time"
 
-	"knative.dev/pkg/profiling"
-	"knative.dev/pkg/signals"
-
+	cloudevents "github.com/cloudevents/sdk-go/v2"
 	"github.com/kelseyhightower/envconfig"
 	"go.opencensus.io/stats/view"
 	"go.uber.org/zap"
 	"knative.dev/pkg/logging"
 	"knative.dev/pkg/metrics"
+	"knative.dev/pkg/profiling"
+	"knative.dev/pkg/signals"
 	"knative.dev/pkg/source"
 
-	"knative.dev/eventing/pkg/kncloudevents"
 	"knative.dev/eventing/pkg/tracing"
 )
 
-type MessageAdapter interface {
+type Adapter interface {
 	Start(stopCh <-chan struct{}) error
 }
 
-type MessageAdapterConstructor func(ctx context.Context, env EnvConfigAccessor, adapter *kncloudevents.HttpMessageSender, reporter source.StatsReporter) MessageAdapter
+type AdapterConstructor func(ctx context.Context, env EnvConfigAccessor, client cloudevents.Client) Adapter
 
-func MainMessageAdapter(component string, ector EnvConfigConstructor, ctor MessageAdapterConstructor) {
-	MainMessageAdapterWithContext(signals.NewContext(), component, ector, ctor)
+func Main(component string, ector EnvConfigConstructor, ctor AdapterConstructor) {
+	MainWithContext(signals.NewContext(), component, ector, ctor)
 }
 
-func MainMessageAdapterWithContext(ctx context.Context, component string, ector EnvConfigConstructor, ctor MessageAdapterConstructor) {
+func MainWithContext(ctx context.Context, component string, ector EnvConfigConstructor, ctor AdapterConstructor) {
 	flag.Parse()
 
 	env := ector()
 	if err := envconfig.Process("", env); err != nil {
 		log.Fatalf("Error processing env var: %s", err)
 	}
+	env.SetComponent(component)
 
-	// Convert json logging.Config to logging.Config.
-	loggingConfig, err := logging.JsonToLoggingConfig(env.GetLoggingConfigJson())
-	if err != nil {
-		fmt.Printf("[ERROR] failed to process logging config: %s", err.Error())
-		// Use default logging config.
-		if loggingConfig, err = logging.NewConfigFromMap(map[string]string{}); err != nil {
-			// If this fails, there is no recovering.
-			panic(err)
-		}
-	}
-
-	logger, _ := logging.NewLoggerFromConfig(loggingConfig, component)
+	logger := env.GetLogger()
 	defer flush(logger)
 	ctx = logging.WithLogger(ctx, logger)
 
@@ -79,19 +67,15 @@ func MainMessageAdapterWithContext(ctx context.Context, component string, ector 
 	}
 
 	// Convert json metrics.ExporterOptions to metrics.ExporterOptions.
-	metricsConfig, err := metrics.JsonToMetricsOptions(env.GetMetricsConfigJson())
-	if err != nil {
+	if metricsConfig, err := env.GetMetricsConfig(); err != nil {
 		logger.Error("failed to process metrics options", zap.Error(err))
 	} else {
 		if err := metrics.UpdateExporter(*metricsConfig, logger); err != nil {
 			logger.Error("failed to create the metrics exporter", zap.Error(err))
 		}
-	}
-
-	// Check if metrics config contains profiling flag
-	if metricsConfig != nil && metricsConfig.ConfigMap != nil {
-		if enabled, err := profiling.ReadProfilingFlag(metricsConfig.ConfigMap); err == nil {
-			if enabled {
+		// Check if metrics config contains profiling flag
+		if metricsConfig != nil && metricsConfig.ConfigMap != nil {
+			if enabled, err := profiling.ReadProfilingFlag(metricsConfig.ConfigMap); err == nil && enabled {
 				// Start a goroutine to server profiling metrics
 				logger.Info("Profiling enabled")
 				go func() {
@@ -102,8 +86,6 @@ func MainMessageAdapterWithContext(ctx context.Context, component string, ector 
 					}
 				}()
 			}
-		} else {
-			logger.Error("error while reading profiling flag", zap.Error(err))
 		}
 	}
 
@@ -118,17 +100,27 @@ func MainMessageAdapterWithContext(ctx context.Context, component string, ector 
 		logger.Error("Error setting up trace publishing", zap.Error(err))
 	}
 
-	httpBindingsSender, err := kncloudevents.NewHttpMessageSender(nil, env.GetSinkURI())
+	ceOverrides, err := env.GetCloudEventOverrides()
+	if err != nil {
+		logger.Error("Error loading cloudevents overrides", zap.Error(err))
+	}
+
+	eventsClient, err := NewCloudEventsClient(env.GetSink(), ceOverrides, reporter)
 	if err != nil {
 		logger.Fatal("error building cloud event client", zap.Error(err))
 	}
 
 	// Configuring the adapter
-	adapter := ctor(ctx, env, httpBindingsSender, reporter)
+	adapter := ctor(ctx, env, eventsClient)
 
-	logger.Info("Starting Receive MessageAdapter", zap.Any("adapter", adapter))
+	logger.Info("Starting Receive Adapter", zap.Any("adapter", adapter))
 
 	if err := adapter.Start(ctx.Done()); err != nil {
 		logger.Warn("start returned an error", zap.Error(err))
 	}
+}
+
+func flush(logger *zap.SugaredLogger) {
+	_ = logger.Sync()
+	metrics.FlushExporter()
 }
