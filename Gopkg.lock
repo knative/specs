@@ -1257,7 +1257,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:537d423a35d7483a60168f76a7bd04be05bc5801c5208e46c0a4de77385bd45e"
+  digest = "1:05e27e0ca1fc871d2497896e06315167a7199b42ac447c7d00f1c4ece1bc844e"
   name = "knative.dev/eventing"
   packages = [
     "pkg/adapter/v2",
@@ -1322,7 +1322,6 @@
     "pkg/configmap",
     "pkg/logging",
     "pkg/tracing",
-    "pkg/utils",
   ]
   pruneopts = "NUT"
   revision = "bab33fbbc5d8cfe73f6498cd3f20e3e9d8ca6fb4"
@@ -1437,7 +1436,6 @@
     "knative.dev/eventing/pkg/client/clientset/versioned",
     "knative.dev/eventing/pkg/client/injection/client",
     "knative.dev/eventing/pkg/client/injection/informers/sources/v1alpha2/sinkbinding",
-    "knative.dev/eventing/pkg/utils",
     "knative.dev/pkg/apis",
     "knative.dev/pkg/apis/duck",
     "knative.dev/pkg/apis/duck/v1",
