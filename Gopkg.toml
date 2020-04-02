@@ -22,7 +22,7 @@ required = [
 
 [[override]]
   name = "github.com/cloudevents/sdk-go"
-  version = "v2.0.0-preview7"
+  version = "v2.0.0-preview8"
 
 [[override]]
   name = "k8s.io/klog"

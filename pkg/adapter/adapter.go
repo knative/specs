@@ -74,8 +74,8 @@ func (a *Adapter) Start(stopCh <-chan struct{}) error {
 		case <-time.After(a.interval):
 			event := a.newEvent()
 			a.logger.Infow("Sending new event", zap.String("event", event.String()))
-			if err := a.client.Send(context.Background(), event); err != nil {
-				a.logger.Infow("failed to send event", zap.String("event", event.String()), zap.Error(err))
+			if result := a.client.Send(context.Background(), event); !cloudevents.IsACK(result) {
+				a.logger.Infow("failed to send event", zap.String("event", event.String()), zap.Error(result))
 				// We got an error but it could be transient, try again next interval.
 				continue
 			}
