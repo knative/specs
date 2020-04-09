@@ -129,7 +129,7 @@
   version = "v0.2.1"
 
 [[projects]]
-  digest = "1:a4fc9f00a171b050c24b1815daa2570252de3a81507d3d02bb648caa53c3903c"
+  digest = "1:a8f534ea3140742592cf2b3b8ed18a01939a207238e4c1411d01b66eec2137c3"
   name = "github.com/cloudevents/sdk-go"
   packages = [
     "v1",
@@ -149,7 +149,6 @@
     "v2/binding",
     "v2/binding/format",
     "v2/binding/spec",
-    "v2/binding/transformer",
     "v2/client",
     "v2/context",
     "v2/event",
@@ -164,8 +163,8 @@
     "v2/types",
   ]
   pruneopts = "NUT"
-  revision = "6dc020a8df7f3ee38d729e53cde2193ea7edf12a"
-  version = "v2.0.0-preview8"
+  revision = "3638af885cfe1cc7dd7421d23ebe4dbf278d1937"
+  version = "v2.0.0-RC1"
 
 [[projects]]
   digest = "1:ffe9824d294da03b391f44e1ae8281281b4afc1bdaa9588c9097785e3af10cec"
@@ -1257,7 +1256,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:45d0a6d505345392dbc17e861379694c7076b36384bf421edca9b98ae6b0bc0a"
+  digest = "1:80201073bacdd84a9469d7ed10c81b26fc3aced6461475544d74da3d53af2ef3"
   name = "knative.dev/eventing"
   packages = [
     "pkg/adapter/v2",
@@ -1324,7 +1323,7 @@
     "pkg/tracing",
   ]
   pruneopts = "NUT"
-  revision = "8d8bfdb98348f8f8ab9b0d0340fa0bec0dc86b07"
+  revision = "20cf19aa489952aef4ea55905b1c3bdce432f368"
 
 [[projects]]
   branch = "release-0.14"
@@ -1379,7 +1378,7 @@
     "tools/dep-collector",
   ]
   pruneopts = "UT"
-  revision = "193c078363dbb0b817068820dcbe7b238dd2eb02"
+  revision = "9fa5882b65c5fe7e177bb74874e9a5ac87b84e98"
 
 [[projects]]
   digest = "1:8730e0150dfb2b7e173890c8b9868e7a273082ef8e39f4940e3506a481cf895c"
