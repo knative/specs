@@ -96,15 +96,19 @@ func NewReconciler(ctx context.Context, logger *zap.SugaredLogger, client versio
 	}
 
 	rec := &reconcilerImpl{
-		Client:     client,
-		Lister:     lister,
-		Recorder:   recorder,
-		reconciler: r,
+		Client:        client,
+		Lister:        lister,
+		Recorder:      recorder,
+		reconciler:    r,
+		finalizerName: defaultFinalizerName,
 	}
 
 	for _, opts := range options {
 		if opts.ConfigStore != nil {
 			rec.configStore = opts.ConfigStore
+		}
+		if opts.FinalizerName != "" {
+			rec.finalizerName = opts.FinalizerName
 		}
 	}
 
@@ -192,11 +196,11 @@ func (r *reconcilerImpl) Reconcile(ctx context.Context, key string) error {
 	if reconcileEvent != nil {
 		var event *reconciler.ReconcilerEvent
 		if reconciler.EventAs(reconcileEvent, &event) {
-			logger.Infow("returned an event", zap.Any("event", reconcileEvent))
+			logger.Infow("Returned an event", zap.Any("event", reconcileEvent))
 			r.Recorder.Eventf(resource, event.EventType, event.Reason, event.Format, event.Args...)
 			return nil
 		} else {
-			logger.Errorw("returned an error", zap.Error(reconcileEvent))
+			logger.Errorw("Returned an error", zap.Error(reconcileEvent))
 			r.Recorder.Event(resource, v1.EventTypeWarning, "InternalError", reconcileEvent.Error())
 			return reconcileEvent
 		}
