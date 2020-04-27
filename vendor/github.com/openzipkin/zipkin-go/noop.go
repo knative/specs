@@ -36,6 +36,4 @@ func (*noopSpan) Tag(string, string) {}
 
 func (*noopSpan) Finish() {}
 
-func (*noopSpan) FinishedWithDuration(duration time.Duration) {}
-
 func (*noopSpan) Flush() {}

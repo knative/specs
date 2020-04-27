@@ -45,10 +45,10 @@ type httpReporter struct {
 	batchInterval time.Duration
 	batchSize     int
 	maxBacklog    int
+	sendMtx       *sync.Mutex
 	batchMtx      *sync.Mutex
 	batch         []*model.SpanModel
 	spanC         chan *model.SpanModel
-	sendC         chan struct{}
 	quit          chan struct{}
 	shutdown      chan error
 	reqCallback   RequestCallbackFn
@@ -80,32 +80,21 @@ func (r *httpReporter) loop() {
 			currentBatchSize := r.append(span)
 			if currentBatchSize >= r.batchSize {
 				nextSend = time.Now().Add(r.batchInterval)
-				r.enqueueSend()
+				go func() {
+					_ = r.sendBatch()
+				}()
 			}
 		case <-tickerChan:
 			if time.Now().After(nextSend) {
 				nextSend = time.Now().Add(r.batchInterval)
-				r.enqueueSend()
+				go func() {
+					_ = r.sendBatch()
+				}()
 			}
 		case <-r.quit:
-			close(r.sendC)
+			r.shutdown <- r.sendBatch()
 			return
 		}
-	}
-}
-
-func (r *httpReporter) sendLoop() {
-	for range r.sendC {
-		_ = r.sendBatch()
-	}
-	r.shutdown <- r.sendBatch()
-}
-
-func (r *httpReporter) enqueueSend() {
-	select {
-	case r.sendC <- struct{}{}:
-	default:
-		// Do nothing if there's a pending send request already
 	}
 }
 
@@ -125,6 +114,10 @@ func (r *httpReporter) append(span *model.SpanModel) (newBatchSize int) {
 }
 
 func (r *httpReporter) sendBatch() error {
+	// in order to prevent sending the same batch twice
+	r.sendMtx.Lock()
+	defer r.sendMtx.Unlock()
+
 	// Select all current spans in the batch to be sent
 	r.batchMtx.Lock()
 	sendBatch := r.batch[:]
@@ -239,9 +232,9 @@ func NewReporter(url string, opts ...ReporterOption) reporter.Reporter {
 		maxBacklog:    defaultMaxBacklog,
 		batch:         []*model.SpanModel{},
 		spanC:         make(chan *model.SpanModel),
-		sendC:         make(chan struct{}, 1),
 		quit:          make(chan struct{}, 1),
 		shutdown:      make(chan error, 1),
+		sendMtx:       &sync.Mutex{},
 		batchMtx:      &sync.Mutex{},
 		serializer:    reporter.JSONSerializer{},
 	}
@@ -251,7 +244,6 @@ func NewReporter(url string, opts ...ReporterOption) reporter.Reporter {
 	}
 
 	go r.loop()
-	go r.sendLoop()
 
 	return &r
 }

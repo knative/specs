@@ -21,6 +21,8 @@
 # Use the flags --build-tests, --unit-tests and --integration-tests
 # to run a specific set of tests.
 
+export GO111MODULE=on
+
 # Markdown linting failures don't show up properly in Gubernator resulting
 # in a net-negative contributor experience.
 export DISABLE_MD_LINTING=1

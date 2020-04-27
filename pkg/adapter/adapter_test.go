@@ -21,9 +21,6 @@ import (
 	"testing"
 	"time"
 
-	ce "github.com/cloudevents/sdk-go/v1"
-	"github.com/cloudevents/sdk-go/v1/cloudevents/transport"
-	cehttp "github.com/cloudevents/sdk-go/v1/cloudevents/transport/http"
 	cloudevents "github.com/cloudevents/sdk-go/v2"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -43,7 +40,7 @@ func TestAdapter(t *testing.T) {
 
 	// Keep the adapter logging quiet for tests.
 	ctx := logging.WithLogger(context.Background(), zap.NewNop().Sugar())
-	a := NewAdapter(ctx, &envConfig{Interval: time.Duration(time.Millisecond)}, c)
+	a := NewAdapter(ctx, &envConfig{Interval: time.Millisecond}, c)
 	stop := make(chan struct{})
 	go func() {
 		if err := a.Start(stop); err != nil {
@@ -54,7 +51,7 @@ func TestAdapter(t *testing.T) {
 	verify(t, sink.received)
 }
 
-func verify(t *testing.T, received chan ce.Event) {
+func verify(t *testing.T, received chan cloudevents.Event) {
 	for _, id := range []int{0, 1, 2} {
 		e := <-received
 		assert.Equal(t, "dev.knative.sample", e.Type())
@@ -99,37 +96,40 @@ func TestAdapterMain(t *testing.T) {
 }
 
 type sink struct {
-	listener  net.Listener
-	transport transport.Transport
-	ctx       context.Context
-	close     func()
-	received  chan ce.Event
+	listener net.Listener
+	client   cloudevents.Client
+	proto    *cloudevents.HTTPProtocol
+	ctx      context.Context
+	close    func()
+	received chan cloudevents.Event
 }
 
 func newSink(t *testing.T) *sink {
-	s := &sink{received: make(chan ce.Event)}
+	s := &sink{received: make(chan cloudevents.Event)}
 	//s.ctx, s.close = context.WithTimeout(context.Background(), 5*time.Second)
-	s.ctx, s.close = context.WithCancel(context.Background())
+	s.ctx, s.close = context.WithTimeout(context.Background(), 1500*time.Millisecond)
 	var err error
 	s.listener, err = net.Listen("tcp", ":0")
 	require.NoError(t, err)
-	s.transport, err = cehttp.New(cehttp.WithListener(s.listener))
-	s.transport.SetReceiver(transport.ReceiveFunc(
-		func(ctx context.Context, e ce.Event, _ *ce.EventResponse) error {
+
+	s.proto, err = cloudevents.NewHTTP(cloudevents.WithListener(s.listener))
+	require.NoError(t, err)
+
+	s.client, err = cloudevents.NewClient(s.proto)
+	require.NoError(t, err)
+
+	go func() {
+		_ = s.client.StartReceiver(s.ctx, func(ctx context.Context, e cloudevents.Event) cloudevents.Result {
 			select {
 			case s.received <- e:
 				return nil
 			case <-ctx.Done():
 				return ctx.Err()
 			}
-		}))
-	go func() {
-		if err := s.transport.StartReceiver(s.ctx); err != nil {
-			t.Error(err)
-		}
-
+		})
 		close(s.received)
 	}()
+
 	return s
 }
 
