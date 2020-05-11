@@ -32,6 +32,23 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
+  name: sample-source-webhook-rolebinding
+  labels:
+    samples.knative.dev/release: devel
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: sample-source-webhook
+subjects:
+  - kind: ServiceAccount
+    name: sample-source-webhook
+    namespace: knative-samples
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
   name: sample-source-controller-addressable-resolver
   labels:
     samples.knative.dev/release: devel
