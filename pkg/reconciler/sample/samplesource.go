@@ -25,6 +25,8 @@ import (
 	pkgreconciler "knative.dev/pkg/reconciler"
 	"knative.dev/pkg/tracker"
 
+	reconcilersource "knative.dev/eventing/pkg/reconciler/source"
+
 	"knative.dev/sample-source/pkg/apis/samples/v1alpha1"
 	reconcilersamplesource "knative.dev/sample-source/pkg/client/injection/reconciler/samples/v1alpha1/samplesource"
 	"knative.dev/sample-source/pkg/reconciler"
@@ -43,6 +45,8 @@ type Reconciler struct {
 
 	dr  *reconciler.DeploymentReconciler
 	sbr *reconciler.SinkBindingReconciler
+
+	configAccessor reconcilersource.ConfigAccessor
 }
 
 // Check that our Reconciler implements Interface
@@ -54,10 +58,11 @@ func (r *Reconciler) ReconcileKind(ctx context.Context, src *v1alpha1.SampleSour
 	src.Status.ObservedGeneration = src.Generation
 
 	ra, event := r.dr.ReconcileDeployment(ctx, src, resources.MakeReceiveAdapter(&resources.ReceiveAdapterArgs{
-		EventSource: src.Namespace + "/" + src.Name,
-		Image:       r.ReceiveAdapterImage,
-		Source:      src,
-		Labels:      resources.Labels(src.Name),
+		EventSource:    src.Namespace + "/" + src.Name,
+		Image:          r.ReceiveAdapterImage,
+		Source:         src,
+		Labels:         resources.Labels(src.Name),
+		AdditionalEnvs: r.configAccessor.ToEnvVars(), // Grab config envs for tracing/logging/metrics
 	}))
 	if ra != nil {
 		src.Status.PropagateDeploymentAvailability(ra)

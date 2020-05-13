@@ -30,10 +30,11 @@ import (
 // ReceiveAdapterArgs are the arguments needed to create a Sample Source Receive Adapter.
 // Every field is required.
 type ReceiveAdapterArgs struct {
-	Image       string
-	Labels      map[string]string
-	Source      *v1alpha1.SampleSource
-	EventSource string
+	Image          string
+	Labels         map[string]string
+	Source         *v1alpha1.SampleSource
+	EventSource    string
+	AdditionalEnvs []corev1.EnvVar
 }
 
 // MakeReceiveAdapter generates (but does not insert into K8s) the Receive Adapter Deployment for
@@ -64,7 +65,10 @@ func MakeReceiveAdapter(args *ReceiveAdapterArgs) *v1.Deployment {
 						{
 							Name:  "receive-adapter",
 							Image: args.Image,
-							Env:   makeEnv(args.EventSource, &args.Source.Spec),
+							Env: append(
+								makeEnv(args.EventSource, &args.Source.Spec),
+								args.AdditionalEnvs...,
+							),
 						},
 					},
 				},
@@ -97,11 +101,5 @@ func makeEnv(eventSource string, spec *v1alpha1.SampleSourceSpec) []corev1.EnvVa
 	}, {
 		Name:  "METRICS_DOMAIN",
 		Value: "knative.dev/eventing",
-	}, {
-		Name:  "K_METRICS_CONFIG",
-		Value: "",
-	}, {
-		Name:  "K_LOGGING_CONFIG",
-		Value: "",
 	}}
 }

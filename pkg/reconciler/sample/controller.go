@@ -19,6 +19,8 @@ package sample
 import (
 	"context"
 
+	reconcilersource "knative.dev/eventing/pkg/reconciler/source"
+
 	"knative.dev/sample-source/pkg/apis/samples/v1alpha1"
 
 	"github.com/kelseyhightower/envconfig"
@@ -51,6 +53,8 @@ func NewController(
 	r := &Reconciler{
 		dr:  &reconciler.DeploymentReconciler{KubeClientSet: kubeclient.Get(ctx)},
 		sbr: &reconciler.SinkBindingReconciler{EventingClientSet: eventingclient.Get(ctx)},
+		// Config accessor takes care of tracing/config/logging config propagation to the receive adapter
+		configAccessor: reconcilersource.WatchConfigurations(ctx, "sample-source", cmw),
 	}
 	if err := envconfig.Process("", r); err != nil {
 		logging.FromContext(ctx).Panicf("required environment variable is not defined: %v", err)
