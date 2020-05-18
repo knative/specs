@@ -61,11 +61,6 @@ var _ kmeta.OwnerRefable = (*SampleSource)(nil)
 // Check that SampleSource implements the Conditions duck type.
 var _ = duck.VerifyType(&SampleSource{}, &duckv1.Conditions{})
 
-const (
-	// SampleSourceEventType is the SampleSource CloudEvent type.
-	SampleSourceEventType = "dev.knative.sample.source"
-)
-
 // SampleSourceSpec holds the desired state of the SampleSource (from the client).
 type SampleSourceSpec struct {
 	// inherits duck/v1 SourceSpec, which currently provides:

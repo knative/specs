@@ -22,7 +22,7 @@ metadata:
   annotations:
     registry.knative.dev/eventTypes: |
       [
-        { "type": "dev.knative.sample.source" }
+        { "type": "dev.knative.sample" }
       ]
   name: samplesources.samples.knative.dev
 spec:
