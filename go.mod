@@ -8,19 +8,19 @@ require (
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/stretchr/testify v1.5.1
 	go.uber.org/zap v1.14.1
-	k8s.io/api v0.17.3
-	k8s.io/apimachinery v0.17.3
+	k8s.io/api v0.17.6
+	k8s.io/apimachinery v0.17.6
 	k8s.io/client-go v11.0.1-0.20190805182717-6502b5e7b1b5+incompatible
 	knative.dev/eventing v0.15.1-0.20200526203649-32751c56844f
-	knative.dev/pkg v0.0.0-20200527024749-495174c96651
-	knative.dev/test-infra v0.0.0-20200527032149-1fa26194e82d // indirect
+	knative.dev/pkg v0.0.0-20200527173759-2d1a04d1ff82
+	knative.dev/test-infra v0.0.0-20200527185659-fc87694eb879 // indirect
 )
 
 replace (
 	github.com/prometheus/client_golang => github.com/prometheus/client_golang v0.9.2
-	k8s.io/api => k8s.io/api v0.16.4
-	k8s.io/apiextensions-apiserver => k8s.io/apiextensions-apiserver v0.16.4
-	k8s.io/apimachinery => k8s.io/apimachinery v0.16.4
-	k8s.io/client-go => k8s.io/client-go v0.16.4
-	k8s.io/code-generator => k8s.io/code-generator v0.16.4
+	k8s.io/api => k8s.io/api v0.17.6
+	k8s.io/apiextensions-apiserver => k8s.io/apiextensions-apiserver v0.17.6
+	k8s.io/apimachinery => k8s.io/apimachinery v0.17.6
+	k8s.io/client-go => k8s.io/client-go v0.17.6
+	k8s.io/code-generator => k8s.io/code-generator v0.17.6
 )
