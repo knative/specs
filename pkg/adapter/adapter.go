@@ -66,8 +66,8 @@ func (a *Adapter) newEvent() cloudevents.Event {
 }
 
 // Start runs the adapter.
-// Returns if stopCh is closed or Send() returns an error.
-func (a *Adapter) Start(stopCh <-chan struct{}) error {
+// Returns if ctx is cancelled or Send() returns an error.
+func (a *Adapter) Start(ctx context.Context) error {
 	a.logger.Infow("Starting heartbeat", zap.String("interval", a.interval.String()))
 	for {
 		select {
@@ -79,7 +79,7 @@ func (a *Adapter) Start(stopCh <-chan struct{}) error {
 				// We got an error but it could be transient, try again next interval.
 				continue
 			}
-		case <-stopCh:
+		case <-ctx.Done():
 			a.logger.Info("Shutting down...")
 			return nil
 		}

@@ -41,13 +41,13 @@ func TestAdapter(t *testing.T) {
 	// Keep the adapter logging quiet for tests.
 	ctx := logging.WithLogger(context.Background(), zap.NewNop().Sugar())
 	a := NewAdapter(ctx, &envConfig{Interval: time.Millisecond}, c)
-	stop := make(chan struct{})
+	ctx, cancel := context.WithCancel(ctx)
 	go func() {
-		if err := a.Start(stop); err != nil {
+		if err := a.Start(ctx); err != nil {
 			logging.FromContext(ctx).Errorw("failed to start adapter", zap.Error(err))
 		}
 	}()
-	defer func() { close(stop) }()
+	defer func() { cancel() }()
 	verify(t, sink.received)
 }
 
