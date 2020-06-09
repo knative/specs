@@ -79,7 +79,7 @@ github.com/cloudevents/sdk-go/pkg/cloudevents/observability
 github.com/cloudevents/sdk-go/pkg/cloudevents/transport
 github.com/cloudevents/sdk-go/pkg/cloudevents/transport/http
 github.com/cloudevents/sdk-go/pkg/cloudevents/types
-# github.com/cloudevents/sdk-go/v2 v2.0.0
+# github.com/cloudevents/sdk-go/v2 v2.0.1-0.20200608152019-2ab697c8fc0b
 ## explicit
 github.com/cloudevents/sdk-go/v2
 github.com/cloudevents/sdk-go/v2/binding
@@ -736,7 +736,7 @@ k8s.io/utils/buffer
 k8s.io/utils/integer
 k8s.io/utils/pointer
 k8s.io/utils/trace
-# knative.dev/eventing v0.15.1-0.20200608083719-c024353a712c
+# knative.dev/eventing v0.15.1-0.20200609114331-6c85557f53ef
 ## explicit
 knative.dev/eventing/pkg/adapter/v2
 knative.dev/eventing/pkg/apis/config
@@ -789,7 +789,7 @@ knative.dev/eventing/pkg/kncloudevents
 knative.dev/eventing/pkg/logging
 knative.dev/eventing/pkg/reconciler/source
 knative.dev/eventing/pkg/tracing
-# knative.dev/pkg v0.0.0-20200606224418-7ed1d4a552bc
+# knative.dev/pkg v0.0.0-20200609135932-0c198ddb9228
 ## explicit
 knative.dev/pkg/apis
 knative.dev/pkg/apis/duck
@@ -837,7 +837,7 @@ knative.dev/pkg/webhook/configmaps
 knative.dev/pkg/webhook/resourcesemantics
 knative.dev/pkg/webhook/resourcesemantics/defaulting
 knative.dev/pkg/webhook/resourcesemantics/validation
-# knative.dev/test-infra v0.0.0-20200606045118-14ebc4a42974
+# knative.dev/test-infra v0.0.0-20200608183332-3442736aebd0
 ## explicit
 knative.dev/test-infra/scripts
 # sigs.k8s.io/yaml v1.2.0
