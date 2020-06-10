@@ -18,7 +18,7 @@ contrib.go.opencensus.io/exporter/zipkin
 github.com/PuerkitoBio/purell
 # github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578
 github.com/PuerkitoBio/urlesc
-# github.com/aws/aws-sdk-go v1.29.34
+# github.com/aws/aws-sdk-go v1.30.5
 github.com/aws/aws-sdk-go/aws
 github.com/aws/aws-sdk-go/aws/awserr
 github.com/aws/aws-sdk-go/aws/awsutil
@@ -736,7 +736,7 @@ k8s.io/utils/buffer
 k8s.io/utils/integer
 k8s.io/utils/pointer
 k8s.io/utils/trace
-# knative.dev/eventing v0.15.1-0.20200609114331-6c85557f53ef
+# knative.dev/eventing v0.15.1-0.20200609184333-fb349c350f10
 ## explicit
 knative.dev/eventing/pkg/adapter/v2
 knative.dev/eventing/pkg/apis/config
@@ -789,7 +789,7 @@ knative.dev/eventing/pkg/kncloudevents
 knative.dev/eventing/pkg/logging
 knative.dev/eventing/pkg/reconciler/source
 knative.dev/eventing/pkg/tracing
-# knative.dev/pkg v0.0.0-20200609135932-0c198ddb9228
+# knative.dev/pkg v0.0.0-20200609184032-fef70cc2616b
 ## explicit
 knative.dev/pkg/apis
 knative.dev/pkg/apis/duck
@@ -837,7 +837,7 @@ knative.dev/pkg/webhook/configmaps
 knative.dev/pkg/webhook/resourcesemantics
 knative.dev/pkg/webhook/resourcesemantics/defaulting
 knative.dev/pkg/webhook/resourcesemantics/validation
-# knative.dev/test-infra v0.0.0-20200608183332-3442736aebd0
+# knative.dev/test-infra v0.0.0-20200610052322-f0f63d4ead3d
 ## explicit
 knative.dev/test-infra/scripts
 # sigs.k8s.io/yaml v1.2.0
