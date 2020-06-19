@@ -65,20 +65,6 @@ github.com/census-instrumentation/opencensus-proto/gen-go/agent/trace/v1
 github.com/census-instrumentation/opencensus-proto/gen-go/metrics/v1
 github.com/census-instrumentation/opencensus-proto/gen-go/resource/v1
 github.com/census-instrumentation/opencensus-proto/gen-go/trace/v1
-# github.com/cloudevents/sdk-go v1.2.0
-github.com/cloudevents/sdk-go
-github.com/cloudevents/sdk-go/pkg/cloudevents
-github.com/cloudevents/sdk-go/pkg/cloudevents/client
-github.com/cloudevents/sdk-go/pkg/cloudevents/context
-github.com/cloudevents/sdk-go/pkg/cloudevents/datacodec
-github.com/cloudevents/sdk-go/pkg/cloudevents/datacodec/json
-github.com/cloudevents/sdk-go/pkg/cloudevents/datacodec/text
-github.com/cloudevents/sdk-go/pkg/cloudevents/datacodec/xml
-github.com/cloudevents/sdk-go/pkg/cloudevents/extensions
-github.com/cloudevents/sdk-go/pkg/cloudevents/observability
-github.com/cloudevents/sdk-go/pkg/cloudevents/transport
-github.com/cloudevents/sdk-go/pkg/cloudevents/transport/http
-github.com/cloudevents/sdk-go/pkg/cloudevents/types
 # github.com/cloudevents/sdk-go/v2 v2.0.1-0.20200608152019-2ab697c8fc0b
 ## explicit
 github.com/cloudevents/sdk-go/v2
@@ -221,7 +207,7 @@ github.com/spf13/pflag
 ## explicit
 github.com/stretchr/testify/assert
 github.com/stretchr/testify/require
-# go.opencensus.io v0.22.3
+# go.opencensus.io v0.22.4
 go.opencensus.io
 go.opencensus.io/internal
 go.opencensus.io/internal/tagencoding
@@ -735,7 +721,7 @@ k8s.io/utils/buffer
 k8s.io/utils/integer
 k8s.io/utils/pointer
 k8s.io/utils/trace
-# knative.dev/eventing v0.15.1-0.20200618135024-d77f1c5b17ce
+# knative.dev/eventing v0.15.1-0.20200618204825-8d34718da040
 ## explicit
 knative.dev/eventing/pkg/adapter/v2
 knative.dev/eventing/pkg/apis/config
@@ -788,7 +774,7 @@ knative.dev/eventing/pkg/kncloudevents
 knative.dev/eventing/pkg/logging
 knative.dev/eventing/pkg/reconciler/source
 knative.dev/eventing/pkg/tracing
-# knative.dev/pkg v0.0.0-20200618002824-96c250871fac
+# knative.dev/pkg v0.0.0-20200619020725-7df8fc5d7743
 ## explicit
 knative.dev/pkg/apis
 knative.dev/pkg/apis/duck
@@ -836,7 +822,7 @@ knative.dev/pkg/webhook/configmaps
 knative.dev/pkg/webhook/resourcesemantics
 knative.dev/pkg/webhook/resourcesemantics/defaulting
 knative.dev/pkg/webhook/resourcesemantics/validation
-# knative.dev/test-infra v0.0.0-20200617235125-6382dba95484
+# knative.dev/test-infra v0.0.0-20200618184825-a7b2980a8884
 ## explicit
 knative.dev/test-infra/scripts
 # sigs.k8s.io/yaml v1.2.0
