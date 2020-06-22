@@ -48,6 +48,11 @@ func (s *SampleSourceStatus) InitializeConditions() {
 	SampleCondSet.Manage(s).InitializeConditions()
 }
 
+// GetConditionSet returns SampleSource ConditionSet.
+func (*SampleSource) GetConditionSet() apis.ConditionSet {
+	return SampleCondSet
+}
+
 // MarkSink sets the condition that the source has a sink configured.
 func (s *SampleSourceStatus) MarkSink(uri *apis.URL) {
 	s.SinkURI = uri

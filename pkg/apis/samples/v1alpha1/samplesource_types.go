@@ -28,9 +28,8 @@ import (
 )
 
 // +genclient
-// +genreconciler
+// +genreconciler:krshapedlogic=true
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-// +k8s:openapi-gen=true
 type SampleSource struct {
 	metav1.TypeMeta `json:",inline"`
 	// +optional
@@ -45,21 +44,25 @@ type SampleSource struct {
 }
 
 // GetGroupVersionKind returns the GroupVersionKind.
-func (s *SampleSource) GetGroupVersionKind() schema.GroupVersionKind {
+func (*SampleSource) GetGroupVersionKind() schema.GroupVersionKind {
 	return SchemeGroupVersion.WithKind("SampleSource")
 }
 
-// Check that SampleSource is a runtime.Object.
-var _ runtime.Object = (*SampleSource)(nil)
-
-// Check that SampleSource can be validated and can be defaulted.
-var _ resourcesemantics.GenericCRD = (*SampleSource)(nil)
-
-// Check that we can create OwnerReferences to a SampleSource.
-var _ kmeta.OwnerRefable = (*SampleSource)(nil)
-
-// Check that SampleSource implements the Conditions duck type.
-var _ = duck.VerifyType(&SampleSource{}, &duckv1.Conditions{})
+var (
+	// Check that SampleSource can be validated and defaulted.
+	_ apis.Validatable = (*SampleSource)(nil)
+	_ apis.Defaultable = (*SampleSource)(nil)
+	// Check that we can create OwnerReferences to a SampleSource.
+	_ kmeta.OwnerRefable = (*SampleSource)(nil)
+	// Check that SampleSource is a runtime.Object.
+	_ runtime.Object = (*SampleSource)(nil)
+	// Check that SampleSource satisfies resourcesemantics.GenericCRD.
+	_ resourcesemantics.GenericCRD = (*SampleSource)(nil)
+	// Check that SampleSource implements the Conditions duck type.
+	_ = duck.VerifyType(&SampleSource{}, &duckv1.Conditions{})
+	// Check that the type conforms to the duck Knative Resource shape.
+	_ duckv1.KRShaped = (*SampleSource)(nil)
+)
 
 // SampleSourceSpec holds the desired state of the SampleSource (from the client).
 type SampleSourceSpec struct {
@@ -112,4 +115,9 @@ type SampleSourceList struct {
 	metav1.ListMeta `json:"metadata"`
 
 	Items []SampleSource `json:"items"`
+}
+
+// GetStatus retrieves the status of the resource. Implements the KRShaped interface.
+func (ss *SampleSource) GetStatus() *duckv1.Status {
+	return &ss.Status.Status
 }

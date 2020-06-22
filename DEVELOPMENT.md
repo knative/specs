@@ -24,7 +24,6 @@ You must install these tools:
 1. [`go`](https://golang.org/doc/install): The language Knative `sample-source`
    is built in
 1. [`git`](https://help.github.com/articles/set-up-git/): For source control
-1. [`dep`](https://github.com/golang/dep): For managing external dependencies.
 
 ### Environment setup
 
@@ -62,7 +61,7 @@ mkdir -p ${GOPATH}/src/knative.dev
 cd ${GOPATH}/src/knative.dev
 git clone git@github.com:${YOUR_GITHUB_USERNAME}/sample-source.git
 cd sample-source
-git remote add upstream https://knative.dev/sample-source.git
+git remote add upstream https://github.com/knative/sample-source.git
 git remote set-url --push upstream no_push
 ```
 

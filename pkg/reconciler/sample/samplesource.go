@@ -54,9 +54,6 @@ var _ reconcilersamplesource.Interface = (*Reconciler)(nil)
 
 // ReconcileKind implements Interface.ReconcileKind.
 func (r *Reconciler) ReconcileKind(ctx context.Context, src *v1alpha1.SampleSource) pkgreconciler.Event {
-	src.Status.InitializeConditions()
-	src.Status.ObservedGeneration = src.Generation
-
 	ra, event := r.dr.ReconcileDeployment(ctx, src, resources.MakeReceiveAdapter(&resources.ReceiveAdapterArgs{
 		EventSource:    src.Namespace + "/" + src.Name,
 		Image:          r.ReceiveAdapterImage,
