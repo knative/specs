@@ -3,7 +3,7 @@ module knative.dev/sample-source
 go 1.14
 
 require (
-	github.com/cloudevents/sdk-go/v2 v2.0.1-0.20200608152019-2ab697c8fc0b
+	github.com/cloudevents/sdk-go/v2 v2.1.0
 	github.com/google/go-cmp v0.4.0
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/stretchr/testify v1.5.1
