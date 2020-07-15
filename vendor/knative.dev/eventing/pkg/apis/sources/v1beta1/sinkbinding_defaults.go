@@ -14,14 +14,21 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package leaderelection
+package v1beta1
 
-// ControllerOrdinal tries to get ordinal from the pod name of a StatefulSet,
-// which is provided from the environment variable CONTROLLER_ORDINAL.
-func ControllerOrdinal() (int, error) {
-	ssc, err := newStatefulSetConfig()
-	if err != nil {
-		return 0, err
+import (
+	"context"
+
+	"knative.dev/pkg/apis"
+)
+
+// SetDefaults implements apis.Defaultable
+func (fb *SinkBinding) SetDefaults(ctx context.Context) {
+	if fb.Spec.Subject.Namespace == "" {
+		// Default the subject's namespace to our namespace.
+		fb.Spec.Subject.Namespace = fb.Namespace
 	}
-	return ssc.StatefulSetID.ordinal, nil
+
+	withNS := apis.WithinParent(ctx, fb.ObjectMeta)
+	fb.Spec.Sink.SetDefaults(withNS)
 }
