@@ -20,7 +20,6 @@ import (
 	"context"
 
 	appsv1 "k8s.io/api/apps/v1"
-	corev1 "k8s.io/api/core/v1"
 	"knative.dev/pkg/logging"
 	pkgreconciler "knative.dev/pkg/reconciler"
 	"knative.dev/pkg/tracker"
@@ -32,12 +31,6 @@ import (
 	"knative.dev/sample-source/pkg/reconciler"
 	"knative.dev/sample-source/pkg/reconciler/sample/resources"
 )
-
-// newReconciledNormal makes a new reconciler event with event type Normal, and
-// reason SampleSourceReconciled.
-func newReconciledNormal(namespace, name string) pkgreconciler.Event {
-	return pkgreconciler.NewEvent(corev1.EventTypeNormal, "SampleSourceReconciled", "SampleSource reconciled: \"%s/%s\"", namespace, name)
-}
 
 // Reconciler reconciles a SampleSource object
 type Reconciler struct {
@@ -86,5 +79,5 @@ func (r *Reconciler) ReconcileKind(ctx context.Context, src *v1alpha1.SampleSour
 		}
 	}
 
-	return newReconciledNormal(src.Namespace, src.Name)
+	return nil
 }
