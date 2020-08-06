@@ -27,10 +27,19 @@ spec:
       role: sample-source-webhook
   template:
     metadata:
-      annotations:
-        sidecar.istio.io/inject: "false"
       labels: *labels
     spec:
+      # To avoid node becoming SPOF, spread our replicas to different nodes.
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: sample-source-webhook
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+
       serviceAccountName: sample-source-webhook
       containers:
         - name: samplesource-webhook

@@ -30,6 +30,17 @@ spec:
         app: sample-source-controller
         samples.knative.dev/release: devel
     spec:
+      # To avoid node becoming SPOF, spread our replicas to different nodes.
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: sample-source-controller
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+
       serviceAccountName: sample-source-controller
 
       containers:
