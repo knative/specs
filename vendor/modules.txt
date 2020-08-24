@@ -852,7 +852,7 @@ k8s.io/utils/buffer
 k8s.io/utils/integer
 k8s.io/utils/pointer
 k8s.io/utils/trace
-# knative.dev/eventing v0.17.1-0.20200820224946-6457f1062637
+# knative.dev/eventing v0.17.1-0.20200824071547-ae90af3d14b8
 ## explicit
 knative.dev/eventing/pkg/adapter/v2
 knative.dev/eventing/pkg/adapter/v2/util/crstatusevent
@@ -925,7 +925,7 @@ knative.dev/eventing/pkg/logging
 knative.dev/eventing/pkg/reconciler/source
 knative.dev/eventing/pkg/tracing
 knative.dev/eventing/pkg/utils/cache
-# knative.dev/pkg v0.0.0-20200820181214-50386ad39634
+# knative.dev/pkg v0.0.0-20200822174146-f0f096d81292
 ## explicit
 knative.dev/pkg/apis
 knative.dev/pkg/apis/duck
@@ -980,7 +980,6 @@ knative.dev/pkg/webhook/resourcesemantics
 knative.dev/pkg/webhook/resourcesemantics/defaulting
 knative.dev/pkg/webhook/resourcesemantics/validation
 # knative.dev/test-infra v0.0.0-20200820231346-543fe3e80c03
-## explicit
 knative.dev/test-infra/scripts
 # sigs.k8s.io/yaml v1.2.0
 sigs.k8s.io/yaml
