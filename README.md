@@ -1,2 +1,3 @@
-# wg-repository
-Template for WG-owned repositories
+# TODO Repository Name
+
+_TODO(leads): please fill in this section_
