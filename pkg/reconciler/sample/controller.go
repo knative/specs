@@ -67,12 +67,12 @@ func NewController(
 	sampleSourceInformer.Informer().AddEventHandler(controller.HandleAll(impl.Enqueue))
 
 	deploymentInformer.Informer().AddEventHandler(cache.FilteringResourceEventHandler{
-		FilterFunc: controller.FilterGroupKind(v1alpha1.Kind("SampleSource")),
+		FilterFunc: controller.FilterControllerGK(v1alpha1.Kind("SampleSource")),
 		Handler:    controller.HandleAll(impl.EnqueueControllerOf),
 	})
 
 	sinkBindingInformer.Informer().AddEventHandler(cache.FilteringResourceEventHandler{
-		FilterFunc: controller.FilterGroupKind(v1alpha1.Kind("SampleSource")),
+		FilterFunc: controller.FilterControllerGK(v1alpha1.Kind("SampleSource")),
 		Handler:    controller.HandleAll(impl.EnqueueControllerOf),
 	})
 

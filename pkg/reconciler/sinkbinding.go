@@ -70,8 +70,5 @@ func (r *SinkBindingReconciler) ReconcileSinkBinding(ctx context.Context, owner 
 }
 
 func (r *SinkBindingReconciler) specChanged(oldSpec v1alpha2.SinkBindingSpec, newSpec v1alpha2.SinkBindingSpec) bool {
-	if !equality.Semantic.DeepDerivative(newSpec, oldSpec) {
-		return true
-	}
-	return false
+	return !equality.Semantic.DeepDerivative(newSpec, oldSpec)
 }

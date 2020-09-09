@@ -35,6 +35,7 @@ func TestAdapter(t *testing.T) {
 	defer sink.close()
 
 	tr, err := cloudevents.NewHTTP(cloudevents.WithTarget(sink.URL()))
+	require.NoError(t, err)
 	c, err := cloudevents.NewClient(tr, cloudevents.WithUUIDs())
 	require.NoError(t, err)
 
