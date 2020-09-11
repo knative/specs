@@ -19,6 +19,8 @@ limitations under the License.
 package fake
 
 import (
+	"context"
+
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -39,7 +41,7 @@ var samplesourcesResource = schema.GroupVersionResource{Group: "samples.knative.
 var samplesourcesKind = schema.GroupVersionKind{Group: "samples.knative.dev", Version: "v1alpha1", Kind: "SampleSource"}
 
 // Get takes name of the sampleSource, and returns the corresponding sampleSource object, and an error if there is any.
-func (c *FakeSampleSources) Get(name string, options v1.GetOptions) (result *v1alpha1.SampleSource, err error) {
+func (c *FakeSampleSources) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.SampleSource, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewGetAction(samplesourcesResource, c.ns, name), &v1alpha1.SampleSource{})
 
@@ -50,7 +52,7 @@ func (c *FakeSampleSources) Get(name string, options v1.GetOptions) (result *v1a
 }
 
 // List takes label and field selectors, and returns the list of SampleSources that match those selectors.
-func (c *FakeSampleSources) List(opts v1.ListOptions) (result *v1alpha1.SampleSourceList, err error) {
+func (c *FakeSampleSources) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha1.SampleSourceList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewListAction(samplesourcesResource, samplesourcesKind, c.ns, opts), &v1alpha1.SampleSourceList{})
 
@@ -72,14 +74,14 @@ func (c *FakeSampleSources) List(opts v1.ListOptions) (result *v1alpha1.SampleSo
 }
 
 // Watch returns a watch.Interface that watches the requested sampleSources.
-func (c *FakeSampleSources) Watch(opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeSampleSources) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewWatchAction(samplesourcesResource, c.ns, opts))
 
 }
 
 // Create takes the representation of a sampleSource and creates it.  Returns the server's representation of the sampleSource, and an error, if there is any.
-func (c *FakeSampleSources) Create(sampleSource *v1alpha1.SampleSource) (result *v1alpha1.SampleSource, err error) {
+func (c *FakeSampleSources) Create(ctx context.Context, sampleSource *v1alpha1.SampleSource, opts v1.CreateOptions) (result *v1alpha1.SampleSource, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewCreateAction(samplesourcesResource, c.ns, sampleSource), &v1alpha1.SampleSource{})
 
@@ -90,7 +92,7 @@ func (c *FakeSampleSources) Create(sampleSource *v1alpha1.SampleSource) (result 
 }
 
 // Update takes the representation of a sampleSource and updates it. Returns the server's representation of the sampleSource, and an error, if there is any.
-func (c *FakeSampleSources) Update(sampleSource *v1alpha1.SampleSource) (result *v1alpha1.SampleSource, err error) {
+func (c *FakeSampleSources) Update(ctx context.Context, sampleSource *v1alpha1.SampleSource, opts v1.UpdateOptions) (result *v1alpha1.SampleSource, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateAction(samplesourcesResource, c.ns, sampleSource), &v1alpha1.SampleSource{})
 
@@ -102,7 +104,7 @@ func (c *FakeSampleSources) Update(sampleSource *v1alpha1.SampleSource) (result 
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakeSampleSources) UpdateStatus(sampleSource *v1alpha1.SampleSource) (*v1alpha1.SampleSource, error) {
+func (c *FakeSampleSources) UpdateStatus(ctx context.Context, sampleSource *v1alpha1.SampleSource, opts v1.UpdateOptions) (*v1alpha1.SampleSource, error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateSubresourceAction(samplesourcesResource, "status", c.ns, sampleSource), &v1alpha1.SampleSource{})
 
@@ -113,7 +115,7 @@ func (c *FakeSampleSources) UpdateStatus(sampleSource *v1alpha1.SampleSource) (*
 }
 
 // Delete takes name of the sampleSource and deletes it. Returns an error if one occurs.
-func (c *FakeSampleSources) Delete(name string, options *v1.DeleteOptions) error {
+func (c *FakeSampleSources) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
 		Invokes(testing.NewDeleteAction(samplesourcesResource, c.ns, name), &v1alpha1.SampleSource{})
 
@@ -121,15 +123,15 @@ func (c *FakeSampleSources) Delete(name string, options *v1.DeleteOptions) error
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeSampleSources) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
-	action := testing.NewDeleteCollectionAction(samplesourcesResource, c.ns, listOptions)
+func (c *FakeSampleSources) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
+	action := testing.NewDeleteCollectionAction(samplesourcesResource, c.ns, listOpts)
 
 	_, err := c.Fake.Invokes(action, &v1alpha1.SampleSourceList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched sampleSource.
-func (c *FakeSampleSources) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.SampleSource, err error) {
+func (c *FakeSampleSources) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.SampleSource, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewPatchSubresourceAction(samplesourcesResource, c.ns, name, pt, data, subresources...), &v1alpha1.SampleSource{})
 
