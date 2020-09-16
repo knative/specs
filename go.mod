@@ -12,8 +12,9 @@ require (
 	k8s.io/apiextensions-apiserver v0.18.8 // indirect
 	k8s.io/apimachinery v0.18.8
 	k8s.io/client-go v11.0.1-0.20190805182717-6502b5e7b1b5+incompatible
-	knative.dev/eventing v0.17.1-0.20200911202500-2a052dbdc2fb
-	knative.dev/pkg v0.0.0-20200911145400-2d4efecc6bc1
+	knative.dev/eventing v0.17.1-0.20200915215041-aa296384e4a2
+	knative.dev/pkg v0.0.0-20200915170341-1d4e654a38f0
+	knative.dev/test-infra v0.0.0-20200916050341-8088f305e08c // indirect
 )
 
 replace (
