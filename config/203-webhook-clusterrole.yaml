@@ -113,3 +113,10 @@ rules:
       - "mutatingwebhookconfigurations"
       - "validatingwebhookconfigurations"
     verbs: *everything
+
+  # For Leader Election
+  - apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+    verbs: *everything
