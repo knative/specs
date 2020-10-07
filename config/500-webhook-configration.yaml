@@ -11,51 +11,51 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apiVersion: admissionregistration.k8s.io/v1beta1
+apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 metadata:
   name: defaulting.webhook.knative-samples.knative.dev
   labels:
     samples.knative.dev/release: devel
 webhooks:
-  - admissionReviewVersions:
-      - v1beta1
+  - admissionReviewVersions: ["v1", "v1beta1"]
     clientConfig:
       service:
         name: sample-source-webhook
         namespace: knative-samples
+    sideEffects: None
     failurePolicy: Fail
     name: defaulting.webhook.knative-samples.knative.dev
 ---
-apiVersion: admissionregistration.k8s.io/v1beta1
+apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
 metadata:
   name: validation.webhook.knative-samples.knative.dev
   labels:
     samples.knative.dev/release: devel
 webhooks:
-  - admissionReviewVersions:
-      - v1beta1
+  - admissionReviewVersions: ["v1", "v1beta1"]
     clientConfig:
       service:
         name: sample-source-webhook
         namespace: knative-samples
+    sideEffects: None
     failurePolicy: Fail
     name: validation.webhook.knative-samples.knative.dev
 ---
-apiVersion: admissionregistration.k8s.io/v1beta1
+apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
 metadata:
   name: config.webhook.knative-samples.knative.dev
   labels:
     serving.knative.dev/release: devel
 webhooks:
-  - admissionReviewVersions:
-      - v1beta1
+  - admissionReviewVersions: ["v1", "v1beta1"]
     clientConfig:
       service:
         name: sample-source-webhook
         namespace: knative-samples
+    sideEffects: None
     failurePolicy: Fail
     name: config.webhook.knative-samples.knative.dev
     namespaceSelector:
