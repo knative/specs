@@ -17,7 +17,7 @@ kind: ClusterRole
 metadata:
   name: sample-source-webhook
   labels:
-    sample.knative.dev/release: devel
+    samples.knative.dev/release: devel
 rules:
   # Sources admin
   - apiGroups:

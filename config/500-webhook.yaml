@@ -18,7 +18,7 @@ metadata:
   name: sample-source-webhook
   namespace: knative-samples
   labels:
-    sample.knative.dev/release: devel
+    samples.knative.dev/release: devel
 spec:
   replicas: 1
   selector:
@@ -75,7 +75,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    eventing.knative.dev/release: devel
+    samples.knative.dev/release: devel
     role: sample-source-webhook
   name: sample-source-webhook
   namespace: knative-samples

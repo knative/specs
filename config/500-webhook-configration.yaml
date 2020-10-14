@@ -48,7 +48,7 @@ kind: ValidatingWebhookConfiguration
 metadata:
   name: config.webhook.knative-samples.knative.dev
   labels:
-    serving.knative.dev/release: devel
+    samples.knative.dev/release: devel
 webhooks:
   - admissionReviewVersions: ["v1", "v1beta1"]
     clientConfig:
