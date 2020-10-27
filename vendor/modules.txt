@@ -501,7 +501,6 @@ k8s.io/apiextensions-apiserver/pkg/apis/apiextensions
 k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1
 # k8s.io/apimachinery v0.18.8 => k8s.io/apimachinery v0.18.8
 ## explicit
-k8s.io/apimachinery/pkg/api/apitesting/fuzzer
 k8s.io/apimachinery/pkg/api/equality
 k8s.io/apimachinery/pkg/api/errors
 k8s.io/apimachinery/pkg/api/meta
@@ -778,7 +777,7 @@ k8s.io/utils/buffer
 k8s.io/utils/integer
 k8s.io/utils/pointer
 k8s.io/utils/trace
-# knative.dev/eventing v0.18.1-0.20201026095841-3ceaad40cda1
+# knative.dev/eventing v0.18.1-0.20201027155533-17e1562518ef
 ## explicit
 knative.dev/eventing/pkg/adapter/v2
 knative.dev/eventing/pkg/adapter/v2/util/crstatusevent
@@ -850,7 +849,7 @@ knative.dev/eventing/pkg/client/listers/sources/v1alpha2
 knative.dev/eventing/pkg/client/listers/sources/v1beta1
 knative.dev/eventing/pkg/kncloudevents
 knative.dev/eventing/pkg/reconciler/source
-# knative.dev/pkg v0.0.0-20201026015042-efadd36f9c63
+# knative.dev/pkg v0.0.0-20201027160133-4ce8016d707c
 ## explicit
 knative.dev/pkg/apis
 knative.dev/pkg/apis/duck
@@ -858,7 +857,6 @@ knative.dev/pkg/apis/duck/ducktypes
 knative.dev/pkg/apis/duck/v1
 knative.dev/pkg/apis/duck/v1alpha1
 knative.dev/pkg/apis/duck/v1beta1
-knative.dev/pkg/apis/testing/fuzzer
 knative.dev/pkg/changeset
 knative.dev/pkg/client/injection/ducks/duck/v1/addressable
 knative.dev/pkg/client/injection/kube/client
@@ -907,7 +905,7 @@ knative.dev/pkg/webhook/configmaps
 knative.dev/pkg/webhook/resourcesemantics
 knative.dev/pkg/webhook/resourcesemantics/defaulting
 knative.dev/pkg/webhook/resourcesemantics/validation
-# knative.dev/test-infra v0.0.0-20201023182438-7efa632471b9
+# knative.dev/test-infra v0.0.0-20201026182042-46291de4ab66
 ## explicit
 knative.dev/test-infra/scripts
 # sigs.k8s.io/structured-merge-diff/v3 v3.0.1-0.20200706213357-43c19bbb7fba
