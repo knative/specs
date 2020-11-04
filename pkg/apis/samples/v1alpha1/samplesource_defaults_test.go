@@ -20,6 +20,9 @@ import (
 	"context"
 	"testing"
 
+	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	duckv1 "knative.dev/pkg/apis/duck/v1"
+
 	"github.com/google/go-cmp/cmp"
 )
 
@@ -34,6 +37,38 @@ func TestSampleSourceDefaults(t *testing.T) {
 				Spec: SampleSourceSpec{
 					ServiceAccountName: "default",
 					Interval:           "10s",
+				},
+			},
+		},
+		"no namespace in sink reference": {
+			initial: SampleSource{
+				ObjectMeta: v1.ObjectMeta{
+					Namespace: "parent",
+				},
+				Spec: SampleSourceSpec{
+					ServiceAccountName: "default",
+					Interval:           "10s",
+					SourceSpec: duckv1.SourceSpec{
+						Sink: duckv1.Destination{
+							Ref: &duckv1.KReference{},
+						},
+					},
+				},
+			},
+			expected: SampleSource{
+				ObjectMeta: v1.ObjectMeta{
+					Namespace: "parent",
+				},
+				Spec: SampleSourceSpec{
+					ServiceAccountName: "default",
+					Interval:           "10s",
+					SourceSpec: duckv1.SourceSpec{
+						Sink: duckv1.Destination{
+							Ref: &duckv1.KReference{
+								Namespace: "parent",
+							},
+						},
+					},
 				},
 			},
 		},

@@ -19,11 +19,16 @@ package sample
 import (
 	"context"
 
-	appsv1 "k8s.io/api/apps/v1"
+	// k8s.io imports
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	// knative.dev/pkg imports
 	"knative.dev/pkg/logging"
 	pkgreconciler "knative.dev/pkg/reconciler"
-	"knative.dev/pkg/tracker"
+	"knative.dev/pkg/resolver"
 
+	// knative.dev/eventing imports
+	sourcesv1 "knative.dev/eventing/pkg/apis/sources/v1"
 	reconcilersource "knative.dev/eventing/pkg/reconciler/source"
 
 	"knative.dev/sample-source/pkg/apis/samples/v1alpha1"
@@ -36,8 +41,9 @@ import (
 type Reconciler struct {
 	ReceiveAdapterImage string `envconfig:"SAMPLE_SOURCE_RA_IMAGE" required:"true"`
 
-	dr  *reconciler.DeploymentReconciler
-	sbr *reconciler.SinkBindingReconciler
+	dr *reconciler.DeploymentReconciler
+
+	sinkResolver *resolver.URIResolver
 
 	configAccessor reconcilersource.ConfigAccessor
 }
@@ -47,37 +53,45 @@ var _ reconcilersamplesource.Interface = (*Reconciler)(nil)
 
 // ReconcileKind implements Interface.ReconcileKind.
 func (r *Reconciler) ReconcileKind(ctx context.Context, src *v1alpha1.SampleSource) pkgreconciler.Event {
-	ra, event := r.dr.ReconcileDeployment(ctx, src, resources.MakeReceiveAdapter(&resources.ReceiveAdapterArgs{
-		EventSource:    src.Namespace + "/" + src.Name,
-		Image:          r.ReceiveAdapterImage,
-		Source:         src,
-		Labels:         resources.Labels(src.Name),
-		AdditionalEnvs: r.configAccessor.ToEnvVars(), // Grab config envs for tracing/logging/metrics
-	}))
+
+	ctx = sourcesv1.WithURIResolver(ctx, r.sinkResolver)
+
+	ra, sb, event := r.dr.ReconcileDeployment(ctx, src, makeSinkBinding(src),
+		resources.MakeReceiveAdapter(&resources.ReceiveAdapterArgs{
+			EventSource:    src.Namespace + "/" + src.Name,
+			Image:          r.ReceiveAdapterImage,
+			Source:         src,
+			Labels:         resources.Labels(src.Name),
+			AdditionalEnvs: r.configAccessor.ToEnvVars(), // Grab config envs for tracing/logging/metrics
+		}),
+	)
 	if ra != nil {
 		src.Status.PropagateDeploymentAvailability(ra)
+	}
+	if sb != nil {
+		if c := sb.Status.GetCondition(sourcesv1.SinkBindingConditionSinkProvided); c.IsTrue() {
+			src.Status.MarkSink(sb.Status.SinkURI)
+		} else if c.IsFalse() {
+			src.Status.MarkNoSink(c.GetReason(), "%s", c.GetMessage())
+		}
 	}
 	if event != nil {
 		logging.FromContext(ctx).Infof("returning because event from ReconcileDeployment")
 		return event
 	}
 
-	if ra != nil {
-		logging.FromContext(ctx).Info("going to ReconcileSinkBinding")
-		sb, event := r.sbr.ReconcileSinkBinding(ctx, src, src.Spec.SourceSpec, tracker.Reference{
-			APIVersion: appsv1.SchemeGroupVersion.String(),
-			Kind:       "Deployment",
-			Namespace:  ra.Namespace,
-			Name:       ra.Name,
-		})
-		logging.FromContext(ctx).Infof("ReconcileSinkBinding returned %#v", sb)
-		if sb != nil {
-			src.Status.MarkSink(sb.Status.SinkURI)
-		}
-		if event != nil {
-			return event
-		}
-	}
-
 	return nil
+}
+
+func makeSinkBinding(src *v1alpha1.SampleSource) *sourcesv1.SinkBinding {
+	return &sourcesv1.SinkBinding{
+		ObjectMeta: metav1.ObjectMeta{
+			// this is necessary to track the change of sink reference.
+			Name:      src.GetName(),
+			Namespace: src.GetNamespace(),
+		},
+		Spec: sourcesv1.SinkBindingSpec{
+			SourceSpec: src.Spec.SourceSpec,
+		},
+	}
 }

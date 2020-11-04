@@ -29,11 +29,10 @@ import (
 	"knative.dev/pkg/configmap"
 	"knative.dev/pkg/controller"
 	"knative.dev/pkg/logging"
+	"knative.dev/pkg/resolver"
 
 	"knative.dev/sample-source/pkg/reconciler"
 
-	eventingclient "knative.dev/eventing/pkg/client/injection/client"
-	sinkbindinginformer "knative.dev/eventing/pkg/client/injection/informers/sources/v1alpha2/sinkbinding"
 	kubeclient "knative.dev/pkg/client/injection/kube/client"
 	deploymentinformer "knative.dev/pkg/client/injection/kube/informers/apps/v1/deployment"
 	samplesourceinformer "knative.dev/sample-source/pkg/client/injection/informers/samples/v1alpha1/samplesource"
@@ -47,12 +46,10 @@ func NewController(
 	cmw configmap.Watcher,
 ) *controller.Impl {
 	deploymentInformer := deploymentinformer.Get(ctx)
-	sinkBindingInformer := sinkbindinginformer.Get(ctx)
 	sampleSourceInformer := samplesourceinformer.Get(ctx)
 
 	r := &Reconciler{
-		dr:  &reconciler.DeploymentReconciler{KubeClientSet: kubeclient.Get(ctx)},
-		sbr: &reconciler.SinkBindingReconciler{EventingClientSet: eventingclient.Get(ctx)},
+		dr: &reconciler.DeploymentReconciler{KubeClientSet: kubeclient.Get(ctx)},
 		// Config accessor takes care of tracing/config/logging config propagation to the receive adapter
 		configAccessor: reconcilersource.WatchConfigurations(ctx, "sample-source", cmw),
 	}
@@ -62,16 +59,13 @@ func NewController(
 
 	impl := samplesource.NewImpl(ctx, r)
 
+	r.sinkResolver = resolver.NewURIResolver(ctx, impl.EnqueueKey)
+
 	logging.FromContext(ctx).Info("Setting up event handlers")
 
 	sampleSourceInformer.Informer().AddEventHandler(controller.HandleAll(impl.Enqueue))
 
 	deploymentInformer.Informer().AddEventHandler(cache.FilteringResourceEventHandler{
-		FilterFunc: controller.FilterControllerGK(v1alpha1.Kind("SampleSource")),
-		Handler:    controller.HandleAll(impl.EnqueueControllerOf),
-	})
-
-	sinkBindingInformer.Informer().AddEventHandler(cache.FilteringResourceEventHandler{
 		FilterFunc: controller.FilterControllerGK(v1alpha1.Kind("SampleSource")),
 		Handler:    controller.HandleAll(impl.EnqueueControllerOf),
 	})

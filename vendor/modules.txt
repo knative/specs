@@ -95,8 +95,6 @@ github.com/emicklei/go-restful
 github.com/emicklei/go-restful/log
 # github.com/evanphx/json-patch v4.5.0+incompatible
 github.com/evanphx/json-patch
-# github.com/ghodss/yaml v1.0.0
-github.com/ghodss/yaml
 # github.com/go-logr/logr v0.1.0
 github.com/go-logr/logr
 # github.com/go-openapi/jsonpointer v0.19.3
@@ -127,7 +125,6 @@ github.com/golang/protobuf/ptypes/wrappers
 # github.com/google/go-cmp v0.5.2
 ## explicit
 github.com/google/go-cmp/cmp
-github.com/google/go-cmp/cmp/cmpopts
 github.com/google/go-cmp/cmp/internal/diff
 github.com/google/go-cmp/cmp/internal/flags
 github.com/google/go-cmp/cmp/internal/function
@@ -214,8 +211,6 @@ github.com/prometheus/statsd_exporter/pkg/mapper/fsm
 github.com/rickb777/date/period
 # github.com/rickb777/plural v1.2.1
 github.com/rickb777/plural
-# github.com/robfig/cron/v3 v3.0.1
-github.com/robfig/cron/v3
 # github.com/rogpeppe/go-internal v1.5.2
 github.com/rogpeppe/go-internal/modfile
 github.com/rogpeppe/go-internal/module
@@ -782,72 +777,10 @@ k8s.io/utils/trace
 ## explicit
 knative.dev/eventing/pkg/adapter/v2
 knative.dev/eventing/pkg/adapter/v2/util/crstatusevent
-knative.dev/eventing/pkg/apis/config
-knative.dev/eventing/pkg/apis/configs
-knative.dev/eventing/pkg/apis/configs/v1alpha1
 knative.dev/eventing/pkg/apis/duck
 knative.dev/eventing/pkg/apis/duck/v1
-knative.dev/eventing/pkg/apis/duck/v1beta1
-knative.dev/eventing/pkg/apis/eventing
-knative.dev/eventing/pkg/apis/eventing/v1
-knative.dev/eventing/pkg/apis/eventing/v1beta1
-knative.dev/eventing/pkg/apis/flows
-knative.dev/eventing/pkg/apis/flows/v1
-knative.dev/eventing/pkg/apis/flows/v1beta1
-knative.dev/eventing/pkg/apis/messaging
-knative.dev/eventing/pkg/apis/messaging/config
-knative.dev/eventing/pkg/apis/messaging/v1
-knative.dev/eventing/pkg/apis/messaging/v1beta1
 knative.dev/eventing/pkg/apis/sources
 knative.dev/eventing/pkg/apis/sources/v1
-knative.dev/eventing/pkg/apis/sources/v1alpha1
-knative.dev/eventing/pkg/apis/sources/v1alpha2
-knative.dev/eventing/pkg/apis/sources/v1beta1
-knative.dev/eventing/pkg/client/clientset/versioned
-knative.dev/eventing/pkg/client/clientset/versioned/scheme
-knative.dev/eventing/pkg/client/clientset/versioned/typed/configs/v1alpha1
-knative.dev/eventing/pkg/client/clientset/versioned/typed/eventing/v1
-knative.dev/eventing/pkg/client/clientset/versioned/typed/eventing/v1beta1
-knative.dev/eventing/pkg/client/clientset/versioned/typed/flows/v1
-knative.dev/eventing/pkg/client/clientset/versioned/typed/flows/v1beta1
-knative.dev/eventing/pkg/client/clientset/versioned/typed/messaging/v1
-knative.dev/eventing/pkg/client/clientset/versioned/typed/messaging/v1beta1
-knative.dev/eventing/pkg/client/clientset/versioned/typed/sources/v1
-knative.dev/eventing/pkg/client/clientset/versioned/typed/sources/v1alpha1
-knative.dev/eventing/pkg/client/clientset/versioned/typed/sources/v1alpha2
-knative.dev/eventing/pkg/client/clientset/versioned/typed/sources/v1beta1
-knative.dev/eventing/pkg/client/informers/externalversions
-knative.dev/eventing/pkg/client/informers/externalversions/configs
-knative.dev/eventing/pkg/client/informers/externalversions/configs/v1alpha1
-knative.dev/eventing/pkg/client/informers/externalversions/eventing
-knative.dev/eventing/pkg/client/informers/externalversions/eventing/v1
-knative.dev/eventing/pkg/client/informers/externalversions/eventing/v1beta1
-knative.dev/eventing/pkg/client/informers/externalversions/flows
-knative.dev/eventing/pkg/client/informers/externalversions/flows/v1
-knative.dev/eventing/pkg/client/informers/externalversions/flows/v1beta1
-knative.dev/eventing/pkg/client/informers/externalversions/internalinterfaces
-knative.dev/eventing/pkg/client/informers/externalversions/messaging
-knative.dev/eventing/pkg/client/informers/externalversions/messaging/v1
-knative.dev/eventing/pkg/client/informers/externalversions/messaging/v1beta1
-knative.dev/eventing/pkg/client/informers/externalversions/sources
-knative.dev/eventing/pkg/client/informers/externalversions/sources/v1
-knative.dev/eventing/pkg/client/informers/externalversions/sources/v1alpha1
-knative.dev/eventing/pkg/client/informers/externalversions/sources/v1alpha2
-knative.dev/eventing/pkg/client/informers/externalversions/sources/v1beta1
-knative.dev/eventing/pkg/client/injection/client
-knative.dev/eventing/pkg/client/injection/informers/factory
-knative.dev/eventing/pkg/client/injection/informers/sources/v1alpha2/sinkbinding
-knative.dev/eventing/pkg/client/listers/configs/v1alpha1
-knative.dev/eventing/pkg/client/listers/eventing/v1
-knative.dev/eventing/pkg/client/listers/eventing/v1beta1
-knative.dev/eventing/pkg/client/listers/flows/v1
-knative.dev/eventing/pkg/client/listers/flows/v1beta1
-knative.dev/eventing/pkg/client/listers/messaging/v1
-knative.dev/eventing/pkg/client/listers/messaging/v1beta1
-knative.dev/eventing/pkg/client/listers/sources/v1
-knative.dev/eventing/pkg/client/listers/sources/v1alpha1
-knative.dev/eventing/pkg/client/listers/sources/v1alpha2
-knative.dev/eventing/pkg/client/listers/sources/v1beta1
 knative.dev/eventing/pkg/kncloudevents
 knative.dev/eventing/pkg/reconciler/source
 # knative.dev/hack v0.0.0-20201102193445-9349aeeb6701
@@ -859,7 +792,6 @@ knative.dev/pkg/apis
 knative.dev/pkg/apis/duck
 knative.dev/pkg/apis/duck/ducktypes
 knative.dev/pkg/apis/duck/v1
-knative.dev/pkg/apis/duck/v1alpha1
 knative.dev/pkg/apis/duck/v1beta1
 knative.dev/pkg/changeset
 knative.dev/pkg/client/injection/ducks/duck/v1/addressable

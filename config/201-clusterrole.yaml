@@ -62,17 +62,6 @@ rules:
   - patch
 
 - apiGroups:
-    - sources.knative.dev
-  resources:
-    - sinkbindings
-  verbs: *everything
-- apiGroups:
-    - sources.knative.dev
-  resources:
-    - sinkbindings/status
-  verbs: *everything
-
-- apiGroups:
   - ""
   resources:
   - secrets

@@ -18,9 +18,11 @@ package v1alpha1
 
 import (
 	"context"
+
+	"knative.dev/pkg/apis"
 )
 
-// SetDefaults mutates SmapleSource.
+// SetDefaults mutates SampleSource.
 func (s *SampleSource) SetDefaults(ctx context.Context) {
 	//Add code for Mutating admission webhook.
 
@@ -33,4 +35,8 @@ func (s *SampleSource) SetDefaults(ctx context.Context) {
 	if s != nil && s.Spec.Interval == "" {
 		s.Spec.Interval = "10s"
 	}
+
+	// call SetDefaults against duckv1.Destination with a context of ObjectMeta of SampleSource.
+	withNS := apis.WithinParent(ctx, s.ObjectMeta)
+	s.Spec.Sink.SetDefaults(withNS)
 }
