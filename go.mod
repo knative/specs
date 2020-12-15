@@ -4,16 +4,16 @@ go 1.14
 
 require (
 	github.com/cloudevents/sdk-go/v2 v2.2.0
-	github.com/google/go-cmp v0.5.2
+	github.com/google/go-cmp v0.5.4
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/stretchr/testify v1.5.1
 	go.uber.org/zap v1.16.0
 	k8s.io/api v0.18.12
 	k8s.io/apimachinery v0.18.12
 	k8s.io/client-go v11.0.1-0.20190805182717-6502b5e7b1b5+incompatible
-	knative.dev/eventing v0.19.1-0.20201202221809-1d3519c16565
-	knative.dev/hack v0.0.0-20201201234937-fddbf732e450
-	knative.dev/pkg v0.0.0-20201204013209-b89ac2a63293
+	knative.dev/eventing v0.19.1-0.20201215082544-1e06e5ce4c64
+	knative.dev/hack v0.0.0-20201214230143-4ed1ecb8db24
+	knative.dev/pkg v0.0.0-20201215101243-af53027cbd91
 )
 
 replace (
