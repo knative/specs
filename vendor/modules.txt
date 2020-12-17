@@ -95,7 +95,7 @@ github.com/davecgh/go-spew/spew
 # github.com/emicklei/go-restful v2.9.5+incompatible
 github.com/emicklei/go-restful
 github.com/emicklei/go-restful/log
-# github.com/evanphx/json-patch v4.5.0+incompatible
+# github.com/evanphx/json-patch v4.9.0+incompatible
 github.com/evanphx/json-patch
 # github.com/go-logr/logr v0.1.0
 github.com/go-logr/logr
@@ -778,7 +778,7 @@ k8s.io/utils/buffer
 k8s.io/utils/integer
 k8s.io/utils/pointer
 k8s.io/utils/trace
-# knative.dev/eventing v0.19.1-0.20201215082544-1e06e5ce4c64
+# knative.dev/eventing v0.19.1-0.20201216183558-f3468d1c9954
 ## explicit
 knative.dev/eventing/pkg/adapter/v2
 knative.dev/eventing/pkg/adapter/v2/util/crstatusevent
@@ -791,7 +791,7 @@ knative.dev/eventing/pkg/reconciler/source
 # knative.dev/hack v0.0.0-20201214230143-4ed1ecb8db24
 ## explicit
 knative.dev/hack
-# knative.dev/pkg v0.0.0-20201215101243-af53027cbd91
+# knative.dev/pkg v0.0.0-20201217014702-b0c121fb667f
 ## explicit
 knative.dev/pkg/apis
 knative.dev/pkg/apis/duck
