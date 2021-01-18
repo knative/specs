@@ -56,6 +56,10 @@ spec:
             value: knative.dev/eventing
           - name: WEBHOOK_NAME
             value: samplesource-webhook
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
           ports:
           - containerPort: 9090
             name: metrics
