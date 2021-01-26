@@ -26,8 +26,10 @@ import (
 )
 
 // SampleSourceLister helps list SampleSources.
+// All objects returned here must be treated as read-only.
 type SampleSourceLister interface {
 	// List lists all SampleSources in the indexer.
+	// Objects returned here must be treated as read-only.
 	List(selector labels.Selector) (ret []*v1alpha1.SampleSource, err error)
 	// SampleSources returns an object that can list and get SampleSources.
 	SampleSources(namespace string) SampleSourceNamespaceLister
@@ -58,10 +60,13 @@ func (s *sampleSourceLister) SampleSources(namespace string) SampleSourceNamespa
 }
 
 // SampleSourceNamespaceLister helps list and get SampleSources.
+// All objects returned here must be treated as read-only.
 type SampleSourceNamespaceLister interface {
 	// List lists all SampleSources in the indexer for a given namespace.
+	// Objects returned here must be treated as read-only.
 	List(selector labels.Selector) (ret []*v1alpha1.SampleSource, err error)
 	// Get retrieves the SampleSource from the indexer for a given namespace and name.
+	// Objects returned here must be treated as read-only.
 	Get(name string) (*v1alpha1.SampleSource, error)
 	SampleSourceNamespaceListerExpansion
 }
