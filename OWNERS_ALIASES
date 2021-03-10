@@ -1,6 +1,7 @@
 aliases:
-  conformance-approvers:
-  - tayarani
-  conformance-reviewers:
-  - tayarani
-
+  technical-oversight-committee:
+    - evankanderson
+    - grantr
+    - markusthoemmes
+  conformance-leads:
+    - tayarani
