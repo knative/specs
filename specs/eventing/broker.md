@@ -24,6 +24,8 @@ events.
 While a Broker is Ready, it SHOULD be a valid Addressable and its
 `status.address.url` field SHOULD indicate the address of its ingress.
 
+The class of a Broker object SHOULD be immutable.
+
 ### Trigger
 
 Triggers SHOULD include a Ready condition in their status.
@@ -34,8 +36,9 @@ subscriber.
 While a Trigger is Ready, it SHOULD indicate its subscriber's URI via the
 `status.subscriberUri` field.
 
-Triggers MUST be assigned to exactly one Broker. Triggers SHOULD be assigned a
-default Broker upon creation if no Broker is specified by the user.
+Triggers MUST be assigned to exactly one Broker. The assigned Broker of a
+trigger SHOULD be immutable. Triggers SHOULD be assigned a default Broker upon
+creation if no Broker is specified by the user.
 
 A Trigger MAY be created before its assigned Broker exists. A Trigger SHOULD
 progress to Ready when its assigned Broker exists and is Ready.
@@ -43,6 +46,22 @@ progress to Ready when its assigned Broker exists and is Ready.
 The attributes filter specifying a list of key-value pairs MUST be supported by
 Trigger. Events that pass the attributes filter MUST include context or
 extension attributes that match all key-value pairs exactly.
+
+### Delivery Spec
+
+Both BrokerSpec and TriggerSpec have a `Delivery` field of type
+[`duck.DeliverySpec`](./spec.md#eventingduckv1deliveryspec). This field, among
+the other features, allows the user to define the dead letter sink and retries.
+The `BrokerSpec.Delivery` field is global across all the Triggers registered
+with that particular Broker, while the `TriggerSpec.Delivery`, if configured,
+fully overrides `BrokerSpec.Delivery` for that particular Trigger, hence:
+
+- When `BrokerSpec.Delivery` and `TriggerSpec.Delivery` are both not configured,
+  no delivery spec SHOULD be used.
+- When `BrokerSpec.Delivery` is configured, but not the specific
+  `TriggerSpec.Delivery`, then the `BrokerSpec.Delivery` SHOULD be used.
+- When `TriggerSpec.Delivery` is configured, then `TriggerSpec.Delivery` SHOULD
+  be used.
 
 ## Data Plane
 
