@@ -248,7 +248,7 @@ resources without being aware of the exact source type or implementation at
 compile time.
 
 The
-[`source-observer` ClusterRole](../../config/200-source-observer-clusterrole.yaml)
+[`source-observer` ClusterRole](https://github.com/knative/eventing/blob/main/config/200-source-observer-clusterrole.yaml)
 looks like:
 
 ```yaml
@@ -363,4 +363,4 @@ SHOULD send events to its
 [Destination](https://pkg.go.dev/github.com/knative/pkg/apis/duck/v1?tab=doc#Destination).
 
 For more details of the Knative Event delivery, take a look at its
-[specification](../delivery/README.md).
+[specification](https://github.com/knative/eventing/blob/main/docs/delivery/README.md).

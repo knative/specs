@@ -93,7 +93,7 @@ The `BrokerStatus` represents the current state of the `Broker`.
 | `observedGeneration` | `int`                                       | Optional    | The 'Generation' of the `Broker` that was last processed by the controller.                                               |             |
 | `conditions`         | [`[]apis.Condition`](#apis.condition)       | Optional    | Broker conditions. The latest available observations of the resource's current state.                                     |             |
 | `annotations`        | `map[string]string`                         | Optional    | Fields to save additional state as well as convey more information to the user.                                           |             |
-| `address`            | [`duckv1.Addressable`](#duckv1.addressable) | Required    | The exposed endpoint URI for getting events delivered into the broker. The broker is [`Addressable`](duckv1.addressable). |             |
+| `address`            | [`duckv1.Addressable`](#duckv1.addressable) | Required    | The exposed endpoint URI for getting events delivered into the broker. The broker is [`Addressable`](#duckv1.addressable). |             |
 
 ##### Conditions
 
@@ -252,7 +252,7 @@ that the CRD resource will have the URL, but operator code can work with the
 | ------------ | ---------- | ----------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------ | ----------- |
 | `kind`       | `string`   | Required    | [Kind of the referent.](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds) |                                      |             |
 | `namespace`  | `string`   | Optional    | [Namespace of the referent.](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)              | defaulted to the object embedding it |             |
-| `name`       | `string`   | Required    | [Name of the referent.](https://kubernetes.io/docs/concepts/oFURLverview/working-with-objects/names/#names)              |                                      |             |
+| `name`       | `string`   | Required    | [Name of the referent.](https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names)              |                                      |             |
 | `apiVersion` | `string`   | Required    | API version of the referent.                                                                                             |                                      |             |
 
 ### duckv1.Destination
@@ -261,7 +261,7 @@ that the CRD resource will have the URL, but operator code can work with the
 
 | Field Name        | Field Type                                | Description                                                                                                                                                                        | Constraints                                                |
 | ----------------- | ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| `ref`<sup>1</sup> | [`duckv1.KReference`](#duckv1.kreference) | Reference to an [`duckv1.Addressable`](#duckv1.addressable).                                                                                                                       | Must adhere to [`duckv1.Addressable`](duckv1.addressable). |
+| `ref`<sup>1</sup> | [`duckv1.KReference`](#duckv1.kreference) | Reference to an [`duckv1.Addressable`](#duckv1.addressable).                                                                                                                       | Must adhere to [`duckv1.Addressable`](#duckv1.addressable). |
 | `uri`<sup>1</sup> | [`apis.URL`](#apis.url)                   | Either an absolute URL (non-empty scheme and non-empty host) pointing to the target or a relative URI. The relative URIs will be resolved using the base URI retrieved from `ref`. | Must be an URL.                                            |
 
 1: One or both (ref, uri), Required. If only uri is specified, it must be an

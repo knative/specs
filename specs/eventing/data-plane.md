@@ -83,7 +83,7 @@ may be delivered.
 If Sink is not returning HTTP success header (200 or 202) then the event may be
 sent again. If the event can not be delivered then some sources of events (such
 as Knative sources, brokers or channels) MAY support
-[dead letter sink or channel](../delivery/README.md) for events that can not be
+[dead letter sink or channel](https://github.com/knative/eventing/blob/main/docs/delivery/README.md) for events that can not be
 delivered.
 
 ### Observability
@@ -113,11 +113,11 @@ for details.
 
 ### Data plane contract for Channels
 
-See [Channel Delivery specification](spec/channel.md#data-plane) for details.
+See [Channel Delivery specification](channel.md#data-plane) for details.
 
 ### Data plane contract for Brokers
 
-See [Broker Delivery specification](spec/broker.md)
+See [Broker Delivery specification](broker.md)
 
 ## Changelog
 
