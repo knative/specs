@@ -2849,5 +2849,5 @@ Max: 1
 ## Authors
 
 [Dan Gerdesmeier](mailto:dangerd@google.com)
-[Doug Davis](dug@us.ibm.com)
+[Doug Davis](mailto:dug@us.ibm.com)
 [Evan Anderson](mailto:evana@vmware.com)
