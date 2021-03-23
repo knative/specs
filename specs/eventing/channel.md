@@ -159,8 +159,8 @@ currently have these versions:
 1. [v1beta1](https://github.com/knative/eventing/blob/main/pkg/apis/duck/v1beta1/channelable_types.go)
 1. [v1](https://github.com/knative/eventing/blob/main/pkg/apis/duck/v1/channelable_types.go)
 
-So, for example to indicate that the Channel supports v1 channelable duck type, you
-should annotate it like so (only showing the annotations):
+So, for example to indicate that the Channel supports v1 channelable duck type,
+you should annotate it like so (only showing the annotations):
 
 ```
 - apiVersion: messaging.knative.dev/v1
