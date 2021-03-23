@@ -156,7 +156,6 @@ Each instantiated Channel (ie, Custom Object) SHOULD have an annotation
 indicating which version of the `Channelable` duck type it conforms to. We
 currently have these versions:
 
-1. [v1beta1](https://github.com/knative/eventing/blob/main/pkg/apis/duck/v1beta1/channelable_types.go)
 1. [v1](https://github.com/knative/eventing/blob/main/pkg/apis/duck/v1/channelable_types.go)
 
 So, for example to indicate that the Channel supports v1 channelable duck type,
@@ -284,8 +283,8 @@ _Structured Content Mode_ of the HTTP Protocol Binding for CloudEvents, although
 dispatching events using _Binary Content Mode_ is RECOMMENDED.
 
 Channels MUST send events to all subscribers which are marked with a status of
-`ready: "True"` in the channel's `status.subscribers` (v1beta1 / v1). The events
-must be sent to the `subscriberURI` field of `spec.subscribers` (v1beta1 / v1).
+`ready: "True"` in the channel's `status.subscribers` (v1). The events
+must be sent to the `subscriberURI` field of `spec.subscribers` (v1).
 Each channel implementation will have its own quality of service guarantees
 (e.g. at least once, at most once, etc) which SHOULD be documented.
 
@@ -333,6 +332,7 @@ following attributes:
 
 ## Changelog
 
+- `0.22.x release`: Drop mention of `v1beta1` `channelable` duck type.
 - `0.11.x release`: CloudEvents in 0.3 and 1.0 are supported.
 - `0.13.x release`: Types in the API group `messaging.knative.dev` will be
   promoted from `v1alpha1`to `v1beta1`. Add requirement for labeling Custom
