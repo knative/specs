@@ -94,8 +94,8 @@ The Broker MUST respond with a 200-level HTTP status code if a produce request
 is accepted.
 
 If a Broker receives a produce request and is unable to parse a valid
-CloudEvent, then it MUST reject the request with HTTP status code
-`400 Bad Request`.
+CloudEvent, then it MUST reject the request with a 400 level HTTP status code,
+for example: `400 Bad Request`, or `415 Unsupported Media Type`.
 
 ### Delivery
 
