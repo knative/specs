@@ -1,4 +1,8 @@
 aliases:
+  knative-trademark-committee:
+    - bsnchan
+    - duglin
+    - ronavn
   technical-oversight-committee:
     - evankanderson
     - grantr
