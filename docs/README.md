@@ -1,8 +1,8 @@
-# Policies and Procedures
+# Knative Docs
+- [Knative Conformance Certification](conformance_procedure.md)
+- [Knative Terms and Conditions](terms_and_conditions.md)
 
-Future home of docs related to:
-
+TODO(leads):
 - Policies for versioning the specs
 - Policies for contributing to the specs
-- Procedures for testing conformance of a given implementation
-- Procedures for obtaining and mainting Knative compliance certificates
+- Procedures for mainting Knative conformance certificates
