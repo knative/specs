@@ -1,4 +1,4 @@
-# Knative Docs
+# Knative Policies and Procedures
 - [Knative Conformance Certification](conformance_procedure.md)
 - [Knative Terms and Conditions](terms_and_conditions.md)
 
