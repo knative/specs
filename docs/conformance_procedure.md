@@ -1,5 +1,4 @@
 # Knative Conformance Certification
-
 Vendors can follow the procedures outlined here to become Knative conformance certified. The certification process ensures an implementation conforms to the Knative specifications, and allows use of the Knative trademark under the [Terms and Conditions](terms_and_conditions.md) guidelines.
 
 ## Certification Process Overview
