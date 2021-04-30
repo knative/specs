@@ -145,17 +145,15 @@ The subscriber MAY receive a confirmation that a reply event was accepted by the
 Broker. If the reply event was not accepted, the initial event SHOULD be
 redelivered to the subscriber.
 
-Subscribers SHOULD respond to event delivery with one of the following HTTP
-response codes.
+Subscribers SHOULD acknowledge delivery of an event with an HTTP 2xx response code.
 
-    * 204: Acknowlegement of receipt without event in the response.
+Subscribers MAY respond to event delivery with one of the following responses
+to provide additional contextual meaning.
+
     * 200: Acknowlegement of receipt with an event in the response.
-
-Additional valid response codes from event subscribers indicating successful
-delivery are:
-
     * 201: Acknowledgement of receipt with an event in the response indicating that a resource was created. A description of that resource SHOULD be included in the subscriber's response as an event of the corresponding type. For example, a GitHub issue was created, and an event whose type is com.github.issue is included in the response.
     * 202: Acknowledgement of receipt. Event subscribers SHOULD respond 202 to indicate an acknowledgement of receipt when the consumer simply forwards or stores the message without actually processing it. 
+    * 204: Acknowlegement of receipt without an event in the response.
 
 All other HTTP response codes SHOULD be treated as if the event delivery had failed.
 
