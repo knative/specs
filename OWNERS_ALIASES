@@ -8,5 +8,4 @@ aliases:
     - grantr
     - markusthoemmes
     - rhuss
-  conformance-writers:
-    - tayarani
+  conformance-writers: []
