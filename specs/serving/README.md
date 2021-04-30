@@ -7,7 +7,7 @@ document locations:
 
 Docs in this directory:
 
-- [Motivation and goals](motivation.md)
-- [Resource type overview](overview.md)
+- [Motivation and goals](motivation.md) - non-normative
+- [Resource type overview](overview.md) - non-normative
 - [Knative Serving API Specification](knative-api-specification-1.0.md)
 - [Knative Serving Runtime Specification](runtime-contract.md)

@@ -1,16 +1,116 @@
-# Knative Eventing Data Plane Contracts
+# Knative Eventing Data Plane Contract
 
 ## Introduction
 
-Developers using Knative Eventing need to know what is supported for delivery to
-user provided components that receive events. Knative Eventing defines contract
-for data plane components and we have listed them here.
+Late-binding event senders and receivers (composing applications using
+configuration) only works when all event senders and recipients speak a common
+protocol. In order to enable wide support for senders and receivers, Knative
+Eventing extends the [CloudEvents HTTP
+bindings](https://github.com/cloudevents/spec/blob/v1.0.1/http-protocol-binding.md)
+with additional semantics for the following reasons:
 
-## Conformance
+- Knative Eventing aims to enable highly-reliable event processing workflows. As
+  such, it prefers duplicate delivery to discarded events. The CloudEvents spec
+  does not take a stance here.
+
+- The CloudEvents HTTP bindings provide a relatively simple and efficient
+  network protocol which can easily be supported in a wide variety of
+  programming languages leveraging existing library investments in HTTP.
+
+- Knative Eventing assumes a sender-driven (push) event delivery system. That
+  is, each event processor is actively responsible for an event until it is
+  handled (or affirmatively delivered to all following recipients).
+  
+- Knative Eventing aims to make writing [event
+  sources](./overview.md#event-source) and event-processing software easier to
+  write; as such, it imposes higher standards on system components like
+  [brokers](./overview.md#broker) and [channels](./overview.md#channel) than on
+  edge components.
+
+This contract defines a mechanism for a single event sender to reliably deliver
+a single event to a single recipient. Building from this primitive, chains of
+reliable event delivery and event-driven applications can be built.
+
+## Background
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
 interpreted as described in RFC2119.
+
+When not specified in this document, the [CloudEvents HTTP bindings, version
+1](https://github.com/cloudevents/spec/blob/v1.0.1/http-protocol-binding.md) and
+[HTTP 1.1 protocol](https://tools.ietf.org/html/rfc7230) standards should be
+followed (with the CloudEvents bindings preferred in the case of conflict).
+
+The current version of this document does not describe protocol negotiation or
+the ability to upgrade an HTTP 1.1 event delivery into a more efficient protocol
+such as GRPC, AMQP or the like. It also aims not to preclude such a protocol
+negotiation in future versions of the specification.
+
+
+## Event Delivery
+
+To provide simpler support for event sources which may be translating events
+from existing systems, some data plane requirements for senders are relaxed in
+the general case. In the case of Knative Eventing provided resources (Channels
+and Brokers) which implement these roles, requirements may be increased from
+SHOULD to MUST. These cases are called out as they occur.
+
+### Minimum supported protocol
+
+All senders and recipients MUST support the CloudEvents 1.0 protocol and the
+[binary](https://github.com/cloudevents/spec/blob/v1.0.1/http-protocol-binding.md#31-binary-content-mode)
+and
+[structured](https://github.com/cloudevents/spec/blob/v1.0.1/http-protocol-binding.md#32-structured-content-mode)
+content modes of the CloudEvetns HTTP binding. Senders MUST support both
+cleartext (`http`) and TLS (`https`) URLs as event delivery destinations.
+
+### HTTP Verbs
+
+In the absence of specific delivery preferences, the sender MUST initiate
+delivery of the event to the recipient using the HTTP POST verb, using either
+the structured or binary encoding of the event (sender's choice). This delivery
+SHOULD be performed using the CloudEvents HTTP Binding, version 1.
+
+Senders MAY probe the recipient with an [HTTP OPTIONS
+request](https://tools.ietf.org/html/rfc7231#section-4.3.7); if implemented, the
+recipent MUST indicate support the POST verb using the [`Allow`
+header](https://tools.ietf.org/html/rfc7231#section-7.4.1). Senders which
+receive an error SHOULD proceed using the HTTP POST mechanism.
+
+### Event Acknowledgement and Repeat Delivery
+
+Event recipients MUST use the HTTP response code to indicate acceptance of an
+event. The recipient MUST NOT return a response accepting the event until it has
+handled event (processed the event or stored in stable storage). The following
+response codes are explicitly defined; event recipients MAY also respond with
+other response codes. A response code not in this table SHOULD be treated as an
+error.
+
+| Response code | Meaning                     | Retry |
+| ------------- | --------------------------- | ----- |
+| 200           | [Event Reply](#event-reply) | No    |
+| 202           | Event accepted              | No    |
+| 400           | Unparsable event            | No    |
+| 404           | Endpoint does not exist     | No    |
+
+Recipients MUST be able to handle duplicate delivery of events and MUST accept
+delivery of duplicate events, as the event acknowledgement could have been lost in
+transit to the sender.
+
+
+### Observability
+
+
+### Derived (Reply) Events
+
+
+
+
+================================================================
+    CUT BELOW
+================================================================
+
 
 ## Data plane contract for Sinks
 
