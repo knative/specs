@@ -36,7 +36,7 @@ The `TriggerSpec` defines the desired state for the `Trigger`.
 | Field Name   | Field Type                                  | Requirement | Description                                                                                                               | Default Value           |
 | ------------ | ------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
 | `broker`     | `string`                                    | Required    | The broker that this trigger receives events from.                                                                        | 'default'               |
-| `filter`     | [`TriggerFilter`](#triggerfilter)           | Optional    | The filter to apply against all events from the broker. Only events that pass this filter will be sent to the subscriber. | subscribe to all events |
+| `filter`     | [`FilterSpec`](#filterspec)                 | Optional    | The filter to apply against all events from the broker. Only events that pass this filter will be sent to the subscriber. | subscribe to all events |
 | `subscriber` | [`duckv1.Destination`](#duckv1.destination) | Required    | The addressable that receives events from the broker that pass the filter.                                                |                         |
 
 #### Status
@@ -88,11 +88,11 @@ The `BrokerSpec` defines the desired state for the `Broker`.
 
 The `BrokerStatus` represents the current state of the `Broker`.
 
-| Field Name           | Field Type                                  | Requirement | Description                                                                                                               | Constraints |
-| -------------------- | ------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `observedGeneration` | `int`                                       | Optional    | The 'Generation' of the `Broker` that was last processed by the controller.                                               |             |
-| `conditions`         | [`[]apis.Condition`](#apis.condition)       | Optional    | Broker conditions. The latest available observations of the resource's current state.                                     |             |
-| `annotations`        | `map[string]string`                         | Optional    | Fields to save additional state as well as convey more information to the user.                                           |             |
+| Field Name           | Field Type                                  | Requirement | Description                                                                                                                | Constraints |
+| -------------------- | ------------------------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `observedGeneration` | `int`                                       | Optional    | The 'Generation' of the `Broker` that was last processed by the controller.                                                |             |
+| `conditions`         | [`[]apis.Condition`](#apis.condition)       | Optional    | Broker conditions. The latest available observations of the resource's current state.                                      |             |
+| `annotations`        | `map[string]string`                         | Optional    | Fields to save additional state as well as convey more information to the user.                                            |             |
 | `address`            | [`duckv1.Addressable`](#duckv1.addressable) | Required    | The exposed endpoint URI for getting events delivered into the broker. The broker is [`Addressable`](#duckv1.addressable). |             |
 
 ##### Conditions
@@ -252,17 +252,17 @@ that the CRD resource will have the URL, but operator code can work with the
 | ------------ | ---------- | ----------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------ | ----------- |
 | `kind`       | `string`   | Required    | [Kind of the referent.](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds) |                                      |             |
 | `namespace`  | `string`   | Optional    | [Namespace of the referent.](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)              | defaulted to the object embedding it |             |
-| `name`       | `string`   | Required    | [Name of the referent.](https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names)              |                                      |             |
+| `name`       | `string`   | Required    | [Name of the referent.](https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names)                  |                                      |             |
 | `apiVersion` | `string`   | Required    | API version of the referent.                                                                                             |                                      |             |
 
 ### duckv1.Destination
 
 `Destination` represents a target of an invocation over HTTP.
 
-| Field Name        | Field Type                                | Description                                                                                                                                                                        | Constraints                                                |
-| ----------------- | ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| Field Name        | Field Type                                | Description                                                                                                                                                                        | Constraints                                                 |
+| ----------------- | ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
 | `ref`<sup>1</sup> | [`duckv1.KReference`](#duckv1.kreference) | Reference to an [`duckv1.Addressable`](#duckv1.addressable).                                                                                                                       | Must adhere to [`duckv1.Addressable`](#duckv1.addressable). |
-| `uri`<sup>1</sup> | [`apis.URL`](#apis.url)                   | Either an absolute URL (non-empty scheme and non-empty host) pointing to the target or a relative URI. The relative URIs will be resolved using the base URI retrieved from `ref`. | Must be an URL.                                            |
+| `uri`<sup>1</sup> | [`apis.URL`](#apis.url)                   | Either an absolute URL (non-empty scheme and non-empty host) pointing to the target or a relative URI. The relative URIs will be resolved using the base URI retrieved from `ref`. | Must be an URL.                                             |
 
 1: One or both (ref, uri), Required. If only uri is specified, it must be an
 absolute URL. If both are specified, uri will be resolved using the base URI
@@ -309,11 +309,24 @@ for a `Subscription`.
 | `apiVersion` | `string`               | Optional    | API version of backing channel CRD                           |             |
 | `spec`       | `runtime.RawExtension` | Optional    | Spec to be passed verbatim to backing channel implementation |             |
 
-### TriggerFilter
+### FilterSpec
 
-| Field Name   | Field Type          | Requirement | Description                                                                                                                                                                                                                                                                 | Constraints                                                                                                                     |
-| ------------ | ------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `attributes` | `map[string]string` | Optional    | A map of context attribute names to values for filtering by equality. Each key in the map is compared with the equivalent key in the event context. An event passes the filter if all values are equal to the specified values. The value '' to indicate all strings match. | Nested context attributes are not supported as keys. Only string values are supported. Only exact matches will pass the filter. |
+FilterSpec allows to define a filter. If multiple filters are specified, then
+the same semantics of `FilterSpec.All` is applied. If no filter dialect or empty
+object is specified, then the filter always accept the events.
+
+| Field Name   | Field Type          | Requirement | Description                                                                                                                                                                                                                                                                 | Constraints                                                                                                                                                                                                                                                          |
+| ------------ | ------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `attributes` | `map[string]string` | Optional    | A map of context attribute names to values for filtering by equality. Each key in the map is compared with the equivalent key in the event context. An event passes the filter if all values are equal to the specified values. The value '' to indicate all strings match. | Nested context attributes are not supported as keys. Only string values are supported. Only exact matches will pass the filter.                                                                                                                                      |
+| `all`        | `[]FilterSpec`      | Optional    | All evaluates to true if all the nested expressions evaluate to true.                                                                                                                                                                                                       | All must contain at least one filter expression.                                                                                                                                                                                                                     |
+| `any`        | `[]FilterSpec`      | Optional    | Any evaluates to true if at least one of the nested expressions evaluate to true.                                                                                                                                                                                           | Any must contain at least one filter expression.                                                                                                                                                                                                                     |
+| `not`        | `FilterSpec`        | Optional    | Not evaluates to true if the nested expression evaluates to false.                                                                                                                                                                                                          |                                                                                                                                                                                                                                                                      |
+| `exact`      | `map[string]string` | Optional    | Exact evaluates to true if the value of the matching CloudEvents attribute is matches exactly the String value specified (case sensitive).                                                                                                                                  | Exact must contain exactly one property, where the key is the name of the CloudEvents attribute to be matched, and its value is the String value to use in the comparison. The attribute name and value specified in the filter express cannot be be empty strings.  |
+| `prefix`     | `map[string]string` | Optional    | Prefix evaluates to true if the value of the matching CloudEvents attribute starts with the String value specified (case sensitive).                                                                                                                                        | Prefix must contain exactly one property, where the key is the name of the CloudEvents attribute to be matched, and its value is the String value to use in the comparison. The attribute name and value specified in the filter express cannot be be empty strings. |
+| `suffix`     | `map[string]string` | Optional    | Suffix evaluates to true if the value of the matching CloudEvents attribute ends with the String value specified (case sensitive).                                                                                                                                          | Suffix must contain exactly one property, where the key is the name of the CloudEvents attribute to be matched, and its value is the String value to use in the comparison. he attribute name and value specified in the filter express cannot be be empty strings.  |
+
+`FilterSpec` may also contain additional fields in order to support vendor
+specific filter dialects.
 
 ### apis.Condition
 
