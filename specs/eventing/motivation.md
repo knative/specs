@@ -25,7 +25,9 @@ application designers:
 In order to enable loose coupling and late-binding of event producers and
 consumers, Knative Eventing utilizes and extends the [CloudEvents
 specification](https:?/github.com/cloudevents/spec) as the data plane protocol
-between components.
+between components. Knative Eventing prioritizes at-least-once delivery
+semantics, using the CloudEvents HTTP POST (push) transport as a minimum common
+transport between components.
 
 Knative Eventing also defines patterns to simplify the construction and usage of
 event senders and recipients.
