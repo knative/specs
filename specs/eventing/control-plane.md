@@ -230,31 +230,144 @@ transient conditions be indicated with a `severity="Info"`.
 
 # Resource Lifecycle
 
-## Broker
+## Trigger Lifecycle
 
-TODO: lifecycle; are triggers deleted when the broker is deleted? Are trigger conditions reflected in the broker? What are the required conditions (Ready, ???)? `spec.class` SHOULD be immutable.
+The lifecycle of a Trigger is independent of that of the Broker it refers to in
+its `spec.broker` field; if the Broker does not currently exist or its `Ready`
+condition is not `true`, then the Trigger's `Ready` condition MUST NOT be
+`true`, and the reason SHOULD indicate that the corresponding Broker is missing
+or not ready. Similarly, if the Trigger's `spec.subscriber` field contains a
+`ref` to another resource, the Trigger's `Ready` condition MUST NOT be `true` if
+the `spec.subscriber.ref` field points to a resource which does not exist or
+which does not have a `status.address.url` field.
 
-## Trigger
+Once created, the Trigger's `spec.broker` SHOULD NOT permit updates; to change
+the `spec.broker`, the Trigger can be deleted and re-created. This pattern is
+chosen to make it clear that changing the `spec.broker` is not an atomic
+operation, as it may span multiple storage systems. Changes to
+`spec.subscriber`, `spec.filter` and other fields SHOULD be permitted, as these
+could occur within a single storage system.
 
-TODO: lifecycle; what happens if a trigger is created before a broker? What about events received by a broker before the trigger is created? Are broker conditions reflected in the trigger? What are the required conditions (Ready, ???)? `spec.broker` SHOULD be immutable.
+When a Trigger becomes associated with a Broker (either due to creating the
+Trigger or the Broker), the Trigger MUST only set the `Ready` condition to `true`
+after the Broker has been configured to send all future events matching the
+`spec.filter` to the Trigger's `spec.subscriber`. The Broker MAY send some
+events to the Trigger`s `spec.subscriber` prior to the Trigger's `Ready` condition
+being set to `true`. When a Trigger is deleted, the Broker MAY send some
+additional events to the Trigger`s `spec.subscriber`.
 
-## Channel
+## Broker Lifecycle
 
-TODO: lifecycle; are subscriptions deleted when the channel is deleted? Are subscription conditions reflected in the channel? What are the required conditions (Ready, ???)?  <!-- should `spec.channelTemplate` be immutable? -->
+A Broker represents an Addressable endpoint (i.e. it has a `status.address.url`
+field) which can receive, store, and forward events to multiple recipients based
+on a set of attribute filters (Triggers). Triggers are associated with a Broker
+based on the `spec.broker` field on the Trigger; it is expected that the
+controller for a Broker will also control the associated Triggers. When the
+Broker's `Ready` condition is `true`, the Broker MUST provide a
+`status.address.url` which accepts all CloudEvents and MUST forward the received
+events to each associated Trigger whose `Ready` condition is `true`. As
+described in the [Trigger Lifecycle](#trigger-lifecycle) section, a Broker MAY
+forward events to an associated Trigger which which does not currently have a
+`true` `Ready` condition, including events received by the Broker before the
+Trigger was created.
 
+When a Broker is created, its `spec.class` field MUST be populated to indicate
+which of several possible Broker implementations to use. It is RECOMMENDED to
+default the `spec.class` field on creation if it is unpopulated. Once created,
+the `spec.class` field MUST be immutable; the Broker must be deleted and
+re-created to change the `spec.class`. This pattern is chosen to make it clear
+that changing `spec.class` is not an atomic operation and that any
+implementation would be likely to result in message loss during the transition.
+
+## Subscription Lifecycle
+
+The lifecycle of a Subscription is independent of that of the Channel it refers
+to in its `spec.channel` field. The `spec.channel` object reference may refer to
+either an `eventing.knative.dev/v1` Channel resource, or another resource which
+meets the `spec.subscribers` and `spec.delivery` required elements in the
+Channellable duck type. If the referenced `spec.channel` does not currently
+exist or its `Ready` condition is not `true`, then the Subscription's `Ready`
+condition MUST NOT be `true`, and the reason SHOULD indicate that the
+corresponding Channel is missing or not ready. Similarly, if the Subscriptions
+`spec.subscriber`, `spec.reply` or `spec.delivery.deadLetterSink` fields contain
+a `ref` to another Resource, the Subscriptions `Ready` condition MUST NOT be
+`true` unless the referred-to resources exist and contain a `status.address.url`
+field. (It is acceptable for none of the `spec.subscriber`, `spec.reply`, and
+`spec.delivery.deadLetterSink` fields to contain a `ref` field.)
+
+Once created, the Subscription's `spec.channel` SHOULD NOT permit updates; to
+change the `spec.channel`, the Subscription can be deleted and re-created. This
+pattern is chosen to make it clear that changing the `spec.channel` is not an
+atomic operation, as it may span multiple storage systems. Changes to
+`spec.subscriber`, `spec.reply`, `spec.delivery` and other fileds SHOULD be
+permitted, as these could occur within a single storage system.
+
+When a Subscription becomes associated with a channel (either due to creating
+the Subscription or the channel), the Subscription MUST only set the `Ready`
+condition to `true` after the channel has been configured to send all future
+events to the Subscriptions `spec.subscriber`. The Channel MAY send some events
+to the Subscription before prior to the Subscription's `Ready` condition being
+set to `true`. When a Subscription is deleted, the Channel MAY send some
+additional events to the Subscription's `spec.subscriber`.
+
+## Channel Lifecycle
+
+A Channel represents an Addressable endpoint (i.e. it has as
+`status.address.url` field) which can receive, store, and forward events to
+multiple recipients (Subscriptions). Subscriptions are associated with a Channel
+based on the `spec.channel` field on the Subscription; it is expected that the
+controller for a Channel will also control the associated Subscriptions. When
+the Channel's `Ready` condition is `true`, the Channel MUST provide a
+`status.address.url` which accepts all CloudEvents and MUST forward the received
+events to each associated Subscription whose `Ready` condition is `true`. As
+described in the [Subscription Lifecycle](#subscription-lifecycle) section, a
+Channel MAY forward events to an associated Subscription which does not
+currently have a `true` `Ready` condition, including events received by the
+Channel before the `Subscription` was created.
+
+When a Channel is created, its `spec.channelTemplate` field MUST be populated to
+indicate which of several possible Channel implementations to use. It is
+RECOMMENDED to default the `spec.channelTemplate` field on creation if it is
+unpopulated. Once created, the `spec.channelTemplate` field MUST be immutabel;
+the Channel MUST be deleted and re-created to change the
+`spec.channelTemplate`. This pattern is chosen to make it clear that changing
+`spec.channelTemplate` is not an atomic operation and that any implementation
+would be likely to result in message loss during the transition.
+
+<!--
 TODO: channel-compatible CRDs (Channelable)
+-->
 
-## Subscription
+## Event Source Lifecycle
 
-TODO: lifecycle; what happens if a subscription is created before a channel?  What about events received by a channel before the subscription is created? Are channel conditions reflected in the subscription? What are the required conditions (Ready, ???)? `spec.channel` SHOULD be immutable.
+<!--
+TODO: do we have requirements?
+-->
 
-## Addressable resolution
+## Addressable Resolution
 
-TODO: What is it? How does it apply to Trigger / Subscription? Indicate that Broker & Channel MUST implement Addressable.
+Both Trigger and Subscription have optional object references (`ref` in
+`spec.subscriber`, `spec.delivery.deadLetterSink`, and `spec.reply` for
+Subscription) which are expected to conform to the Addressable partial schema
+("duck type"). An object conforms with the Addressable partial schema if it
+contains a `status.address.url` field containing a URL which may be used to
+deliver CloudEvents over HTTP. As a special case, Kubernetes `v1` `Service`
+objects are considered to have a `status.address.url` of
+`http://<service-dns-name>/`. If one of these object references points to an
+object which does not currently satisfy this partial schema (either because the
+`status.address.url` field is empty, or because the object does not have that
+field), then the Trigger or Subscription MUST indicate an error by setting the
+`Ready` condition to `false`, and SHOULD include an indication of the error in a
+condition reason or type.
+
+Both Broker and Channel MUST conform to the Addressable partial schema.
 
 # Event Routing
 
 ## Content Based Routing
+
+Each filter (Trigger) is evaluated independently for each received event, and a received event may be 
+
 
 TODO: How do Broker & Trigger handle routing.
 - When must events arriving at a Broker be routed by a Trigger (when the Trigger is Ready?)
@@ -278,7 +391,11 @@ TODO: What's required of an event source with respect to routing? Retries? Dead-
 
 # Detailed Resources
 
+TODO: copy over schemas
+
 ## Broker v1
+
+
 
 ## Trigger v1
 
