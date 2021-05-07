@@ -3,17 +3,16 @@
 The Knative Eventing platform provides common primitives for routing CloudEvents
 between cooperating HTTP clients. This document describes the structure,
 lifecycle, and management of Knative Eventing resources in the context of the
-[Kubernetes Resource
-Model](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/resource-management.md). An
-understanding of the Kubernetes API interface and the capabilities of
-[Kubernetes Custom
-Resources](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) is assumed.
+[Kubernetes Resource Model](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/resource-management.md).
+An understanding of the Kubernetes API interface and the capabilities of
+[Kubernetes Custom Resources](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+is assumed.
 
-This document does not define the [data plane event delivery
-contract](./data-plane.md) (though it does describe how event delivery is
-configured). This document also does not prescribe specific implementations of
-supporting services such as access control, observability, or resource
-management.
+This document does not define the
+[data plane event delivery contract](./data-plane.md) (though it does describe
+how event delivery is configured). This document also does not prescribe
+specific implementations of supporting services such as access control,
+observability, or resource management.
 
 # Background
 
@@ -29,8 +28,8 @@ illustrative (i.e. _an implementation on Kubernetes_) or descriptive (i.e. _this
 Kubernetes resource MUST be exposed_). References to these core Kubernetes
 resources will be annotated as either illustrative or descriptive.
 
-This document considers two users of a given Knative Eventing environment, and is
-particularly concerned with the expectations of developers (and language and
+This document considers two users of a given Knative Eventing environment, and
+is particularly concerned with the expectations of developers (and language and
 tooling developers, by extension) deploying applications to the environment.
 
 - **Developers** configure Knative resources to implement an event-routing
@@ -41,13 +40,13 @@ tooling developers, by extension) deploying applications to the environment.
 
 # RBAC Profile
 
-In order to validate the controls described in [Resource
-Overview](#resource-overview), the following Kubernetes RBAC profile may be
-applied in a Kubernetes cluster. This Kubernetes RBAC is an illustrative example
-of the minimal profile rather than a requirement. This Role should be sufficient
-to develop, deploy, and manage event routing for an application within a single
-namespace. Knative Conformance tests against "MUST", "MUST NOT", and "REQUIRED"
-conditions are expected to pass when using this profile:
+In order to validate the controls described in
+[Resource Overview](#resource-overview), the following Kubernetes RBAC profile
+may be applied in a Kubernetes cluster. This Kubernetes RBAC is an illustrative
+example of the minimal profile rather than a requirement. This Role should be
+sufficient to develop, deploy, and manage event routing for an application
+within a single namespace. Knative Conformance tests against "MUST", "MUST NOT",
+and "REQUIRED" conditions are expected to pass when using this profile:
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -63,12 +62,36 @@ rules:
     verbs: ["get", "list", "create", "update", "delete"]
 ```
 
+In order to support resolving resources which meet the
+[Addressable](./overview.md#addressable) contract, the system controlling the
+[Trigger](#trigger-lifecycle) or [Subscription](#subscription-lifecycle) will
+need _read_ access to these resources. On Kubernetes, this is most easily
+achieved using role aggregation; on systems using Kubernetes RBAC, resources
+which wish to participate in Addressable resolution should provide the following
+`ClusterRole`:
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: <component>-addressable-resolver
+  labels:
+    duck.knative.dev/addressable: "true"
+rules:
+  - apiGroups: [<resource apiGroup>]
+    resources: [<resource kind >, <resource kind>/status]
+    verbs: ["get", "list", "watch"]
+```
+
+This configuration advice SHALL NOT indicate a requirement for Kubernetes RBAC
+support.
+
 <!-- TODO: define aggregated API roles
 
 Ref:
 - https://github.com/knative/specs/blob/main/specs/eventing/channel.md#aggregated-channelable-manipulator-clusterrole
 - https://github.com/knative/specs/blob/main/specs/eventing/channel.md#aggregated-addressable-resolver-clusterrole
-- 
+-
 -->
 
 # Resource Overview
@@ -86,6 +109,7 @@ roles. See the [Overview documentation](./overview.md) for general definitions
 of the different API objects.
 
 # Error Signalling
+
 <!-- copied from ../serving/knative-api-specification-1.0.md#error-signalling -->
 
 The Knative API uses the
@@ -230,32 +254,6 @@ transient conditions be indicated with a `severity="Info"`.
 
 # Resource Lifecycle
 
-## Trigger Lifecycle
-
-The lifecycle of a Trigger is independent of that of the Broker it refers to in
-its `spec.broker` field; if the Broker does not currently exist or its `Ready`
-condition is not `true`, then the Trigger's `Ready` condition MUST NOT be
-`true`, and the reason SHOULD indicate that the corresponding Broker is missing
-or not ready. Similarly, if the Trigger's `spec.subscriber` field contains a
-`ref` to another resource, the Trigger's `Ready` condition MUST NOT be `true` if
-the `spec.subscriber.ref` field points to a resource which does not exist or
-which does not have a `status.address.url` field.
-
-Once created, the Trigger's `spec.broker` SHOULD NOT permit updates; to change
-the `spec.broker`, the Trigger can be deleted and re-created. This pattern is
-chosen to make it clear that changing the `spec.broker` is not an atomic
-operation, as it may span multiple storage systems. Changes to
-`spec.subscriber`, `spec.filter` and other fields SHOULD be permitted, as these
-could occur within a single storage system.
-
-When a Trigger becomes associated with a Broker (either due to creating the
-Trigger or the Broker), the Trigger MUST only set the `Ready` condition to `true`
-after the Broker has been configured to send all future events matching the
-`spec.filter` to the Trigger's `spec.subscriber`. The Broker MAY send some
-events to the Trigger`s `spec.subscriber` prior to the Trigger's `Ready` condition
-being set to `true`. When a Trigger is deleted, the Broker MAY send some
-additional events to the Trigger`s `spec.subscriber`.
-
 ## Broker Lifecycle
 
 A Broker represents an Addressable endpoint (i.e. it has a `status.address.url`
@@ -279,36 +277,40 @@ re-created to change the `spec.class`. This pattern is chosen to make it clear
 that changing `spec.class` is not an atomic operation and that any
 implementation would be likely to result in message loss during the transition.
 
-## Subscription Lifecycle
+## Trigger Lifecycle
 
-The lifecycle of a Subscription is independent of that of the Channel it refers
-to in its `spec.channel` field. The `spec.channel` object reference may refer to
-either an `eventing.knative.dev/v1` Channel resource, or another resource which
-meets the `spec.subscribers` and `spec.delivery` required elements in the
-Channellable duck type. If the referenced `spec.channel` does not currently
-exist or its `Ready` condition is not `true`, then the Subscription's `Ready`
-condition MUST NOT be `true`, and the reason SHOULD indicate that the
-corresponding Channel is missing or not ready. Similarly, if the Subscriptions
-`spec.subscriber`, `spec.reply` or `spec.delivery.deadLetterSink` fields contain
-a `ref` to another Resource, the Subscriptions `Ready` condition MUST NOT be
-`true` unless the referred-to resources exist and contain a `status.address.url`
-field. (It is acceptable for none of the `spec.subscriber`, `spec.reply`, and
-`spec.delivery.deadLetterSink` fields to contain a `ref` field.)
+The lifecycle of a Trigger is independent of the Broker it refers to in its
+`spec.broker` field; if the Broker does not currently exist or the Broker's
+`Ready` condition is not `true`, then the Trigger's `Ready` condition MUST be
+`false`, and the reason SHOULD indicate that the corresponding Broker is missing
+or not ready.
 
-Once created, the Subscription's `spec.channel` SHOULD NOT permit updates; to
-change the `spec.channel`, the Subscription can be deleted and re-created. This
-pattern is chosen to make it clear that changing the `spec.channel` is not an
-atomic operation, as it may span multiple storage systems. Changes to
-`spec.subscriber`, `spec.reply`, `spec.delivery` and other fileds SHOULD be
-permitted, as these could occur within a single storage system.
+The Trigger MUST also set the `status.subscriberUri` field based on resolving
+the `spec.subcriber` field before setting the `Ready` condition to `true`. If
+the `spec.subscriber.ref` field points to a resource which does not exist or
+cannot be resolved via [Addressable resolution](#addressable-resolution), the
+Trigger MUST set the `Ready` condition to `false`, and at least one condition
+should indicate the reason for the error.
 
-When a Subscription becomes associated with a channel (either due to creating
-the Subscription or the channel), the Subscription MUST only set the `Ready`
-condition to `true` after the channel has been configured to send all future
-events to the Subscriptions `spec.subscriber`. The Channel MAY send some events
-to the Subscription before prior to the Subscription's `Ready` condition being
-set to `true`. When a Subscription is deleted, the Channel MAY send some
-additional events to the Subscription's `spec.subscriber`.
+If the Trigger's `spec.delivery.deadLetterSink` field it set, it MUST be
+resolved to a URL and reported in `status.deadLetterSinkUri` in the same manner
+as the `spec.subscriber` field before setting the `Ready` condition to `true`.
+
+Once created, the Trigger's `spec.broker` SHOULD NOT permit updates; to change
+the `spec.broker`, the Trigger can be deleted and re-created. This pattern is
+chosen to make it clear that changing the `spec.broker` is not an atomic
+operation, as it may span multiple storage systems. Changes to
+`spec.subscriber`, `spec.filter` and other fields SHOULD be permitted, as these
+could occur within a single storage system.
+
+When a Trigger becomes associated with a Broker (either due to creating the
+Trigger or the Broker), the Trigger MUST only set the `Ready` condition to
+`true` after the Broker has been configured to send all future events matching
+the `spec.filter` to the Trigger's `spec.subscriber`. The Broker MAY send some
+events to the Trigger's `spec.subscriber` prior to the Trigger's
+`Ready`condition being set to `true`. When a Trigger is deleted, the Broker MAY
+send some additional events to the Trigger's `spec.subscriber` ftor tho
+deletion.
 
 ## Channel Lifecycle
 
@@ -328,11 +330,49 @@ Channel before the `Subscription` was created.
 When a Channel is created, its `spec.channelTemplate` field MUST be populated to
 indicate which of several possible Channel implementations to use. It is
 RECOMMENDED to default the `spec.channelTemplate` field on creation if it is
-unpopulated. Once created, the `spec.channelTemplate` field MUST be immutabel;
-the Channel MUST be deleted and re-created to change the
-`spec.channelTemplate`. This pattern is chosen to make it clear that changing
-`spec.channelTemplate` is not an atomic operation and that any implementation
-would be likely to result in message loss during the transition.
+unpopulated. Once created, the `spec.channelTemplate` field MUST be immutable;
+the Channel MUST be deleted and re-created to change the `spec.channelTemplate`.
+This pattern is chosen to make it clear that changing `spec.channelTemplate` is
+not an atomic operation and that any implementation would be likely to result in
+message loss during the transition.
+
+## Subscription Lifecycle
+
+The lifecycle of a Subscription is independent of that of the channel it refers
+to in its `spec.channel` field. The `spec.channel` object reference may refer to
+either an `eventing.knative.dev/v1` Channel resource, or another resource which
+meets the `spec.subscribers` and `spec.delivery` required elements in the
+Channellable duck type. If the referenced `spec.channel` does not currently
+exist or its `Ready` condition is not `true`, then the Subscription's `Ready`
+condition MUST NOT be `true`, and the reason SHOULD indicate that the
+corresponding channel is missing or not ready.
+
+The Subscription MUST also set the `status.physicalSubscription` URIs by
+resolving the `spec.subscriber`, `spec.reply`, and
+`spec.delivery.deadLetterSink` as described in
+[Addressable resolution](#addressable-resolution) before setting the `Ready`
+condition to `true`. If any of the addressable fields fails resolution, the
+Subscription MUST set the `Ready` condition to `false`, and at least one
+condition should indicate the reason for the error. (It is acceptable for none
+of the `spec.subscriber`, `spec.reply`, and `spec.delivery.deadLetterSink`
+fields to contain a `ref` field.)
+
+<!-- TODO: is at least one of `subscriber` and `reply` required? -->
+
+Once created, the Subscription's `spec.channel` SHOULD NOT permit updates; to
+change the `spec.channel`, the Subscription can be deleted and re-created. This
+pattern is chosen to make it clear that changing the `spec.channel` is not an
+atomic operation, as it may span multiple storage systems. Changes to
+`spec.subscriber`, `spec.reply`, `spec.delivery` and other fileds SHOULD be
+permitted, as these could occur within a single storage system.
+
+When a Subscription becomes associated with a channel (either due to creating
+the Subscription or the channel), the Subscription MUST only set the `Ready`
+condition to `true` after the channel has been configured to send all future
+events to the Subscriptions `spec.subscriber`. The Channel MAY send some events
+to the Subscription before prior to the Subscription's `Ready` condition being
+set to `true`. When a Subscription is deleted, the Channel MAY send some
+additional events to the Subscription's `spec.subscriber`.
 
 <!--
 TODO: channel-compatible CRDs (Channelable)
@@ -364,14 +404,40 @@ Both Broker and Channel MUST conform to the Addressable partial schema.
 
 # Event Routing
 
+Note that the event routing description below does not cover the actual
+mechanics of sending an event from one component to another; see
+[the data plane](./data-plane.md) contracts for details of the event transfer
+mechanisms.
+
 ## Content Based Routing
 
-Each filter (Trigger) is evaluated independently for each received event, and a received event may be 
+A Broker MUST publish a URL at `status.address.uri` when it is able to receive
+events. This URL MUST accept CloudEvents in both the
+[Binary Content Mode](https://github.com/cloudevents/spec/blob/v1.0.1/http-protocol-binding.md#31-binary-content-mode)
+and
+[Structured Content Mode](https://github.com/cloudevents/spec/blob/v1.0.1/http-protocol-binding.md#32-structured-content-mode)
+HTTP formats. Before sending an HTTP response, the Broker MUST durably enqueue
+the event (be able to deliver with retry without receiving the event again).
 
+For each event received by the Broker, the Broker MUST evaluate each associated
+Trigger **once** (where "associated" means Trigger with a `spec.broker` which
+references the Broker). If the Trigger has a `Ready` condition of `true` when
+the event is evaluated, the the Broker MUST evaluate the Trigger's `spec.filter`
+and, if matched, proceed with event delivery as described below. The Broker MAY
+also evaluate and forward events to associated Triggers for which the `Ready`
+condition is not currently `true`. (One example: a Trigger which is in the
+process of being programmed in the Broker data plane might receive _some_ events
+before the data plane programming was complete and the Trigger was updated to
+set the `Ready` condition to `true`.)
 
 TODO: How do Broker & Trigger handle routing.
-- When must events arriving at a Broker be routed by a Trigger (when the Trigger is Ready?)
-  - How do retries and replies interact with configuration changes in the Trigger / Broker?
+
+- When must events arriving at a Broker be routed by a Trigger (when the Trigger
+  is Ready?)
+  - How do retries and replies interact with configuration changes in the
+    Trigger / Broker?
+- Duplicate Trigger destinations
+- Duplicate filter rules
 - Retry parameters
 - Reply routing
 - Dead-letter routing
@@ -379,23 +445,32 @@ TODO: How do Broker & Trigger handle routing.
 ## Topology Based Routing
 
 TODO: How do Channel & Subscription handle routing
-- When must events arriving at a Channel be routed to a Subscription (when the Subscription is Ready?)
-  - How do retries and replies interact with configuration changes in the Subscription / Channel?
+
+- When must events arriving at a Channel be routed to a Subscription (when the
+  Subscription is Ready?)
+  - How do retries and replies interact with configuration changes in the
+    Subscription / Channel?
 - Retry parameters
 - Reply routing
 - Dead-letter routing
 
+## Event Delivery
+
+Once a Trigger or Subscription has decided to deliver an event, it MUST do the
+following:
+
+1. Attempt delivery to the `status.subscriberUri` URL
+
 ## Event Sources
 
-TODO: What's required of an event source with respect to routing? Retries? Dead-letter? Status?
+TODO: What's required of an event source with respect to routing? Retries?
+Dead-letter? Status?
 
 # Detailed Resources
 
 TODO: copy over schemas
 
 ## Broker v1
-
-
 
 ## Trigger v1
 
@@ -405,12 +480,11 @@ TODO: copy over schemas
 
 ## Addressable v1
 
-================================================================
-    CUT HERE
-================================================================
+# ================================================================ CUT HERE
 
 ## Broker
 
 The Knative Broker represents a single instance of an event router which accepts
 events from one or more sources and routes them to selected destinations based
-on rules matching the attributes of the received event. In order to do this, the Broker defines 
+on rules matching the attributes of the received event. In order to do this, the
+Broker defines
