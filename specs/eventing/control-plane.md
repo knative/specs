@@ -472,13 +472,560 @@ TODO: copy over schemas
 
 ## Broker v1
 
+### Metadata:
+
+Standard Kubernetes [metav1.ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#objectmeta-v1-meta) resource.
+
+### Spec:
+
+<table>
+  <tr>
+    <td><strong>Field Name</strong></td>
+    <td><strong>Field Type</strong></td>
+    <td><strong>Description</strong></td>
+    <td><strong>Schema Requirement</strong></td>
+  </tr>
+  <tr>
+    <td><code>config</code></td>
+    <td>KReference<br/>(Optional)</td>
+    <td>A reference to an object which describes the configuration options for the Broker (for example, a ConfigMap).</td>
+    <td>RECOMMENDED</td>
+  </tr>
+  <tr>
+    <td><code>delivery</code></td>
+    <td>DeliverySpec<br/>(Optional)</td>
+    <td>A default delivery options for Triggers which do not specify more-specific options.</td>
+    <td>REQUIRED</td>
+  </tr>
+</table>
+
+### Status
+
+<table>
+  <tr>
+    <td><strong>Field Name</strong></td>
+    <td><strong>Field Type</strong></td>
+    <td><strong>Description</strong></td>
+    <td><strong>Schema Requirement</strong></td>
+  </tr>
+  <tr>
+    <td><code>conditions</code></td>
+    <td><a href="#error-signalling">See Error Signalling</a></td>
+    <td>Used for signalling errors, see link. Conditions of types Ready MUST be present.</td>
+    <td>REQUIRED</td>
+  </tr>
+  <tr>
+    <td><code>observedGeneration</code></td>
+    <td>int64</td>
+    <td>The latest metadata.generation that the reconciler has attempted. If <code>observedGeneration</code> is updated, <code>conditions</code> MUST be updated with current status in the same transaction.</td>
+    <td>REQUIRED</td>
+  </tr>
+  <tr>
+    <td><code>address</code></td>
+    <td>duckv1.Addressable</td>
+    <td>Address used to deliver events to the Broker.</td>
+    <td>REQUIRED</td>
+  </tr>
+  <tr>
+    <td><code>deadLetterSinkUri</td>
+    <td>URL (string)</td>
+    <td>If <code>spec.delivery.deadLetterSink</code> is specified, the resolved URL of the dead letter address.</td>
+    <td>REQUIRED</td>
+  </tr>
+</table>
+
 ## Trigger v1
+
+### Metadata:
+
+Standard Kubernetes [metav1.ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#objectmeta-v1-meta) resource.
+
+### Spec:
+
+<table>
+  <tr>
+    <td><strong>Field Name</strong></td>
+    <td><strong>Field Type</strong></td>
+    <td><strong>Description</strong></td>
+    <td><strong>Schema Requirement</strong></td>
+  </tr>
+  <tr>
+    <td><code>broker</code></td>
+    <td>string<br/>(Required, Immutable)</td>
+    <td>The Broker which this Trigger should filter events from.</td>
+    <td>REQUIRED</td>
+  </tr>
+  <tr>
+    <td><code>filter</code></td>
+    <td>TriggerFilter<br/>(Optional)</td>
+    <td>Event filters which are used to select events to be delivered to the Trigger's destination.</td>
+    <td>REQUIRED</td>
+  </tr>
+  <tr>
+    <td><code>subscriber</code></td>
+    <td>duckv1.Destination<br/>(Required)</td>
+    <td>The destination that filtered events should be sent to.</td>
+    <td>REQUIRED</td>
+  </tr>
+  <tr>
+    <td><code>delivery</code></td>
+    <td>DeliverySpec<br/>(Optional)</td>
+    <td>Delivery options for this Trigger.</td>
+    <td>RECOMMENDED</td>
+  </tr>
+</table>
+
+### Status
+
+<table>
+  <tr>
+    <td><strong>Field Name</strong></td>
+    <td><strong>Field Type</strong></td>
+    <td><strong>Description</strong></td>
+    <td><strong>Schema Requirement</strong></td>
+  </tr>
+  <tr>
+    <td><code>conditions</code></td>
+    <td><a href="#error-signalling">See Error Signalling</a></td>
+    <td>Used for signalling errors, see link. Conditions of types Ready MUST be present.</td>
+    <td>REQUIRED</td>
+  </tr>
+  <tr>
+    <td><code>observedGeneration</code></td>
+    <td>int64</td>
+    <td>The latest metadata.generation that the reconciler has attempted. If <code>observedGeneration</code> is updated, <code>conditions</code> MUST be updated with current status in the same transaction.</td>
+    <td>REQUIRED</td>
+  </tr>
+  <tr>
+    <td><code>subscriberUri</code></td>
+    <td>URL (string)</td>
+    <td>The resolved address of the <code>spec.subscriber</code>.</td>
+    <td>REQUIRED</td>
+  </tr>
+  <tr>
+    <td><code>deadLetterSinkUri</td>
+    <td>URL (string)</td>
+    <td>If <code>spec.delivery.deadLetterSink</code> is specified, the resolved URL of the dead letter address.</td>
+    <td>REQUIRED</td>
+  </tr>
+</table>
 
 ## Channel v1
 
+### Metadata:
+
+Standard Kubernetes [metav1.ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#objectmeta-v1-meta) resource.
+
+### Spec:
+
+<table>
+  <tr>
+    <td><strong>Field Name</strong></td>
+    <td><strong>Field Type</strong></td>
+    <td><strong>Description</strong></td>
+    <td><strong>Schema Requirement</strong></td>
+  </tr>
+  <tr>
+    <td><code>channelTemplate</code></td>
+    <td>object<br/>(Optional)</td>
+    <td>Implementation-specific parameters to configure the channel.</td>
+    <td>OPTIONAL</td>
+  </tr>
+  <tr>
+    <td><code>subscribers</code></td>
+    <td>[]duckv1.SubscriberSpec</td>
+    <td>Aggregated subscription information; this array should be managed automatically by the controller.</td>
+    <td>RECOMMENDED</td>
+  </tr>
+  <tr>
+    <td><code>delivery</code></td>
+    <td>DeliverySpec<br/>(Optional)</td>
+    <td>A default delivery options for Subscriptions which do not specify more-specific options.</td>
+    <td>REQUIRED</td>
+  </tr>
+</table>
+
+### Status
+
+<table>
+  <tr>
+    <td><strong>Field Name</strong></td>
+    <td><strong>Field Type</strong></td>
+    <td><strong>Description</strong></td>
+    <td><strong>Schema Requirement</strong></td>
+  </tr>
+  <tr>
+    <td><code>conditions</code></td>
+    <td><a href="#error-signalling">See Error Signalling</a></td>
+    <td>Used for signalling errors, see link. Conditions of types Ready MUST be present.</td>
+    <td>REQUIRED</td>
+  </tr>
+  <tr>
+    <td><code>observedGeneration</code></td>
+    <td>int64</td>
+    <td>The latest metadata.generation that the reconciler has attempted. If <code>observedGeneration</code> is updated, <code>conditions</code> MUST be updated with current status in the same transaction.</td>
+    <td>REQUIRED</td>
+  </tr>
+  <tr>
+    <td><code>address</code></td>
+    <td>duckv1.Addressable</td>
+    <td>Address used to deliver events to the Broker.</td>
+    <td>REQUIRED</td>
+  </tr>
+  <tr>
+    <td><code>subscribers</code></td>
+    <td>[]duckv1.SubscriberStatus</td>
+    <td>Resolved addresses for the <code>spec.subscribers</code> (subscriptinos to this Channel).</td>
+    <td>RECOMMENDED</td>
+  </tr>
+  <tr>
+    <td><code>deadLetterSinkUri</td>
+    <td>URL (string)</td>
+    <td>If <code>spec.delivery.deadLetterSink</code> is specified, the resolved URL of the dead letter address.</td>
+    <td>REQUIRED</td>
+  </tr>
+</table>
+
 ## Subscription v1
 
+### Metadata:
+
+Standard Kubernetes [metav1.ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#objectmeta-v1-meta) resource.
+
+### Spec:
+
+<table>
+  <tr>
+    <td><strong>Field Name</strong></td>
+    <td><strong>Field Type</strong></td>
+    <td><strong>Description</strong></td>
+    <td><strong>Schema Requirement</strong></td>
+  </tr>
+  <tr>
+    <td><code>channel</code></td>
+    <td>Kubernetes v1/ObjectReference<br/>(Required, Immutable)</td>
+    <td>The channel this subscription receives events from. Immutable.</td>
+    <td>REQUIRED</td>
+  </tr>
+  <tr>
+    <td><code>subscriber</code></td>
+    <td>duckv1.Destination<br/>(Required)</td>
+    <td>The destination that events should be sent to.</td>
+    <td>REQUIRED</td>
+  </tr>
+  <tr>
+    <td><code>reply</code></td>
+    <td>duckv1.Destination<br/>(Required)</td>
+    <td>The destination that reply events from <code>spec.subscriber</code> should be sent to.</td>
+    <td>REQUIRED</td>
+  </tr>
+  <tr>
+    <td><code>delivery</code></td>
+    <td>DeliverySpec<br/>(Optional)</td>
+    <td>Delivery options for this Subscription.</td>
+    <td>RECOMMENDED</td>
+  </tr>
+</table>
+
+### Status
+
+<table>
+  <tr>
+    <td><strong>Field Name</strong></td>
+    <td><strong>Field Type</strong></td>
+    <td><strong>Description</strong></td>
+    <td><strong>Schema Requirement</strong></td>
+  </tr>
+  <tr>
+    <td><code>conditions</code></td>
+    <td><a href="#error-signalling">See Error Signalling</a></td>
+    <td>Used for signalling errors, see link. Conditions of types Ready MUST be present.</td>
+    <td>REQUIRED</td>
+  </tr>
+  <tr>
+    <td><code>observedGeneration</code></td>
+    <td>int64</td>
+    <td>The latest metadata.generation that the reconciler has attempted. If <code>observedGeneration</code> is updated, <code>conditions</code> MUST be updated with current status in the same transaction.</td>
+    <td>REQUIRED</td>
+  </tr>
+  <tr>
+    <td><code>physicalSubscription</code></td>
+    <td>PhysicalSubscriptionStatus</td>
+    <td>The fully resolved values for <code>spec</code> endpoint references.</td>
+    <td>REQUIRED</td>
+  </tr>
+</table>
+
 ## Addressable v1
+
+Note that the Addressable interface is a partial schema -- any resource which includes these fields may be referenced using a `duckv1.Destination`.
+
+### Metadata:
+
+Standard Kubernetes [metav1.ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#objectmeta-v1-meta) resource.
+
+### Spec:
+
+There are no `spec` requirements for Addressable.
+
+### Status
+
+<table>
+  <tr>
+    <td><strong>Field Name</strong></td>
+    <td><strong>Field Type</strong></td>
+    <td><strong>Description</strong></td>
+    <td><strong>Schema Requirement</strong></td>
+  </tr>
+  <tr>
+    <td><code>address</code></td>
+    <td>duckv1.Addressable</td>
+    <td>Address used to deliver events to the Broker.</td>
+    <td>REQUIRED</td>
+  </tr>
+</table>
+
+# Detailed SubResource Objects
+
+## duckv1.Addressable
+
+<table>
+  <tr>
+    <td><strong>Field Name</strong></td>
+    <td><strong>Field Type</strong></td>
+    <td><strong>Description</strong></td>
+    <td><strong>Schema Requirement</strong></td>
+  </tr>
+  <tr>
+    <td><code>url</code></td>
+    <td>URL</td>
+    <td>Address used to deliver events to the Addressable.</td>
+    <td>REQUIRED</td>
+  </tr>
+</table>
+
+## duckv1.Destination
+
+Destination is used to indicate the destination for event delivery. This is an exclusive union; excatly one field MUST be set.
+
+<table>
+  <tr>
+    <td><strong>Field Name</strong></td>
+    <td><strong>Field Type</strong></td>
+    <td><strong>Description</strong></td>
+    <td><strong>Schema Requirement</strong></td>
+  </tr>
+  <tr>
+    <td><code>ref</code></td>
+    <td>duckv1.KReference<br/>(Optional)</td>
+    <td>An ObjectReference to an Addressable reference to deliver events to. This is mutually exclusive with <code>uri</code>.</td>
+    <td>REQUIRED</td>
+  </tr>
+  <tr>
+    <td><code>uri</code></td>
+    <td>URL (string)<br/>(Optional)</td>
+    <td>A resolved URL to deliver events to. This is mutually exclusive with <code>ref</code>.</td>
+    <td>REQUIRED</td>
+  </tr>
+</table>
+
+## duckv1.SubscriberSpec
+
+SubscriberSpec represents an automatically-populated extraction of information from a [Subscription](#subscription).
+
+<table>
+  <tr>
+    <td><strong>Field Name</strong></td>
+    <td><strong>Field Type</strong></td>
+    <td><strong>Description</strong></td>
+    <td><strong>Schema Requirement</strong></td>
+  </tr>
+  <tr>
+    <td><code>uid</code></td>
+    <td>UID (string)</td>
+    <td>UID is used to disambiguate Subscriptions which might be recreated.</td>
+    <td>RECOMMENDED</td>
+  </tr>
+  <tr>
+    <td><code>generation</code></td>
+    <td>int64</td>
+    <td>Generation of the copied Subscription.</td>
+    <td>RECOMMENDED</td>
+  </tr>
+  <tr>
+    <td><code>subscriberUri</code></td>
+    <td>URL (string)</td>
+    <td>The resolved address of the Subscription's <code>spec.subscriber</code>.</td>
+    <td>REQUIRED</td>
+  </tr>
+  <tr>
+    <td><code>replyUri</code></td>
+    <td>URL (string)</td>
+    <td>The resolved address of the Subscription's <code>spec.reply</code>.</td>
+    <td>REQUIRED</td>
+  </tr>
+  <tr>
+    <td><code>delivery</code></td>
+    <td>DeliverySpec</td>
+    <td>The resolved Subscription delivery options. The <code>deadLetterSink</code> should use the <code>uri</code> form.</td>
+    <td>REQUIRED</td>
+  </tr>
+</table>
+
+## duckv1.SubscriberStatus
+
+SubscriberStatus indicates the status of programming a Subscription by a Channel.
+
+<table>
+  <tr>
+    <td><strong>Field Name</strong></td>
+    <td><strong>Field Type</strong></td>
+    <td><strong>Description</strong></td>
+    <td><strong>Schema Requirement</strong></td>
+  </tr>
+  <tr>
+    <td><code>uid</code></td>
+    <td>UID (string)</td>
+    <td>UID is used to disambiguate Subscriptions which might be recreated.</td>
+    <td>RECOMMENDED</td>
+  </tr>
+  <tr>
+    <td><code>generation</code></td>
+    <td>int64</td>
+    <td>Generation of the copied Subscription.</td>
+    <td>RECOMMENDED</td>
+  </tr>
+  <tr>
+    <td><code>ready</code></td>
+    <td>kubernetes v1/ConditionStatus</td>
+    <td>Ready status of the Subscription's programming into the Channel data plane.</td>
+    <td>REQUIRED</td>
+  </tr>
+  <tr>
+    <td><code>message</code></td>
+    <td>duckv1.Addressable</td>
+    <td>A human readable message indicating details of <code>ready</code> status.</td>
+    <td>REQUIRED</td>
+  </tr>
+</table>
+
+## DeliverySpec
+
+<table>
+  <tr>
+    <td><strong>Field Name</strong></td>
+    <td><strong>Field Type</strong></td>
+    <td><strong>Description</strong></td>
+    <td><strong>Schema Requirement</strong></td>
+  </tr>
+  <tr>
+    <td><code>deadLetterSink</code></td>
+    <td>duckv1.Destination</td>
+    <td>Fallback address used to deliver events which cannot be delivered during the flow.</td>
+    <td>RECOMMENDED</td>
+  </tr>
+  <tr>
+    <td><code>retry</code></td>
+    <td>int</td>
+    <td>Retry is the minimum number of retries the sender should attempt when sending an event before moving it to the dead letter sink.</td>
+    <td>RECOMMENDED</td>
+  </tr>
+  <tr>
+    <td><code>backoffDelay</code></td>
+    <td>string</td>
+    <td>The initial delay when retrying delivery.</td>
+    <td>RECOMMENDED</td>
+  </tr>
+  <tr>
+    <td><code>backoffPolicy</code></td>
+    <td>enum<br/>("linear", "exponential")</td>
+    <td>Retry timing scaling policy. Linear policy uses the same <code>backoffDelay</code> for each attempt; Exponential policy uses 2^N multiples of <code>backoffDelay</code></td>
+    <td>RECOMMENDED</td>
+  </tr>
+</table>
+
+## KReference
+
+KReference is a lightweight version of kubernetes [`v1/ObjectReference`](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#objectreference-v1-core)
+
+<table>
+  <tr>
+    <td><strong>Field Name</strong></td>
+    <td><strong>Field Type</strong></td>
+    <td><strong>Description</strong></td>
+    <td><strong>Schema Requirement</strong></td>
+  </tr>
+  <tr>
+    <td><code>apiVersion</code></td>
+    <td>string</td>
+    <td>ApiVersion of the target reference.</td>
+    <td>REQUIRED</td>
+  </tr>
+  <tr>
+    <td><code>kind</code></td>
+    <td>string</td>
+    <td>Kind of the target reference.</td>
+    <td>REQUIRED</td>
+  </tr>
+  <tr>
+    <td><code>namespace</code></td>
+    <td>string</td>
+    <td>Namespace of the target resource.</td>
+    <td>REQUIRED</td>
+  </tr>
+  <tr>
+    <td><code>address</code></td>
+    <td>string</td>
+    <td>Address used to deliver events to the Broker.</td>
+    <td>REQUIRED</td>
+  </tr>
+</table>
+
+## PhysicalSubscriptionStatus
+
+<table>
+  <tr>
+    <td><strong>Field Name</strong></td>
+    <td><strong>Field Type</strong></td>
+    <td><strong>Description</strong></td>
+    <td><strong>Schema Requirement</strong></td>
+  </tr>
+  <tr>
+    <td><code>subscriberUri</code></td>
+    <td>URL (string)</td>
+    <td>Resolved address of the <code>spec.subscriber</code>.</td>
+    <td>REQUIRED</td>
+  </tr>
+  <tr>
+    <td><code>replyUri</code></td>
+    <td>URL (string)</td>
+    <td>Resolved address of the <code>spec.reply</code>.</td>
+    <td>REQUIRED</td>
+  </tr>
+  <tr>
+    <td><code>deadLetterSinkUri</code></td>
+    <td>URL (string)</td>
+    <td>Resolved address of the <code>spec.delivery.deadLetterSink</code>.</td>
+    <td>REQUIRED</td>
+  </tr>
+</table>
+
+## TriggerFilter
+
+<table>
+  <tr>
+    <td><strong>Field Name</strong></td>
+    <td><strong>Field Type</strong></td>
+    <td><strong>Description</strong></td>
+    <td><strong>Schema Requirement</strong></td>
+  </tr>
+  <tr>
+    <td><code>attributes</code></td>
+    <td>map[string]string</td>
+    <td>Event filter using exact match on event context attributes. Each key in the map is compared with the equivalent key in the event context. An event passes the filter if the event attribute values are equal to the specified values.</td>
+    <td>REQUIRED</td>
+  </tr>
+</table>
 
 # ================================================================ CUT HERE
 
