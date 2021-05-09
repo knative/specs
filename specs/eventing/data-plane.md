@@ -45,14 +45,14 @@ followed (with the CloudEvents bindings preferred in the case of conflict).
 The current version of this document does not describe protocol negotiation or
 the ability to upgrade an HTTP 1.1 event delivery into a more efficient protocol
 such as GRPC, AMQP, or the like. It is expected that a future compatible version
-of this specification may describe a protocol negotiation mechanism.
+of this specification might describe a protocol negotiation mechanism.
 
 ## Event Delivery
 
-To provide simpler support for event sources which may be translating events
+To provide simpler support for event sources which might be translating events
 from existing systems, some data plane requirements for senders are relaxed in
 the general case. In the case of Knative Eventing provided resources (Channels
-and Brokers) which implement these roles, requirements may be increased from
+and Brokers) which implement these roles, requirements are increased from
 SHOULD to MUST. These cases are called out as they occur.
 
 ### Minimum supported protocol
@@ -69,7 +69,7 @@ cleartext (`http`) and TLS (`https`) URLs as event delivery destinations.
 In the absence of specific delivery preferences, the sender MUST initiate
 delivery of the event to the recipient using the HTTP POST verb, using either
 the structured or binary encoding of the event (sender's choice). This delivery
-SHOULD be performed using the CloudEvents HTTP Binding, version 1.
+SHOULD be performed using the CloudEvents HTTP Binding, version 1.0.
 
 Senders MAY probe the recipient with an [HTTP OPTIONS
 request](https://tools.ietf.org/html/rfc7231#section-4.3.7); if implemented, the
@@ -95,7 +95,7 @@ treated as a retriable error.
 | other `2xx`   | (Unspecified)               | Yes\* | No\*               | Yes\* |
 | other `3xx`   | (Unspecified)               | Yes\* | No\*               | Yes\* |
 | `400`         | Unparsable event            | No    | No                 | Yes   |
-| `404`         | Endpoint does not exist     | No    | No                 | Yes   |
+| `404`         | Endpoint does not exist     | Yes   | No                 | Yes   |
 | other `4xx`   | Error                       | Yes   | No                 | Yes   |
 | other `5xx`   | Error                       | Yes   | No                 | Yes   |
 
