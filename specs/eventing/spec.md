@@ -35,7 +35,7 @@ The `TriggerSpec` defines the desired state for the `Trigger`.
 
 | Field Name   | Field Type                                  | Requirement | Description                                                                                                               | Default Value           |
 | ------------ | ------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
-| `broker`     | `string`                                    | Required    | The broker that this trigger receives events from.                                                                        | 'default'               |
+| `broker`     | `string`                                    | Required    | The broker that this trigger receives events from.                                                                        |                         |
 | `filter`     | [`TriggerFilter`](#triggerfilter)           | Optional    | The filter to apply against all events from the broker. Only events that pass this filter will be sent to the subscriber. | subscribe to all events |
 | `subscriber` | [`duckv1.Destination`](#duckv1.destination) | Required    | The addressable that receives events from the broker that pass the filter.                                                |                         |
 
