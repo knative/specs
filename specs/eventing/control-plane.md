@@ -378,12 +378,6 @@ additional events to the Subscription's `spec.subscriber`.
 TODO: channel-compatible CRDs (Channelable)
 -->
 
-## Event Source Lifecycle
-
-<!--
-TODO: do we have requirements?
--->
-
 ## Addressable Resolution
 
 Both Trigger and Subscription have optional object references (`ref` in
@@ -420,61 +414,114 @@ HTTP formats. Before sending an HTTP response, the Broker MUST durably enqueue
 the event (be able to deliver with retry without receiving the event again).
 
 For each event received by the Broker, the Broker MUST evaluate each associated
-Trigger **once** (where "associated" means Trigger with a `spec.broker` which
+Trigger **once** (where "associated" means a Trigger with a `spec.broker` which
 references the Broker). If the Trigger has a `Ready` condition of `true` when
 the event is evaluated, the the Broker MUST evaluate the Trigger's `spec.filter`
-and, if matched, proceed with event delivery as described below. The Broker MAY
-also evaluate and forward events to associated Triggers for which the `Ready`
+and, if matched, proceed with
+[event delivery as described below](#event-delivery). The Broker MAY also
+evaluate and forward events to associated Triggers for which the `Ready`
 condition is not currently `true`. (One example: a Trigger which is in the
 process of being programmed in the Broker data plane might receive _some_ events
 before the data plane programming was complete and the Trigger was updated to
 set the `Ready` condition to `true`.)
 
-TODO: How do Broker & Trigger handle routing.
+If multiple Triggers match an event, one event delivery MUST be generated for
+each match; duplicate matches with the same destination MUST each generate a
+separate event delivery attempts, one per Trigger match. The implementation MAY
+attach additional event attributes or other metaata distinguishing between these
+deliveries. The implementation MUST NOT modify the event payload in this
+process.
 
-- When must events arriving at a Broker be routed by a Trigger (when the Trigger
-  is Ready?)
-  - How do retries and replies interact with configuration changes in the
-    Trigger / Broker?
-- Duplicate Trigger destinations
-- Duplicate filter rules
-- Retry parameters
-- Reply routing
-- Dead-letter routing
+Reply events generated during event delivery MUST be re-enqueued by the Broker
+in the same way as events delivered to the Broker's Addressable URL. Reply
+events re-enqued in this maanner MUST be evaluated against all triggers
+associated with the Broker, including the Trigger that generated the reply.
+Implementations MAY implement event-loop detection; it is RECOMMENDED that any
+such controls be documented to end-users. Implementations MAY avoid using HTTP
+to deliver event replies to the Broker's event-delivery input and instead use an
+internal queueing mechanism.
 
 ## Topology Based Routing
 
-TODO: How do Channel & Subscription handle routing
+A Channel MUST publish a URL at `status.address.url` when it is able to receive
+events. This URL MUST accept CloudEvents in both the
+[Binary Content Mode](https://github.com/cloudevents/spec/blob/v1.0.1/http-protocol-binding.md#31-binary-content-mode)
+and
+[Structured Content Mode](https://github.com/cloudevents/spec/blob/v1.0.1/http-protocol-binding.md#32-structured-content-mode)
+HTTP formats. Before sending an HTTP response, the Channel MUST durably enqueue
+the event (be able to deliver with retry without receiving the event again).
 
-- When must events arriving at a Channel be routed to a Subscription (when the
-  Subscription is Ready?)
-  - How do retries and replies interact with configuration changes in the
-    Subscription / Channel?
-- Retry parameters
-- Reply routing
-- Dead-letter routing
+For each event received by the Channel, the Channel MUST deliver the event to
+each associated Subscription **once** (where "associated" means a Subscription
+with a `spec.channel` which references the Channel). If the Subscription has a
+`Ready` condition of `true` when the event is evaluated, the Channel MUST
+forward the event as described in
+[event delivery as described below](#event-delivery). The Channel MAY also
+forward events to associated Subscriptions for with the `Ready` condition is not
+currently `true`. (One example: a Subscription which is in the process of being
+programmed in the Channel data plane might receive _some_ events before the data
+plane programming was complete and the Subscription was updated to set the
+`Ready` condition to `true`.)
+
+If multiple Subscriptions with the same destination are associated with the same
+Channel, each Subscription MUST generate one delivery attempt per Subscription.
+The implementation MAY attach additional event attributes or other metadata
+distinguishing between these deliveries. The implementation MUST NOT modify the
+event payload in this process.
 
 ## Event Delivery
 
 Once a Trigger or Subscription has decided to deliver an event, it MUST do the
 following:
 
-1. Attempt delivery to the `status.subscriberUri` URL
+1. Resolve all URLs and delivery options.
 
-## Event Sources
+1. Attempt delivery to the `status.subscriberUri` URL following the
+   [data plane contract](./data-plane.md).
 
-TODO: What's required of an event source with respect to routing? Retries?
-Dead-letter? Status?
+   1. If the event delivery fails with a retriable error, it SHOULD be retried
+      up to `retry` times, following the `backoffPolicy` and `backoffDelay`
+      parameters if specified.
+
+1. If the delivery attempt is successful (either the original request or a
+   retry) and no event is returned, the event delivery is complete.
+
+1. If the delivery attempt is successful (either the original request or a
+   retry) and an event is returned in the reply, the reply event will be
+   delivered to the `status.replyUri` destination (for Subscriptions) or added
+   to the Broker for processing (for Triggers). If `status.replyUri` is not
+   present in the Subscription, the reply event is be dropped.
+
+   1. If delivery of the reply event fails with a retriable error, the delivery
+      of the reply event to the reply destination SHOULD be retried up to
+      `retry` times, following the `backoffPolicy` and `backoffDelay` parameters
+      if specified.
+
+1. If all retries are exhausted for either the original delivery or the retry,
+   or if a non-retryable error is received, the event should be delivered to the
+   `deadLetterSink` in the delivery options. If no `deadLetterSink` is
+   specified, the event is dropped.
+
+   The implementation MAY set additional attributes on the event or wrap the
+   failed event in a "failed delivery" event; this behavior is not (currently)
+   standardized.
+
+   If delivery of the reply event fails with a retriable error, the delivery to
+   the `deadLetterSink` SHOULD be retried up to `retry` times, following the
+   `backoffPolicy` and `backoffDelay` parameters if specified. Alternatively,
+   implementations MAY use an equivalent internal mechanism for delivery (for
+   example, if the `ref` form of `deadLetterSink` points to a compatible
+   implementation).
 
 # Detailed Resources
-
-TODO: copy over schemas
 
 ## Broker v1
 
 ### Metadata:
 
-Standard Kubernetes [metav1.ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#objectmeta-v1-meta) resource.
+Standard Kubernetes
+[metav1.ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#objectmeta-v1-meta)
+resource.
 
 ### Spec:
 
@@ -538,7 +585,9 @@ Standard Kubernetes [metav1.ObjectMeta](https://kubernetes.io/docs/reference/gen
 
 ### Metadata:
 
-Standard Kubernetes [metav1.ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#objectmeta-v1-meta) resource.
+Standard Kubernetes
+[metav1.ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#objectmeta-v1-meta)
+resource.
 
 ### Spec:
 
@@ -614,7 +663,9 @@ Standard Kubernetes [metav1.ObjectMeta](https://kubernetes.io/docs/reference/gen
 
 ### Metadata:
 
-Standard Kubernetes [metav1.ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#objectmeta-v1-meta) resource.
+Standard Kubernetes
+[metav1.ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#objectmeta-v1-meta)
+resource.
 
 ### Spec:
 
@@ -690,7 +741,9 @@ Standard Kubernetes [metav1.ObjectMeta](https://kubernetes.io/docs/reference/gen
 
 ### Metadata:
 
-Standard Kubernetes [metav1.ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#objectmeta-v1-meta) resource.
+Standard Kubernetes
+[metav1.ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#objectmeta-v1-meta)
+resource.
 
 ### Spec:
 
@@ -758,11 +811,14 @@ Standard Kubernetes [metav1.ObjectMeta](https://kubernetes.io/docs/reference/gen
 
 ## Addressable v1
 
-Note that the Addressable interface is a partial schema -- any resource which includes these fields may be referenced using a `duckv1.Destination`.
+Note that the Addressable interface is a partial schema -- any resource which
+includes these fields may be referenced using a `duckv1.Destination`.
 
 ### Metadata:
 
-Standard Kubernetes [metav1.ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#objectmeta-v1-meta) resource.
+Standard Kubernetes
+[metav1.ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#objectmeta-v1-meta)
+resource.
 
 ### Spec:
 
@@ -806,7 +862,8 @@ There are no `spec` requirements for Addressable.
 
 ## duckv1.Destination
 
-Destination is used to indicate the destination for event delivery. This is an exclusive union; excatly one field MUST be set.
+Destination is used to indicate the destination for event delivery. This is an
+exclusive union; excatly one field MUST be set.
 
 <table>
   <tr>
@@ -831,7 +888,8 @@ Destination is used to indicate the destination for event delivery. This is an e
 
 ## duckv1.SubscriberSpec
 
-SubscriberSpec represents an automatically-populated extraction of information from a [Subscription](#subscription).
+SubscriberSpec represents an automatically-populated extraction of information
+from a [Subscription](#subscription).
 
 <table>
   <tr>
@@ -874,7 +932,8 @@ SubscriberSpec represents an automatically-populated extraction of information f
 
 ## duckv1.SubscriberStatus
 
-SubscriberStatus indicates the status of programming a Subscription by a Channel.
+SubscriberStatus indicates the status of programming a Subscription by a
+Channel.
 
 <table>
   <tr>
@@ -921,7 +980,7 @@ SubscriberStatus indicates the status of programming a Subscription by a Channel
   <tr>
     <td><code>deadLetterSink</code></td>
     <td>duckv1.Destination</td>
-    <td>Fallback address used to deliver events which cannot be delivered during the flow.</td>
+    <td>Fallback address used to deliver events which cannot be delivered during the flow. An implementation MAY place limits on the allowed destinations for the <code>deadLetterSink</code>.</td>
     <td>RECOMMENDED</td>
   </tr>
   <tr>
@@ -946,7 +1005,8 @@ SubscriberStatus indicates the status of programming a Subscription by a Channel
 
 ## KReference
 
-KReference is a lightweight version of kubernetes [`v1/ObjectReference`](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#objectreference-v1-core)
+KReference is a lightweight version of kubernetes
+[`v1/ObjectReference`](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#objectreference-v1-core)
 
 <table>
   <tr>
