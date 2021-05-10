@@ -37,7 +37,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 interpreted as described in RFC2119.
 
 When not specified in this document, the
-[CloudEvents HTTP bindings, version 1](https://github.com/cloudevents/spec/blob/v1.0.1/http-protocol-binding.md)
+[CloudEvents HTTP bindings, version 1.0](https://github.com/cloudevents/spec/blob/v1.0.1/http-protocol-binding.md)
 and [HTTP 1.1 protocol](https://tools.ietf.org/html/rfc7230) standards should be
 followed (with the CloudEvents bindings preferred in the case of conflict).
 
@@ -81,7 +81,7 @@ HTTP POST mechanism.
 ### Event Acknowledgement and Repeat Delivery
 
 Event recipients MUST use the HTTP response code to indicate acceptance of an
-event. The recipient MUST NOT return a response accepting the event until it has
+event. The recipient SHOULD NOT return a response accepting the event until it has
 handled event (processed the event or stored it in stable storage). The
 following response codes are explicitly defined; event recipients MAY also
 respond with other response codes. A response code not in this table SHOULD be
