@@ -46,6 +46,9 @@ The attributes filter specifying a list of key-value pairs MUST be supported by
 Trigger. Events that pass the attributes filter MUST include context or
 extension attributes that match all key-value pairs exactly.
 
+If the attributes filter is not provided, Trigger MUST deliver all events to
+its subscriber.
+
 ### Delivery Spec
 
 Both BrokerSpec and TriggerSpec have a `Delivery` field of type
