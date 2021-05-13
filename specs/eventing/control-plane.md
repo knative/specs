@@ -290,7 +290,7 @@ The lifecycle of a Trigger is independent of the Broker it refers to in its
 or not ready.
 
 The Trigger MUST also set the `status.subscriberUri` field based on resolving
-the `spec.subcriber` field before setting the `Ready` condition to `true`. If
+the `spec.subscriber` field before setting the `Ready` condition to `true`. If
 the `spec.subscriber.ref` field points to a resource which does not exist or
 cannot be resolved via [Addressable resolution](#addressable-resolution), the
 Trigger MUST set the `Ready` condition to `false`, and at least one condition
@@ -370,7 +370,7 @@ Once created, the Subscription's `spec.channel` SHOULD NOT permit updates; to
 change the `spec.channel`, the Subscription can be deleted and re-created. This
 pattern is chosen to make it clear that changing the `spec.channel` is not an
 atomic operation, as it may span multiple storage systems. Changes to
-`spec.subscriber`, `spec.reply`, `spec.delivery` and other fileds SHOULD be
+`spec.subscriber`, `spec.reply`, `spec.delivery` and other fields SHOULD be
 permitted, as these could occur within a single storage system.
 
 When a Subscription becomes associated with a channel (either due to creating
@@ -454,14 +454,14 @@ set the `Ready` condition to `true`.)
 If multiple Triggers match an event, one event delivery MUST be generated for
 each match; duplicate matches with the same destination MUST each generate a
 separate event delivery attempts, one per Trigger match. The implementation MAY
-attach additional event attributes or other metaata distinguishing between these
+attach additional event attributes or other metadata distinguishing between these
 deliveries. The implementation MUST NOT modify the event payload in this
 process.
 
 Reply events generated during event delivery MUST be re-enqueued by the Broker
 in the same way as events delivered to the Broker's Addressable URL. If the
 storage of the reply event fails, the entire event delivery MUST be failed and
-the delivery to the Trigger's subscriber MUST be retried. Reply events re-enqued
+the delivery to the Trigger's subscriber MUST be retried. Reply events re-enqueued
 in this manner MUST be evaluated against all triggers associated with the
 Broker, including the Trigger that generated the reply. Implementations MAY
 implement event-loop detection; it is RECOMMENDED that any such controls be
@@ -508,7 +508,7 @@ following:
 1. Attempt delivery to the `status.subscriberUri` URL following the
    [data plane contract](./data-plane.md).
 
-   1. If the event delivery fails with a retriable error, it SHOULD be retried
+   1. If the event delivery fails with a retryable error, it SHOULD be retried
       up to `retry` times, following the `backoffPolicy` and `backoffDelay`
       parameters if specified.
 
@@ -521,7 +521,7 @@ following:
    to the Broker for processing (for Triggers). If `status.replyUri` is not
    present in the Subscription, the reply event is be dropped.
 
-   1. If delivery of the reply event fails with a retriable error, the delivery
+   1. If delivery of the reply event fails with a retryable error, the delivery
       of the reply event to the reply destination SHOULD be retried up to
       `retry` times, following the `backoffPolicy` and `backoffDelay` parameters
       if specified.
@@ -535,7 +535,7 @@ following:
    failed event in a "failed delivery" event; this behavior is not (currently)
    standardized.
 
-   If delivery of the reply event fails with a retriable error, the delivery to
+   If delivery of the reply event fails with a retryable error, the delivery to
    the `deadLetterSink` SHOULD be retried up to `retry` times, following the
    `backoffPolicy` and `backoffDelay` parameters if specified. Alternatively,
    implementations MAY use an equivalent internal mechanism for delivery (for
@@ -755,7 +755,7 @@ resource.
   <tr>
     <td><code>subscribers</code></td>
     <td>[]duckv1.SubscriberStatus</td>
-    <td>Resolved addresses for the <code>spec.subscribers</code> (subscriptinos to this Channel).</td>
+    <td>Resolved addresses for the <code>spec.subscribers</code> (subscriptions to this Channel).</td>
     <td>RECOMMENDED</td>
   </tr>
   <tr>
@@ -891,8 +891,10 @@ There are no `spec` requirements for Addressable.
 
 ## duckv1.Destination
 
-Destination is used to indicate the destination for event delivery. If both
-`ref` and `uri` are set, the `uri` is interpreted relative the `ref`s address.
+Destination is used to indicate the destination for event delivery. A
+Destination eventually resolves the supplied information to a URL by resolving
+`uri` relative to the address of `ref` (if provided). `ref` may be an
+[Addressable](#duckv1-addressable) object or a `v1/Service` Kubernetes service.
 
 <table>
   <tr>
