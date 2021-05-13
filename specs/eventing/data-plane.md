@@ -61,8 +61,11 @@ All senders and recipients MUST support the CloudEvents 1.0 protocol and the
 [binary](https://github.com/cloudevents/spec/blob/v1.0.1/http-protocol-binding.md#31-binary-content-mode)
 and
 [structured](https://github.com/cloudevents/spec/blob/v1.0.1/http-protocol-binding.md#32-structured-content-mode)
-content modes of the CloudEvents HTTP binding. Senders MUST support both
-cleartext (`http`) and TLS (`https`) URLs as event delivery destinations.
+content modes of the CloudEvents HTTP binding. Senders which do not advertise
+the ability t o accept [reply events](#derived-reply-events) MAY implement only
+one content mode, as the recipient is not allowed to negotiate the content mode.
+Senders MUST support both cleartext (`http`) and TLS (`https`) URLs as event
+delivery destinations.
 
 ### HTTP Verbs
 
@@ -73,7 +76,7 @@ SHOULD be performed using the CloudEvents HTTP Binding, version 1.0.
 
 Senders MAY probe the recipient with an
 [HTTP OPTIONS request](https://tools.ietf.org/html/rfc7231#section-4.3.7); if
-implemented, the recipent MUST indicate support for the POST verb using the
+implemented, the recipient MUST indicate support for the POST verb using the
 [`Allow` header](https://tools.ietf.org/html/rfc7231#section-7.4.1). Senders
 which receive an error when probing with HTTP OPTIONS SHOULD proceed using the
 HTTP POST mechanism.
@@ -81,8 +84,8 @@ HTTP POST mechanism.
 ### Event Acknowledgement and Repeat Delivery
 
 Event recipients MUST use the HTTP response code to indicate acceptance of an
-event. The recipient SHOULD NOT return a response accepting the event until it has
-handled event (processed the event or stored it in stable storage). The
+event. The recipient SHOULD NOT return a response accepting the event until it
+has handled event (processed the event or stored it in stable storage). The
 following response codes are explicitly defined; event recipients MAY also
 respond with other response codes. A response code not in this table SHOULD be
 treated as a retriable error.
@@ -113,12 +116,12 @@ Recipients MUST be able to handle duplicate delivery of events and MUST accept
 delivery of duplicate events, as the event acknowledgement could have been lost
 in return to the sender. Event recipients MUST use the
 [`source` and `id` attributes](https://github.com/cloudevents/spec/blob/v1.0.1/spec.md#required-attributes)
-to determine duplicate events (see [observability](#observability) for an example
-case where other event attributes may vary from one delivery attempt to
+to determine duplicate events (see [observability](#observability) for an
+example case where other event attributes may vary from one delivery attempt to
 another).
 
 Where possible, event senders SHOULD re-attempt delivery of events where the
-HTTP request failed or returned a retriable status code. It is RECOMMENDED that
+HTTP request failed or returned a retryable status code. It is RECOMMENDED that
 event senders implement some form of congestion control (such as exponential
 backoff) when managing retry timing. This specification does not document any
 specific congestion control algorithm or parameters.

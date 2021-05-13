@@ -8,7 +8,7 @@ patterns:
 - Content-based event routing ([`eventing.knative.dev`](#eventing))
 
 Knative Eventing does not directly specify mechanisms for other event-processing
-models, including multi-stage workflows, corellated request-reply, and
+models, including multi-stage workflows, correlated request-reply, and
 sequential (windowed) event processing; these models could be built using the
 primitives provided by Knative, or Knative could deliver events to an external
 system that implements these models.
@@ -42,16 +42,15 @@ to receive events from other components.
 ### Destination
 
 **Destination** is an interface (object fragment) which is used consistently
-through Knative Eventing to reference a message delivery destination. A
-destination is typically a
-[tagged union](https://en.wikipedia.org/wiki/Tagged_union) of different
-addressing models; at a minimum, it supports a direct URL, a reference to an
-**Addressable** object, or a Kubernetes Service (as a special case).
+through Knative Eventing to reference a event delivery destination. A
+Destination eventually resolves the supplied information to a URL, and may be a
+simple URL or relative to an **Addressable** object reference; it also supports
+a Kubernetes Service object reference (as a special case).
 
 ### Event Source
 
 **Event Sources** are resources which generate events and may be configured to
-deliver the events to a **Destiantion** designated by a `sink` object in the
+deliver the events to a **Destination** designated by a `sink` object in the
 resource's `spec`. The Knative Eventing spec does not define any specific event
 sources, but does define common interfaces for discovering and managing event
 sources.
@@ -83,7 +82,7 @@ resources such as a virtual machine or SaaS service.
 
 ### Channel
 
-**Channel** provides an abstract interface which may be fulfiled by several
+**Channel** provides an abstract interface which may be fulfilled by several
 concrete implementations of a backing asynchronous fan-out queue. The common
 abstraction provided by channel allows both the composition of higher-level
 constructs for chained or parallel processing of events, and the replacement of
@@ -96,6 +95,6 @@ environment).
 **Subscription** defines a delivery destination for all events sent to a
 **Channel**. Events sent to a channel are delivered to _each_ subscription
 _independently_ -- a subscription maintains its own list of undelivered events
-and will manage retry indpendently of any other subscriptions to the same
+and will manage retry independently of any other subscriptions to the same
 channel. Like **Trigger**, subscriptions use the **Destination** interface to
 support event delivery to many different destination types.
