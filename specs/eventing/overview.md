@@ -45,7 +45,9 @@ to receive events from other components.
 through Knative Eventing to reference a event delivery destination. A
 Destination eventually resolves the supplied information to a URL, and may be a
 simple URL or relative to an **Addressable** object reference; it also supports
-a Kubernetes Service object reference (as a special case).
+a Kubernetes Service object reference (as a special case). An absolute URL in a
+Destination may be used to reference cluster-external resources such as a
+virtual machine or SaaS service.
 
 ### Event Source
 
@@ -74,9 +76,8 @@ standardized.
 **Broker** and route them to a **Destination**. Trigger implements uniform event
 filtering based on the CloudEvents attributes associated with the event,
 ignoring the payload (which might be large and/or binary and need not be parsed
-during event routing). The addressable interface contract allows Triggers to
-deliver events to a variety of different destinations, including external
-resources such as a virtual machine or SaaS service.
+during event routing). The destination interface contract allows Triggers to
+deliver events both cluster-local objects or external resources.
 
 ## Messaging
 
