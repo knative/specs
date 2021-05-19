@@ -9,17 +9,20 @@ Eventing extends the
 [CloudEvents HTTP bindings](https://github.com/cloudevents/spec/blob/v1.0.1/http-protocol-binding.md)
 with additional semantics for the following reasons:
 
-- Knative Eventing aims to enable highly-reliable event processing workflows. As
-  such, it prefers duplicate delivery to discarded events. The CloudEvents spec
-  does not take a stance here.
+- Knative Eventing aims to enable at least once event processing; hence it
+  prefers duplicate delivery to discarded events. The CloudEvents spec does not
+  take a stance here.
 
 - The CloudEvents HTTP bindings provide a relatively simple and efficient
   network protocol which can easily be supported in a wide variety of
-  programming languages leveraging existing library investments in HTTP.
+  programming languages leveraging existing library investments in HTTP. The
+  CloudEvents project has already written these libraries for many popular
+  languages.
 
 - Knative Eventing assumes a sender-driven (push) event delivery system. That
   is, each event processor is actively responsible for an event until it is
   handled (or affirmatively delivered to all following recipients).
+
 - Knative Eventing aims to make writing
   [event sources](./overview.md#event-source) and event-processing software
   easier to write; as such, it imposes higher standards on system components
@@ -62,7 +65,7 @@ All senders and recipients MUST support the CloudEvents 1.0 protocol and the
 and
 [structured](https://github.com/cloudevents/spec/blob/v1.0.1/http-protocol-binding.md#32-structured-content-mode)
 content modes of the CloudEvents HTTP binding. Senders which do not advertise
-the ability t o accept [reply events](#derived-reply-events) MAY implement only
+the ability to accept [reply events](#derived-reply-events) MAY implement only
 one content mode, as the recipient is not allowed to negotiate the content mode.
 Senders MUST support both cleartext (`http`) and TLS (`https`) URLs as event
 delivery destinations.
@@ -81,7 +84,7 @@ implemented, the recipient MUST indicate support for the POST verb using the
 which receive an error when probing with HTTP OPTIONS SHOULD proceed using the
 HTTP POST mechanism.
 
-### Event Acknowledgement and Repeat Delivery
+### Event Acknowledgement and Delivery Retry
 
 Event recipients MUST use the HTTP response code to indicate acceptance of an
 event. The recipient SHOULD NOT return a response accepting the event until it
@@ -90,27 +93,24 @@ following response codes are explicitly defined; event recipients MAY also
 respond with other response codes. A response code not in this table SHOULD be
 treated as a retriable error.
 
-| Response code | Meaning                     | Retry | Delivery completed | Error |
-| ------------- | --------------------------- | ----- | ------------------ | ----- |
-| `1xx`         | (Unspecified)               | Yes\* | No\*               | Yes\* |
-| `200`         | [Event reply](#event-reply) | No    | Yes                | No    |
-| `202`         | Event accepted              | No    | Yes                | No    |
-| other `2xx`   | (Unspecified)               | Yes\* | No\*               | Yes\* |
-| other `3xx`   | (Unspecified)               | Yes\* | No\*               | Yes\* |
-| `400`         | Unparsable event            | No    | No                 | Yes   |
-| `404`         | Endpoint does not exist     | Yes   | No                 | Yes   |
-| other `4xx`   | Error                       | Yes   | No                 | Yes   |
-| other `5xx`   | Error                       | Yes   | No                 | Yes   |
+| Response code | Meaning                           | Retry | Delivery completed | Error |
+| ------------- | --------------------------------- | ----- | ------------------ | ----- |
+| `1xx`         | (Unspecified)                     | Yes\* | No\*               | Yes\* |
+| `200`         | [Event reply](#event-reply)       | No    | Yes                | No    |
+| `202`         | Event accepted                    | No    | Yes                | No    |
+| other `2xx`   | (Unspecified)                     | Yes\* | No\*               | Yes\* |
+| other `3xx`   | (Unspecified)                     | Yes\* | No\*               | Yes\* |
+| `400`         | Unparsable event                  | No    | No                 | Yes   |
+| `404`         | Endpoint does not exist           | Yes   | No                 | Yes   |
+| `409`         | Conflict / Processing in progress | Yes   | No                 | Yes   |
+| `429`         | Too Many Requests / Overloaded    | Yes   | No                 | Yes   |
+| other `4xx`   | Error                             | No    | No                 | Yes   |
+| other `5xx`   | Error                             | Yes   | No                 | Yes   |
 
 \* Unspecified `1xx`, `2xx`, and `3xx` response codes are **reserved for future
 extension**. Event recipients SHOULD NOT send these response codes in this spec
 version, but event senders MUST handle these response codes as errors and
 implement appropriate failure behavior.
-
-<!-- TODO: Should 3xx redirects and 401 (Unauthorized) or 403 (Forbidden) errors
-be retried? What about `405` (Method Not Allowed), 413 (Payload Too Large), 414
-(URI Too Long), 426 (Upgrade Required), 431 (Header Fields Too Large), 451
-(Unavailable for Legal Reasons)? -->
 
 Recipients MUST be able to handle duplicate delivery of events and MUST accept
 delivery of duplicate events, as the event acknowledgement could have been lost
@@ -148,16 +148,17 @@ https://github.com/knative/specs/blob/main/specs/eventing/channel.md#observabili
 ### Derived (Reply) Events
 
 In some applications, an event receiver might emit an event in reaction to a
-received event. An event sender MAY document support for this pattern by
-including a `Prefer: reply` header in the HTTP POST request. This header
-indicates to the event receiver that the caller will accept a
+received event. Components MAY to choose to support this pattern by accepting an
+encoded CloudEvent in the HTTP response. The sender SHOULD NOT assume that a
+received reply event is directly related to the event sent in the HTTP request.
+
+An event sender MAY document support for this pattern by including a
+`Prefer: reply` header in the HTTP POST request. This header indicates to the
+event receiver that the caller will accept a
 [`200` response](#event-acknowledgement-and-repeat-delivery) which includes a
 CloudEvent encoded using the binary or structured formats.
 [Brokers](./overview.md#broker) and [Channels](./overview.md#channel) MUST
 indicate support for replies using the `Prefer: reply` header.
-
-The sender SHOULD NOT assume that a received reply event is directly related to
-the event sent in the HTTP request.
 
 A recipient MAY reply to any HTTP POST with a `200` response to indicate that
 the event was processed successfully, with or without a response payload. If the
