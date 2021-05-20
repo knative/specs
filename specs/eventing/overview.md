@@ -26,7 +26,7 @@ In addition to the concrete types described below in the `messaging.knative.dev`
 and `eventing.knative.dev` API groups, Knative Eventing supports referencing
 objects in other API groups as destinations for event delivery. This is done by
 defining partial schemas which the other resources must support. The following
-interface contracts define object fragments and partial schemas (required fields
+interface contracts define resource fragments and partial schemas (required fields
 on an arbitrary API object) which form a basis for Knative Eventing.
 
 ### Addressable
@@ -41,7 +41,7 @@ to receive events from other components.
 
 ### Destination
 
-**Destination** is an interface (object fragment) which is used consistently
+**Destination** is an interface (resource fragment) which is used consistently
 through Knative Eventing to reference a event delivery destination. A
 Destination eventually resolves the supplied information to a URL, and may be a
 simple URL or relative to an **Addressable** object reference; it also supports

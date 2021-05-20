@@ -45,9 +45,10 @@ and [HTTP 1.1 protocol](https://tools.ietf.org/html/rfc7230) standards should be
 followed (with the CloudEvents bindings preferred in the case of conflict).
 
 The current version of this document does not describe protocol negotiation or
-the ability to upgrade an HTTP 1.1 event delivery into a more efficient protocol
-such as GRPC, AMQP, or the like. It is expected that a future compatible version
-of this specification might describe a protocol negotiation mechanism.
+any delivery mechanism other than HTTP 1.1. Future versions may define protocol
+negotiation to optimize delivery; compliant implementations SHOULD aim to
+interoperate by ignoring unrecognized negotiation options (such as HTTP Upgrade
+headers).
 
 ## Event Delivery
 
@@ -95,11 +96,11 @@ treated as a retriable error.
 
 | Response code | Meaning                           | Retry | Delivery completed | Error |
 | ------------- | --------------------------------- | ----- | ------------------ | ----- |
-| `1xx`         | (Unspecified)                     | Yes\* | No\*               | Yes\* |
+| `1xx`         | (Unspecified)                     | No\*  | No\*               | Yes\* |
 | `200`         | [Event reply](#event-reply)       | No    | Yes                | No    |
 | `202`         | Event accepted                    | No    | Yes                | No    |
-| other `2xx`   | (Unspecified)                     | Yes\* | No\*               | Yes\* |
-| other `3xx`   | (Unspecified)                     | Yes\* | No\*               | Yes\* |
+| other `2xx`   | (Unspecified)                     | No\*  | No\*               | Yes\* |
+| other `3xx`   | (Unspecified)                     | No\*  | No\*               | Yes\* |
 | `400`         | Unparsable event                  | No    | No                 | Yes   |
 | `404`         | Endpoint does not exist           | Yes   | No                 | Yes   |
 | `409`         | Conflict / Processing in progress | Yes   | No                 | Yes   |
@@ -112,13 +113,17 @@ extension**. Event recipients SHOULD NOT send these response codes in this spec
 version, but event senders MUST handle these response codes as errors and
 implement appropriate failure behavior.
 
-Recipients MUST be able to handle duplicate delivery of events and MUST accept
-delivery of duplicate events, as the event acknowledgement could have been lost
-in return to the sender. Event recipients MUST use the
+Recipients MUST be able to handle duplicate delivery of events (for example, via
+idempotency or tracking event delivery state) and MUST accept delivery of
+duplicate events, as the event acknowledgement could have been lost in return to
+the sender. As specified in the
+[CloudEvents specification](https://github.com/cloudevents/spec/blob/v1.0.1/primer.md#id),
+event recipients MUST use the
 [`source` and `id` attributes](https://github.com/cloudevents/spec/blob/v1.0.1/spec.md#required-attributes)
-to determine duplicate events (see [observability](#observability) for an
-example case where other event attributes may vary from one delivery attempt to
-another).
+to determine duplicate events if needed. This specification does not describe
+state requirements for clients which need to detect duplicate events. (see
+[observability](#observability) for an example case where other event attributes
+may vary from one delivery attempt to another).
 
 Where possible, event senders SHOULD re-attempt delivery of events where the
 HTTP request failed or returned a retryable status code. It is RECOMMENDED that
@@ -132,7 +137,9 @@ implement congestion control and MUST implement retries.
 
 Event senders MAY add or update CloudEvents attributes before sending to
 implement observability features such as tracing; in particular, the
-[`traceparent` and `tracestate` distributed tracing attributes](https://github.com/cloudevents/spec/blob/v1.0/extensions/distributed-tracing.md)
+`traceparent` and `tracestate` distributed tracing attributes defined by
+[W3C](https://www.w3.org/TR/trace-context/) and
+[CloudEvents](https://github.com/cloudevents/spec/blob/v1.0/extensions/distributed-tracing.md)
 may be modified in this way for each delivery attempt of the same event.
 
 This specification does not mandate any particular logging or metrics
