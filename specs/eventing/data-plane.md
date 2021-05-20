@@ -47,8 +47,8 @@ followed (with the CloudEvents bindings preferred in the case of conflict).
 The current version of this document does not describe protocol negotiation or
 any delivery mechanism other than HTTP 1.1. Future versions may define protocol
 negotiation to optimize delivery; compliant implementations SHOULD aim to
-interoperate by ignoring unrecognized negotiation options (such as HTTP Upgrade
-headers).
+interoperate by ignoring unrecognized negotiation options (such as
+[HTTP `Upgrade` headers](https://datatracker.ietf.org/doc/html/rfc7230#section-6.7)).
 
 ## Event Delivery
 
