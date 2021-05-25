@@ -63,7 +63,7 @@ on an arbitrary API object) which form a basis for Knative Eventing.
 
 ### Addressable
 
-**Addressable** resources expose a resource address (HTTP URL) in their `status`
+**Addressable** resources expose a resource `address` (HTTP URL) in their `status`
 object. The URL is used as a destination for delivery of events to the resource;
 the exposed URL must implement the [data plane contract](data-plane.md) for
 receiving events.
