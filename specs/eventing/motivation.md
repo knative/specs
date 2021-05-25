@@ -30,4 +30,4 @@ semantics, using the CloudEvents HTTP POST (push) transport as a minimum common
 transport between components.
 
 Knative Eventing also defines patterns to simplify the construction and usage of
-event senders and recipients.
+event producers and consumers.
