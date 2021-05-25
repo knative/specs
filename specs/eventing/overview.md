@@ -18,7 +18,39 @@ Eventing defines two [_interface contracts_](#interface-contracts) to allow
 connecting multiple types of Kubernetes objects as event senders and recipients
 to the core primitives.
 
-<!-- TODO: add a drawing -->
+![Overview of objects](images/eventing-overview.svg)
+<!-- Generated from the following UML using PlantUML:
+@startuml
+' Remove shadows
+skinparam shadowing false
+' Set ordering
+left to right direction
+
+usecase Addressable <<Knative Service>>
+usecase Addressable AS A2 <<Kubernetes Service>>
+
+package "eventing.knative.dev" {
+agent Broker
+agent "Trigger" as T1
+agent "Trigger" as T2
+}
+
+Broker <-- T1 : broker
+Broker <-- T2 : broker
+Addressable <-u- T1 : subscriber
+
+package "messaging.knative.dev" {
+agent Channel
+agent "Subscription" as S1
+agent "Subscription" as S2
+}
+
+Channel <-- S1 :channel
+Channel <-- S2 :channel
+Addressable <-u- S2 :subscriber
+A2 <-u- S2 : reply
+@enduml
+-->
 
 ## Interface Contracts
 

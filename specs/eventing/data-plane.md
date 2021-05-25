@@ -121,7 +121,7 @@ the sender. As specified in the
 event recipients MUST use the
 [`source` and `id` attributes](https://github.com/cloudevents/spec/blob/v1.0.1/spec.md#required-attributes)
 to determine duplicate events if needed. This specification does not describe
-state requirements for clients which need to detect duplicate events. (see
+state requirements for clients which need to detect duplicate events. (See
 [observability](#observability) for an example case where other event attributes
 may vary from one delivery attempt to another).
 
@@ -140,7 +140,7 @@ implement observability features such as tracing; in particular, the
 `traceparent` and `tracestate` distributed tracing attributes defined by
 [W3C](https://www.w3.org/TR/trace-context/) and
 [CloudEvents](https://github.com/cloudevents/spec/blob/v1.0/extensions/distributed-tracing.md)
-may be modified in this way for each delivery attempt of the same event.
+MAY be modified in this way for each delivery attempt of the same event.
 
 This specification does not mandate any particular logging or metrics
 aggregation, nor a method of exposing observability information to users
@@ -148,14 +148,10 @@ configuring the resources. Platform administrators SHOULD expose event-delivery
 telemetry to users through platform-specific interfaces, but such interfaces are
 beyond the scope of this document.
 
-<!-- TODO: should we mention RECOMMENDED spans or RECOMMENDED metrics like in
-https://github.com/knative/specs/blob/main/specs/eventing/channel.md#observability?
--->
-
 ### Derived (Reply) Events
 
 In some applications, an event receiver might emit an event in reaction to a
-received event. Components MAY to choose to support this pattern by accepting an
+received event. Components MAY choose to support this pattern by accepting an
 encoded CloudEvent in the HTTP response. The sender SHOULD NOT assume that a
 received reply event is directly related to the event sent in the HTTP request.
 
