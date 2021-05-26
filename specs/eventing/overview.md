@@ -5,7 +5,18 @@ patterns:
 
 - Topology-based event routing ([`messaging.knative.dev`](#messaging))
 
+  Events are routed based on _connections between objects_ (in particular,
+  events flow along a [channel](#channel) to all
+  [subscriptions](#subscription)). This model can be thought of as "event
+  plumbing" in that events are managed like flows of water through pipes.
+
 - Content-based event routing ([`eventing.knative.dev`](#eventing))
+
+  Events are selected for routing based on the event _attributes_ rather than
+  primarily by object connections (a [broker](#broker) provides a stream of
+  events which can be selected by a [trigger](#trigger)). This model is more
+  akin to picking parts off a conveyor belt, where each event is considered
+  separately for processing.
 
 Knative Eventing does not directly specify mechanisms for other event-processing
 models, including multi-stage workflows, correlated request-reply, and
@@ -19,6 +30,7 @@ connecting multiple types of Kubernetes objects as event senders and recipients
 to the core primitives.
 
 ![Overview of objects](images/eventing-overview.svg)
+
 <!-- Generated from the following UML using PlantUML:
 @startuml
 ' Remove shadows
@@ -57,16 +69,17 @@ A2 <-u- S2 : reply
 In addition to the concrete types described below in the `messaging.knative.dev`
 and `eventing.knative.dev` API groups, Knative Eventing supports referencing
 objects in other API groups as destinations for event delivery. This is done by
-defining partial schemas which the other resources must support. The following
-interface contracts define resource fragments and partial schemas (required fields
-on an arbitrary API object) which form a basis for Knative Eventing.
+defining partial schemas which the referenced resources must support. The
+following interface contracts define resource fragments and partial schemas
+(required fields on an arbitrary API object) which form a basis for Knative
+Eventing.
 
 ### Addressable
 
-**Addressable** resources expose a resource `address` (HTTP URL) in their `status`
-object. The URL is used as a destination for delivery of events to the resource;
-the exposed URL must implement the [data plane contract](data-plane.md) for
-receiving events.
+**Addressable** resources expose a resource `address` (HTTP URL) in their
+`status` object. The URL is used as a destination for delivery of events to the
+resource; the exposed URL must implement the
+[data plane contract](data-plane.md) for receiving events.
 
 [**Broker**](#broker) and [**Channel**](#channel) both implement **Addressable**
 to receive events from other components.
