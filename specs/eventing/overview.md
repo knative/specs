@@ -8,7 +8,9 @@ patterns:
   Events are routed based on _connections between objects_ (in particular,
   events flow along a [channel](#channel) to all
   [subscriptions](#subscription)). This model can be thought of as "event
-  plumbing" in that events are managed like flows of water through pipes.
+  plumbing" in that events are managed like flows of water through pipes. In
+  order to enable event processing, subscriptions provide a mechanism to route
+  "reply" events further through the object topology.
 
 - Content-based event routing ([`eventing.knative.dev`](#eventing))
 
@@ -16,7 +18,8 @@ patterns:
   primarily by object connections (a [broker](#broker) provides a stream of
   events which can be selected by a [trigger](#trigger)). This model is more
   akin to picking parts off a conveyor belt, where each event is considered
-  separately for processing.
+  separately for processing. Content-based routing handles reply events by
+  re-enqueuing the events in the originating Broker.
 
 Knative Eventing does not directly specify mechanisms for other event-processing
 models, including multi-stage workflows, correlated request-reply, and
@@ -76,9 +79,9 @@ Eventing.
 
 ### Addressable
 
-**Addressable** resources expose a resource `address` (HTTP URL) in their
-`status` object. The URL is used as a destination for delivery of events to the
-resource; the exposed URL must implement the
+[**Addressable**](./control-plane.md#addressable-v1) resources expose a resource
+`address` (HTTP URL) in their `status` object. The URL is used as a destination
+for delivery of events to the resource; the exposed URL must implement the
 [data plane contract](data-plane.md) for receiving events.
 
 [**Broker**](#broker) and [**Channel**](#channel) both implement **Addressable**
@@ -86,13 +89,14 @@ to receive events from other components.
 
 ### Destination
 
-**Destination** is an interface (resource fragment) which is used consistently
-through Knative Eventing to reference a event delivery destination. A
-Destination eventually resolves the supplied information to a URL, and may be a
-simple URL or relative to an **Addressable** object reference; it also supports
-a Kubernetes Service object reference (as a special case). An absolute URL in a
-Destination may be used to reference cluster-external resources such as a
-virtual machine or SaaS service.
+[**Destination**](./control-plane.md#duckv1destination) is an interface
+(resource fragment) which is used consistently through Knative Eventing to
+reference an event delivery destination. A Destination eventually resolves the
+supplied information to an URL, and may be an absolute URL or
+[relative](https://datatracker.ietf.org/doc/html/rfc3986#section-4.2) to an
+**Addressable** object reference; it also supports a Kubernetes Service object
+reference (as a special case). An absolute URL in a Destination may be used to
+reference cluster-external resources such as a virtual machine or SaaS service.
 
 ### Event Source
 
@@ -106,41 +110,43 @@ sources.
 
 ### Broker
 
-**Broker** provides a central event-routing hub which exposes a URL address
-which event senders may use to submit events to the router. A Broker may be
-implemented using many different underlying event-forwarding mechanisms; the
-broker provides a small set of common event-delivery configuration options and
-may reference additional implementation-specific configuration options via a
-reference to an external object (either a kubernetes built-in like ConfigMap or
-a custom object); the format of the external objects is intentionally not
-standardized.
+[**Broker**](./control-plane.md#broker-v1) provides a central event-routing hub
+which exposes a URL address which event senders may use to submit events to the
+broker. A Broker may be implemented using many different underlying
+event-forwarding mechanisms; the broker defines a small set of common
+event-delivery configuration options and implementations of the broker may
+define additional configuration options via a reference to an external object
+(either a kubernetes built-in like ConfigMap or a custom object); the format of
+the external objects is intentionally not standardized.
 
 ### Trigger
 
-**Trigger** defines a filtered delivery option to select events delivered to a
-**Broker** and route them to a **Destination**. Trigger implements uniform event
-filtering based on the CloudEvents attributes associated with the event,
-ignoring the payload (which might be large and/or binary and need not be parsed
-during event routing). The destination interface contract allows Triggers to
-deliver events both cluster-local objects or external resources.
+[**Trigger**](./control-plane.md#trigger-v1) defines a filtered delivery option
+to select events delivered to a **Broker** and route them to a **Destination**.
+Trigger implements uniform event filtering based on the CloudEvents attributes
+associated with the event, ignoring the payload (which might be large and/or
+binary and need not be parsed during event routing). The destination interface
+contract allows Triggers to deliver events to either cluster-local objects or
+external resources.
 
 ## Messaging
 
 ### Channel
 
-**Channel** provides an abstract interface which may be fulfilled by several
-concrete implementations of a backing asynchronous fan-out queue. The common
-abstraction provided by channel allows both the composition of higher-level
-constructs for chained or parallel processing of events, and the replacement of
-particular messaging technologies (for example, allowing a development
-environment to use a lower-reliability channel compared with the production
-environment).
+[**Channel**](./control-plane.md#channel-v1) provides an abstract interface
+which may be fulfilled by several concrete implementations of a backing
+asynchronous fan-out queue. The common abstraction provided by channel allows
+both the composition of higher-level constructs for chained or parallel
+processing of events, and the replacement of particular messaging technologies
+(for example, allowing a development environment to use a lower-reliability
+channel compared with the production environment).
 
 ### Subscription
 
-**Subscription** defines a delivery destination for all events sent to a
-**Channel**. Events sent to a channel are delivered to _each_ subscription
-_independently_ -- a subscription maintains its own list of undelivered events
-and will manage retry independently of any other subscriptions to the same
-channel. Like **Trigger**, subscriptions use the **Destination** interface to
-support event delivery to many different destination types.
+[**Subscription**](./control-plane.md#subscription-v1) defines a delivery
+destination for all events sent to a **Channel**. Events sent to a channel are
+delivered to _each_ subscription _independently_ -- a subscription maintains its
+own list of undelivered events and will manage retries independently of any
+other subscriptions to the same channel. Like **Trigger**, subscriptions use the
+**Destination** interface to support event delivery to many different
+destination types.
