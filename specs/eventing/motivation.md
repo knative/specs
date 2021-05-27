@@ -14,8 +14,8 @@ application designers:
 
 1. A producer can generate events before a consumer is listening, and a consumer
    can express an interest in an event or class of events that is not yet being
-   produced. This allows event-driven applications to be evolve over time
-   without needing to closely coordinate changes.
+   produced. This allows event-driven applications to evolve over time without
+   needing to closely coordinate changes.
 
 1. Services can be connected to create new applications:
    - without modifying producer or consumer
@@ -23,11 +23,11 @@ application designers:
      producer
 
 In order to enable loose coupling and late-binding of event producers and
-consumers, Knative Eventing utilizes and extends the [CloudEvents
-specification](https://github.com/cloudevents/spec) as the data plane protocol
-between components. Knative Eventing prioritizes at-least-once delivery
-semantics, using the CloudEvents HTTP POST (push) transport as a minimum common
-transport between components.
+consumers, Knative Eventing utilizes and extends the
+[CloudEvents specification](https://github.com/cloudevents/spec) as the data
+plane protocol between components. Knative Eventing prioritizes at-least-once
+delivery semantics, using the CloudEvents HTTP POST (push) transport as a
+minimum common transport between components.
 
 Knative Eventing also defines patterns to simplify the construction and usage of
 event producers and consumers.
