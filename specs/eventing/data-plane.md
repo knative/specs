@@ -49,7 +49,8 @@ reliable event delivery and event-driven applications can be built.
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
-interpreted as described in RFC2119.
+interpreted as described in
+[RFC2119](https://datatracker.ietf.org/doc/html/rfc2119).
 
 When not specified in this document, the
 [CloudEvents HTTP bindings, version 1.0](https://github.com/cloudevents/spec/blob/v1.0.1/http-protocol-binding.md)
@@ -100,24 +101,24 @@ following response codes are explicitly defined; event recipients MAY also
 respond with other response codes. A response code not in this table SHOULD be
 treated as a retriable error.
 
-| Response code | Meaning                           | Retry | Delivery completed | Error |
-| ------------- | --------------------------------- | ----- | ------------------ | ----- |
-| `1xx`         | (Unspecified)                     | No\*  | No\*               | Yes\* |
-| `200`         | [Event reply](#event-reply)       | No    | Yes                | No    |
-| `202`         | Event accepted                    | No    | Yes                | No    |
-| other `2xx`   | (Unspecified)                     | No\*  | No\*               | Yes\* |
-| `3xx`         | (Unspecified)                     | No\*  | No\*               | Yes\* |
-| `400`         | Unparsable event                  | No    | No                 | Yes   |
-| `404`         | Endpoint does not exist           | Yes   | No                 | Yes   |
-| `409`         | Conflict / Processing in progress | Yes   | No                 | Yes   |
-| `429`         | Too Many Requests / Overloaded    | Yes   | No                 | Yes   |
-| other `4xx`   | Error                             | No    | No                 | Yes   |
-| `5xx`         | Error                             | Yes   | No                 | Yes   |
+| Response code | Meaning                                           | Retry | Delivery completed | Error |
+| ------------- | ------------------------------------------------- | ----- | ------------------ | ----- |
+| `1xx`         | (Unspecified)                                     | No\*  | No\*               | Yes\* |
+| `200`         | [Accepted, event in reply](#derived-reply-events) | No    | Yes                | No    |
+| `202`         | Event accepted                                    | No    | Yes                | No    |
+| other `2xx`   | (Unspecified)                                     | No    | Yes                | No    |
+| `3xx`         | (Unspecified)                                     | No\*  | No\*               | Yes\* |
+| `400`         | Unparsable event                                  | No    | No                 | Yes   |
+| `404`         | Endpoint does not exist                           | Yes   | No                 | Yes   |
+| `409`         | Conflict / Processing in progress                 | Yes   | No                 | Yes   |
+| `429`         | Too Many Requests / Overloaded                    | Yes   | No                 | Yes   |
+| other `4xx`   | Error                                             | No    | No                 | Yes   |
+| `5xx`         | Error                                             | Yes   | No                 | Yes   |
 
 \* Unspecified `1xx`, `2xx`, and `3xx` response codes are **reserved for future
 extension**. Event recipients SHOULD NOT send these response codes in this spec
-version, but event senders MUST handle these response codes as errors and
-implement appropriate failure behavior.
+version, but event senders MUST handle these response codes as errors or success
+as appropriate and implement described success or failure behavior.
 
 Recipients MUST be able to handle duplicate delivery of events (for example, via
 idempotency or tracking event delivery state) and MUST accept delivery of
@@ -127,17 +128,17 @@ the sender. As specified in the
 event recipients MUST use the
 [`source` and `id` attributes](https://github.com/cloudevents/spec/blob/v1.0.1/spec.md#required-attributes)
 to determine duplicate events if needed. This specification does not describe
-state requirements for recipients which need to detect duplicate events. (See
-[observability](#observability) for an example case where other event attributes
-may vary from one delivery attempt to another).
+state requirements for recipients which need to detect duplicate events. (In
+general, senders MAY add or update other CloudEvent attributes on each delivery
+attempt; see [observability](#observability) for an example case).
 
 Where possible, event senders SHOULD re-attempt delivery of events where the
 HTTP request failed or returned a retryable status code. It is RECOMMENDED that
 event senders implement some form of congestion control (such as exponential
 backoff) and delivery throttling when managing retry timing. Congestion control
-MAY cause event delivery to fail or retry attempts to be skipped. This
-specification does not document any specific congestion control algorithm or
-parameters. [Brokers](./overview.md#broker) and
+MAY cause event delivery to fail or MAY include not retrying failed delivery
+attempts. This specification does not document any specific congestion control
+algorithm or parameters. [Brokers](./overview.md#broker) and
 [Channels](./overview.md#channel) MUST implement congestion control and MUST
 implement retries.
 
@@ -159,9 +160,8 @@ beyond the scope of this document.
 ### Derived (Reply) Events
 
 In some applications, an event recipient MAY emit an event in reaction to a
-received event. Components MAY choose to support this pattern by accepting an
-encoded CloudEvent in the HTTP response. The sender SHOULD NOT assume that a
-received reply event is directly related to the event sent in the HTTP request.
+received event. Senders MAY choose to support this pattern by accepting an
+encoded CloudEvent in the HTTP response.
 
 An event sender MAY document support for this pattern by including a
 `Prefer: reply` header in the HTTP POST request. This header indicates to the
@@ -179,5 +179,5 @@ likely a better choice.
 If a recipient chooses to reply to a sender with a `200` response code and a
 reply event in the absence of a `Prefer: reply` header from the sender, the
 sender SHOULD treat the event as accepted, and MAY log an error about the
-unexpected payload. The sender MUST NOT process the reply event if the sender
-did not advertise the `Prefer: reply` capability.
+unexpected payload. If a sender will process a reply event it MUST include the
+`Prefer: reply` header on the POST request.
