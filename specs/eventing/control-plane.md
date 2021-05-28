@@ -1,4 +1,5 @@
-# Abstract
+# Knative Control Plane Contract
+## Abstract
 
 The Knative Eventing platform provides common primitives for routing CloudEvents
 between cooperating HTTP clients. This document describes the structure,
@@ -14,7 +15,7 @@ how event delivery is configured). This document also does not prescribe
 specific implementations of supporting services such as access control,
 observability, or resource management.
 
-# Background
+## Background
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" are to be
@@ -38,7 +39,7 @@ tooling developers, by extension) deploying applications to the environment.
   event routing resources and manage the software configuration of Knative
   Eventing and the underlying abstractions.
 
-# RBAC Profile
+## RBAC Profile
 
 In order to validate the controls described in
 [Resource Overview](#resource-overview), the following Kubernetes RBAC profile
@@ -94,7 +95,7 @@ Ref:
 -
 -->
 
-# Resource Overview
+## Resource Overview
 
 The Knative Eventing API provides a set of primitives to support both
 point-to-point communication channels (`messaging.knative.dev`) and
@@ -108,7 +109,7 @@ define the mapping of kubernetes verbs (read, watch, patch, etc) to developer
 roles. See the [Overview documentation](./overview.md) for general definitions
 of the different API objects.
 
-# Error Signalling
+## Error Signalling
 
 <!-- copied from ../serving/knative-api-specification-1.0.md#error-signalling -->
 
@@ -252,9 +253,9 @@ transient (for example, `ResourcesAllocated` might change between `True` and
 `False` as an application scales to and from zero). It is RECOMMENDED that
 transient conditions be indicated with a `severity="Info"`.
 
-# Resource Lifecycle
+## Resource Lifecycle
 
-## Broker Lifecycle
+### Broker Lifecycle
 
 A Broker represents an Addressable endpoint (i.e. it has a `status.address.url`
 field) which can receive, store, and forward events to multiple recipients based
@@ -281,7 +282,7 @@ that changing the implementation class or `spec.config` is not an atomic
 operation and that any implementation would be likely to result in event loss
 during the transition.
 
-## Trigger Lifecycle
+### Trigger Lifecycle
 
 The lifecycle of a Trigger is independent of the Broker it refers to in its
 `spec.broker` field; if the Broker does not currently exist or the Broker's
@@ -316,7 +317,7 @@ events to the Trigger's `spec.subscriber` prior to the Trigger's
 send some additional events to the Trigger's `spec.subscriber` after the
 deletion.
 
-## Channel Lifecycle
+### Channel Lifecycle
 
 A Channel represents an Addressable endpoint (i.e. it has as
 `status.address.url` field) which can receive, store, and forward events to
@@ -340,7 +341,7 @@ This pattern is chosen to make it clear that changing `spec.channelTemplate` is
 not an atomic operation and that any implementation would be likely to result in
 event loss during the transition.
 
-## Subscription Lifecycle
+### Subscription Lifecycle
 
 The lifecycle of a Subscription is independent of that of the channel it refers
 to in its `spec.channel` field. The `spec.channel` object reference may refer to
@@ -385,7 +386,7 @@ additional events to the Subscription's `spec.subscriber` after the deletion.
 TODO: channel-compatible CRDs (Channelable)
 -->
 
-## Addressable Resolution
+### Addressable Resolution
 
 Both Trigger and Subscription have optional object references (`ref` in
 `spec.subscriber`, `spec.delivery.deadLetterSink`, and `spec.reply` for
@@ -422,14 +423,14 @@ and SHOULD include an indication of the error in a condition reason or type.
 
 Both Broker and Channel MUST conform to the Addressable partial schema.
 
-# Event Routing
+## Event Routing
 
 Note that the event routing description below does not cover the actual
 mechanics of sending an event from one component to another; see
 [the data plane](./data-plane.md) contracts for details of the event transfer
 mechanisms.
 
-## Content Based Routing
+### Content Based Routing
 
 A Broker MUST publish a URL at `status.address.uri` when it is able to receive
 events. This URL MUST accept CloudEvents in both the
@@ -469,7 +470,7 @@ documented to end-users. Implementations MAY avoid using HTTP to deliver event
 replies to the Broker's event-delivery input and instead use an internal
 queueing mechanism.
 
-## Topology Based Routing
+### Topology Based Routing
 
 A Channel MUST publish a URL at `status.address.url` when it is able to receive
 events. This URL MUST accept CloudEvents in both the
@@ -497,7 +498,7 @@ The implementation MAY attach additional event attributes or other metadata
 distinguishing between these deliveries. The implementation MUST NOT modify the
 event payload in this process.
 
-## Event Delivery
+### Event Delivery
 
 Once a Trigger or Subscription has decided to deliver an event, it MUST do the
 following:
@@ -542,17 +543,17 @@ following:
    example, if the `ref` form of `deadLetterSink` points to a compatible
    implementation).
 
-# Detailed Resources
+## Detailed Resources
 
-## Broker v1
+### Broker v1
 
-### Metadata:
+#### Metadata:
 
 Standard Kubernetes
 [metav1.ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#objectmeta-v1-meta)
 resource.
 
-### Spec:
+#### Spec:
 
 <table>
   <tr>
@@ -563,19 +564,19 @@ resource.
   </tr>
   <tr>
     <td><code>config</code></td>
-    <td>KReference<br/>(Optional)</td>
+    <td><a href="#kreference">KReference</a><br/>(Optional)</td>
     <td>A reference to an object which describes the configuration options for the Broker (for example, a ConfigMap).</td>
     <td>RECOMMENDED</td>
   </tr>
   <tr>
     <td><code>delivery</code></td>
-    <td>DeliverySpec<br/>(Optional)</td>
+    <td><a href="#deliveryspec">DeliverySpec</a><br/>(Optional)</td>
     <td>A default delivery options for Triggers which do not specify more-specific options.</td>
     <td>REQUIRED</td>
   </tr>
 </table>
 
-### Status
+#### Status
 
 <table>
   <tr>
@@ -598,7 +599,7 @@ resource.
   </tr>
   <tr>
     <td><code>address</code></td>
-    <td>duckv1.Addressable</td>
+    <td><a href="#duckv1addressable">duckv1.Addressable</a></td>
     <td>Address used to deliver events to the Broker.</td>
     <td>REQUIRED</td>
   </tr>
@@ -610,15 +611,15 @@ resource.
   </tr>
 </table>
 
-## Trigger v1
+### Trigger v1
 
-### Metadata:
+#### Metadata:
 
 Standard Kubernetes
 [metav1.ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#objectmeta-v1-meta)
 resource.
 
-### Spec:
+#### Spec:
 
 <table>
   <tr>
@@ -635,25 +636,25 @@ resource.
   </tr>
   <tr>
     <td><code>filter</code></td>
-    <td>TriggerFilter<br/>(Optional)</td>
+    <td><a href="#triggerfilter">TriggerFilter</a><br/>(Optional)</td>
     <td>Event filters which are used to select events to be delivered to the Trigger's destination.</td>
     <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>subscriber</code></td>
-    <td>duckv1.Destination<br/>(Required)</td>
+    <td><a href="#duckv1destination">duckv1.Destination</a><br/>(Required)</td>
     <td>The destination that filtered events should be sent to.</td>
     <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>delivery</code></td>
-    <td>DeliverySpec<br/>(Optional)</td>
+    <td><a href="#deliveryspec">DeliverySpec</a><br/>(Optional)</td>
     <td>Delivery options for this Trigger.</td>
     <td>RECOMMENDED</td>
   </tr>
 </table>
 
-### Status
+#### Status
 
 <table>
   <tr>
@@ -688,15 +689,15 @@ resource.
   </tr>
 </table>
 
-## Channel v1
+### Channel v1
 
-### Metadata:
+#### Metadata:
 
 Standard Kubernetes
 [metav1.ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#objectmeta-v1-meta)
 resource.
 
-### Spec:
+#### Spec:
 
 <table>
   <tr>
@@ -713,19 +714,19 @@ resource.
   </tr>
   <tr>
     <td><code>subscribers</code></td>
-    <td>[]duckv1.SubscriberSpec</td>
+    <td>[]<a href="#duckv1subscriberspec">duckv1.SubscriberSpec</a></td>
     <td>Aggregated subscription information; this array should be managed automatically by the controller.</td>
     <td>RECOMMENDED</td>
   </tr>
   <tr>
     <td><code>delivery</code></td>
-    <td>DeliverySpec<br/>(Optional)</td>
+    <td><a href="#deliveryspec">DeliverySpec</a><br/>(Optional)</td>
     <td>A default delivery options for Subscriptions which do not specify more-specific options.</td>
     <td>REQUIRED</td>
   </tr>
 </table>
 
-### Status
+#### Status
 
 <table>
   <tr>
@@ -748,13 +749,13 @@ resource.
   </tr>
   <tr>
     <td><code>address</code></td>
-    <td>duckv1.Addressable</td>
+    <td><a href="#duckv1addressable">duckv1.Addressable</a></td>
     <td>Address used to deliver events to the Broker.</td>
     <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>subscribers</code></td>
-    <td>[]duckv1.SubscriberStatus</td>
+    <td>[]<a href="#duckv1subscriberstatus">duckv1.SubscriberStatus</a></td>
     <td>Resolved addresses for the <code>spec.subscribers</code> (subscriptions to this Channel).</td>
     <td>RECOMMENDED</td>
   </tr>
@@ -766,15 +767,15 @@ resource.
   </tr>
 </table>
 
-## Subscription v1
+### Subscription v1
 
-### Metadata:
+#### Metadata:
 
 Standard Kubernetes
 [metav1.ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#objectmeta-v1-meta)
 resource.
 
-### Spec:
+#### Spec:
 
 <table>
   <tr>
@@ -791,25 +792,25 @@ resource.
   </tr>
   <tr>
     <td><code>subscriber</code></td>
-    <td>duckv1.Destination<br/>(Required)</td>
+    <td><a href="#duckv1destination">duckv1.Destination</a><br/>(Required)</td>
     <td>The destination that events should be sent to.</td>
     <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>reply</code></td>
-    <td>duckv1.Destination<br/>(Required)</td>
+    <td><a href="#duckv1destination">duckv1.Destination</a><br/>(Required)</td>
     <td>The destination that reply events from <code>spec.subscriber</code> should be sent to.</td>
     <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>delivery</code></td>
-    <td>DeliverySpec<br/>(Optional)</td>
+    <td><a href="#deliveryspec">DeliverySpec</a><br/>(Optional)</td>
     <td>Delivery options for this Subscription.</td>
     <td>RECOMMENDED</td>
   </tr>
 </table>
 
-### Status
+#### Status
 
 <table>
   <tr>
@@ -832,28 +833,28 @@ resource.
   </tr>
   <tr>
     <td><code>physicalSubscription</code></td>
-    <td>PhysicalSubscriptionStatus</td>
+    <td><a href="#physicalsubscriptionstatus">PhysicalSubscriptionStatus</a></td>
     <td>The fully resolved values for <code>spec</code> endpoint references.</td>
     <td>REQUIRED</td>
   </tr>
 </table>
 
-## Addressable v1
+### Addressable v1
 
 Note that the Addressable interface is a partial schema -- any resource which
 includes these fields may be referenced using a `duckv1.Destination`.
 
-### Metadata:
+#### Metadata:
 
 Standard Kubernetes
 [metav1.ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#objectmeta-v1-meta)
 resource.
 
-### Spec:
+#### Spec:
 
 There are no `spec` requirements for Addressable.
 
-### Status
+#### Status
 
 <table>
   <tr>
@@ -864,15 +865,15 @@ There are no `spec` requirements for Addressable.
   </tr>
   <tr>
     <td><code>address</code></td>
-    <td>duckv1.Addressable</td>
+    <td><a href="#duckv1addressable">duckv1.Addressable</a></td>
     <td>Address used to deliver events to the Broker.</td>
     <td>REQUIRED</td>
   </tr>
 </table>
 
-# Detailed SubResource Objects
+## Detailed SubResource Objects
 
-## duckv1.Addressable
+### duckv1.Addressable
 
 <table>
   <tr>
@@ -883,13 +884,13 @@ There are no `spec` requirements for Addressable.
   </tr>
   <tr>
     <td><code>url</code></td>
-    <td>URL</td>
+    <td>URL (string)</td>
     <td>Address used to deliver events to the Addressable.</td>
     <td>REQUIRED</td>
   </tr>
 </table>
 
-## duckv1.Destination
+### duckv1.Destination
 
 Destination is used to indicate the destination for event delivery. A
 Destination eventually resolves the supplied information to a URL by resolving
@@ -905,7 +906,7 @@ Destination eventually resolves the supplied information to a URL by resolving
   </tr>
   <tr>
     <td><code>ref</code></td>
-    <td>duckv1.KReference<br/>(Optional)</td>
+    <td><a href="#duckv1kreference">duckv1.KReference</a><br/>(Optional)</td>
     <td>An ObjectReference to an Addressable reference to deliver events to.</td>
     <td>REQUIRED</td>
   </tr>
@@ -917,7 +918,7 @@ Destination eventually resolves the supplied information to a URL by resolving
   </tr>
 </table>
 
-## duckv1.SubscriberSpec
+### duckv1.SubscriberSpec
 
 SubscriberSpec represents an automatically-populated extraction of information
 from a [Subscription](#subscription).
@@ -955,13 +956,13 @@ from a [Subscription](#subscription).
   </tr>
   <tr>
     <td><code>delivery</code></td>
-    <td>DeliverySpec</td>
+    <td><a href="#deliveryspec">DeliverySpec</a></td>
     <td>The resolved Subscription delivery options. The <code>deadLetterSink</code> should use the <code>uri</code> form.</td>
     <td>REQUIRED</td>
   </tr>
 </table>
 
-## duckv1.SubscriberStatus
+### duckv1.SubscriberStatus
 
 SubscriberStatus indicates the status of programming a Subscription by a
 Channel.
@@ -993,13 +994,13 @@ Channel.
   </tr>
   <tr>
     <td><code>message</code></td>
-    <td>duckv1.Addressable</td>
+    <td><a href="#duckv1addressable">duckv1.Addressable</a></td>
     <td>A human readable message indicating details of <code>ready</code> status.</td>
     <td>REQUIRED</td>
   </tr>
 </table>
 
-## DeliverySpec
+### DeliverySpec
 
 <table>
   <tr>
@@ -1010,7 +1011,7 @@ Channel.
   </tr>
   <tr>
     <td><code>deadLetterSink</code></td>
-    <td>duckv1.Destination</td>
+    <td><a href="#duckv1destination">duckv1.Destination</a></td>
     <td>Fallback address used to deliver events which cannot be delivered during the flow. An implementation MAY place limits on the allowed destinations for the <code>deadLetterSink</code>.</td>
     <td>RECOMMENDED</td>
   </tr>
@@ -1034,7 +1035,7 @@ Channel.
   </tr>
 </table>
 
-## KReference
+### KReference
 
 KReference is a lightweight version of kubernetes
 [`v1/ObjectReference`](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#objectreference-v1-core)
@@ -1072,7 +1073,7 @@ KReference is a lightweight version of kubernetes
   </tr>
 </table>
 
-## PhysicalSubscriptionStatus
+### PhysicalSubscriptionStatus
 
 <table>
   <tr>
@@ -1101,7 +1102,7 @@ KReference is a lightweight version of kubernetes
   </tr>
 </table>
 
-## TriggerFilter
+### TriggerFilter
 
 <table>
   <tr>
