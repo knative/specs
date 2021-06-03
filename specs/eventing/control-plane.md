@@ -1,4 +1,5 @@
 # Knative Control Plane Contract
+
 ## Abstract
 
 The Knative Eventing platform provides common primitives for routing CloudEvents
@@ -39,11 +40,25 @@ tooling developers, by extension) deploying applications to the environment.
   event routing resources and manage the software configuration of Knative
   Eventing and the underlying abstractions.
 
+## Resource Overview
+
+The Knative Eventing API provides a set of primitives to support both
+point-to-point communication channels (`messaging.knative.dev`) and
+content-based event routing (`eventing.knative.dev`). This specification
+describes API interfaces of Knative Eventing resources as well as the supported
+[event routing](./data-plane.md) logic and configuration settings.
+
+At the moment, the Knative Eventing specification does not contemplate any
+non-Kubernetes-backed implementations, and therefore does not specifically
+define the mapping of Kubernetes verbs (read, watch, patch, etc) to developer
+roles. See the [Overview documentation](./overview.md) for general definitions
+of the different API objects.
+
 ## RBAC Profile
 
 In order to validate the controls described in
 [Resource Overview](#resource-overview), the following Kubernetes RBAC profile
-may be applied in a Kubernetes cluster. This Kubernetes RBAC is an illustrative
+can be applied in a Kubernetes cluster. This Kubernetes RBAC is an illustrative
 example of the minimal profile rather than a requirement. This Role should be
 sufficient to develop, deploy, and manage event routing for an application
 within a single namespace. Knative Conformance tests against "MUST", "MUST NOT",
@@ -68,8 +83,8 @@ In order to support resolving resources which meet the
 [Trigger](#trigger-lifecycle) or [Subscription](#subscription-lifecycle) will
 need _read_ access to these resources. On Kubernetes, this is most easily
 achieved using role aggregation; on systems using Kubernetes RBAC, resources
-which wish to participate in Addressable resolution should provide the following
-`ClusterRole`:
+which wish to participate in Addressable resolution are expected to provide the
+following `ClusterRole`:
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -94,20 +109,6 @@ Ref:
 - https://github.com/knative/specs/blob/main/specs/eventing/channel.md#aggregated-addressable-resolver-clusterrole
 -
 -->
-
-## Resource Overview
-
-The Knative Eventing API provides a set of primitives to support both
-point-to-point communication channels (`messaging.knative.dev`) and
-content-based event routing (`eventing.knative.dev`). This specification
-describes API interfaces of Knative Eventing resources as well as the supported
-[event routing](./data-plane.md) logic and configuration settings.
-
-At the moment, the Knative Eventing specification does not contemplate any
-non-Kubernetes-backed implementations, and therefore does not specifically
-define the mapping of kubernetes verbs (read, watch, patch, etc) to developer
-roles. See the [Overview documentation](./overview.md) for general definitions
-of the different API objects.
 
 ## Error Signalling
 
@@ -257,30 +258,31 @@ transient conditions be indicated with a `severity="Info"`.
 
 ### Broker Lifecycle
 
-A Broker represents an Addressable endpoint (i.e. it has a `status.address.url`
-field) which can receive, store, and forward events to multiple recipients based
-on a set of attribute filters (Triggers). Triggers are associated with a Broker
-based on the `spec.broker` field on the Trigger; it is expected that the
-controller for a Broker will also control the associated Triggers. When the
-Broker's `Ready` condition is `true`, the Broker MUST provide a
-`status.address.url` which accepts all valid CloudEvents and MUST forward the
-received events for filtering to each associated Trigger whose `Ready` condition
-is `true`. As described in the [Trigger Lifecycle](#trigger-lifecycle) section,
-a Broker MAY forward events to an associated Trigger which which does not
-currently have a `true` `Ready` condition, including events received by the
-Broker before the Trigger was created.
+A Broker represents an Addressable endpoint (i.e. it MUST have a
+`status.address.url` field) which can receive, store, and forward events to
+multiple recipients based on a set of attribute filters (Triggers). Triggers are
+associated with a Broker based on the `spec.broker` field on the Trigger; it is
+expected that the controller for a Broker will also control the associated
+Triggers. When the Broker's `Ready` condition is `true`, the Broker MUST provide
+a `status.address.url` which accepts all valid CloudEvents and MUST attempt to
+forward the received events for filtering to each associated Trigger whose
+`Ready` condition is `true`. As described in the
+[Trigger Lifecycle](#trigger-lifecycle) section, a Broker MAY forward events to
+an associated Trigger which which does not currently have a `true` `Ready`
+condition, including events received by the Broker before the Trigger was
+created.
 
-The annotation `eventing.knative.dev/broker.class` may be used to select a
-particular implementation of a Broker. When a Broker is created, its
-implementation and the `spec.config` field MUST be populated (`spec.config` MAY
-be an empty broker) to indicate which of several possible Broker implementations
-to use. It is RECOMMENDED to default the `eventing.knative.dev/broker.class`
-field on creation if it is unpopulated. Once created, both fields MUST be
-immutable; the Broker must be deleted and re-created to change the
-implementation class or `spec.config`. This pattern is chosen to make it clear
-that changing the implementation class or `spec.config` is not an atomic
-operation and that any implementation would be likely to result in event loss
-during the transition.
+The annotation `eventing.knative.dev/broker.class` MAY be used to select a
+particular implementation of a Broker. When a Broker is created, the
+`eventing.knative.dev/broker.class` annotation and the `spec.config` field MUST
+be populated (`spec.config` MAY be an empty object) to indicate which of several
+possible Broker implementations to use. It is RECOMMENDED to default the
+`eventing.knative.dev/broker.class` field on creation if it is unpopulated. Once
+created, both fields MUST be immutable; the Broker MUST be deleted and
+re-created to change the implementation class or `spec.config`. This pattern is
+chosen to make it clear that changing the implementation class or `spec.config`
+is not an atomic operation and that any implementation would be likely to result
+in event loss during the transition.
 
 ### Trigger Lifecycle
 
@@ -290,21 +292,22 @@ The lifecycle of a Trigger is independent of the Broker it refers to in its
 `false`, and the reason SHOULD indicate that the corresponding Broker is missing
 or not ready.
 
-The Trigger MUST also set the `status.subscriberUri` field based on resolving
-the `spec.subscriber` field before setting the `Ready` condition to `true`. If
-the `spec.subscriber.ref` field points to a resource which does not exist or
-cannot be resolved via [Addressable resolution](#addressable-resolution), the
-Trigger MUST set the `Ready` condition to `false`, and at least one condition
-should indicate the reason for the error.
+The Trigger's controller MUST also set the `status.subscriberUri` field based on
+resolving the `spec.subscriber` field before setting the `Ready` condition to
+`true`. If the `spec.subscriber.ref` field points to a resource which does not
+exist or cannot be resolved via
+[Addressable resolution](#addressable-resolution), the Trigger MUST set the
+`Ready` condition to `false`, and at least one condition should indicate the
+reason for the error.
 
 If the Trigger's `spec.delivery.deadLetterSink` field it set, it MUST be
 resolved to a URI and reported in `status.deadLetterSinkUri` in the same manner
 as the `spec.subscriber` field before setting the `Ready` condition to `true`.
 
 Once created, the Trigger's `spec.broker` SHOULD NOT permit updates; to change
-the `spec.broker`, the Trigger can be deleted and re-created. This pattern is
-chosen to make it clear that changing the `spec.broker` is not an atomic
-operation, as it may span multiple storage systems. Changes to
+the `spec.broker`, the Trigger can instead be deleted and re-created. This
+pattern is chosen to make it clear that changing the `spec.broker` is not an
+atomic operation, as it could span multiple storage systems. Changes to
 `spec.subscriber`, `spec.filter` and other fields SHOULD be permitted, as these
 could occur within a single storage system.
 
@@ -319,7 +322,7 @@ deletion.
 
 ### Channel Lifecycle
 
-A Channel represents an Addressable endpoint (i.e. it has as
+A Channel represents an Addressable endpoint (i.e. it MUST have a
 `status.address.url` field) which can receive, store, and forward events to
 multiple recipients (Subscriptions). Subscriptions are associated with a Channel
 based on the `spec.channel` field on the Subscription; it is expected that the
@@ -343,8 +346,8 @@ event loss during the transition.
 
 ### Subscription Lifecycle
 
-The lifecycle of a Subscription is independent of that of the channel it refers
-to in its `spec.channel` field. The `spec.channel` object reference may refer to
+The lifecycle of a Subscription is independent of the channel it refers to in
+its `spec.channel` field. The `spec.channel` object reference may refer to
 either an `messaging.knative.dev/v1` Channel resource, or another resource which
 meets the `spec.subscribers` and `spec.delivery` required elements in the
 Channelable duck type. If the referenced `spec.channel` does not currently exist
@@ -432,18 +435,19 @@ mechanisms.
 
 ### Content Based Routing
 
-A Broker MUST publish a URL at `status.address.uri` when it is able to receive
+A Broker MUST publish a URL at `status.address.url` when it is able to receive
 events. This URL MUST accept CloudEvents in both the
 [Binary Content Mode](https://github.com/cloudevents/spec/blob/v1.0.1/http-protocol-binding.md#31-binary-content-mode)
 and
 [Structured Content Mode](https://github.com/cloudevents/spec/blob/v1.0.1/http-protocol-binding.md#32-structured-content-mode)
 HTTP formats. Before sending an HTTP response, the Broker MUST durably enqueue
-the event (be able to deliver with retry without receiving the event again).
+the event (where durability means that the Broker can retry event delivery
+beyond the duration of receiving the event).
 
 For each event received by the Broker, the Broker MUST evaluate each associated
 Trigger **once** (where "associated" means a Trigger with a `spec.broker` which
 references the Broker). If the Trigger has a `Ready` condition of `true` when
-the event is evaluated, the the Broker MUST evaluate the Trigger's `spec.filter`
+the event is evaluated, the Broker MUST evaluate the Trigger's `spec.filter`
 and, if matched, proceed with
 [event delivery as described below](#event-delivery). The Broker MAY also
 evaluate and forward events to associated Triggers for which the `Ready`
@@ -455,17 +459,17 @@ set the `Ready` condition to `true`.)
 If multiple Triggers match an event, one event delivery MUST be generated for
 each match; duplicate matches with the same destination MUST each generate a
 separate event delivery attempts, one per Trigger match. The implementation MAY
-attach additional event attributes or other metadata distinguishing between these
-deliveries. The implementation MUST NOT modify the event payload in this
+attach additional event attributes or other metadata distinguishing between
+these deliveries. The implementation MUST NOT modify the event payload in this
 process.
 
 Reply events generated during event delivery MUST be re-enqueued by the Broker
 in the same way as events delivered to the Broker's Addressable URL. If the
 storage of the reply event fails, the entire event delivery MUST be failed and
-the delivery to the Trigger's subscriber MUST be retried. Reply events re-enqueued
-in this manner MUST be evaluated against all triggers associated with the
-Broker, including the Trigger that generated the reply. Implementations MAY
-implement event-loop detection; it is RECOMMENDED that any such controls be
+the delivery to the Trigger's subscriber MUST be retried. Reply events
+re-enqueued in this manner MUST be evaluated against all triggers associated
+with the Broker, including the Trigger that generated the reply. Implementations
+MAY implement event-loop detection; it is RECOMMENDED that any such controls be
 documented to end-users. Implementations MAY avoid using HTTP to deliver event
 replies to the Broker's event-delivery input and instead use an internal
 queueing mechanism.
