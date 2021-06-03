@@ -1,6 +1,5 @@
 # Knative Serving API Specification
 
-
 <table>
   <tr>
    <td><p style="text-align: right">
@@ -148,45 +147,46 @@ deployment scenarios (by frequency).
 
 ## Extensions
 
-Extending the Knative resource model allows for custom semantics to be
-offered by implementions of the specification. Unless otherwise noted,
-implementations of this specification MAY define extensions but those
-extensions MUST NOT contradict the semantics defined within this specification.
+Extending the Knative resource model allows for custom semantics to be offered
+by implementions of the specification. Unless otherwise noted, implementations
+of this specification MAY define extensions but those extensions MUST NOT
+contradict the semantics defined within this specification.
 
 There are several ways in which implementations can extend the model:
-* Annotations and Labels<br>
-  _Note_: Because this mechanism allows new controllers to be added to the
-  system without requiring code changes to the core Knative components, it is
-  the preferred mechanism for extending the Knative interface.
+
+- Annotations and Labels<br> _Note_: Because this mechanism allows new
+  controllers to be added to the system without requiring code changes to the
+  core Knative components, it is the preferred mechanism for extending the
+  Knative interface.
 
   Allowing end users to include annotations or labels on the Knative resources
   allows for them to indicate that they would like some additional semantics
-  applied to those resources. When defining annotations, or labels, it
-  is STRONGLY RECOMMENDED that they have some vendor-specific prefix to
-  avoid any potential naming conflict with other extensions or future
-  annotations defined by the specification. For more information on
-  annotations and labels, see
+  applied to those resources. When defining annotations, or labels, it is
+  STRONGLY RECOMMENDED that they have some vendor-specific prefix to avoid any
+  potential naming conflict with other extensions or future annotations defined
+  by the specification. For more information on annotations and labels, see
   [here](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#label-selector-and-annotation-conventions).
 
-* Additional Properties<br>
-  There might be times when annotations and labels can not be used to
-  properly (or easily) allow end users to convey their desired semantics,
-  in which case additional well-defined properties might need to be
+- Additional Properties<br> There might be times when annotations and labels can
+  not be used to properly (or easily) allow end users to convey their desired
+  semantics, in which case additional well-defined properties might need to be
   defined by implementations.
 
-  In these cases vendor-specific properties MAY be defined and it is
-  STRONGLY RECOMMENDED that they be named, or prefixed, in such a way
-  to clearly indicate their scope and purpose. Choosing a name that
-  is too generic might lead to conflicts with other vendor extensions
-  or future changes to the specification.
+  In these cases vendor-specific properties MAY be defined and it is STRONGLY
+  RECOMMENDED that they be named, or prefixed, in such a way to clearly indicate
+  their scope and purpose. Choosing a name that is too generic might lead to
+  conflicts with other vendor extensions or future changes to the specification.
 
-  For example, adding authentication on a per-tag basis via annotations
-  might look like:
+  For example, adding authentication on a per-tag basis via annotations might
+  look like:
+
   ```
   annotations:
     knative.vendor.com/per-tag-auth: "{'cannary': true, 'latest': true}"
   ```
+
   but, that is not as user-friendly as extending the `traffic` section itself:
+
   ```
   spec:
     traffic:
@@ -510,145 +510,8 @@ if allowed, at least JSON Merge patch be made available.
 
 # Error Signalling
 
-The Knative API uses the
-[Kubernetes Conditions convention](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#typical-status-properties)
-to communicate errors and problems to the user. Each user-visible resource
-described in Resource Overview MUST have a `conditions` field in `status`, which
-must be a list of `Condition` objects of the following form (note that the
-actual API object types may be named `FooCondition` to allow better code
-generation and disambiguation between similar fields in the same `apiGroup`):
-
-<table>
-  <tr>
-   <td><strong>Field</strong>
-   </td>
-   <td><strong>Type</strong>
-   </td>
-   <td><strong>Description</strong>
-   </td>
-   <td><strong>Default Value</strong>
-   </td>
-  </tr>
-  <tr>
-   <td><code>type</code>
-   </td>
-   <td><code>string</code>
-   </td>
-   <td>The category of the condition, as a short, CamelCase word or phrase.
-<p>
-This is the primary key of the Conditions list when viewed as a map.
-   </td>
-   <td>REQUIRED – No default
-   </td>
-  </tr>
-  <tr>
-   <td><code>status</code>
-   </td>
-   <td>Enum:<ul>
-
-<li>"True"
-<li>"False"
-<li>"Unknown"</li></ul>
-
-   </td>
-   <td>The last measured status of this condition.
-   </td>
-   <td>"Unknown"
-   </td>
-  </tr>
-  <tr>
-   <td><code>reason</code>
-   </td>
-   <td>string
-   </td>
-   <td>One-word CamelCase reason for the condition's last transition.
-   </td>
-   <td>""
-   </td>
-  </tr>
-  <tr>
-   <td><code>message</code>
-   </td>
-   <td>string
-   </td>
-   <td>Human-readable sentence describing the last transition.
-   </td>
-   <td>""
-   </td>
-  </tr>
-  <tr>
-   <td><code>severity</code>
-   </td>
-   <td>Enum:<ul>
-
-<li>""
-<li>"Warning"
-<li>"Info"</li></ul>
-
-   </td>
-   <td>If present, represents the severity of the condition. An empty severity represents a severity level of "Error". 
-   </td>
-   <td>""
-   </td>
-  </tr>
-  <tr>
-   <td><code>lastTransitionTime</code>
-   </td>
-   <td>Timestamp
-   </td>
-   <td>Last update time for this condition.
-   </td>
-   <td>"" – may be unset
-   </td>
-  </tr>
-</table>
-
-Additionally, the resource's `status.conditions` field MUST be managed as
-follows to enable clients (particularly user interfaces) to present useful
-diagnostic and error message to the user. In the following section, conditions
-are referred to by their `type` (aka the string value of the `type` field on the
-Condition).
-
-1.  Each resource MUST have either a `Ready` condition (for ongoing systems) or
-    `Succeeded` condition (for resources that run to completion) with
-    `severity=""`, which MUST use the `True`, `False`, and `Unknown` status
-    values as follows:
-
-    1.  `False` MUST indicate a failure condition.
-    1.  `Unknown` SHOULD indicate that reconciliation is not yet complete and
-        success or failure is not yet determined.
-    1.  `True` SHOULD indicate that the application is fully reconciled and
-        operating correctly.
-
-    `Unknown` and `True` are specified as SHOULD rather than MUST requirements
-    because there may be errors which prevent serving which cannot be determined
-    by the API stack (e.g. DNS record configuration in certain environments).
-    Implementations are expected to treat these as "MUST" for factors within the
-    control of the implementation.
-
-1.  For non-`Ready` conditions, any conditions with `severity=""` (aka "Error
-    conditions") must be aggregated into the "Ready" condition as follows:
-
-    1.  If the condition is `False`, `Ready` MUST be `False`.
-    1.  If the condition is `Unknown`, `Ready` MUST be `False` or `Unknown`.
-    1.  If the condition is `True`, `Ready` may be any of `True`, `False`, or
-        `Unknown`.
-
-    Implementations MAY choose to report that `Ready` is `False` or `Unknown`
-    even if all Error conditions report a status of `True` (i.e. there may be
-    additional hidden implementation conditions which feed into the `Ready`
-    condition which are not reported.)
-
-1.  Non-`Ready` conditions with non-error severity MAY be surfaced by the
-    implementation. Examples of `Warning` or `Info` conditions could include:
-    missing health check definitions, scale-to-zero status, or non-fatal
-    capacity limits.
-
-Conditions type names should be chosen to describe positive conditions where
-`True` means that the condition has been satisfied. Some conditions may be
-transient (for example, `ResourcesAllocated` might change between `True` and
-`False` as an application scales to and from zero). It is RECOMMENDED that
-transient conditions be indicated with a `severity="Info"`.
+See [the Knative common condition guidance](../common/error-signalling) for how
+resource errors are signalled to the user.
 
 # Resource Lifecycle
 
@@ -694,9 +557,8 @@ Configuration or Route, as follows:
 - Additional `labels` and `annotations` on the Configuration and Route not
   specified above MUST be removed.
 - See the documentation of `spec` in the
-  [detailed resource fields section](#detailed-resources--v1) for the
-  mapping of specific `spec` fields to the corresponding fields in Configuration
-  and Route.
+  [detailed resource fields section](#detailed-resources--v1) for the mapping of
+  specific `spec` fields to the corresponding fields in Configuration and Route.
 
 Similarly, the Service MUST update its `status` fields based on the
 corresponding `status` of its owned Route and Configuration. The Service MUST
@@ -1362,8 +1224,8 @@ Restrictions to the values of the field are noted in the Description column.
 
 ## TrafficTarget
 
-This resource specifies how the network traffic for a particular
-Revision or Configuration is to be configured.
+This resource specifies how the network traffic for a particular Revision or
+Configuration is to be configured.
 
 <table>
   <tr>
@@ -2848,6 +2710,5 @@ Max: 1
 
 ## Authors
 
-[Dan Gerdesmeier](mailto:dangerd@google.com)
-[Doug Davis](mailto:dug@us.ibm.com)
+[Dan Gerdesmeier](mailto:dangerd@google.com) [Doug Davis](mailto:dug@us.ibm.com)
 [Evan Anderson](mailto:evana@vmware.com)
