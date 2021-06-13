@@ -21,17 +21,6 @@ patterns:
   separately for processing. Content-based routing handles reply events by
   re-enqueuing the events in the originating Broker.
 
-Knative Eventing does not directly specify mechanisms for other event-processing
-models, including multi-stage workflows, correlated request-reply, and
-sequential (windowed) event processing; these models could be built using the
-primitives provided by Knative, or Knative could deliver events to an external
-system that implements these models.
-
-In addition to the primitives needed to express the above patterns, Knative
-Eventing defines two [_interface contracts_](#interface-contracts) to allow
-connecting multiple types of Kubernetes objects as event senders and recipients
-to the core primitives.
-
 ![Overview of objects](images/eventing-overview.svg)
 
 <!-- Generated from the following UML using PlantUML:
@@ -46,7 +35,12 @@ usecase Addressable AS A2 <<Kubernetes Service>>
 
 package "eventing.knative.dev" {
 agent Broker
-agent "Trigger" as T1
+agent T1 [
+Trigger
+--
+events selected from Broker,
+replies sent back to Broker
+]
 agent "Trigger" as T2
 }
 
@@ -57,7 +51,12 @@ Addressable <-u- T1 : subscriber
 package "messaging.knative.dev" {
 agent Channel
 agent "Subscription" as S1
-agent "Subscription" as S2
+agent S2 [
+Subscription
+---
+events sent from Channel to Addressable,
+replies sent to second Addressable
+]
 }
 
 Channel <-- S1 :channel
@@ -66,6 +65,17 @@ Addressable <-u- S2 :subscriber
 A2 <-u- S2 : reply
 @enduml
 -->
+
+Knative Eventing does not directly specify mechanisms for other event-processing
+models, including multi-stage workflows, correlated request-reply, and
+sequential (windowed) event processing; these models could be built using the
+primitives provided by Knative, or Knative could deliver events to an external
+system that implements these models.
+
+In addition to the primitives needed to express the above patterns, Knative
+Eventing defines two [_interface contracts_](#interface-contracts) to allow
+connecting multiple types of Kubernetes objects as event senders and recipients
+to the core primitives.
 
 ## Interface Contracts
 
