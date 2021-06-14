@@ -510,7 +510,7 @@ if allowed, at least JSON Merge patch be made available.
 
 # Error Signalling
 
-See [the Knative common condition guidance](../common/error-signalling) for how
+See [the Knative common condition guidance](../common/error-signalling.md) for how
 resource errors are signalled to the user.
 
 # Resource Lifecycle
