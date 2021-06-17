@@ -83,8 +83,8 @@ In order to support resolving resources which meet the
 [Trigger](#trigger-lifecycle) or [Subscription](#subscription-lifecycle) will
 need _read_ access to these resources. On Kubernetes, this is most easily
 achieved using role aggregation; on systems using Kubernetes RBAC, resources
-which wish to participate in [Addressable resolution](#addressable-resolution) are expected to provide the
-following `ClusterRole`:
+which wish to participate in [Addressable resolution](#addressable-resolution)
+are expected to provide the following `ClusterRole`:
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -778,7 +778,8 @@ There are no `spec` requirements for Addressable.
 
 Destination is used to indicate the destination for event delivery. A
 Destination eventually resolves the supplied information to a URL by resolving
-`uri` relative to the address of `ref` (if provided) as described in [Addressable resolution](#addressable-resolution). `ref` MAY be an
+`uri` relative to the address of `ref` (if provided) as described in
+[Addressable resolution](#addressable-resolution). `ref` MAY be an
 [Addressable](#duckv1-addressable) object or a `v1/Service` Kubernetes service.
 
 <table>
