@@ -7,9 +7,9 @@ This document discusses communication between two parties:
 - **Event Senders** initiate an HTTP POST to deliver a CloudEvent.
 - **Event Recipients** receive an HTTP POST and accept (or reject) a CloudEvent.
 
-Additionally, these roles may be combined in different ways:
+Additionally, these roles can be combined in different ways:
 
-- **Event Processors** may be event senders, event recipients, or both.
+- **Event Processors** can be event senders, event recipients, or both.
 - **Event Sources** are exclusively event senders, and never act as recipients.
 - **Event Sinks** are exclusively event recipients, and never act as senders.
 
@@ -54,7 +54,7 @@ interpreted as described in
 
 When not specified in this document, the
 [CloudEvents HTTP bindings, version 1.0](https://github.com/cloudevents/spec/blob/v1.0.1/http-protocol-binding.md)
-and [HTTP 1.1 protocol](https://tools.ietf.org/html/rfc7230) standards should be
+and [HTTP 1.1 protocol](https://tools.ietf.org/html/rfc7230) standards MUST be
 followed (with the CloudEvents bindings taking precedence in the case of
 conflict).
 
@@ -75,15 +75,13 @@ and
 content modes of the CloudEvents HTTP binding. Senders which do not advertise
 the ability to accept [reply events](#derived-reply-events) MAY implement only
 one content mode, as the recipient is not allowed to negotiate the content mode.
-Senders MUST support both cleartext (`http`) and TLS (`https`) URLs as event
-delivery destinations.
 
 ### HTTP Verbs
 
 In the absence of specific delivery preferences, the sender MUST initiate
 delivery of the event to the recipient using the HTTP POST verb, using either
 the structured or binary encoding of the event (sender's choice). This delivery
-SHOULD be performed using the CloudEvents HTTP Binding, version 1.0.
+MUST be performed using the CloudEvents HTTP Binding, version 1.x.
 
 Senders MAY probe the recipient with an
 [HTTP OPTIONS request](https://tools.ietf.org/html/rfc7231#section-4.3.7); if
@@ -120,25 +118,24 @@ extension**. Event recipients SHOULD NOT send these response codes in this spec
 version, but event senders MUST handle these response codes as errors or success
 as appropriate and implement described success or failure behavior.
 
-Recipients MUST be able to handle duplicate delivery of events (for example, via
-idempotency or tracking event delivery state) and MUST accept delivery of
-duplicate events, as the event acknowledgement could have been lost in return to
-the sender. As specified in the
+Recipients MUST accept duplicate delivery of events, but they are not REQUIRED
+to detect that they are duplicates. If duplicate detection is implemented, then
+as specified in the
 [CloudEvents specification](https://github.com/cloudevents/spec/blob/v1.0.1/primer.md#id),
 event recipients MUST use the
 [`source` and `id` attributes](https://github.com/cloudevents/spec/blob/v1.0.1/spec.md#required-attributes)
-to determine duplicate events if needed. This specification does not describe
-state requirements for recipients which need to detect duplicate events. (In
-general, senders MAY add or update other CloudEvent attributes on each delivery
-attempt; see [observability](#observability) for an example case).
+to identify duplicate events. This specification does not describe state
+requirements for recipients which need to detect duplicate events. In general,
+senders MAY add or update other CloudEvent attributes on each delivery attempt;
+see [observability](#observability) for an example case.
 
 Where possible, event senders SHOULD re-attempt delivery of events where the
-HTTP request failed or returned a retryable status code. It is RECOMMENDED that
-event senders implement some form of congestion control (such as exponential
-backoff) and delivery throttling when managing retry timing. Congestion control
-MAY cause event delivery to fail or MAY include not retrying failed delivery
-attempts. This specification does not document any specific congestion control
-algorithm or parameters. [Brokers](./overview.md#broker) and
+HTTP request returned a retryable status code. It is RECOMMENDED that event
+senders implement some form of congestion control (such as exponential backoff)
+and delivery throttling when managing retry timing. Congestion control MAY cause
+event delivery to fail or MAY include not retrying failed delivery attempts.
+This specification does not document any specific congestion control algorithm
+or parameters. [Brokers](./overview.md#broker) and
 [Channels](./overview.md#channel) MUST implement congestion control and MUST
 implement retries.
 
@@ -169,7 +166,8 @@ event recipient that the caller will accept a
 [`200` response](#event-acknowledgement-and-repeat-delivery) which includes a
 CloudEvent encoded using the binary or structured formats.
 [Brokers](./overview.md#broker) and [Channels](./overview.md#channel) MUST
-indicate support for replies using the `Prefer: reply` header.
+indicate support for replies using the `Prefer: reply` header when sending to
+the `spec.subscriber` address.
 
 A recipient MAY reply to any HTTP POST with a `200` response to indicate that
 the event was processed successfully, with or without a response payload. If the
