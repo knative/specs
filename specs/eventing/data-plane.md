@@ -172,7 +172,8 @@ the `spec.subscriber` address.
 A recipient MAY reply to any HTTP POST with a `200` response to indicate that
 the event was processed successfully, with or without a response payload. If the
 recipient will _never_ provide a response payload, the `202` response code is
-likely a better choice.
+also acceptable. Responses with a `202` response code MUST NOT be processed as
+reply events.
 
 If a recipient chooses to reply to a sender with a `200` response code and a
 reply event in the absence of a `Prefer: reply` header from the sender, the
