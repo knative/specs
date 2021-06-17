@@ -6,14 +6,18 @@ Knative APIs use the
 [Kubernetes Conditions convention](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#typical-status-properties)
 to communicate errors and problems to the user. Note that Knative customizes the
 general Kubernetes recommendation with a `severity` field, and does not include
-`lastTransitionTime` for scalability reasons. Each user-visible resource
+`lastHeartbeatTime` for scalability reasons. Each user-visible resource
 described in Resource Overview MUST have a `conditions` field in `status`, which
-MUST be a list of `Condition` objects of the following form. Fields in the
-condition which are not marked as REQUIRED may be omitted to indicate the
-default value (i.e. a Condition which does not include a `status` field is
-equivalent to a `status` of `"Unknown"`). The actual API object types in an
-OpenAPI document may be named `FooCondition` to allow better code generation and
-disambiguation between similar fields in the same `apiGroup`.
+MUST be a list of `Condition` objects described by the following table.
+
+Fields in the condition which are not marked as "REQUIRED" MAY be omitted to
+indicate the default value (i.e. a Condition which does not include a `status`
+field is equivalent to a `status` of `"Unknown"`). As `Conditions` are an output
+API, an implementation MAY never set these fields; the OpenAPI document MUST
+still describe these fields. The actual API object types in an OpenAPI document
+might be named `FooCondition` (for a `Foo` resource, for example) to allow
+better code generation and disambiguation between similar fields in the same
+`apiGroup`.
 
 <table>
   <tr>
@@ -33,7 +37,8 @@ disambiguation between similar fields in the same `apiGroup`.
    </td>
    <td>The category of the condition, as a short, CamelCase word or phrase.
 <p>
-This is the primary key of the Conditions list when viewed as a map.
+This is the primary key of the Conditions list when viewed as a map and MUST be
+unique across Conditions for a given resource.
    </td>
    <td>REQUIRED – No default
    </td>
@@ -106,7 +111,7 @@ diagnostic and error message to the user. In the following section, conditions
 are referred to by their `type` (aka the string value of the `type` field on the
 Condition).
 
-1.  Each resource MUST have either a `Ready` condition (for ongoing systems) or
+1.  Each resource MUST have a summary `Ready` condition (for ongoing systems) or
     `Succeeded` condition (for resources that run to completion) with
     `severity=""`, which MUST use the `"True"`, `"False"`, and `"Unknown"`
     status values as follows:
@@ -118,7 +123,7 @@ Condition).
         operating correctly.
 
     `"Unknown"` and `"True"` are specified as SHOULD rather than MUST
-    requirements because there may be errors which prevent functioning which
+    requirements because there might be errors which prevent functioning which
     cannot be determined by the API stack (e.g. DNS record configuration in
     certain environments). Implementations are expected to treat these as "MUST"
     for factors within the control of the implementation.
@@ -137,16 +142,11 @@ Condition).
     there might be additional hidden implementation conditions which feed into
     the `Ready` condition which are not reported.)
 
-1.  Non-`Ready` conditions with non-error severity MAY be surfaced by the
-    implementation. Examples of `Warning` or `Info` conditions could include:
-    missing health check definitions, scale-to-zero status, or non-fatal
-    capacity limits.
-
 1.  Conditions with a `status` other than `"True"` SHOULD provide `message` and
     `reason` fields indicating the reason that the `status` is not `"True"`.
     Conditions where the `status` is `"False"` MUST provide a failure `reason`
-    in the condition. (`"Unknown"` conditions may not have been reconciled, and
-    so may have an empty `reason`.)
+    in the condition. (`"Unknown"` conditions might not have been reconciled,
+    and so MAY have an empty `reason`.)
 
 Conditions type names SHOULD be chosen to describe positive conditions where
 `"True"` means that the condition has been satisfied. Some conditions MAY be

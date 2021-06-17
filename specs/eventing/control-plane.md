@@ -24,8 +24,8 @@ interpreted as described in [RFC 2119](https://tools.ietf.org/html/rfc2119).
 
 There is no formal specification of the Kubernetes API and Resource Model. This
 document assumes Kubernetes 1.21 behavior; this behavior will typically be
-supported by many future Kubernetes versions. Additionally, this document may
-reference specific core Kubernetes resources; these references may be
+supported by many future Kubernetes versions. Additionally, this document
+references specific core Kubernetes resources; these references can be
 illustrative (i.e. _an implementation on Kubernetes_) or descriptive (i.e. _this
 Kubernetes resource MUST be exposed_). References to these core Kubernetes
 resources will be annotated as either illustrative or descriptive.
@@ -59,7 +59,7 @@ of the different API objects.
 In order to validate the controls described in
 [Resource Overview](#resource-overview), the following Kubernetes RBAC profile
 can be applied in a Kubernetes cluster. This Kubernetes RBAC is an illustrative
-example of the minimal profile rather than a requirement. This Role should be
+example of the minimal profile rather than a requirement. This Role is
 sufficient to develop, deploy, and manage event routing for an application
 within a single namespace. Knative Conformance tests against "MUST", "MUST NOT",
 and "REQUIRED" conditions are expected to pass when using this profile:
@@ -83,7 +83,7 @@ In order to support resolving resources which meet the
 [Trigger](#trigger-lifecycle) or [Subscription](#subscription-lifecycle) will
 need _read_ access to these resources. On Kubernetes, this is most easily
 achieved using role aggregation; on systems using Kubernetes RBAC, resources
-which wish to participate in Addressable resolution are expected to provide the
+which wish to participate in [Addressable resolution](#addressable-resolution) are expected to provide the
 following `ClusterRole`:
 
 ```yaml
@@ -99,7 +99,7 @@ rules:
     verbs: ["get", "list", "watch"]
 ```
 
-This configuration advice SHALL NOT indicate a requirement for Kubernetes RBAC
+This configuration advice does not indicate a requirement for Kubernetes RBAC
 support.
 
 <!-- TODO: define aggregated API roles
@@ -112,8 +112,8 @@ Ref:
 
 ## Error Signalling
 
-See [the Knative common condition guidance](../common/error-signalling) for how
-resource errors are signalled to the user.
+See [the Knative common condition guidance](../common/error-signalling.md) for
+how resource errors are signalled to the user.
 
 ## Resource Lifecycle
 
@@ -121,13 +121,13 @@ resource errors are signalled to the user.
 
 A Broker represents an Addressable endpoint (i.e. it MUST have a
 `status.address.url` field) which can receive, store, and forward events to
-multiple recipients based on a set of attribute filters (Triggers). Triggers are
-associated with a Broker based on the `spec.broker` field on the Trigger; it is
-expected that the controller for a Broker will also control the associated
-Triggers. When the Broker's `Ready` condition is `true`, the Broker MUST provide
-a `status.address.url` which accepts all valid CloudEvents and MUST attempt to
-forward the received events for filtering to each associated Trigger whose
-`Ready` condition is `true`. As described in the
+multiple recipients based on a set of attribute filters (Triggers). Triggers
+MUST be associated with a Broker based on the `spec.broker` field on the
+Trigger; it is expected that the controller for a Broker will also control the
+associated Triggers. When the Broker's `Ready` condition is `true`, the Broker
+MUST provide a `status.address.url` which accepts all valid CloudEvents and MUST
+attempt to forward the received events for filtering to each associated Trigger
+whose `Ready` condition is `true`. As described in the
 [Trigger Lifecycle](#trigger-lifecycle) section, a Broker MAY forward events to
 an associated Trigger which which does not currently have a `true` `Ready`
 condition, including events received by the Broker before the Trigger was
@@ -147,7 +147,7 @@ in event loss during the transition.
 
 ### Trigger Lifecycle
 
-The lifecycle of a Trigger is independent of the Broker it refers to in its
+A Trigger MAY be created before the referenced Broker indicated by its
 `spec.broker` field; if the Broker does not currently exist or the Broker's
 `Ready` condition is not `true`, then the Trigger's `Ready` condition MUST be
 `false`, and the reason SHOULD indicate that the corresponding Broker is missing
@@ -158,17 +158,18 @@ resolving the `spec.subscriber` field before setting the `Ready` condition to
 `true`. If the `spec.subscriber.ref` field points to a resource which does not
 exist or cannot be resolved via
 [Addressable resolution](#addressable-resolution), the Trigger MUST set the
-`Ready` condition to `false`, and at least one condition should indicate the
-reason for the error.
+`Ready` condition to `false`, and at least one condition MUST indicate the
+reason for the error. The Trigger SHOULD also set `status.subscriberUri` to the
+empty string if the `spec.subscriber.ref` cannot be resolved.
 
 If the Trigger's `spec.delivery.deadLetterSink` field it set, it MUST be
 resolved to a URI and reported in `status.deadLetterSinkUri` in the same manner
 as the `spec.subscriber` field before setting the `Ready` condition to `true`.
 
-Once created, the Trigger's `spec.broker` SHOULD NOT permit updates; to change
-the `spec.broker`, the Trigger can instead be deleted and re-created. This
-pattern is chosen to make it clear that changing the `spec.broker` is not an
-atomic operation, as it could span multiple storage systems. Changes to
+Once created, the Trigger's `spec.broker` MUST NOT permit updates; to change the
+`spec.broker`, the Trigger can instead be deleted and re-created. This pattern
+is chosen to make it clear that changing the `spec.broker` is not an atomic
+operation, as it could span multiple storage systems. Changes to
 `spec.subscriber`, `spec.filter` and other fields SHOULD be permitted, as these
 could occur within a single storage system.
 
@@ -185,16 +186,17 @@ deletion.
 
 A Channel represents an Addressable endpoint (i.e. it MUST have a
 `status.address.url` field) which can receive, store, and forward events to
-multiple recipients (Subscriptions). Subscriptions are associated with a Channel
-based on the `spec.channel` field on the Subscription; it is expected that the
-controller for a Channel will also control the associated Subscriptions. When
-the Channel's `Ready` condition is `true`, the Channel MUST provide a
-`status.address.url` which accepts all valid CloudEvents and MUST forward the
-received events to each associated Subscription whose `Ready` condition is
-`true`. As described in the [Subscription Lifecycle](#subscription-lifecycle)
-section, a Channel MAY forward events to an associated Subscription which does
-not currently have a `true` `Ready` condition, including events received by the
-Channel before the `Subscription` was created.
+multiple recipients (Subscriptions). Subscriptions MUST be associated with a
+Channel based on the `spec.channel` field on the Subscription; it is expected
+that the controller for a Channel will also control the associated
+Subscriptions. When the Channel's `Ready` condition is `true`, the Channel MUST
+provide a `status.address.url` which accepts all valid CloudEvents and MUST
+attempt to forward the received events to each associated Subscription whose
+`Ready` condition is `true`. As described in the
+[Subscription Lifecycle](#subscription-lifecycle) section, a Channel MAY forward
+events to an associated Subscription which does not currently have a `true`
+`Ready` condition, including events received by the Channel before the
+`Subscription` was created.
 
 When a Channel is created, its `spec.channelTemplate` field MUST be populated to
 indicate which of several possible Channel implementations to use. It is
@@ -207,14 +209,14 @@ event loss during the transition.
 
 ### Subscription Lifecycle
 
-The lifecycle of a Subscription is independent of the channel it refers to in
-its `spec.channel` field. The `spec.channel` object reference may refer to
-either an `messaging.knative.dev/v1` Channel resource, or another resource which
-meets the `spec.subscribers` and `spec.delivery` required elements in the
-Channelable duck type. If the referenced `spec.channel` does not currently exist
-or its `Ready` condition is not `true`, then the Subscription's `Ready`
-condition MUST NOT be `true`, and the reason SHOULD indicate that the
-corresponding channel is missing or not ready.
+A Subscription MAY be created before the referenced Channel indicated by its
+`spec.channel` field. The `spec.channel` object reference MAY refer to either an
+`messaging.knative.dev/v1` Channel resource, or another resource which meets the
+`spec.subscribers` and `spec.delivery` required elements in the Channelable duck
+type. If the referenced `spec.channel` does not currently exist or its `Ready`
+condition is not `true`, then the Subscription's `Ready` condition MUST NOT be
+`true`, and the reason SHOULD indicate that the corresponding Channel is missing
+or not ready.
 
 The Subscription MUST also set the `status.physicalSubscription` URIs by
 resolving the `spec.subscriber`, `spec.reply`, and
@@ -222,25 +224,25 @@ resolving the `spec.subscriber`, `spec.reply`, and
 [Addressable resolution](#addressable-resolution) before setting the `Ready`
 condition to `true`. If any of the addressable fields fails resolution, the
 Subscription MUST set the `Ready` condition to `false`, and at least one
-condition should indicate the reason for the error. (It is acceptable for none
-of the `spec.subscriber`, `spec.reply`, and `spec.delivery.deadLetterSink`
-fields to contain a `ref` field.)
+condition MUST indicate the reason for the error. The Subscription SHOULD also
+set `status.physicalSubscription` URIs to the empty string if the corresponding
+`spec` reference cannot be resolved.
 
 At least one of `spec.subscriber` and `spec.reply` MUST be set; if only
 `spec.reply` is set, the behavior is equivalent to setting `spec.subscriber`
 except that the Channel SHOULD NOT advertise the ability to process replies
 during the delivery.
 
-Once created, the Subscription's `spec.channel` SHOULD NOT permit updates; to
+Once created, the Subscription's `spec.channel` MUST NOT permit updates; to
 change the `spec.channel`, the Subscription can be deleted and re-created. This
 pattern is chosen to make it clear that changing the `spec.channel` is not an
-atomic operation, as it may span multiple storage systems. Changes to
+atomic operation, as it might span multiple storage systems. Changes to
 `spec.subscriber`, `spec.reply`, `spec.delivery` and other fields SHOULD be
 permitted, as these could occur within a single storage system.
 
-When a Subscription becomes associated with a channel (either due to creating
-the Subscription or the channel), the Subscription MUST only set the `Ready`
-condition to `true` after the channel has been configured to send all future
+When a Subscription becomes associated with a Channel (either due to creating
+the Subscription or the Channel), the Subscription MUST only set the `Ready`
+condition to `true` after the Channel has been configured to send all future
 events to the Subscriptions `spec.subscriber`. The Channel MAY send some events
 to the Subscription before prior to the Subscription's `Ready` condition being
 set to `true`. When a Subscription is deleted, the Channel MAY send some
@@ -252,19 +254,19 @@ TODO: channel-compatible CRDs (Channelable)
 
 ### Addressable Resolution
 
-Both Trigger and Subscription have optional object references (`ref` in
+Both Trigger and Subscription have OPTIONAL object references (`ref` in
 `spec.subscriber`, `spec.delivery.deadLetterSink`, and `spec.reply` for
 Subscription) which are expected to conform to the Addressable partial schema
 ("duck type"). An object conforms with the Addressable partial schema if it
-contains a `status.address.url` field containing a URL which may be used to
+contains a `status.address.url` field containing a URL which can be used to
 deliver CloudEvents over HTTP. As a special case, Kubernetes `v1` `Service`
 objects are considered to have a `status.address.url` of
 `http://<service-dns-name>/`.
 
 If both the `ref` field and the `uri` fields are set on a Destination, then the
-Destination's address is the `uri` interpreted relative to the resolved URI of
-the `ref` field. This may be used, for example, to refer to a specific URL off a
-referenced domain name, like so:
+Destination's address MUST be the `uri` interpreted relative to the resolved URI
+of the `ref` field. This can be used, for example, to refer to a specific URL
+off a referenced domain name, like so:
 
 ```yaml
 subscriber:
@@ -272,7 +274,7 @@ subscriber:
     apiVersion: v1
     kind: Service
     name: test
-  uri: "/update
+  uri: "/update"
 ```
 
 This Destination would resolve to
@@ -280,10 +282,11 @@ This Destination would resolve to
 interpreted relative to the `test` Service's DNS name.
 
 If one of these object references points to an object which does not currently
-satisfy this partial schema (either because the `status.address.url` field is
-empty, or because the object does not have that field), then the Trigger or
-Subscription MUST indicate an error by setting the `Ready` condition to `false`,
-and SHOULD include an indication of the error in a condition reason or type.
+satisfy this partial schema (because object does not exist, the
+`status.address.url` field is empty, or because the object does not have that
+field), then the Trigger or Subscription MUST indicate an error by setting the
+`Ready` condition to `false`, and SHOULD include an indication of the error in a
+condition reason or type.
 
 Both Broker and Channel MUST conform to the Addressable partial schema.
 
@@ -306,10 +309,10 @@ the event (where durability means that the Broker can retry event delivery
 beyond the duration of receiving the event).
 
 For each event received by the Broker, the Broker MUST evaluate each associated
-Trigger **once** (where "associated" means a Trigger with a `spec.broker` which
-references the Broker). If the Trigger has a `Ready` condition of `true` when
-the event is evaluated, the Broker MUST evaluate the Trigger's `spec.filter`
-and, if matched, proceed with
+Trigger **exactly once** (where "associated" means a Trigger with a
+`spec.broker` which references the Broker). If the Trigger has a `Ready`
+condition of `true` when the event is evaluated, the Broker MUST evaluate the
+Trigger's `spec.filter` and, if matched, proceed with
 [event delivery as described below](#event-delivery). The Broker MAY also
 evaluate and forward events to associated Triggers for which the `Ready`
 condition is not currently `true`. (One example: a Trigger which is in the
@@ -374,9 +377,9 @@ following:
 1. Attempt delivery to the `status.subscriberUri` URL following the
    [data plane contract](./data-plane.md).
 
-   1. If the event delivery fails with a retryable error, it SHOULD be retried
-      up to `retry` times, following the `backoffPolicy` and `backoffDelay`
-      parameters if specified.
+   1. If the event delivery fails with a retryable error, it MUST be retried up
+      to `retry` times (subject to congestion control), following the
+      `backoffPolicy` and `backoffDelay` parameters if specified.
 
 1. If the delivery attempt is successful (either the original request or a
    retry) and no event is returned, the event delivery is complete.
@@ -385,15 +388,15 @@ following:
    retry) and an event is returned in the reply, the reply event will be
    delivered to the `status.replyUri` destination (for Subscriptions) or added
    to the Broker for processing (for Triggers). If `status.replyUri` is not
-   present in the Subscription, the reply event is be dropped.
+   present in the Subscription, the reply event MUST be dropped.
 
-   1. If delivery of the reply event fails with a retryable error, the delivery
-      of the reply event to the reply destination SHOULD be retried up to
-      `retry` times, following the `backoffPolicy` and `backoffDelay` parameters
-      if specified.
+   1. For Subscriptions, if delivery of the reply event fails with a retryable
+      error, the entire delivery of the event to MUST be retried up to `retry`
+      times (subject to congestion control), following the `backoffPolicy` and
+      `backoffDelay` parameters if specified.
 
 1. If all retries are exhausted for either the original delivery or the retry,
-   or if a non-retryable error is received, the event should be delivered to the
+   or if a non-retryable error is received, the event MUST be delivered to the
    `deadLetterSink` in the delivery options. If no `deadLetterSink` is
    specified, the event is dropped.
 
@@ -410,13 +413,25 @@ following:
 
 ## Detailed Resources
 
-### Broker v1
+The following schema defines a set of REQUIRED or RECOMMENDED resource fields on
+the Knative resource types. Whether a field is REQUIRED or RECOMMENDED is
+denoted in the "Schema Requirement" column. Additional `spec` and `status`
+fields MAY be provided by particular implementations, however it is expected
+that most extension will be accomplished via the `metadata.labels` and
+`metadata.annotations` fields, as Knative implementations MAY validate supplied
+resources against these fields and refuse resources which specify unknown
+fields. Knative implementations MUST NOT require `spec` fields outside this
+implementation; to do so would break interoperability between such
+implementations and implementations which implement validation of field names.
+
+### Broker
 
 #### Metadata:
 
 Standard Kubernetes
 [metav1.ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#objectmeta-v1-meta)
-resource.
+resource. The `apiVersion` is `eventing.knative.dev/v1` and the `kind` is
+`Broker`.
 
 #### Spec:
 
@@ -429,14 +444,14 @@ resource.
   </tr>
   <tr>
     <td><code>config</code></td>
-    <td><a href="#kreference">KReference</a><br/>(Optional)</td>
+    <td><a href="#kreference">KReference</a><br/>(OPTIONAL)</td>
     <td>A reference to an object which describes the configuration options for the Broker (for example, a ConfigMap).</td>
     <td>RECOMMENDED</td>
   </tr>
   <tr>
     <td><code>delivery</code></td>
-    <td><a href="#deliveryspec">DeliverySpec</a><br/>(Optional)</td>
-    <td>A default delivery options for Triggers which do not specify more-specific options.</td>
+    <td><a href="#deliveryspec">DeliverySpec</a><br/>(OPTIONAL)</td>
+    <td>A default delivery options for Triggers which do not specify more-specific options. If a Trigger specifies _any_ delivery options, this field MUST be ignored.</td>
     <td>REQUIRED</td>
   </tr>
 </table>
@@ -453,7 +468,7 @@ resource.
   <tr>
     <td><code>conditions</code></td>
     <td><a href="#error-signalling">See Error Signalling</a></td>
-    <td>Used for signalling errors, see link. Conditions of types Ready MUST be present.</td>
+    <td>Used for signalling errors, see link.</td>
     <td>REQUIRED</td>
   </tr>
   <tr>
@@ -476,13 +491,14 @@ resource.
   </tr>
 </table>
 
-### Trigger v1
+### Trigger
 
 #### Metadata:
 
 Standard Kubernetes
 [metav1.ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#objectmeta-v1-meta)
-resource.
+resource. The `apiVersion` is `eventing.knative.dev/v1` and the `kind` is
+`Trigger`.
 
 #### Spec:
 
@@ -496,24 +512,24 @@ resource.
   <tr>
     <td><code>broker</code></td>
     <td>string<br/>(Required, Immutable)</td>
-    <td>The Broker which this Trigger should filter events from.</td>
+    <td>The Broker to which this Trigger is associated.</td>
     <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>filter</code></td>
-    <td><a href="#triggerfilter">TriggerFilter</a><br/>(Optional)</td>
+    <td><a href="#triggerfilter">TriggerFilter</a><br/>(OPTIONAL)</td>
     <td>Event filters which are used to select events to be delivered to the Trigger's destination.</td>
     <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>subscriber</code></td>
     <td><a href="#duckv1destination">duckv1.Destination</a><br/>(Required)</td>
-    <td>The destination that filtered events should be sent to.</td>
+    <td>The destination for delivery of filtered events.</td>
     <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>delivery</code></td>
-    <td><a href="#deliveryspec">DeliverySpec</a><br/>(Optional)</td>
+    <td><a href="#deliveryspec">DeliverySpec</a><br/>(OPTIONAL)</td>
     <td>Delivery options for this Trigger.</td>
     <td>RECOMMENDED</td>
   </tr>
@@ -531,7 +547,7 @@ resource.
   <tr>
     <td><code>conditions</code></td>
     <td><a href="#error-signalling">See Error Signalling</a></td>
-    <td>Used for signalling errors, see link. Conditions of types Ready MUST be present.</td>
+    <td>Used for signalling errors, see link.</td>
     <td>REQUIRED</td>
   </tr>
   <tr>
@@ -554,13 +570,14 @@ resource.
   </tr>
 </table>
 
-### Channel v1
+### Channel
 
 #### Metadata:
 
 Standard Kubernetes
 [metav1.ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#objectmeta-v1-meta)
-resource.
+resource. The `apiVersion` is `messaging.knative.dev/v1` and the `kind` is
+`Channel`.
 
 #### Spec:
 
@@ -580,13 +597,13 @@ resource.
   <tr>
     <td><code>subscribers</code></td>
     <td>[]<a href="#duckv1subscriberspec">duckv1.SubscriberSpec</a></td>
-    <td>Aggregated subscription information; this array should be managed automatically by the controller.</td>
+    <td>Aggregated subscription information; this array MUST be managed automatically by the controller.</td>
     <td>RECOMMENDED</td>
   </tr>
   <tr>
     <td><code>delivery</code></td>
-    <td><a href="#deliveryspec">DeliverySpec</a><br/>(Optional)</td>
-    <td>A default delivery options for Subscriptions which do not specify more-specific options.</td>
+    <td><a href="#deliveryspec">DeliverySpec</a><br/>(OPTIONAL)</td>
+    <td>Default delivery options for Subscriptions which do not specify more-specific options. If a Subscription specifies _any_ delivery options, this field MUST be ignored.</td>
     <td>REQUIRED</td>
   </tr>
 </table>
@@ -603,7 +620,7 @@ resource.
   <tr>
     <td><code>conditions</code></td>
     <td><a href="#error-signalling">See Error Signalling</a></td>
-    <td>Used for signalling errors, see link. Conditions of types Ready MUST be present.</td>
+    <td>Used for signalling errors, see link.</td>
     <td>REQUIRED</td>
   </tr>
   <tr>
@@ -632,13 +649,14 @@ resource.
   </tr>
 </table>
 
-### Subscription v1
+### Subscription
 
 #### Metadata:
 
 Standard Kubernetes
 [metav1.ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#objectmeta-v1-meta)
-resource.
+resource. The `apiVersion` is `messaging.knative.dev/v1` and the `kind` is
+`Subscription`.
 
 #### Spec:
 
@@ -658,18 +676,18 @@ resource.
   <tr>
     <td><code>subscriber</code></td>
     <td><a href="#duckv1destination">duckv1.Destination</a><br/>(Required)</td>
-    <td>The destination that events should be sent to.</td>
+    <td>The destination for event delivery.</td>
     <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>reply</code></td>
     <td><a href="#duckv1destination">duckv1.Destination</a><br/>(Required)</td>
-    <td>The destination that reply events from <code>spec.subscriber</code> should be sent to.</td>
+    <td>The destination for reply events from <code>spec.subscriber</code>.</td>
     <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>delivery</code></td>
-    <td><a href="#deliveryspec">DeliverySpec</a><br/>(Optional)</td>
+    <td><a href="#deliveryspec">DeliverySpec</a><br/>(OPTIONAL)</td>
     <td>Delivery options for this Subscription.</td>
     <td>RECOMMENDED</td>
   </tr>
@@ -687,7 +705,7 @@ resource.
   <tr>
     <td><code>conditions</code></td>
     <td><a href="#error-signalling">See Error Signalling</a></td>
-    <td>Used for signalling errors, see link. Conditions of types Ready MUST be present.</td>
+    <td>Used for signalling errors, see link.</td>
     <td>REQUIRED</td>
   </tr>
   <tr>
@@ -704,16 +722,17 @@ resource.
   </tr>
 </table>
 
-### Addressable v1
+### Addressable
 
 Note that the Addressable interface is a partial schema -- any resource which
-includes these fields may be referenced using a `duckv1.Destination`.
+includes these fields MAY be referenced using a `duckv1.Destination`.
 
 #### Metadata:
 
 Standard Kubernetes
 [metav1.ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#objectmeta-v1-meta)
-resource.
+resource. Note that there are no restrictions on `apiVersion` or `kind` as long
+as the object matches the partial schema.
 
 #### Spec:
 
@@ -731,7 +750,7 @@ There are no `spec` requirements for Addressable.
   <tr>
     <td><code>address</code></td>
     <td><a href="#duckv1addressable">duckv1.Addressable</a></td>
-    <td>Address used to deliver events to the Broker.</td>
+    <td>Address used to deliver events to the resource.</td>
     <td>REQUIRED</td>
   </tr>
 </table>
@@ -759,7 +778,7 @@ There are no `spec` requirements for Addressable.
 
 Destination is used to indicate the destination for event delivery. A
 Destination eventually resolves the supplied information to a URL by resolving
-`uri` relative to the address of `ref` (if provided). `ref` may be an
+`uri` relative to the address of `ref` (if provided) as described in [Addressable resolution](#addressable-resolution). `ref` MAY be an
 [Addressable](#duckv1-addressable) object or a `v1/Service` Kubernetes service.
 
 <table>
@@ -771,13 +790,13 @@ Destination eventually resolves the supplied information to a URL by resolving
   </tr>
   <tr>
     <td><code>ref</code></td>
-    <td><a href="#duckv1kreference">duckv1.KReference</a><br/>(Optional)</td>
+    <td><a href="#duckv1kreference">duckv1.KReference</a><br/>(OPTIONAL)</td>
     <td>An ObjectReference to an Addressable reference to deliver events to.</td>
     <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>uri</code></td>
-    <td>URL (string)<br/>(Optional)</td>
+    <td>URL (string)<br/>(OPTIONAL)</td>
     <td>A resolved URL to deliver events to.</td>
     <td>REQUIRED</td>
   </tr>
@@ -799,7 +818,7 @@ from a [Subscription](#subscription).
     <td><code>uid</code></td>
     <td>UID (string)</td>
     <td>UID is used to disambiguate Subscriptions which might be recreated.</td>
-    <td>RECOMMENDED</td>
+    <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>generation</code></td>
@@ -822,7 +841,7 @@ from a [Subscription](#subscription).
   <tr>
     <td><code>delivery</code></td>
     <td><a href="#deliveryspec">DeliverySpec</a></td>
-    <td>The resolved Subscription delivery options. The <code>deadLetterSink</code> should use the <code>uri</code> form.</td>
+    <td>The resolved Subscription delivery options. The <code>deadLetterSink</code> SHOULD use the <code>uri</code> form.</td>
     <td>REQUIRED</td>
   </tr>
 </table>
@@ -859,7 +878,7 @@ Channel.
   </tr>
   <tr>
     <td><code>message</code></td>
-    <td><a href="#duckv1addressable">duckv1.Addressable</a></td>
+    <td>string</td>
     <td>A human readable message indicating details of <code>ready</code> status.</td>
     <td>REQUIRED</td>
   </tr>
@@ -889,7 +908,7 @@ Channel.
   <tr>
     <td><code>backoffDelay</code></td>
     <td>string</td>
-    <td>The initial delay when retrying delivery.</td>
+    <td>The initial delay when retrying delivery, in ISO 8601 format.</td>
     <td>RECOMMENDED</td>
   </tr>
   <tr>
@@ -979,7 +998,9 @@ KReference is a lightweight version of kubernetes
   <tr>
     <td><code>attributes</code></td>
     <td>map[string]string</td>
-    <td>Event filter using exact match on event context attributes. Each key in the map is compared with the equivalent key in the event context. An event passes the filter if the event attribute values are equal to the specified values, or if the value in the map is the empty string (which is treated as matching all values but requiring the key to be present).</td>
-    <td>REQUIRED</td>
+    <td>Event filter using exact match on event context attributes. Each key in the map MUST be compared with the equivalent key in the event context. All keys MUST match (as described below) the event attributes for the event to be selected by the Trigger.
+    <br>
+    For each key specified in the filter, an attribute with that name MUST be present in the event to match. If the value corresponding to the key is non-empty, the value MUST be an exact match to attribute value in the event; an empty string MUST match all attribute values.</td>
+    <td>REQUIRED</td>F
   </tr>
 </table>
