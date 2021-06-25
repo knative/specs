@@ -318,10 +318,7 @@ CloudEvent, then it MUST respond with `400 Bad Request`.
 Channels MUST output CloudEvents. The output MUST match the CloudEvent version
 of the [Input](#input). Channels MUST NOT alter an event that goes through them.
 All CloudEvent attributes, including the data attribute, MUST be received at the
-subscriber identical to how they were received by the Channel, except:
-
-- The extension attribute `knativehistory`, which the channel MAY modify to
-  append its hostname
+subscriber identical to how they were received by the Channel.
 
 Every Channel SHOULD support sending events via _Binary Content Mode_ or
 _Structured Content Mode_ of the HTTP Protocol Binding for CloudEvents, although
