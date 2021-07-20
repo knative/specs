@@ -10,6 +10,14 @@ An understanding of the Kubernetes API interface and the capabilities of
 [Kubernetes Custom Resources](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 is assumed.
 
+This document describes the requirements of a conforming implementation of the
+Knative Eventing resources [Broker](overview.md#broker),
+[Trigger](overview.md#trigger), [Channel](#overview.md#channel) and
+[Subscription](overview.md#subscription). Requirements are written from the
+point of view of a service implementer; requirements on request formatting (for
+example) MUST be enforced by the service implementation (e.g. by providing a 400
+error to poorly-behaved clients).
+
 This document does not define the
 [data plane event delivery contract](./data-plane.md) (though it does describe
 how event delivery is configured). This document also does not prescribe
@@ -58,8 +66,8 @@ of the different API objects.
 
 In order to validate the controls described in
 [Resource Overview](#resource-overview), the following Kubernetes RBAC profile
-can be applied in a Kubernetes cluster. This Kubernetes RBAC is an illustrative
-example of the minimal profile rather than a requirement. This Role is
+can be applied in a Kubernetes cluster. This Kubernetes RBAC is an _illustrative
+example_ of the minimal profile rather than a requirement. This Role is
 sufficient to develop, deploy, and manage event routing for an application
 within a single namespace. Knative Conformance tests against "MUST", "MUST NOT",
 "SHALL", "SHALL NOT", and "REQUIRED" conditions are expected to pass when using
@@ -103,14 +111,6 @@ rules:
 This configuration advice does not indicate a requirement for Kubernetes RBAC
 support.
 
-<!-- TODO: define aggregated API roles
-
-Ref:
-- https://github.com/knative/specs/blob/main/specs/eventing/channel.md#aggregated-channelable-manipulator-clusterrole
-- https://github.com/knative/specs/blob/main/specs/eventing/channel.md#aggregated-addressable-resolver-clusterrole
--
--->
-
 ## Error Signalling
 
 See [the Knative common condition guidance](../common/error-signalling.md) for
@@ -134,17 +134,16 @@ an associated Trigger destination which which does not currently have a `true`
 `Ready` condition, including events received by the Broker before the Trigger
 was created.
 
-The annotation `eventing.knative.dev/broker.class` MAY be used to select a
-particular implementation of a Broker. When a Broker is created, the
-`eventing.knative.dev/broker.class` annotation and the `spec.config` field
-SHOULD be populated (`spec.config` MAY be an empty object) to indicate which of
-several possible Broker implementations to use. It is RECOMMENDED to default the
-`eventing.knative.dev/broker.class` field on creation if it is unpopulated. Once
-created, both fields MUST be immutable; the Broker MUST be deleted and
-re-created to change the implementation class or `spec.config`. This pattern is
-chosen to make it clear that changing the implementation class or `spec.config`
-is not an atomic operation and that any implementation would be likely to result
-in event loss during the transition.
+The annotation `eventing.knative.dev/broker.class` SHOULD be used to select a
+particular implementation of a Broker, if multiple implementations are
+available. It is RECOMMENDED to default the `eventing.knative.dev/broker.class`
+field on creation if it is unpopulated. Once created, the
+`eventing.knative.dev/broker.class` annotation and the `spec.config` field MUST
+be immutable; the Broker MUST be deleted and re-created to change the
+implementation class or `spec.config`. This pattern is chosen to make it clear
+that changing the implementation class or `spec.config` is not an atomic
+operation and that any implementation would be likely to result in event loss
+during the transition.
 
 ### Trigger Lifecycle
 
@@ -199,7 +198,7 @@ events to an associated Subscription which does not currently have a `true`
 `Ready` condition, including events received by the Channel before the
 `Subscription` was created.
 
-When a Channel is created, its `spec.channelTemplate` field MUST be populated to
+When a Channel is created, its `spec.channelTemplate` field MAY be populated to
 indicate which of several possible Channel implementations to use. It is
 RECOMMENDED to default the `spec.channelTemplate` field on creation if it is
 unpopulated. Once created, the `spec.channelTemplate` field MUST be immutable;
@@ -250,10 +249,6 @@ to the Subscription before prior to the Subscription's `Ready` condition being
 set to `true`. When a Subscription is deleted, the Channel MAY send some
 additional events to the Subscription's `spec.subscriber` after the deletion.
 
-<!--
-TODO: channel-compatible CRDs (Channelable)
--->
-
 ### Destination Resolution
 
 Both Trigger and Subscription have OPTIONAL object references (`ref` in
@@ -283,9 +278,8 @@ subscriber:
   uri: "/update"
 ```
 
-This Destination would resolve to
-`http://test.<current-namespace-dns-prefix>/update`, as `/update` would be
-interpreted relative to the `test` Service's DNS name.
+This Destination would resolve to `http://test.<namespace-name>.svc/update`, as
+`/update` would be interpreted relative to the `test` Service's DNS name.
 
 If a Destination includes a reference to an object which does not resolve to an
 absolute URL (because object does not exist, the `status.address.url` field is
@@ -293,15 +287,15 @@ empty, etc), then the Trigger or Subscription MUST indicate an error by setting
 the `Ready` condition to `false`, and SHOULD include an indication of the error
 in a condition reason or type.
 
-Both Broker and Channel MUST conform to the [Addressable
-partial(#duckv1addressable)] schema.
+Both Broker and Channel MUST conform to the
+[Addressable partial](#duckv1addressable) schema.
 
 ## Event Routing
 
 Note that the event routing description below does not cover the actual
 mechanics of sending an event from one component to another; see
 [the data plane](./data-plane.md) contracts for details of the event transfer
-mechanisms.
+mechanism.
 
 ### Content Based Routing
 
@@ -325,7 +319,7 @@ before the data plane programming was complete and the Trigger was updated to
 set the `Ready` condition to `true`.)
 
 If multiple Triggers match an event, one event delivery MUST be generated for
-each match; duplicate matches with the same destination MUST each generate a
+each match; duplicate matches with the same destination MUST each generate
 separate event delivery attempts, one per Trigger match. The implementation MAY
 attach additional event attributes or other metadata distinguishing between
 these deliveries. The implementation MUST NOT modify the
@@ -346,12 +340,11 @@ event-delivery input and instead use an internal queueing mechanism.
 ### Topology Based Routing
 
 A Channel MUST publish a URL at `status.address.url` when it is able to receive
-events. This URL MUST accept CloudEvents in both the
-[Binary Content Mode](https://github.com/cloudevents/spec/blob/v1.0.1/http-protocol-binding.md#31-binary-content-mode)
-and
-[Structured Content Mode](https://github.com/cloudevents/spec/blob/v1.0.1/http-protocol-binding.md#32-structured-content-mode)
-HTTP formats. Before sending an HTTP response, the Channel MUST durably enqueue
-the event (be able to deliver with retry without receiving the event again).
+events. This URL MUST implement the receiver requirements of
+[event delivery](#data-plane.md#event-delivery). Before
+[acknowledging an event](data-plane.md#event-acknowledgement-and-delivery-retry),
+the Channel MUST durably enqueue the event (be able to deliver with retry
+without receiving the event again).
 
 For each event received by the Channel, the Channel MUST deliver the event to
 each associated Subscription **at least once** (where "associated" means a
@@ -409,12 +402,12 @@ following:
    failed event in a "failed delivery" event; this behavior is not (currently)
    standardized.
 
-   If delivery of the reply event fails with a retryable error, the delivery to
-   the `deadLetterSink` SHOULD be retried up to `retry` times, following the
-   `backoffPolicy` and `backoffDelay` parameters if specified. Alternatively,
-   implementations MAY use an equivalent internal mechanism for delivery (for
-   example, if the `ref` form of `deadLetterSink` points to a compatible
-   implementation).
+   If delivery of the dead-letter event fails with a retryable error, the
+   delivery to the `deadLetterSink` SHOULD be retried up to `retry` times,
+   following the `backoffPolicy` and `backoffDelay` parameters if specified.
+   Alternatively, implementations MAY use an equivalent internal mechanism for
+   delivery (for example, if the `ref` form of `deadLetterSink` points to a
+   compatible implementation).
 
 ## Detailed Resources
 
