@@ -112,9 +112,9 @@ reference cluster-external resources such as a virtual machine or SaaS service.
 
 **Event Sources** are resources which generate events and may be configured to
 deliver the events to a **Destination** designated by a `sink` object in the
-resource's `spec`. The Knative Eventing spec does not define any specific event
-sources, but does define common interfaces for discovering and managing event
-sources.
+resource's `spec`. The current Knative Eventing spec does not define any
+specific event sources; it only specifies the `spec.sink` partial schema at this
+time.
 
 ## Eventing
 

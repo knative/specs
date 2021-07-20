@@ -11,7 +11,7 @@ Additionally, these roles can be combined in different ways:
 
 - **Event Processors** can be event senders, event recipients, or both.
 - **Event Sources** are exclusively event senders, and never act as recipients.
-- **Event Sinks** are exclusively event recipients, and never act as senders.
+- **Event Sinks** are exclusively event recipients, and do not send events as part of their event handling.
 
 ## Introduction
 
