@@ -118,7 +118,7 @@ extension**. Event recipients SHOULD NOT send these response codes in this spec
 version, but event senders MUST handle these response codes as errors or success
 as appropriate and implement described success or failure behavior.
 
-Recipients MUST accept duplicate delivery of events, but they are not REQUIRED
+Recipients MUST accept duplicate delivery of events, but they are NOT REQUIRED
 to detect that they are duplicates. If duplicate detection is implemented, then
 as specified in the
 [CloudEvents specification](https://github.com/cloudevents/spec/blob/v1.0.1/primer.md#id),

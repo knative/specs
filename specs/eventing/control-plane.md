@@ -419,15 +419,21 @@ following:
 ## Detailed Resources
 
 The following schema defines a set of REQUIRED or RECOMMENDED resource fields on
-the Knative resource types. Whether a field is REQUIRED or RECOMMENDED is
-denoted in the "Schema Requirement" column. Additional `spec` and `status`
-fields MAY be provided by particular implementations, however it is expected
-that most extension will be accomplished via the `metadata.labels` and
-`metadata.annotations` fields, as Knative implementations MAY validate supplied
-resources against these fields and refuse resources which specify unknown
-fields. Knative implementations MUST NOT require `spec` fields outside this
-implementation; to do so would break interoperability between such
-implementations and implementations which implement validation of field names.
+the Knative resource types. All implementations must include the REQUIRED schema
+fields in their API, though implementations may implement validation of fields.
+Whether a field is REQUIRED or RECOMMENDED is denoted in the "Schema
+Requirement" column. Additional `spec` and `status` fields MAY be provided by
+particular implementations, however it is expected that most API extensions will
+be accomplished via the `metadata.labels` and `metadata.annotations` fields, as
+Knative implementations MAY validate supplied resources against these fields and
+refuse resources which specify unknown fields. Knative implementations MUST NOT
+require `spec` fields outside this implementation; to do so would break
+interoperability between such implementations and implementations which
+implement validation of field names.
+
+For fields set in a resource `spec`, the "Field Types" column indicates whether
+implementations are REQUIRED to validate that a field is set in requests, or
+whether the a request is valid if the field is omitted.
 
 ### Broker
 
@@ -601,7 +607,7 @@ resource. The `apiVersion` is `messaging.knative.dev/v1` and the `kind` is
   </tr>
   <tr>
     <td><code>subscribers</code></td>
-    <td>[]<a href="#duckv1subscriberspec">duckv1.SubscriberSpec</a></td>
+    <td>[]<a href="#duckv1subscriberspec">duckv1.SubscriberSpec</a> (FILLED BY SERVER)</td>
     <td>Aggregated subscription information; this array MUST be managed automatically by the controller.</td>
     <td>RECOMMENDED</td>
   </tr>
@@ -810,7 +816,8 @@ Destination eventually resolves the supplied information to a URL by resolving
 ### duckv1.SubscriberSpec
 
 SubscriberSpec represents an automatically-populated extraction of information
-from a [Subscription](#subscription).
+from a [Subscription](#subscription). SubscriberSpec should be populated by the
+server.
 
 <table>
   <tr>
@@ -900,25 +907,25 @@ Channel.
   </tr>
   <tr>
     <td><code>deadLetterSink</code></td>
-    <td><a href="#duckv1destination">duckv1.Destination</a></td>
+    <td><a href="#duckv1destination">duckv1.Destination</a> (OPTIONAL)</td>
     <td>Fallback address used to deliver events which cannot be delivered during the flow. An implementation MAY place limits on the allowed destinations for the <code>deadLetterSink</code>.</td>
     <td>RECOMMENDED</td>
   </tr>
   <tr>
     <td><code>retry</code></td>
-    <td>int</td>
+    <td>int (OPTIONAL)</td>
     <td>Retry is the minimum number of retries the sender should attempt when sending an event before moving it to the dead letter sink.</td>
     <td>RECOMMENDED</td>
   </tr>
   <tr>
     <td><code>backoffDelay</code></td>
-    <td>string</td>
+    <td>string (OPTIONAL)</td>
     <td>The initial delay when retrying delivery, in ISO 8601 format.</td>
     <td>RECOMMENDED</td>
   </tr>
   <tr>
     <td><code>backoffPolicy</code></td>
-    <td>enum<br/>("linear", "exponential")</td>
+    <td>enum<br/>["linear", "exponential"] (OPTIONAL)</td>
     <td>Retry timing scaling policy. Linear policy uses the same <code>backoffDelay</code> for each attempt; Exponential policy uses 2^N multiples of <code>backoffDelay</code></td>
     <td>RECOMMENDED</td>
   </tr>
@@ -938,27 +945,27 @@ KReference is a lightweight version of kubernetes
   </tr>
   <tr>
     <td><code>apiVersion</code></td>
-    <td>string</td>
+    <td>string (REQUIRED)</td>
     <td>ApiVersion of the target reference.</td>
     <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>kind</code></td>
-    <td>string</td>
+    <td>string (REQUIRED)</td>
     <td>Kind of the target reference.</td>
     <td>REQUIRED</td>
   </tr>
   <tr>
-    <td><code>namespace</code></td>
-    <td>string</td>
-    <td>Namespace of the target resource.</td>
+    <td><code>name</code></td>
+    <td>string (REQUIRED)</td>
+    <td>Name of the target resource.</td>
     <td>REQUIRED</td>
   </tr>
   <tr>
-    <td><code>address</code></td>
-    <td>string</td>
-    <td>Address used to deliver events to the Broker.</td>
-    <td>REQUIRED</td>
+    <td><code>namespace</code></td>
+    <td>string (OPTIONAL)</td>
+    <td>Namespace of the target resource. If unspecified, defaults to the same namespace</td>
+    <td>RECOMMENDED</td>
   </tr>
 </table>
 
@@ -1002,7 +1009,7 @@ KReference is a lightweight version of kubernetes
   </tr>
   <tr>
     <td><code>attributes</code></td>
-    <td>map[string]string</td>
+    <td>map[string]string (OPTIONAL)</td>
     <td>Event filter using exact match on event context attributes. Each key in the map MUST be compared with the equivalent key in the event context. All keys MUST match (as described below) the event attributes for the event to be selected by the Trigger.
     <br>
     For each key specified in the filter, an attribute with that name MUST be present in the event to match. If the value corresponding to the key is non-empty, the value MUST be an exact (case-sensitive) match to attribute value in the event; an empty string MUST match all attribute values.</td>
