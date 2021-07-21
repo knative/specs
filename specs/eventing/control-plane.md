@@ -213,7 +213,9 @@ A Subscription MAY be created before the referenced Channel indicated by its
 `spec.channel` field. The `spec.channel` object reference MAY refer to either a
 `messaging.knative.dev/v1` Channel resource, or another resource which meets the
 `spec.subscribers` and `spec.delivery` required elements in the Channelable duck
-type. If the referenced `spec.channel` does not currently exist or its `Ready`
+type. The `spec.channel` reference MUST be to an object in the same namespace;
+specifically, the `spec.channel.namespace` field must be unset or the empty
+string. If the referenced `spec.channel` does not currently exist or its `Ready`
 condition is not `true`, then the Subscription's `Ready` condition MUST NOT be
 `true`, and the reason SHOULD indicate that the corresponding Channel is missing
 or not ready.
@@ -673,8 +675,8 @@ resource. The `apiVersion` is `messaging.knative.dev/v1` and the `kind` is
   </tr>
   <tr>
     <td><code>channel</code></td>
-    <td>Kubernetes v1/ObjectReference<br/>(REQUIRED, IMMUTABLE)</td>
-    <td>The channel this subscription receives events from. Immutable.</td>
+    <td><a href="#kreference">KReference</a><br/>(REQUIRED, IMMUTABLE)</td>
+    <td>The channel this subscription receives events from. <code>namespace</code>  may not be set (must refer to a <a href="#channel">Channel</a> in the same namespace). Immutable.</td>
     <td>REQUIRED</td>
   </tr>
   <tr>
