@@ -414,22 +414,21 @@ following:
 
 ## Detailed Resources
 
-The following schema defines a set of REQUIRED or RECOMMENDED resource fields on
-the Knative resource types. All implementations must include the REQUIRED schema
-fields in their API, though implementations may implement validation of fields.
-Whether a field is REQUIRED or RECOMMENDED is denoted in the "Schema
-Requirement" column. Additional `spec` and `status` fields MAY be provided by
-particular implementations, however it is expected that most API extensions will
-be accomplished via the `metadata.labels` and `metadata.annotations` fields, as
-Knative implementations MAY validate supplied resources against these fields and
-refuse resources which specify unknown fields. Knative implementations MUST NOT
-require `spec` fields outside this implementation; to do so would break
-interoperability between such implementations and implementations which
-implement validation of field names.
+The following schema defines a set of REQUIRED resource fields on the Knative
+resource types. All implementations MUST include all schema fields in their API,
+though implementations may implement validation of fields. Additional `spec` and
+`status` fields MAY be provided by particular implementations, however it is
+expected that most API extensions will be accomplished via the `metadata.labels`
+and `metadata.annotations` fields, as Knative implementations MAY validate
+supplied resources against these fields and refuse resources which specify
+unknown fields. Knative implementations MUST NOT require `spec` fields outside
+this implementation; to do so would break interoperability between such
+implementations and implementations which implement validation of field names.
 
 For fields set in a resource `spec`, the "Field Types" column indicates whether
 implementations are REQUIRED to validate that a field is set in requests, or
-whether the a request is valid if the field is omitted.
+whether the a request is valid if the field is omitted. Field in a resource
+`status` MUST be set by the server implementation.
 
 ### Broker
 
@@ -447,19 +446,16 @@ resource. The `apiVersion` is `eventing.knative.dev/v1` and the `kind` is
     <td><strong>Field Name</strong></td>
     <td><strong>Field Type</strong></td>
     <td><strong>Description</strong></td>
-    <td><strong>Schema Requirement</strong></td>
   </tr>
   <tr>
     <td><code>config</code></td>
     <td><a href="#kreference">KReference</a><br/>(OPTIONAL)</td>
     <td>A reference to an object which describes the configuration options for the Broker (for example, a ConfigMap).</td>
-    <td>RECOMMENDED</td>
   </tr>
   <tr>
     <td><code>delivery</code></td>
     <td><a href="#deliveryspec">DeliverySpec</a><br/>(OPTIONAL)</td>
     <td>A default delivery options for Triggers which do not specify more-specific options. If a Trigger specifies <strong>any</strong> delivery options, this field MUST be ignored.</td>
-    <td>REQUIRED</td>
   </tr>
 </table>
 
@@ -470,31 +466,26 @@ resource. The `apiVersion` is `eventing.knative.dev/v1` and the `kind` is
     <td><strong>Field Name</strong></td>
     <td><strong>Field Type</strong></td>
     <td><strong>Description</strong></td>
-    <td><strong>Schema Requirement</strong></td>
   </tr>
   <tr>
     <td><code>conditions</code></td>
     <td><a href="#error-signalling">See Error Signalling</a></td>
     <td>Used for signalling errors, see link.</td>
-    <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>observedGeneration</code></td>
     <td>int64</td>
     <td>The latest <code>metadata.generation</code> that the reconciler has attempted. If <code>observedGeneration</code> is updated, <code>conditions</code> MUST be updated with current status in the same transaction.</td>
-    <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>address</code></td>
     <td><a href="#duckv1addressable">duckv1.Addressable</a></td>
     <td>Address used to deliver events to the Broker.</td>
-    <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>deadLetterSinkUri</td>
     <td>URL (string)</td>
     <td>If <code>spec.delivery.deadLetterSink</code> is specified, the resolved URL of the dead letter address.</td>
-    <td>REQUIRED</td>
   </tr>
 </table>
 
@@ -514,31 +505,26 @@ resource. The `apiVersion` is `eventing.knative.dev/v1` and the `kind` is
     <td><strong>Field Name</strong></td>
     <td><strong>Field Type</strong></td>
     <td><strong>Description</strong></td>
-    <td><strong>Schema Requirement</strong></td>
   </tr>
   <tr>
     <td><code>broker</code></td>
     <td>string<br/>(REQUIRED, IMMUTABLE)</td>
     <td>The Broker to which this Trigger is associated.</td>
-    <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>filter</code></td>
     <td><a href="#triggerfilter">TriggerFilter</a><br/>(OPTIONAL)</td>
     <td>Event filters which are used to select events to be delivered to the Trigger's destination.</td>
-    <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>subscriber</code></td>
     <td><a href="#duckv1destination">duckv1.Destination</a><br/>(REQUIRED)</td>
     <td>The destination for delivery of filtered events.</td>
-    <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>delivery</code></td>
     <td><a href="#deliveryspec">DeliverySpec</a><br/>(OPTIONAL)</td>
     <td>Delivery options for this Trigger.</td>
-    <td>RECOMMENDED</td>
   </tr>
 </table>
 
@@ -549,31 +535,26 @@ resource. The `apiVersion` is `eventing.knative.dev/v1` and the `kind` is
     <td><strong>Field Name</strong></td>
     <td><strong>Field Type</strong></td>
     <td><strong>Description</strong></td>
-    <td><strong>Schema Requirement</strong></td>
   </tr>
   <tr>
     <td><code>conditions</code></td>
     <td><a href="#error-signalling">See Error Signalling</a></td>
     <td>Used for signalling errors, see link.</td>
-    <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>observedGeneration</code></td>
     <td>int64</td>
     <td>The latest <code>metadata.generation</code> that the reconciler has attempted. If <code>observedGeneration</code> is updated, <code>conditions</code> MUST be updated with current status in the same transaction.</td>
-    <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>subscriberUri</code></td>
     <td>URL (string)</td>
     <td>The resolved address of the <code>spec.subscriber</code>.</td>
-    <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>deadLetterSinkUri</td>
     <td>URL (string)</td>
     <td>If <code>spec.delivery.deadLetterSink</code> is specified, the resolved URL of the dead letter address.</td>
-    <td>REQUIRED</td>
   </tr>
 </table>
 
@@ -593,25 +574,21 @@ resource. The `apiVersion` is `messaging.knative.dev/v1` and the `kind` is
     <td><strong>Field Name</strong></td>
     <td><strong>Field Type</strong></td>
     <td><strong>Description</strong></td>
-    <td><strong>Schema Requirement</strong></td>
   </tr>
   <tr>
     <td><code>channelTemplate</code></td>
     <td>object<br/>(OPTIONAL)</td>
     <td>Implementation-specific parameters to configure the channel.</td>
-    <td>OPTIONAL</td>
   </tr>
   <tr>
     <td><code>subscribers</code></td>
     <td>[]<a href="#duckv1subscriberspec">duckv1.SubscriberSpec</a> (FILLED BY SERVER)</td>
     <td>Aggregated subscription information; this array MUST be managed automatically by the controller.</td>
-    <td>RECOMMENDED</td>
   </tr>
   <tr>
     <td><code>delivery</code></td>
     <td><a href="#deliveryspec">DeliverySpec</a><br/>(OPTIONAL)</td>
     <td>Default delivery options for Subscriptions which do not specify more-specific options. If a Subscription specifies _any_ delivery options, this field MUST be ignored.</td>
-    <td>REQUIRED</td>
   </tr>
 </table>
 
@@ -622,37 +599,31 @@ resource. The `apiVersion` is `messaging.knative.dev/v1` and the `kind` is
     <td><strong>Field Name</strong></td>
     <td><strong>Field Type</strong></td>
     <td><strong>Description</strong></td>
-    <td><strong>Schema Requirement</strong></td>
   </tr>
   <tr>
     <td><code>conditions</code></td>
     <td><a href="#error-signalling">See Error Signalling</a></td>
     <td>Used for signalling errors, see link.</td>
-    <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>observedGeneration</code></td>
     <td>int64</td>
     <td>The latest <code>metadata.generation</code> that the reconciler has attempted. If <code>observedGeneration</code> is updated, <code>conditions</code> MUST be updated with current status in the same transaction.</td>
-    <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>address</code></td>
     <td><a href="#duckv1addressable">duckv1.Addressable</a></td>
     <td>Address used to deliver events to the Broker.</td>
-    <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>subscribers</code></td>
     <td>[]<a href="#duckv1subscriberstatus">duckv1.SubscriberStatus</a></td>
     <td>Resolved addresses for the <code>spec.subscribers</code> (subscriptions to this Channel).</td>
-    <td>RECOMMENDED</td>
   </tr>
   <tr>
     <td><code>deadLetterSinkUri</td>
     <td>URL (string)</td>
     <td>If <code>spec.delivery.deadLetterSink</code> is specified, the resolved URL of the dead letter address.</td>
-    <td>REQUIRED</td>
   </tr>
 </table>
 
@@ -672,31 +643,26 @@ resource. The `apiVersion` is `messaging.knative.dev/v1` and the `kind` is
     <td><strong>Field Name</strong></td>
     <td><strong>Field Type</strong></td>
     <td><strong>Description</strong></td>
-    <td><strong>Schema Requirement</strong></td>
   </tr>
   <tr>
     <td><code>channel</code></td>
     <td><a href="#kreference">KReference</a><br/>(REQUIRED, IMMUTABLE)</td>
     <td>The channel this subscription receives events from. <code>namespace</code>  may not be set (must refer to a <a href="#channel">Channel</a> in the same namespace). Immutable.</td>
-    <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>subscriber</code></td>
     <td><a href="#duckv1destination">duckv1.Destination</a><br/>(OPTIONAL)</td>
     <td>The destination for event delivery.</td>
-    <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>reply</code></td>
     <td><a href="#duckv1destination">duckv1.Destination</a><br/>(OPTIONAL)</td>
     <td>The destination for reply events from <code>spec.subscriber</code>.</td>
-    <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>delivery</code></td>
     <td><a href="#deliveryspec">DeliverySpec</a><br/>(OPTIONAL)</td>
     <td>Delivery options for this Subscription.</td>
-    <td>RECOMMENDED</td>
   </tr>
 </table>
 
@@ -707,25 +673,21 @@ resource. The `apiVersion` is `messaging.knative.dev/v1` and the `kind` is
     <td><strong>Field Name</strong></td>
     <td><strong>Field Type</strong></td>
     <td><strong>Description</strong></td>
-    <td><strong>Schema Requirement</strong></td>
   </tr>
   <tr>
     <td><code>conditions</code></td>
     <td><a href="#error-signalling">See Error Signalling</a></td>
     <td>Used for signalling errors, see link.</td>
-    <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>observedGeneration</code></td>
     <td>int64</td>
     <td>The latest <code>metadata.generation</code> that the reconciler has attempted. If <code>observedGeneration</code> is updated, <code>conditions</code> MUST be updated with current status in the same transaction.</td>
-    <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>physicalSubscription</code></td>
     <td><a href="#physicalsubscriptionstatus">PhysicalSubscriptionStatus</a></td>
     <td>The fully resolved values for <code>spec</code> endpoint references.</td>
-    <td>REQUIRED</td>
   </tr>
 </table>
 
@@ -752,13 +714,11 @@ There are no `spec` requirements for Addressable.
     <td><strong>Field Name</strong></td>
     <td><strong>Field Type</strong></td>
     <td><strong>Description</strong></td>
-    <td><strong>Schema Requirement</strong></td>
   </tr>
   <tr>
     <td><code>address</code></td>
     <td><a href="#duckv1addressable">duckv1.Addressable</a></td>
     <td>Address used to deliver events to the resource.</td>
-    <td>REQUIRED</td>
   </tr>
 </table>
 
@@ -771,13 +731,11 @@ There are no `spec` requirements for Addressable.
     <td><strong>Field Name</strong></td>
     <td><strong>Field Type</strong></td>
     <td><strong>Description</strong></td>
-    <td><strong>Schema Requirement</strong></td>
   </tr>
   <tr>
     <td><code>url</code></td>
     <td>URL (string)</td>
     <td>Address used to deliver events to the Addressable.</td>
-    <td>REQUIRED</td>
   </tr>
 </table>
 
@@ -793,19 +751,16 @@ Destination eventually resolves the supplied information to a URL by resolving
     <td><strong>Field Name</strong></td>
     <td><strong>Field Type</strong></td>
     <td><strong>Description</strong></td>
-    <td><strong>Schema Requirement</strong></td>
   </tr>
   <tr>
     <td><code>ref</code></td>
     <td><a href="#duckv1kreference">duckv1.KReference</a><br/>(OPTIONAL)</td>
     <td>An ObjectReference to a cluster resource to deliver events to.</td>
-    <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>uri</code></td>
     <td>URL (string)<br/>(OPTIONAL)</td>
     <td>A URL (possibly relative to <code>ref</code>) to deliver events to.</td>
-    <td>REQUIRED</td>
   </tr>
 </table>
 
@@ -820,37 +775,31 @@ server.
     <td><strong>Field Name</strong></td>
     <td><strong>Field Type</strong></td>
     <td><strong>Description</strong></td>
-    <td><strong>Schema Requirement</strong></td>
   </tr>
   <tr>
     <td><code>uid</code></td>
     <td>UID (string)</td>
     <td>UID is used to disambiguate Subscriptions which might be recreated.</td>
-    <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>generation</code></td>
     <td>int64</td>
     <td>Generation of the copied Subscription.</td>
-    <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>subscriberUri</code></td>
     <td>URL (string)</td>
     <td>The resolved address of the Subscription's <code>spec.subscriber</code>.</td>
-    <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>replyUri</code></td>
     <td>URL (string)</td>
     <td>The resolved address of the Subscription's <code>spec.reply</code>.</td>
-    <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>delivery</code></td>
     <td><a href="#deliveryspec">DeliverySpec</a></td>
     <td>The resolved Subscription delivery options. The <code>deadLetterSink</code> SHOULD use the <code>uri</code> form.</td>
-    <td>REQUIRED</td>
   </tr>
 </table>
 
@@ -864,31 +813,26 @@ Channel.
     <td><strong>Field Name</strong></td>
     <td><strong>Field Type</strong></td>
     <td><strong>Description</strong></td>
-    <td><strong>Schema Requirement</strong></td>
   </tr>
   <tr>
     <td><code>uid</code></td>
     <td>UID (string)</td>
     <td>UID is used to disambiguate Subscriptions which might be recreated.</td>
-    <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>generation</code></td>
     <td>int64</td>
     <td>Generation of the copied Subscription.</td>
-    <td>RECOMMENDED</td>
   </tr>
   <tr>
     <td><code>ready</code></td>
     <td>kubernetes v1/ConditionStatus</td>
     <td>Ready status of the Subscription's programming into the Channel data plane.</td>
-    <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>message</code></td>
     <td>string</td>
     <td>A human readable message indicating details of <code>ready</code> status.</td>
-    <td>REQUIRED</td>
   </tr>
 </table>
 
@@ -899,31 +843,26 @@ Channel.
     <td><strong>Field Name</strong></td>
     <td><strong>Field Type</strong></td>
     <td><strong>Description</strong></td>
-    <td><strong>Schema Requirement</strong></td>
   </tr>
   <tr>
     <td><code>deadLetterSink</code></td>
     <td><a href="#duckv1destination">duckv1.Destination</a> (OPTIONAL)</td>
     <td>Fallback address used to deliver events which cannot be delivered during the flow. An implementation MAY place limits on the allowed destinations for the <code>deadLetterSink</code>.</td>
-    <td>RECOMMENDED</td>
   </tr>
   <tr>
     <td><code>retry</code></td>
     <td>int (OPTIONAL)</td>
     <td>Retry is the minimum number of retries the sender should attempt when sending an event before moving it to the dead letter sink.</td>
-    <td>RECOMMENDED</td>
   </tr>
   <tr>
     <td><code>backoffDelay</code></td>
     <td>string (OPTIONAL)</td>
     <td>The initial delay when retrying delivery, in ISO 8601 format.</td>
-    <td>RECOMMENDED</td>
   </tr>
   <tr>
     <td><code>backoffPolicy</code></td>
     <td>enum<br/>["linear", "exponential"] (OPTIONAL)</td>
     <td>Retry timing scaling policy. Linear policy uses the same <code>backoffDelay</code> for each attempt; Exponential policy uses 2^N multiples of <code>backoffDelay</code></td>
-    <td>RECOMMENDED</td>
   </tr>
 </table>
 
@@ -937,31 +876,26 @@ KReference is a lightweight version of kubernetes
     <td><strong>Field Name</strong></td>
     <td><strong>Field Type</strong></td>
     <td><strong>Description</strong></td>
-    <td><strong>Schema Requirement</strong></td>
   </tr>
   <tr>
     <td><code>apiVersion</code></td>
     <td>string (REQUIRED)</td>
     <td>ApiVersion of the target reference.</td>
-    <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>kind</code></td>
     <td>string (REQUIRED)</td>
     <td>Kind of the target reference.</td>
-    <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>name</code></td>
     <td>string (REQUIRED)</td>
     <td>Name of the target resource.</td>
-    <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>namespace</code></td>
     <td>string (OPTIONAL)</td>
     <td>Namespace of the target resource. If unspecified, defaults to the same namespace</td>
-    <td>RECOMMENDED</td>
   </tr>
 </table>
 
@@ -972,25 +906,21 @@ KReference is a lightweight version of kubernetes
     <td><strong>Field Name</strong></td>
     <td><strong>Field Type</strong></td>
     <td><strong>Description</strong></td>
-    <td><strong>Schema Requirement</strong></td>
   </tr>
   <tr>
     <td><code>subscriberUri</code></td>
     <td>URL (string)</td>
     <td>Resolved address of the <code>spec.subscriber</code>.</td>
-    <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>replyUri</code></td>
     <td>URL (string)</td>
     <td>Resolved address of the <code>spec.reply</code>.</td>
-    <td>REQUIRED</td>
   </tr>
   <tr>
     <td><code>deadLetterSinkUri</code></td>
     <td>URL (string)</td>
     <td>Resolved address of the <code>spec.delivery.deadLetterSink</code>.</td>
-    <td>REQUIRED</td>
   </tr>
 </table>
 
@@ -1001,7 +931,6 @@ KReference is a lightweight version of kubernetes
     <td><strong>Field Name</strong></td>
     <td><strong>Field Type</strong></td>
     <td><strong>Description</strong></td>
-    <td><strong>Schema Requirement</strong></td>
   </tr>
   <tr>
     <td><code>attributes</code></td>
@@ -1009,6 +938,5 @@ KReference is a lightweight version of kubernetes
     <td>Event filter using exact match on event context attributes. Each key in the map MUST be compared with the equivalent key in the event context. All keys MUST match (as described below) the event attributes for the event to be selected by the Trigger.
     <br>
     For each key specified in the filter, an attribute with that name MUST be present in the event to match. If the value corresponding to the key is non-empty, the value MUST be an exact (case-sensitive) match to attribute value in the event; an empty string MUST match all attribute values.</td>
-    <td>REQUIRED</td>
   </tr>
 </table>
