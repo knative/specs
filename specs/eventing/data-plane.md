@@ -11,7 +11,8 @@ Additionally, these roles can be combined in different ways:
 
 - **Event Processors** can be event senders, event recipients, or both.
 - **Event Sources** are exclusively event senders, and never act as recipients.
-- **Event Sinks** are exclusively event recipients, and do not send events as part of their event handling.
+- **Event Sinks** are exclusively event recipients, and do not send events as
+  part of their event handling.
 
 ## Introduction
 
@@ -171,11 +172,10 @@ the `spec.subscriber` address.
 
 A recipient MAY reply to any HTTP POST with a `200` response to indicate that
 the event was processed successfully, with or without a response payload. If the
-recipient will _never_ provide a response payload, the `202` response code is
-also acceptable. Responses with a `202` response code MUST NOT be processed as
-reply events; even if the response can be interpreted as a CloudEvent, the
-status monitor for the accepted-but-not-completed request should not be routed
-further.
+recipient does not produce a response payload, the `202` response code is also
+acceptable. Responses with a `202` response code MUST NOT be processed as reply
+events; even if the response can be interpreted as a CloudEvent, the status
+monitor for the accepted-but-not-completed request SHOULD NOT be routed further.
 
 If a recipient chooses to reply to a sender with a `200` response code and a
 reply event in the absence of a `Prefer: reply` header from the sender, the
