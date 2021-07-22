@@ -266,7 +266,8 @@ URL; two mechanisms MUST be supported:
    service's cluster-local DNS name (of the form
    `http://<service-name>.<namespace-name>.svc/`).
 
-If both the `ref` field and the `uri` fields are set on a Destination, then the
+Implementations MAY implement additional resolution mechanisms. If both the
+`ref` field and the `uri` fields are set on a Destination, then the
 Destination's address MUST be the `uri` interpreted relative to the resolved URI
 of the `ref` field. This can be used, for example, to refer to a specific URL
 off a referenced domain name, like so:
