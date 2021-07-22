@@ -416,7 +416,7 @@ following:
 
 The following schema defines a set of REQUIRED resource fields on the Knative
 resource types. All implementations MUST include all schema fields in their API,
-though implementations may implement validation of fields. Additional `spec` and
+though implementations MAY implement validation of fields. Additional `spec` and
 `status` fields MAY be provided by particular implementations, however it is
 expected that most API extensions will be accomplished via the `metadata.labels`
 and `metadata.annotations` fields, as Knative implementations MAY validate
