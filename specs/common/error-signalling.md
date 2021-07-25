@@ -1,7 +1,5 @@
 # Error Signalling
 
-<!-- copied from ../serving/knative-api-specification-1.0.md#error-signalling -->
-
 Knative APIs use the
 [Kubernetes Conditions convention](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#typical-status-properties)
 to communicate errors and problems to the user. Note that Knative customizes the
@@ -9,6 +7,20 @@ general Kubernetes recommendation with a `severity` field, and does not include
 `lastHeartbeatTime` for scalability reasons. Each user-visible resource
 described in Resource Overview MUST have a `conditions` field in `status`, which
 MUST be a list of `Condition` objects described by the following table.
+
+## Client Determination of Readiness
+
+Some servers (such as Kubernetes) may separate updates of the resource `spec`
+and `status` fields; servers MUST also update `metadata.generation` on each
+change to `spec` fields. To accomodate this split, server-side resources MUST
+report `observedGeneration` in `status` to detect changes to `spec` which have
+not yet been reported in `status`.
+
+Clients SHOULD check that `status.observedGeneration` is equal to
+`metadata.generation` before computing Conditions; if the two are not equal, the
+resource is in the process of being updated.
+
+## Condition Schema
 
 Fields in the condition which are not marked as "REQUIRED" MAY be omitted to
 indicate the default value (i.e. a Condition which does not include a `status`
