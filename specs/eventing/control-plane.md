@@ -130,7 +130,7 @@ Broker MUST provide a `status.address.url` which accepts all valid CloudEvents
 and MUST attempt to forward the received events for filtering to each associated
 Trigger whose `Ready` condition is `true`. As described in the
 [Trigger Lifecycle](#trigger-lifecycle) section, a Broker MAY forward events to
-an associated Trigger destination which which does not currently have a `true`
+an associated Trigger destination which does not currently have a `true`
 `Ready` condition, including events received by the Broker before the Trigger
 was created.
 
@@ -247,7 +247,7 @@ When a Subscription becomes associated with a Channel (either due to creating
 the Subscription or the Channel), the Subscription MUST only set the `Ready`
 condition to `true` after the Channel has been configured to send all future
 events to the Subscription's `spec.subscriber`. The Channel MAY send some events
-to the Subscription before prior to the Subscription's `Ready` condition being
+to the Subscription prior to the Subscription's `Ready` condition being
 set to `true`. When a Subscription is deleted, the Channel MAY send some
 additional events to the Subscription's `spec.subscriber` after the deletion.
 
