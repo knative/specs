@@ -27,7 +27,7 @@ APPROVED</p>
 
    </td>
    <td><p style="text-align: right">
-2020-12-16</p>
+2021-08-04</p>
 
    </td>
   </tr>
@@ -1040,7 +1040,7 @@ resource.
 <br>
 Min: 1
 <br>
-Max: 1
+Max: >=1
    </td>
    <td>Specifies the parameters used to execute each container instance corresponding to this Revision.
    </td>
