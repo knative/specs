@@ -362,12 +362,6 @@ code and configuration states (Revisions).
 Routes which are owned (controlled) by a Service SHOULD NOT be updated by
 developers; any changes will be reset by the Service controller.
 
-The table below details which operations must be made available to a developer
-accessing a Knative Route using a minimal profile. For any non-minimal profile,
-the POST, PUT, or DELETE operations MUST be enabled as a group. This ensures
-that the developer has the ability to control the complete lifecycle of the
-object from create through deletion.
-
 <table>
   <tr>
    <td><strong>API Operation</strong>
@@ -378,25 +372,25 @@ object from create through deletion.
   <tr>
    <td>Create (POST)
    </td>
-   <td>OPTIONAL
+   <td>REQUIRED
    </td>
   </tr>
   <tr>
    <td>Patch (<a href="https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/devel/api-conventions.md#patch-operations">PATCH</a>)^
    </td>
-   <td>OPTIONAL
+   <td>RECOMMENDED
    </td>
   </tr>
   <tr>
    <td>Replace (PUT)
    </td>
-   <td>OPTIONAL
+   <td>REQUIRED
    </td>
   </tr>
   <tr>
    <td>Delete (DELETE)
    </td>
-   <td>OPTIONAL
+   <td>REQUIRED
    </td>
   </tr>
   <tr>
@@ -441,12 +435,6 @@ by developers; any changes will be reset by the Service controller. These
 changes MAY still generate side effects such as the creation of additional
 Revisions.
 
-The table below details which operations must be made available to a developer
-accessing a Knative Configuration using a minimal profile. For any advanced
-profile, the POST, PUT, or DELETE operations MUST be enabled as a group. This
-ensures that the developer has the ability to control the complete lifecycle of
-the object from create through deletion.
-
 <table>
   <tr>
    <td><strong>API Operation</strong>
@@ -457,25 +445,25 @@ the object from create through deletion.
   <tr>
    <td>Create (POST)
    </td>
-   <td>OPTIONAL
+   <td>REQUIRED
    </td>
   </tr>
   <tr>
    <td>Patch (<a href="https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/devel/api-conventions.md#patch-operations">PATCH</a>)^
    </td>
-   <td>OPTIONAL
+   <td>RECOMMENDED
    </td>
   </tr>
   <tr>
    <td>Replace (PUT)
    </td>
-   <td>OPTIONAL
+   <td>REQUIRED
    </td>
   </tr>
   <tr>
    <td>Delete (DELETE)
    </td>
-   <td>OPTIONAL
+   <td>REQUIRED
    </td>
   </tr>
   <tr>
