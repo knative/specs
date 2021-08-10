@@ -51,7 +51,7 @@ the status section.
 ## Service
 
 A **Service** encapsulates a **Route** and **Configuration** which together
-provide a software component. Services exists to provide a singular abstraction
+provide a software component. A Service exists to provide a singular abstraction
 which can be access controlled, reasoned about, and which encapsulates software
 lifecycle decisions such as rollout policy and team resource ownership. A Service
 acts only as an orchestrator of the underlying Route and Configuration (much as
