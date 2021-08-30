@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: event-display
+spec:
+  selector:
+    matchLabels:
+     app: event-display
+  template:
+    metadata:
+      labels:
+        app: event-display
+    spec:
+      containers:
+      - name: event-display
+        image: gcr.io/knative-releases/knative.dev/eventing/cmd/event_display
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: event-display
+spec:
+  selector:
+      app: event-display
+  ports:
+    - name: receiver
+      port: 80
+      protocol: TCP
+      targetPort: 8080
+

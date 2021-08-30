@@ -1,0 +1,11 @@
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: conformance-trigger-no-filter
+spec:
+  broker: conformance-broker
+  subscriber:
+    ref:
+      apiVersion: v1
+      kind: Service
+      name: event-display
