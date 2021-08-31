@@ -1570,7 +1570,7 @@ Max: 1
    </td>
    <td>As specified in Kubernetes <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/#container-v1-core">core/v1.Container</a>.
    </td>
-   <td>REQUIRED
+   <td>RECOMMENDED
    </td>
   </tr>
 </table>
