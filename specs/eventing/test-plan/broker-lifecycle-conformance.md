@@ -17,7 +17,7 @@ From the Spec:
 
 # Testing Broker Lifecycle Conformance: 
 
-We are going to be testing the previous two paragraphs coming from the Knative Eventing Spec. To do this we will be creating a broker checking its immutable properties, checking its Ready Status and then creating a Trigger that links to it by making a reference. We will also checking the Trigger Status, as it depends on the Broker to be ready to work correclty. We will be also checking that the broker is addresable by looking at the status conditions fields. Because this is a Control Plane test, we are not going to be sending Events to these components. 
+We are going to be testing the previous paragraphs coming from the Knative Eventing Spec. To do this we will be creating a broker checking its immutable properties, checking its Ready Status and then creating a Trigger that links to it by making a reference. We will also checking the Trigger Status, as it depends on the Broker to be ready to work correclty. We will be also checking that the broker is addresable by looking at the status conditions fields. Because this is a Control Plane test, we are not going to be sending Events to these components. 
 
 You can find the resources for running these tests inside the `control-plane/broker-lifecycle/` directory. 
 - A broker resource: `control-plane/broker-lifecycle/broker.yaml`
@@ -72,7 +72,6 @@ Try to mutate the `.spec.config` to see if the resource mutates:
 kubectl patch broker conformance-broker --type merge -p '{"spec":{"config":{"apiVersion":"v1"}}}'
 ```
 
-**ISSUE Reported**: https://github.com/knative/eventing/issues/5663 
 
 ### [Output]
 
@@ -126,6 +125,7 @@ kubectl get broker conformance-broker -ojson | jq .status.address.url
 	"obtainedURL": "<BROKER URL>",
   }
 }
+```
 
 ## [Pre] Create Trigger for Broker
 
@@ -173,9 +173,9 @@ kubectl get trigger conformance-trigger -ojson | jq '.status.conditions[] |selec
 	"expectedStatus": "True"
   }
 }
+```
 
-
-# Clean up & Congrats
+# Clean up & Congratulations
 
 Make sure that you clean up all resources created in these tests by running: 
 
