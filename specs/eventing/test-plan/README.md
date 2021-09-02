@@ -1,6 +1,6 @@
 # Knative Eventing Conformance Test Plan
 
-This document descibe a test plan for testing Knative Eventing Conformance based on the specs that can be found here: https://github.com/knative/specs/blob/main/specs/eventing
+This document describes a plan for testing Knative Eventing Conformance based on the specs that can be found here: https://github.com/knative/specs/blob/main/specs/eventing
 
 The specs are splitted into Control Plane and Data Plane tests, this document follows the same approach and further divide the tests into further subsections. 
 
