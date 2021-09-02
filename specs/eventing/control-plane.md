@@ -232,7 +232,7 @@ condition MUST indicate the reason for the error. The Subscription MUST also set
 
 The `spec.subscriber` destination MUST be set; if the `spec.reply` field is not
 set, [replies](data-plane.md#derived-reply-events) from the `spec.subscriber`
-are discarded.
+MUST be discarded.
 
 Once created, the Subscription's `spec.channel` MUST NOT permit updates; to
 change the `spec.channel`, the Subscription MUST be deleted and re-created. This
