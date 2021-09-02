@@ -21,7 +21,7 @@ If you want to test conformance (**MUST, MUST NOT, REQUIRED**) you need:
 
 ## Test Plan for Control Plane
 
-The following sections describe the test plans for the different behaviours described in the spec and each section describe tests, commands (manual steps) and outputs that will be used to evaluate conformance. 
+The following sections describe the test plans for the different behaviours described in the spec and each section describes tests, commands (manual steps) and outputs that will be used to evaluate conformance. 
 
 - [Broker Lifecycle Conformance](broker-lifecycle-conformance.md)
 - [Trigger Lifecycle Conformance TBD]()
