@@ -449,7 +449,7 @@ resource. The `apiVersion` is `eventing.knative.dev/v1` and the `kind` is
   </tr>
   <tr>
     <td><code>config</code></td>
-    <td><a href="#kreference">KReference</a><br/>(OPTIONAL)</td>
+    <td><a href="#kreference">KReference</a><br/>(OPTIONAL, IMMUTABLE)</td>
     <td>A reference to an object which describes the configuration options for the Broker (for example, a ConfigMap).</td>
   </tr>
   <tr>
