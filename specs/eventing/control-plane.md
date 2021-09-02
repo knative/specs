@@ -304,7 +304,7 @@ mechanism.
 
 A Broker MUST publish a URL at `status.address.url` when it is able to receive
 events. This URL MUST implement the receiver requirements of
-[event delivery](#data-plane.md#event-delivery). Before
+[event delivery](data-plane.md#event-delivery). Before
 [acknowledging an event](data-plane.md#event-acknowledgement-and-delivery-retry),
 the Broker MUST durably enqueue the event (where durability means that the
 Broker can retry event delivery beyond the duration of receiving the event).
