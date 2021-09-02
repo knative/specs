@@ -19,10 +19,10 @@ From the Spec:
 
 We are going to be testing the previous paragraphs coming from the Knative Eventing Spec. To do this we will be creating a broker, checking its immutable properties, checking its Ready status and then creating a Trigger that links to it by making a reference. We will also checking the Trigger Status, as it depends on the Broker to be ready to work correctly. We will be also checking that the broker is addressable by looking at the status conditions fields. Because this is a Control Plane test, we are not going to be sending Events to these components. 
 
-You can find the resources for running these tests inside the `control-plane/broker-lifecycle/` directory. 
-- A broker resource: `control-plane/broker-lifecycle/broker.yaml`
-- A trigger resource that reference the broker: `control-plane/broker-lifecycle/trigger.yaml` 
-- A trigger resource that doesn't reference the broker: `control-plane/broker-lifecycle/trigger-no-broker.yaml`
+You can find the resources for running these tests inside the [control-plane/broker-lifecycle/](specs/eventing/test-plan/control-plane/broker-lifecycle/) directory. 
+- A [broker resource](specs/eventing/test-plan/control-plane/broker-lifecycle/broker.yaml)
+- A [trigger resource that references the broker](specs/eventing/test-plan/control-plane/broker-lifecycle/trigger.yaml)
+- A [trigger resource that doesn't reference the broker](specs/eventing/test-plan/control-plane/broker-lifecycle/trigger-no-broker.yaml)
 
 
 ## [Pre] Creating a Broker 
