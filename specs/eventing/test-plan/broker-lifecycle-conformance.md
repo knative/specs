@@ -37,7 +37,7 @@ kubectl apply -f control-plane/broker-lifecycle/broker.yaml
 Check for default annotations, this should return the name of the selected implementation: 
 
 ```
-kubectl get broker conformance-broker -ojson | jq '.metadata.annotations["eventing.knative.dev/broker.class"]'
+kubectl get broker conformance-broker -o jsonpath='{.metadata.annotations.eventing\.knative\.dev/broker\.class}'
 ```
 
 Try to patch the annotation: `eventing.knative.dev/broker.class` to see if the resource mutates: 
