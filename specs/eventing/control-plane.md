@@ -130,7 +130,7 @@ Broker MUST provide a `status.address.url` which accepts all valid CloudEvents
 and MUST attempt to forward the received events for filtering to each associated
 Trigger whose `Ready` condition is `true`. As described in the
 [Trigger Lifecycle](#trigger-lifecycle) section, a Broker MAY forward events to
-an associated Trigger destination which which does not currently have a `true`
+an associated Trigger destination which does not currently have a `true`
 `Ready` condition, including events received by the Broker before the Trigger
 was created.
 
@@ -245,7 +245,7 @@ When a Subscription becomes associated with a Channel (either due to creating
 the Subscription or the Channel), the Subscription MUST only set the `Ready`
 condition to `true` after the Channel has been configured to send all future
 events to the Subscription's `spec.subscriber`. The Channel MAY send some events
-to the Subscription before prior to the Subscription's `Ready` condition being
+to the Subscription prior to the Subscription's `Ready` condition being
 set to `true`. When a Subscription is deleted, the Channel MAY send some
 additional events to the Subscription's `spec.subscriber` after the deletion.
 
@@ -302,7 +302,7 @@ mechanism.
 
 A Broker MUST publish a URL at `status.address.url` when it is able to receive
 events. This URL MUST implement the receiver requirements of
-[event delivery](#data-plane.md#event-delivery). Before
+[event delivery](data-plane.md#event-delivery). Before
 [acknowledging an event](data-plane.md#event-acknowledgement-and-delivery-retry),
 the Broker MUST durably enqueue the event (where durability means that the
 Broker can retry event delivery beyond the duration of receiving the event).
@@ -447,7 +447,7 @@ resource. The `apiVersion` is `eventing.knative.dev/v1` and the `kind` is
   </tr>
   <tr>
     <td><code>config</code></td>
-    <td><a href="#kreference">KReference</a><br/>(OPTIONAL)</td>
+    <td><a href="#kreference">KReference</a><br/>(OPTIONAL, IMMUTABLE)</td>
     <td>A reference to an object which describes the configuration options for the Broker (for example, a ConfigMap).</td>
   </tr>
   <tr>
