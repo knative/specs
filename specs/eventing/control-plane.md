@@ -230,11 +230,9 @@ condition MUST indicate the reason for the error. The Subscription MUST also set
 `status.physicalSubscription` URIs to the empty string if the corresponding
 `spec` reference cannot be resolved.
 
-At least one of `spec.subscriber` and `spec.reply` MUST be set; if only
-`spec.reply` is set, the behavior is equivalent to setting `spec.subscriber`
-except that the Channel SHOULD NOT
-[advertise the ability to process replies](data-plane.md#derived-reply-events)
-during the delivery.
+The `spec.subscriber` destination MUST be set; if the `spec.reply` field is not
+set, [replies](data-plane.md#derived-reply-events) from the `spec.subscriber`
+MUST be discarded.
 
 Once created, the Subscription's `spec.channel` MUST NOT permit updates; to
 change the `spec.channel`, the Subscription MUST be deleted and re-created. This
@@ -651,7 +649,7 @@ resource. The `apiVersion` is `messaging.knative.dev/v1` and the `kind` is
   </tr>
   <tr>
     <td><code>subscriber</code></td>
-    <td><a href="#duckv1destination">duckv1.Destination</a><br/>(OPTIONAL)</td>
+    <td><a href="#duckv1destination">duckv1.Destination</a><br/>(REQUIRED)</td>
     <td>The destination for event delivery.</td>
   </tr>
   <tr>
