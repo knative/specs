@@ -2,4 +2,3 @@ apiVersion: eventing.knative.dev/v1
 kind: broker
 metadata:
  name: conformance-broker
- namespace: default
