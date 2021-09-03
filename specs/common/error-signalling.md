@@ -33,7 +33,7 @@ better code generation and disambiguation between similar fields in the same
   <tr>
    <td><code>type</code>
    </td>
-   <td><code>string</code>
+   <td>string
    </td>
    <td>The category of the condition, as a short, CamelCase word or phrase.
 <p>
@@ -96,11 +96,11 @@ unique across Conditions for a given resource.
   <tr>
    <td><code>lastTransitionTime</code>
    </td>
-   <td>Timestamp
+   <td>date-time string (<a href="https://tools.ietf.org/html/rfc3339#section-5.6">RFC 3339</a> format)
    </td>
    <td>Last update time for this condition.
    </td>
-   <td>(no timestamp specified)
+   <td>"" (no timestamp specified)
    </td>
   </tr>
 </table>
