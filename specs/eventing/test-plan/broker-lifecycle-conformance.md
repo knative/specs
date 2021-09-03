@@ -153,6 +153,7 @@ kubectl get trigger conformance-trigger -ojson | jq '.spec.broker'
 	"expectedReference": "conformance-broker"
   }
 }
+```
 
 ## [Test] Trigger for Broker Readyness
 
