@@ -160,7 +160,7 @@ kubectl get trigger conformance-trigger -ojson | jq '.spec.broker'
 Check for condition type `Ready` with status `True`: 
 
 ```
-kubectl get trigger conformance-trigger -ojson | jq '.status.conditions[] |select(.type == "Ready")'
+kubectl get trigger conformance-trigger -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].status}"
 ```
 
 ### [Output]
