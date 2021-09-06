@@ -15,7 +15,6 @@ If you want to test conformance (**MUST, MUST NOT, REQUIRED**) you need:
 - **Prerequisites**: 
     - Knative Eventing Installed. 
     - `kubectl` access to the cluster as defined in the spec: https://github.com/knative/specs/blob/main/specs/eventing/control-plane.md#rbac-profile
-    - `jq` installed
 - A Kubernetes Service that can be addressable to receive and count CloudEvents that arrive
 - `curl` to send CloudEvents
 
