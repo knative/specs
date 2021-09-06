@@ -36,15 +36,3 @@ https://github.com/knative/specs/blob/main/specs/eventing/data-plane.md
 ## Test Plan for Data Plane
 
 - [Event Ack and Delivery Retry TBD]()
-
-
-
-
-
-
-
-
-
-
-
-
