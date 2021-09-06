@@ -91,7 +91,7 @@ kubectl patch broker conformance-broker --type merge -p '{"spec":{"config":{"api
 Check for condition type `Ready` with status `True`: 
 
 ```
- kubectl get broker conformance-broker -ojson | jq '.status.conditions[] |select(.type == "Ready")' 
+ kubectl get broker conformance-broker -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].status}"
 ```
 
 ### [Output]
@@ -112,7 +112,7 @@ Check for condition type `Ready` with status `True`:
 Running the following command should return a URL
 
 ```
-kubectl get broker conformance-broker -ojson | jq .status.address.url
+kubectl get broker conformance-broker -ojsonpath="{.status.address.url}"
 ```
 
 ### [Output]
@@ -140,7 +140,7 @@ kubectl apply -f control-plane/broker-lifecycle/trigger.yaml
 Check that the `Trigger` is making a reference to the `Broker`, this should return the name of the broker.
 
 ```
-kubectl get trigger conformance-trigger -ojson | jq '.spec.broker'
+kubectl get trigger conformance-trigger -ojsonpath="{.spec.broker}"
 ```
 
 ### [Output]
