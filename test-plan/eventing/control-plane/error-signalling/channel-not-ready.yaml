@@ -1,0 +1,8 @@
+apiVersion: messaging.knative.dev/v1
+kind: Channel
+metadata:
+  name: not-ready
+spec:
+  channelTemplate:
+    apiVersion: fake/v0
+    kind: Invalid

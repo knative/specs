@@ -1,0 +1,11 @@
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: not-ready
+spec:
+  broker: does-not-exist
+  subscriber:
+    ref:
+      apiVersion: v0
+      kind: Invalid
+      name: invalid

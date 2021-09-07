@@ -1,0 +1,9 @@
+apiVersion: eventing.knative.dev/v1
+kind: Broker
+metadata:
+  name: not-ready
+spec:
+  config:
+    apiVersion: v0
+    kind: Invalid
+    name: invalid
