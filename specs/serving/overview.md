@@ -9,33 +9,33 @@ Configurations, and Services:
 
 - **Configuration**, which acts as a stream of environments for Revisions.
 
-- **Service** acts as a top-level container for managing a Route and
+- A **Service** acts as a top-level container for managing a Route and
   Configuration which implement a network service.
 
 ![Object model](images/object_model.png)
 
 ## Route
 
-**Route** provides a network endpoint for a user's service (which consists of a
-series of software and configuration Revisions over time). A kubernetes
-namespace can have multiple routes. The route provides a long-lived, stable,
+A **Route** provides a network endpoint for a user's service (which consists of a
+series of software and configuration Revisions over time). A Kubernetes
+namespace can have multiple routes. The Route provides a long-lived, stable,
 named, HTTP-addressable endpoint that is backed by one or more **Revisions**.
-The default configuration is for the route to automatically route traffic to the
-latest revision created by a **Configuration**. For more complex scenarios, the
+The default configuration is for the Route to automatically route traffic to the
+latest Revision created by a **Configuration**. For more complex scenarios, the
 API supports splitting traffic on a percentage basis, and CI tools could
-maintain multiple configurations for a single route (e.g. "golden path" and
-“experiments”) or reference multiple revisions directly to pin revisions during
-an incremental rollout and n-way traffic split. The route can optionally assign
-addressable subdomains to any or all backing revisions.
+maintain multiple configurations for a single Route (e.g. "golden path" and
+“experiments”) or reference multiple Revisions directly to pin revisions during
+an incremental rollout and n-way traffic split. The Route can optionally assign
+addressable subdomains to any or all backing Revisions.
 
 ## Revision
 
-**Revision** is an immutable snapshot of code and configuration. A revision
+A **Revision** is an immutable snapshot of code and configuration. A Revision
 references a container image. Revisions are created by updates to a
 **Configuration**.
 
 Revisions that are not addressable via a Route may be garbage collected and all
-underlying K8s resources will be deleted. Revisions that are addressable via a
+underlying Kubernetes resources will be deleted. Revisions that are addressable via a
 Route will have resource utilization proportional to the load they are under.
 
 ## Configuration
@@ -51,11 +51,11 @@ the status section.
 ## Service
 
 A **Service** encapsulates a **Route** and **Configuration** which together
-provide a software component. Service exists to provide a singular abstraction
+provide a software component. A Service exists to provide a singular abstraction
 which can be access controlled, reasoned about, and which encapsulates software
-lifecycle decisions such as rollout policy and team resource ownership. Service
+lifecycle decisions such as rollout policy and team resource ownership. A Service
 acts only as an orchestrator of the underlying Route and Configuration (much as
-a kubernetes Deployment orchestrates ReplicaSets). Its usage is optional but
+a Kubernetes Deployment orchestrates ReplicaSets). Its usage is optional but
 recommended.
 
 The Service's controller will track the statuses of its owned Configuration and
@@ -70,20 +70,20 @@ as the Service's RoutesReady condition.
 Revisions are created indirectly when a Configuration is created or updated.
 This provides:
 
-- a single referenceable resource for the route to perform automated rollouts
-- a single resource that can be watched to see a history of all the revisions
+- a single referenceable resource for the Route to perform automated rollouts
+- a single resource that can be watched to see a history of all the Revisions
   created
-- PATCH semantics for revisions implemented server-side, minimizing
+- PATCH semantics for Revisions implemented server-side, minimizing
   read-modify-write implemented across multiple clients, which could result in
   optimistic concurrency errors
-- the ability to rollback to a known good configuration
+- the ability to rollback to a known good Configuration
 
-Update operations on the service enable scenarios such as:
+Update operations on the Service enable scenarios such as:
 
-- _"Push image, keep config":_ Specifying a new revision with updated image,
-  inheriting configuration such as env vars from the configuration.
-- _"Update config, keep image"_: Specifying a new revision as just a change to
-  configuration, such as updating an env variable, inheriting all other
-  configuration and image.
-- _"Execute a controlled rollout"_: Updating the service's traffic spec allows
-  testing of revisions before making them live, and controlled rollouts.
+- _"Push image, keep config":_ Specifying a new Revision with updated image,
+  inheriting configuration such as env vars from the Configuration
+- _"Update config, keep image"_: Specifying a new Revision as just a change to
+  Configuration, such as updating an env variable, inheriting all other
+  configuration and image
+- _"Execute a controlled rollout"_: Updating the Service's traffic spec allows
+  testing of Revisions before making them live, and controlled rollouts
