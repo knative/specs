@@ -1040,7 +1040,7 @@ resource.
 <br>
 Min: 1
 <br>
-Max: MAY be larger than 1
+Additionally, implementations MAY enforce an upper bound (≥ 1).
    </td>
    <td>Specifies the parameters used to execute each container instance corresponding to this Revision.
    </td>
