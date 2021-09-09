@@ -12,7 +12,7 @@ is assumed.
 
 This document describes the requirements of a conforming implementation of the
 Knative Eventing resources [Broker](overview.md#broker),
-[Trigger](overview.md#trigger), [Channel](#overview.md#channel) and
+[Trigger](overview.md#trigger), [Channel](overview.md#channel) and
 [Subscription](overview.md#subscription). Requirements are written from the
 point of view of a service implementer; requirements on request formatting (for
 example) MUST be enforced by the service implementation (e.g. by providing a 400
