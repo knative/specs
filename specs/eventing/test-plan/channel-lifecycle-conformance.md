@@ -19,10 +19,10 @@ From the Spec:
 
 We are going to be testing the previous paragraphs coming from the Knative Eventing Spec. To do this we will be creating a Channel, checking its immutable properties, checking its Ready status and then creating a Subscription that links to it by making a reference. We will also checking the Subscription status, as it depends on the Channel to be ready to work correctly. We will be also checking that the Channel is addressable by looking at the status conditions fields. Because this is a Control Plane test, we are not going to be sending Events to these components. 
 
-You can find the resources for running these tests inside the [control-plane/broker-lifecycle/](specs/eventing/test-plan/control-plane/channel-lifecycle/) directory. 
-- A [Channel resource](specs/eventing/test-plan/control-plane/channellifecycle/channel.yaml)
-- A [Subscription resource that references the Channel](specs/eventing/test-plan/control-plane/channel-lifecycle/trigger.yaml)
-- A [Subscription resource that doesn't reference the Channel](specs/eventing/test-plan/control-plane/channel-lifecycle/subscription-no-channel.yaml)
+You can find the resources for running these tests inside the [control-plane/channel-lifecycle/](specs/eventing/test-plan/control-plane/channel-lifecycle/) directory. 
+- A [Channel resource](specs/eventing/test-plan/control-plane/channel-lifecycle/channel.yaml)
+- A [Subscription resource that references the Channel](specs/eventing/test-plan/control-plane/channel-lifecycle/subscription.yaml)
+- A [Service resource that serves as deadletter sink and subscriber for the subscritpion](specs/eventing/test-plan/control-plane/channel-lifecycle/service.yaml)
 
 
 ## [Pre] Creating a Channel 
@@ -37,20 +37,20 @@ kubectl apply -f control-plane/channel-lifecycle/channel.yaml
 Check for default annotations, this should return the name of the selected implementation: 
 
 ```
-kubectl get broker conformance-broker -o jsonpath='{.metadata.annotations.eventing\.knative\.dev/broker\.class}'
+kubectl get channel.messaging.knative.dev conformance-channel -o jsonpath='{.spec.channelTemplate.kind}'
 ```
 
-Try to patch the annotation: `eventing.knative.dev/broker.class` to see if the resource mutates: 
+Try to patch the annotation: `messaging.knative.dev/channel.spec.channelTemplate` to see if the resource mutates: 
 
 ```
-kubectl patch broker conformance-broker --type merge -p '{"metadata":{"annotations":{"eventing.knative.dev/broker.class":"mutable"}}}'
+kubectl patch channel.messaging.knative.dev conformance-channel --type merge -p '{"spec":{"channelTemplate":{"kind":"mutable"}}}'
 ```
 
 You should get the following error: 
 ```
 Error from server (BadRequest): admission webhook "validation.webhook.eventing.knative.dev" denied the request: validation failed: Immutable fields changed (-old +new): annotations
 {string}:
-	-: "MTChannelBasedBroker"
+	-: "InMemoryChannel" // or your channel implementation
 	+: "mutable"
 ```
 
@@ -58,118 +58,104 @@ Error from server (BadRequest): admission webhook "validation.webhook.eventing.k
 
 ```
 {
-  "test": "control-plane/broker-lifecycle/immutability-1"
+  "test": "control-plane/channel-lifecycle/immutability-1"
   "output": {
-    	"brokerImplementation": "<BROKER IMPLEMENTATION>",
+    	"channel Implementation": "<CHANNEL IMPLEMENTATION>",
 	"expectedError": "<EXPECTED ERROR>"
   }
 }
 ```
 
-Try to mutate the `.spec.config` to see if the resource mutates: 
-
-```
-kubectl patch broker conformance-broker --type merge -p '{"spec":{"config":{"apiVersion":"v1"}}}'
-```
-
-
-### [Output]
-
-```
-{
-  "test": "control-plane/broker-lifecycle/immutability-2"
-  "output": {
-  	"brokerImplementation": "<BROKER IMPLEMENTATION>",
-	"expectedError": "<EXPECTED ERROR>"
-  }
-}
-```
-
-
-## [Test] Broker Readyness 
+## [Test] Channel Readyness 
 
 Check for condition type `Ready` with status `True`: 
 
 ```
- kubectl get broker conformance-broker -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].status}"
+ kubectl get channel.messaging.knative.dev conformance-channel -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].status}"
 ```
 
 ### [Output]
 
 ```
 {
-  "test": "control-plane/broker-lifecycle/broker-readyness"
+  "test": "control-plane/channel-lifecycle/channel-readyness"
   "output": {
-  	"brokerImplementation": "<BROKER IMPLEMENTATION>",
+  	"channelImplementation": "<CHANNEL IMPLEMENTATION>",
 	"expectedType": "Ready",
 	"expectedStatus": "True"
   }
 }
 ```
 
-## [Test] Broker is Addresable
+## [Test] Channel is Addresable
 
 Running the following command should return a URL
 
 ```
-kubectl get broker conformance-broker -ojsonpath="{.status.address.url}"
+kubectl get channel.messaging.knative.dev conformance-channel -ojsonpath="{.status.address.url}"
 ```
 
 ### [Output]
 
 ```
 {
-  "test": "control-plane/broker-lifecycle/broker-addressable"
+  "test": "control-plane/channel-lifecycle/channel-addressable"
   "output": {
-  	"brokerImplementation": "",
-	"obtainedURL": "<BROKER URL>",
+  	"channelImplementation": "",
+	"obtainedURL": "<CHANNEL URL>",
   }
 }
 ```
 
-## [Pre] Create Trigger for Broker
+## [Pre] Create Subscription for the Channel
 
-Create a trigger that points to the broker:
-
-```
-kubectl apply -f control-plane/broker-lifecycle/trigger.yaml
-```
-
-## [Test] Broker Reference in Trigger
-
-Check that the `Trigger` is making a reference to the `Broker`, this should return the name of the broker.
+First lets create a Service that works as a Subscriber and a deadLetterSink for the Subscription:
 
 ```
-kubectl get trigger conformance-trigger -ojsonpath="{.spec.broker}"
+kubectl apply -f control-plane/channel-lifecycle/service.yaml
+```
+
+Create a Subscription that points to the Channel:
+
+```
+kubectl apply -f control-plane/channel-lifecycle/subscription.yaml
+```
+
+## [Test] Channel Reference in Subscription
+
+Check that the `Subscription` is making a reference to the `Channel`, this should return the name of the Channel.
+
+```
+kubectl get subscription conformance-subscription -ojsonpath="{.spec.channel.name}"
 ```
 
 ### [Output]
 
 ```
 {
-  "test": "control-plane/broker-lifecycle/broker-reference-in-trigger"
+  "test": "control-plane/channel-lifecycle/channel-reference-in-subscription"
   "output": {
-  	"brokerImplementation": "<BROKER IMPLEMENTATION>",
-	"expectedReference": "conformance-broker"
+  	"channelImplementation": "<CHANNEL IMPLEMENTATION>",
+	"expectedReference": "conformance-channel"
   }
 }
 ```
 
-## [Test] Trigger for Broker Readyness
+## [Test] Subscription for Channel Readyness
 
 Check for condition type `Ready` with status `True`: 
 
 ```
-kubectl get trigger conformance-trigger -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].status}"
+kubectl get subscription conformance-subscription -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].status}"
 ```
 
 ### [Output]
 
 ```
 {
-  "test": "control-plane/broker-lifecycle/trigger-for-broker-readyness"
+  "test": "control-plane/channel-lifecycle/subscription-for-channel-readyness"
   "output": {
-  	"brokerImplementation": "<BROKER IMPLEMENTATION>",
+  	"channelImplementation": "<CHANNEL IMPLEMENTATION>",
 	"expectedType": "Ready",
 	"expectedStatus": "True"
   }
@@ -181,8 +167,8 @@ kubectl get trigger conformance-trigger -ojsonpath="{.status.conditions[?(@.type
 Make sure that you clean up all resources created in these tests by running: 
 
 ```
-kubectl delete -f control-plane/broker-lifecycle/
+kubectl delete -f control-plane/channel-lifecycle/
 ```
 
 
-Congratulations you have tested the **Broker Lifecycle Conformance** :metal: !
+Congratulations you have tested the **Channel Lifecycle Conformance** :metal: !
