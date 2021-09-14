@@ -1302,9 +1302,9 @@ Max: 100
    </td>
    <td>The <code>percent</code> is optionally used to specify the percentage of requests which should be allocated from the main Route domain name to the specified <code>revisionName</code> or <code>configurationName</code>.
 <p>
-To indicate that percentage based routing is to be used, at least one <code>traffic</code> section MUST have a non-zero <code>percent</code> value, and all values MUST sum to 100. Note, a missing <code>precent</code> value implies zero.
+To indicate that percentage based routing is to be used, at least one <code>traffic</code> section MUST have a non-zero <code>percent</code> value, and all values MUST sum to 100. Note, a missing <code>percent</code> value implies zero.
    </td>
-   <td>OPTIONAL
+   <td>REQUIRED
    </td>
   </tr>
   <tr>
