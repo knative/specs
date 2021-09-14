@@ -166,6 +166,15 @@ kubectl get subscription conformance-subscription -ojsonpath="{.status.condition
 
 Test for messages sent from the channel to each Subscription Subscriber:
 
+Lets create first some Ping Sources to start sending events to the conformance-channel:
+
+
+```
+kubectl apply -f control-plane/channel-lifecycle/extra-sources.yaml
+```
+
+Now lets look for those events in each Subscription Subscriber ref:
+
 ```
 kubectl logs --ignore-errors conformance-sockeye-00001-deployment-6ff47c5f49-wvcb9 user-container | grep conformance-pingsource | tail -n 5
 

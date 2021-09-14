@@ -4,7 +4,7 @@ metadata:
   name: conformance-pingsource
 spec:
   schedule: "*/1 * * * *"
-  data: '{"msg": "hello"}'
+  data: '{"msg": "test ping source"}'
   sink:
     ref:
       apiVersion: messaging.knative.dev/v1
