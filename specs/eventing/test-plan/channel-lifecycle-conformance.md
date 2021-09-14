@@ -66,7 +66,7 @@ Error from server (BadRequest): admission webhook "validation.webhook.eventing.k
 }
 ```
 
-## [Test] Channel Readyness 
+## [Test] Channel Readiness 
 
 Check for condition type `Ready` with status `True`: 
 
@@ -78,7 +78,7 @@ Check for condition type `Ready` with status `True`:
 
 ```
 {
-  "test": "control-plane/channel-lifecycle/channel-readyness"
+  "test": "control-plane/channel-lifecycle/channel-readiness"
   "output": {
   	"channelImplementation": "<CHANNEL IMPLEMENTATION>",
 	"expectedType": "Ready",
@@ -153,7 +153,7 @@ kubectl get subscription conformance-subscription -ojsonpath="{.status.condition
 
 ```
 {
-  "test": "control-plane/channel-lifecycle/subscription-for-channel-readyness"
+  "test": "control-plane/channel-lifecycle/subscription-for-channel-readiness"
   "output": {
   	"channelImplementation": "<CHANNEL IMPLEMENTATION>",
 	"expectedType": "Ready",
@@ -189,7 +189,7 @@ kubectl logs --ignore-errors --tail 100 -l serving.knative.dev/service=conforman
 {
   "test": "control-plane/channel-lifecycle/channel-fan-out-messages-to-subscribers"
   "output": { 
-    *Messages sent to the different subscription subscribers*
+    *Logs of the messages sent to the different subscription subscribers*
   }
 }
 ```
