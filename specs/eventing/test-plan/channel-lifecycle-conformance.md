@@ -123,7 +123,7 @@ kubectl apply -f control-plane/channel-lifecycle/subscription.yaml
 
 ## [Test] Channel Reference in Subscription
 
-Check that the `Subscription` is making a reference to the `Channel`, this should return the name of the Channel.
+Check that the Subscription is making a reference to the Channel, this should return the name of the Channel.
 
 ```
 kubectl get subscription conformance-subscription -ojsonpath="{.spec.channel.name}"
