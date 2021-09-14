@@ -1,6 +1,19 @@
 apiVersion: sources.knative.dev/v1
 kind: PingSource
 metadata:
+  name: conformance-pingsource-1
+spec:
+  schedule: "*/1 * * * *"
+  data: '{"msg": "test ping source"}'
+  sink:
+    ref:
+      apiVersion: messaging.knative.dev/v1
+      kind: Channel
+      name: conformance-channel
+---
+apiVersion: sources.knative.dev/v1
+kind: PingSource
+metadata:
   name: conformance-pingsource-2
 spec:
   schedule: "*/1 * * * *"
@@ -23,3 +36,4 @@ spec:
       apiVersion: messaging.knative.dev/v1
       kind: Channel
       name: conformance-channel
+

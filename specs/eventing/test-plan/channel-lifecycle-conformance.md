@@ -112,7 +112,7 @@ kubectl get channel.messaging.knative.dev conformance-channel -ojsonpath="{.stat
 First lets create a Service that works as a Subscriber and a deadLetterSink for the Subscription:
 
 ```
-kubectl apply -f control-plane/channel-lifecycle/service.yaml
+kubectl apply -f control-plane/channel-lifecycle/services.yaml
 ```
 
 Create a Subscription that points to the Channel:
@@ -170,17 +170,17 @@ Lets create first some Ping Sources to start sending events to the conformance-c
 
 
 ```
-kubectl apply -f control-plane/channel-lifecycle/extra-sources.yaml
+kubectl apply -f control-plane/channel-lifecycle/ping-sources.yaml
 ```
 
-Now lets look for those events in each Subscription Subscriber ref:
+Now lets look for those events in each Subscription Subscriber ref logs:
 
 ```
-kubectl logs --ignore-errors conformance-sockeye-00001-deployment-6ff47c5f49-wvcb9 user-container | grep conformance-pingsource | tail -n 5
+kubectl logs --ignore-errors --tail 100 -l serving.knative.dev/service=conformance-sockeye -c user-container | grep conformance-pingsource-1 | tail -n 5
 
-kubectl logs --ignore-errors conformance-sockeye-00001-deployment-6ff47c5f49-wvcb9 user-container | grep conformance-pingsource-2 | tail -n 5
+kubectl logs --ignore-errors --tail 100 -l serving.knative.dev/service=conformance-sockeye -c user-container | grep conformance-pingsource-2 | tail -n 5
 
-kubectl logs --ignore-errors conformance-sockeye-00001-deployment-6ff47c5f49-wvcb9 user-container | grep conformance-pingsource-3 | tail -n 5
+kubectl logs --ignore-errors --tail 100 -l serving.knative.dev/service=conformance-sockeye -c user-container | grep conformance-pingsource-3 | tail -n 5
 ```
 
 ### [Output]
