@@ -141,7 +141,7 @@ kubectl get subscription conformance-subscription -ojsonpath="{.spec.channel.nam
 }
 ```
 
-## [Test] Subscription for Channel Readyness
+## [Test] Subscription for Channel Readiness
 
 Check for condition type `Ready` with status `True`: 
 
@@ -162,6 +162,28 @@ kubectl get subscription conformance-subscription -ojsonpath="{.status.condition
 }
 ```
 
+### [Test] Channel fan out message to Subscribers
+
+Test for messages sent from the channel to each Subscription Subscriber:
+
+```
+kubectl logs --ignore-errors conformance-sockeye-00001-deployment-6ff47c5f49-wvcb9 user-container | grep conformance-pingsource | tail -n 5
+
+kubectl logs --ignore-errors conformance-sockeye-00001-deployment-6ff47c5f49-wvcb9 user-container | grep conformance-pingsource-2 | tail -n 5
+
+kubectl logs --ignore-errors conformance-sockeye-00001-deployment-6ff47c5f49-wvcb9 user-container | grep conformance-pingsource-3 | tail -n 5
+```
+
+### [Output]
+
+```
+{
+  "test": "control-plane/channel-lifecycle/channel-fan-out-messages-to-subscribers"
+  "output": { 
+    *Messages sent to the different subscription subscribers*
+  }
+}
+```
 # Clean up & Congratulations
 
 Make sure that you clean up all resources created in these tests by running: 
