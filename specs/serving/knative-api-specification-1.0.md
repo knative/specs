@@ -1150,7 +1150,7 @@ constitutes a request.
    </td>
    <td>A URL which may be used to retrieve logs specific to this Revision. The destination MAY require authentication and/or use a format (such as a web UI) which requires additional configuration. There is no further standardization of this URL or the targeted endpoint.
    </td>
-   <td>REQUIRED
+   <td>RECOMMENDED
    </td>
   </tr>
   <tr>
