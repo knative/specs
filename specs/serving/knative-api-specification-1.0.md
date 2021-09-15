@@ -1163,6 +1163,26 @@ constitutes a request.
    <td>RECOMMENDED
    </td>
   </tr>
+  <tr>
+   <td><code>actualReplicas</code>
+   </td>
+   <td>int
+   </td>
+   <td>Reflects the number of replicas that are running this revision.
+   </td>
+   <td>RECOMMENDED
+   </td>
+  </tr>
+  <tr>
+   <td><code>desiredReplicas</code>
+   </td>
+   <td>int
+   </td>
+   <td>Reflects the desired amount of replicas for this revision.
+   </td>
+   <td>RECOMMENDED
+   </td>
+  </tr>
 </table>
 
 # Detailed Resource Types - v1
