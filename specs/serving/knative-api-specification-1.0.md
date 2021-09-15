@@ -2225,6 +2225,16 @@ Max: 1
    <td>REQUIRED, if securityContext is supported.
    </td>
   </tr>
+  <tr>
+   <td><code>readOnlyRootFilesystem</code>
+   </td>
+   <td>boolean
+   </td>
+   <td>As specified in Kubernetes <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/#securitycontext-v1-core">core/v1.SecurityContext</a>
+   </td>
+   <td>RECOMMENDED, if securityContext is supported.
+   </td>
+  </tr>
 </table>
 
 ## VolumeMount
