@@ -87,7 +87,7 @@ Check for condition type `Ready` with status `True`:
 }
 ```
 
-## [Test] Channel is Addresable
+## [Test] Channel is Addressable
 
 Running the following command should return a URL
 
