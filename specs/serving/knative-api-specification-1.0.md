@@ -2275,7 +2275,7 @@ Max: 1
    </td>
    <td>bool
    </td>
-   <td>Must be true. Defaults to true.
+   <td>Mutability & default value is defined by the volume source type.
    </td>
    <td>REQUIRED, if volumes is supported.
    </td>
@@ -2338,6 +2338,8 @@ Max: 1
 
 ## ConfigMapVolumeSource
 
+When mounted to a container <a href="#volumemount">VolumeMount.readOnly</a> MUST only accept `true`.
+
 <table>
   <tr>
    <td><strong>FieldName</strong>
@@ -2393,6 +2395,8 @@ Max: 1
 
 ## SecretVolumeSource
 
+When mounted to a container <a href="#volumemount">VolumeMount.readOnly</a> MUST only accept `true`.
+
 <table>
   <tr>
    <td><strong>FieldName</strong>
@@ -2447,6 +2451,8 @@ Max: 1
 </table>
 
 ## ProjectedVolumeSource
+
+When mounted to a container <a href="#volumemount">VolumeMount.readOnly</a> MUST only accept `true`.
 
 <table>
   <tr>
