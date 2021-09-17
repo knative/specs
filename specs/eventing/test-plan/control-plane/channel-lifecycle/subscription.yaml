@@ -17,4 +17,4 @@ spec:
     ref:
       apiVersion: serving.knative.dev/v1
       kind: Service
-      name: conformance-sockeye
+      name: conformance-events

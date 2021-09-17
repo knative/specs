@@ -176,11 +176,11 @@ kubectl apply -f control-plane/channel-lifecycle/ping-sources.yaml
 Now lets look for those events in each Subscription Subscriber ref logs:
 
 ```
-kubectl logs --ignore-errors --tail 100 -l serving.knative.dev/service=conformance-sockeye -c user-container | grep conformance-pingsource-1 | tail -n 5
+kubectl logs --ignore-errors --tail 100 -l serving.knative.dev/service=conformance-events -c user-container | grep conformance-pingsource-1 | tail -n 5
 
-kubectl logs --ignore-errors --tail 100 -l serving.knative.dev/service=conformance-sockeye -c user-container | grep conformance-pingsource-2 | tail -n 5
+kubectl logs --ignore-errors --tail 100 -l serving.knative.dev/service=conformance-events -c user-container | grep conformance-pingsource-2 | tail -n 5
 
-kubectl logs --ignore-errors --tail 100 -l serving.knative.dev/service=conformance-sockeye -c user-container | grep conformance-pingsource-3 | tail -n 5
+kubectl logs --ignore-errors --tail 100 -l serving.knative.dev/service=conformance-events -c user-container | grep conformance-pingsource-3 | tail -n 5
 ```
 
 ### [Output]
