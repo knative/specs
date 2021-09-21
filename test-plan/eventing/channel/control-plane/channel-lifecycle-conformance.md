@@ -54,6 +54,9 @@ Error from server (BadRequest): admission webhook "validation.webhook.eventing.k
 	+: "mutable"
 ```
 
+Tested in eventing:
+- Not tested
+
 ### [Output]
 
 ```
@@ -73,6 +76,10 @@ Check for condition type `Ready` with status `True`:
 ```
  kubectl get channel.messaging.knative.dev conformance-channel -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].status}"
 ```
+
+Tested in eventing:
+- https://github.com/knative/eventing/blob/main/test/rekt/features/channel/control_plane.go#L102
+- https://github.com/knative/eventing/blob/main/test/conformance/channel_status_test.go#L29
 
 ### [Output]
 
@@ -94,6 +101,10 @@ Running the following command should return a URL
 ```
 kubectl get channel.messaging.knative.dev conformance-channel -ojsonpath="{.status.address.url}"
 ```
+
+Tested in eventing:
+- https://github.com/knative/eventing/blob/main/test/rekt/features/channel/control_plane.go#L102
+- https://github.com/knative/eventing/blob/main/test/conformance/channel_status_test.go#L29
 
 ### [Output]
 
@@ -129,6 +140,9 @@ Check that the Subscription is making a reference to the Channel, this should re
 kubectl get subscription conformance-subscription -ojsonpath="{.spec.channel.name}"
 ```
 
+Tested in eventing:
+- Not tested directly
+
 ### [Output]
 
 ```
@@ -148,6 +162,10 @@ Check for condition type `Ready` with status `True`:
 ```
 kubectl get subscription conformance-subscription -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].status}"
 ```
+
+Tested in eventing:
+- https://github.com/knative/eventing/blob/main/test/rekt/features/channel/control_plane.go#L84
+- https://github.com/knative/eventing/blob/main/test/conformance/channel_status_subscriber_test.go#L29
 
 ### [Output]
 
@@ -182,6 +200,11 @@ kubectl logs --ignore-errors --tail 100 -l serving.knative.dev/service=conforman
 
 kubectl logs --ignore-errors --tail 100 -l serving.knative.dev/service=conformance-events -c user-container | grep conformance-pingsource-3 | tail -n 5
 ```
+
+Tested in eventing:
+- https://github.com/knative/eventing/blob/main/test/rekt/features/channel/topology_test.go#L29
+- https://github.com/knative/eventing/blob/main/test/conformance/channel_tracing_test.go#L30
+- https://github.com/knative/eventing/blob/main/test/conformance/channel_data_plane_test.go#L29
 
 ### [Output]
 
