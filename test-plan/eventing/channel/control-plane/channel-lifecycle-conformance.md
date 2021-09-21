@@ -19,16 +19,16 @@ From the Spec:
 
 We are going to be testing the previous paragraphs coming from the Knative Eventing Spec. To do this we will be creating a Channel, checking its immutable properties, checking its Ready status and then creating a Subscription that links to it by making a reference. We will also checking the Subscription status, as it depends on the Channel to be ready to work correctly. We will be also checking that the Channel is addressable by looking at the status conditions fields. Because this is a Control Plane test, we are not going to be sending Events to these components. 
 
-You can find the resources for running these tests inside the [control-plane/channel-lifecycle/](specs/eventing/test-plan/control-plane/channel-lifecycle/) directory. 
-- A [Channel resource](specs/eventing/test-plan/control-plane/channel-lifecycle/channel.yaml)
-- A [Subscription resource that references the Channel](specs/eventing/test-plan/control-plane/channel-lifecycle/subscription.yaml)
-- A [Service resource that serves as deadletter sink and subscriber for the subscritpion](specs/eventing/test-plan/control-plane/channel-lifecycle/service.yaml)
+You can find the resources for running these tests inside the [control-plane/channel-lifecycle/](test-plan/eventing/channel/control-plane/) directory. 
+- A [Channel resource](test-plan/eventing/channel/control-plane/channel.yaml)
+- A [Subscription resource that references the Channel](test-plan/eventing/channel/control-plane/subscription.yaml)
+- A [Service resource that serves as deadletter sink and subscriber for the subscritpion](test-plan/eventing/channel/control-plane/service.yaml)
 
 
 ## [Pre] Creating a Channel 
 
 ```
-kubectl apply -f control-plane/channel-lifecycle/channel.yaml
+kubectl apply -f channel/control-plane/channel.yaml
 ```
 
 
@@ -58,7 +58,7 @@ Error from server (BadRequest): admission webhook "validation.webhook.eventing.k
 
 ```
 {
-  "test": "control-plane/channel-lifecycle/immutability-1"
+  "test": "channel/control-plane/immutability-1"
   "output": {
     	"channel Implementation": "<CHANNEL IMPLEMENTATION>",
 	"expectedError": "<EXPECTED ERROR>"
@@ -78,7 +78,7 @@ Check for condition type `Ready` with status `True`:
 
 ```
 {
-  "test": "control-plane/channel-lifecycle/channel-readiness"
+  "test": "channel/control-plane/channel-readiness"
   "output": {
   	"channelImplementation": "<CHANNEL IMPLEMENTATION>",
 	"expectedType": "Ready",
@@ -99,7 +99,7 @@ kubectl get channel.messaging.knative.dev conformance-channel -ojsonpath="{.stat
 
 ```
 {
-  "test": "control-plane/channel-lifecycle/channel-addressable"
+  "test": "channel/control-plane/channel-addressable"
   "output": {
   	"channelImplementation": "",
 	"obtainedURL": "<CHANNEL URL>",
@@ -112,13 +112,13 @@ kubectl get channel.messaging.knative.dev conformance-channel -ojsonpath="{.stat
 First lets create a Service that works as a Subscriber and a deadLetterSink for the Subscription:
 
 ```
-kubectl apply -f control-plane/channel-lifecycle/services.yaml
+kubectl apply -f channel/control-plane/services.yaml
 ```
 
 Create a Subscription that points to the Channel:
 
 ```
-kubectl apply -f control-plane/channel-lifecycle/subscription.yaml
+kubectl apply -f channel/control-plane/subscription.yaml
 ```
 
 ## [Test] Channel Reference in Subscription
@@ -133,7 +133,7 @@ kubectl get subscription conformance-subscription -ojsonpath="{.spec.channel.nam
 
 ```
 {
-  "test": "control-plane/channel-lifecycle/channel-reference-in-subscription"
+  "test": "channel/control-plane/channel-reference-in-subscription"
   "output": {
   	"channelImplementation": "<CHANNEL IMPLEMENTATION>",
 	"expectedReference": "conformance-channel"
@@ -153,7 +153,7 @@ kubectl get subscription conformance-subscription -ojsonpath="{.status.condition
 
 ```
 {
-  "test": "control-plane/channel-lifecycle/subscription-for-channel-readiness"
+  "test": "channel/control-plane/subscription-for-channel-readiness"
   "output": {
   	"channelImplementation": "<CHANNEL IMPLEMENTATION>",
 	"expectedType": "Ready",
@@ -170,7 +170,7 @@ Lets create first some Ping Sources to start sending events to the conformance-c
 
 
 ```
-kubectl apply -f control-plane/channel-lifecycle/ping-sources.yaml
+kubectl apply -f channel/control-plane/ping-sources.yaml
 ```
 
 Now lets look for those events in each Subscription Subscriber ref logs:
@@ -187,7 +187,7 @@ kubectl logs --ignore-errors --tail 100 -l serving.knative.dev/service=conforman
 
 ```
 {
-  "test": "control-plane/channel-lifecycle/channel-fan-out-messages-to-subscribers"
+  "test": "channel/control-plane/channel-fan-out-messages-to-subscribers"
   "output": { 
     *Logs of the messages sent to the different subscription subscribers*
   }
@@ -198,7 +198,7 @@ kubectl logs --ignore-errors --tail 100 -l serving.knative.dev/service=conforman
 Make sure that you clean up all resources created in these tests by running: 
 
 ```
-kubectl delete -f control-plane/channel-lifecycle/
+kubectl delete -f channel/control-plane/
 ```
 
 
