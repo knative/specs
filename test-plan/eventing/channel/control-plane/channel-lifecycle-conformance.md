@@ -19,7 +19,7 @@ From the Spec:
 
 We are going to be testing the previous paragraphs coming from the Knative Eventing Spec. To do this we will be creating a Channel, checking its immutable properties, checking its Ready status and then creating a Subscription that links to it by making a reference. We will also checking the Subscription status, as it depends on the Channel to be ready to work correctly. We will be also checking that the Channel is addressable by looking at the status conditions fields. Because this is a Control Plane test, we are not going to be sending Events to this components. 
 
-You can find the resources for running this tests inside the [control-plane/channel-lifecycle/](/channel-lifecycle) directory. 
+You can find the resources for running this tests inside the [control-plane/channel-lifecycle/](test-plan/eventing/channel/control-plane/) directory. 
 - A [Channel resource](test-plan/eventing/channel/control-plane/channel.yaml)
 - A [Subscription resource that references the Channel](test-plan/eventing/channel/control-plane/subscription.yaml)
 - A [Service resource that serves as deadletter sink and subscriber for the subscritpion](test-plan/eventing/channel/control-plane/service.yaml)
