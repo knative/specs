@@ -1163,16 +1163,6 @@ constitutes a request.
    <td>RECOMMENDED
    </td>
   </tr>
-  <tr>
-   <td><code>imageDigest</code>
-   </td>
-   <td>string
-   </td>
-   <td>The resolved image digest for the requested Container. This MAY be omitted by the implementation.
-   </td>
-   <td>RECOMMENDED
-   </td>
-  </tr>
 </table>
 
 # Detailed Resource Types - v1
