@@ -1,0 +1,8 @@
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: conformance-trigger
+spec:
+  broker: conformance-broker
+  subscriber:
+    uri: http://events-counter-service.default.svc.cluster.local/events
