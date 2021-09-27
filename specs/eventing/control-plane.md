@@ -862,6 +862,11 @@ Channel.
     <td>enum<br/>["linear", "exponential"] (OPTIONAL)</td>
     <td>Retry timing scaling policy. Linear policy uses the same <code>backoffDelay</code> for each attempt; Exponential policy uses 2^N multiples of <code>backoffDelay</code></td>
   </tr>
+  <tr>
+    <td><code>timeout</code></td>
+    <td>string (OPTIONAL)</td>
+    <td>The timeout of each single request.</td>
+  </tr>
 </table>
 
 ### KReference
