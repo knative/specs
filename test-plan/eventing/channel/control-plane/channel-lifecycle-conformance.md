@@ -55,7 +55,7 @@ Error from server (BadRequest): admission webhook "validation.webhook.eventing.k
 ```
 
 Tested in eventing:
-- Not tested
+- Not tested (depends on the implementation)
 
 ### [Output]
 
@@ -141,7 +141,7 @@ kubectl get subscription conformance-subscription -ojsonpath="{.spec.channel.nam
 ```
 
 Tested in eventing:
-- Not tested directly
+- https://github.com/knative/eventing/blob/main/test/rekt/resources/subscription/subscription_test.go#L166
 
 ### [Output]
 
