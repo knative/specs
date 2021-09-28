@@ -1,6 +1,6 @@
 # Channel Lifecycle 
 
-From: https://github.com/knative/specs/blob/main/specs/eventing/control-plane.md#channel-lifecycle
+From: https://github.com/knative/specs/blob/release-0.26/specs/eventing/control-plane.md#channel-lifecycle
 
 
 From the Spec: 
@@ -78,8 +78,8 @@ Check for condition type `Ready` with status `True`:
 ```
 
 Tested in eventing:
-- https://github.com/knative/eventing/blob/main/test/rekt/features/channel/control_plane.go#L102
-- https://github.com/knative/eventing/blob/main/test/conformance/channel_status_test.go#L29
+- https://github.com/knative/eventing/blob/release-0.26/test/rekt/features/channel/control_plane.go#L102
+- https://github.com/knative/eventing/blob/release-0.26/test/conformance/channel_status_test.go#L29
 
 ### [Output]
 
@@ -103,8 +103,8 @@ kubectl get channel.messaging.knative.dev conformance-channel -ojsonpath="{.stat
 ```
 
 Tested in eventing:
-- https://github.com/knative/eventing/blob/main/test/rekt/features/channel/control_plane.go#L102
-- https://github.com/knative/eventing/blob/main/test/conformance/channel_status_test.go#L29
+- https://github.com/knative/eventing/blob/release-0.26/test/rekt/features/channel/control_plane.go#L102
+- https://github.com/knative/eventing/blob/release-0.26/test/conformance/channel_status_test.go#L29
 
 ### [Output]
 
@@ -141,7 +141,7 @@ kubectl get subscription conformance-subscription -ojsonpath="{.spec.channel.nam
 ```
 
 Tested in eventing:
-- https://github.com/knative/eventing/blob/main/test/rekt/resources/subscription/subscription_test.go#L166
+- https://github.com/knative/eventing/blob/release-0.26/test/rekt/resources/subscription/subscription_test.go#L166
 
 ### [Output]
 
@@ -164,8 +164,8 @@ kubectl get subscription conformance-subscription -ojsonpath="{.status.condition
 ```
 
 Tested in eventing:
-- https://github.com/knative/eventing/blob/main/test/rekt/features/channel/control_plane.go#L84
-- https://github.com/knative/eventing/blob/main/test/conformance/channel_status_subscriber_test.go#L29
+- https://github.com/knative/eventing/blob/release-0.26/test/rekt/features/channel/control_plane.go#L84
+- https://github.com/knative/eventing/blob/release-0.26/test/conformance/channel_status_subscriber_test.go#L29
 
 ### [Output]
 
@@ -202,9 +202,9 @@ kubectl logs --ignore-errors --tail 100 -l serving.knative.dev/service=conforman
 ```
 
 Tested in eventing:
-- https://github.com/knative/eventing/blob/main/test/rekt/features/channel/topology_test.go#L29
-- https://github.com/knative/eventing/blob/main/test/conformance/channel_tracing_test.go#L30
-- https://github.com/knative/eventing/blob/main/test/conformance/channel_data_plane_test.go#L29
+- https://github.com/knative/eventing/blob/release-0.26/test/rekt/features/channel/topology_test.go#L29
+- https://github.com/knative/eventing/blob/release-0.26/test/conformance/channel_tracing_test.go#L30
+- https://github.com/knative/eventing/blob/release-0.26/test/conformance/channel_data_plane_test.go#L29
 
 ### [Output]
 
