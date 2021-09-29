@@ -23,7 +23,7 @@ You can find the resources for running these tests inside the [control-plane/cha
 - A [Channel resource](channel-lifecycle/channel.yaml)
 - A [Subscription resource that references the Channel](channel-lifecycle/subscription.yaml)
 - A [Services resources that serves as deadletter sink and subscriber for the subscritpion](channel-lifecycle/services.yaml)
-- A [PingSource resource that sends events to the channel](channel-lifecycle/ping-sources.yaml)
+- A [PingSources resources that sends events to the channel](channel-lifecycle/ping-sources.yaml)
 
 
 ## [Pre] Creating a Channel 
