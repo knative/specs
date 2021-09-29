@@ -1,6 +1,6 @@
 # Broker Lifecycle 
 
-From: https://github.com/knative/specs/blob/main/specs/eventing/control-plane.md#broker-lifecycle
+From: https://github.com/knative/specs/blob/release-0.26/specs/eventing/control-plane.md#broker-lifecycle
 
 
 From the Spec: 
@@ -54,6 +54,9 @@ Error from server (BadRequest): admission webhook "validation.webhook.eventing.k
 	+: "mutable"
 ```
 
+Tested in eventing:
+- https://github.com/knative/eventing/blob/release-0.26/test/rekt/features/broker/control_plane.go#L90
+
 ### [Output]
 
 ```
@@ -94,6 +97,10 @@ Check for condition type `Ready` with status `True`:
  kubectl get broker conformance-broker -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].status}"
 ```
 
+Tested in eventing:
+- https://github.com/knative/eventing/blob/release-0.26/test/conformance/helpers/broker_control_plane_test_helper.go#L104
+- https://github.com/knative/eventing/blob/release-0.26/test/rekt/features/broker/control_plane.go#L86
+
 ### [Output]
 
 ```
@@ -114,6 +121,10 @@ Running the following command should return a URL
 ```
 kubectl get broker conformance-broker -ojsonpath="{.status.address.url}"
 ```
+
+Tested in eventing:
+- https://github.com/knative/eventing/blob/release-0.26/test/conformance/helpers/broker_control_plane_test_helper.go#L109
+- https://github.com/knative/eventing/blob/release-0.26/test/rekt/features/broker/control_plane.go#L88
 
 ### [Output]
 
@@ -143,6 +154,9 @@ Check that the `Trigger` is making a reference to the `Broker`, this should retu
 kubectl get trigger conformance-trigger -ojsonpath="{.spec.broker}"
 ```
 
+Tested in eventing:
+- https://github.com/knative/eventing/blob/release-0.26/test/rekt/features/broker/control_plane.go#L114
+
 ### [Output]
 
 ```
@@ -162,6 +176,10 @@ Check for condition type `Ready` with status `True`:
 ```
 kubectl get trigger conformance-trigger -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].status}"
 ```
+
+Tested in eventing:
+- https://github.com/knative/eventing/blob/release-0.26/test/conformance/helpers/broker_control_plane_test_helper.go#L139
+- https://github.com/knative/eventing/blob/release-0.26/test/rekt/features/broker/control_plane.go#L112
 
 ### [Output]
 
