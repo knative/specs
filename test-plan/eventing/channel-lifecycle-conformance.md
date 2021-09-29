@@ -29,7 +29,7 @@ You can find the resources for running these tests inside the [control-plane/cha
 ## [Pre] Creating a Channel 
 
 ```
-kubectl apply -f channel/control-plane/channel.yaml
+kubectl apply -f control-plane/channel-lifecycle/channel.yaml
 ```
 
 
@@ -62,7 +62,7 @@ Tested in eventing:
 
 ```
 {
-  "test": "channel/control-plane/immutability-1"
+  "test": "control-plane/channel-lifecycle/immutability-1"
   "output": {
     	"channel Implementation": "<CHANNEL IMPLEMENTATION>",
 	"expectedError": "<EXPECTED ERROR>"
@@ -86,7 +86,7 @@ Tested in eventing:
 
 ```
 {
-  "test": "channel/control-plane/channel-readiness"
+  "test": "control-plane/channel-lifecycle/channel-readiness"
   "output": {
   	"channelImplementation": "<CHANNEL IMPLEMENTATION>",
 	"expectedType": "Ready",
@@ -111,7 +111,7 @@ Tested in eventing:
 
 ```
 {
-  "test": "channel/control-plane/channel-addressable"
+  "test": "control-plane/channel-lifecycle/channel-addressable"
   "output": {
   	"channelImplementation": "",
 	"obtainedURL": "<CHANNEL URL>",
@@ -124,13 +124,13 @@ Tested in eventing:
 First lets create a Service that works as a Subscriber and a deadLetterSink for the Subscription:
 
 ```
-kubectl apply -f channel/control-plane/services.yaml
+kubectl apply -f control-plane/channel-lifecycle/services.yaml
 ```
 
 Create a Subscription that points to the Channel:
 
 ```
-kubectl apply -f channel/control-plane/subscription.yaml
+kubectl apply -f control-plane/channel-lifecycle/subscription.yaml
 ```
 
 ## [Test] Channel Reference in Subscription
@@ -148,7 +148,7 @@ Tested in eventing:
 
 ```
 {
-  "test": "channel/control-plane/channel-reference-in-subscription"
+  "test": "control-plane/channel-lifecycle/channel-reference-in-subscription"
   "output": {
   	"channelImplementation": "<CHANNEL IMPLEMENTATION>",
 	"expectedReference": "conformance-channel"
@@ -172,7 +172,7 @@ Tested in eventing:
 
 ```
 {
-  "test": "channel/control-plane/subscription-for-channel-readiness"
+  "test": "control-plane/channel-lifecycle/subscription-for-channel-readiness"
   "output": {
   	"channelImplementation": "<CHANNEL IMPLEMENTATION>",
 	"expectedType": "Ready",
@@ -189,7 +189,7 @@ Lets create first some Ping Sources to start sending events to the conformance-c
 
 
 ```
-kubectl apply -f channel/control-plane/ping-sources.yaml
+kubectl apply -f control-plane/channel-lifecycle/ping-sources.yaml
 ```
 
 Now lets look for those events in each Subscription Subscriber ref logs:
@@ -211,7 +211,7 @@ Tested in eventing:
 
 ```
 {
-  "test": "channel/control-plane/channel-fan-out-messages-to-subscribers"
+  "test": "control-plane/channel-lifecycle/channel-fan-out-messages-to-subscribers"
   "output": { 
     *Logs of the messages sent to the different subscription subscribers*
   }
@@ -222,7 +222,7 @@ Tested in eventing:
 Make sure that you clean up all resources created by these tests by running: 
 
 ```
-kubectl delete -f channel/control-plane/
+kubectl delete -f control-plane/channel-lifecycle/
 ```
 
 
