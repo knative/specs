@@ -20,16 +20,17 @@ From the Spec:
 We are going to be testing the previous paragraphs coming from the Knative Eventing Spec. To do this we will be creating a Trigger, checking its immutable properties, checking its Ready status and then creating a Broker that is referenced by it. Because this is a Control Plane test, we are not going to be sending Events to these components. 
 
 You can find the resources for running these tests inside the [control-plane/trigger-lifecycle/](control-plane/broker-lifecycle/) directory. 
-- A [Trigger resource](control-plane/trigger-lifecycle/trigger.yaml)
+- A [Trigger resource](control-plane/trigger-lifecycle/1-trigger.yaml)
 - A [Broker resource that is referenced by the Trigger](trigger-lifecycle/broker.yaml)
-- A [Trigger resource that doesn't reference the Broker](control-plane/trigger-lifecycle/trigger-no-broker.yaml)
 - A [Trigger resource that have a non resolvable Subscriber URI](control-plane/trigger-lifecycle/trigger-no-subscriber.yaml)
 
 
-## [Pre] Creating a Trigger 
+## [Pre] Creating a Trigger
+
+Lets create a Trigger that does not have a valid reference to a Broker yet:
 
 ```
-kubectl apply -f control-plane/trigger-lifecycle/trigger.yaml
+kubectl apply -f control-plane/trigger-lifecycle/1-trigger.yaml
 ```
 
 
