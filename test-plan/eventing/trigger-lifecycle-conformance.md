@@ -25,32 +25,32 @@ You can find the resources for running these tests inside the [control-plane/tri
 - A [Trigger resource that doesn't reference the Broker](control-plane/trigger-lifecycle/trigger-no-broker.yaml)
 
 
-## [Pre] Creating a Broker 
+## [Pre] Creating a Trigger 
 
 ```
-kubectl apply -f control-plane/broker-lifecycle/broker.yaml
+kubectl apply -f control-plane/trigger-lifecycle/trigger.yaml
 ```
 
 
 ## [Test] Immutability
 
-Check for default annotations, this should return the name of the selected implementation: 
+Check for the broker reference in the spec, this must be inmmutable: 
 
 ```
-kubectl get broker conformance-broker -o jsonpath='{.metadata.annotations.eventing\.knative\.dev/broker\.class}'
+kubectl get trigger conformance-trigger -o jsonpath='{.spec.broker}'
 ```
 
-Try to patch the annotation: `eventing.knative.dev/broker.class` to see if the resource mutates: 
+Try to patch the spec broker reference: `spec.broker` to see if the resource mutates: 
 
 ```
-kubectl patch broker conformance-broker --type merge -p '{"metadata":{"annotations":{"eventing.knative.dev/broker.class":"mutable"}}}'
+kubectl patch trigger conformance-trigger --type merge -p '{"spec":{"broker":"mutable"}}'
 ```
 
 You should get the following error: 
 ```
 Error from server (BadRequest): admission webhook "validation.webhook.eventing.knative.dev" denied the request: validation failed: Immutable fields changed (-old +new): annotations
 {string}:
-	-: "MTChannelBasedBroker"
+	-: "conformance-broker"
 	+: "mutable"
 ```
 
@@ -63,38 +63,18 @@ Tested in eventing:
 {
   "test": "control-plane/broker-lifecycle/immutability-1"
   "output": {
-    	"brokerImplementation": "<BROKER IMPLEMENTATION>",
+    	"brokerReference": "<CONFORMANCE_BROKER>",
 	"expectedError": "<EXPECTED ERROR>"
   }
 }
 ```
 
-Try to mutate the `.spec.config` to see if the resource mutates: 
+## [Test] Trigger Readiness 
+
+Check for condition type `Ready` with status `False` since there is no Broker related to the Trigger: 
 
 ```
-kubectl patch broker conformance-broker --type merge -p '{"spec":{"config":{"apiVersion":"v1"}}}'
-```
-
-
-### [Output]
-
-```
-{
-  "test": "control-plane/broker-lifecycle/immutability-2"
-  "output": {
-  	"brokerImplementation": "<BROKER IMPLEMENTATION>",
-	"expectedError": "<EXPECTED ERROR>"
-  }
-}
-```
-
-
-## [Test] Broker Readiness 
-
-Check for condition type `Ready` with status `True`: 
-
-```
- kubectl get broker conformance-broker -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].status}"
+ kubectl get trigger conformance-trigger -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].status}"
 ```
 
 Tested in eventing:
@@ -109,7 +89,7 @@ Tested in eventing:
   "output": {
   	"brokerImplementation": "<BROKER IMPLEMENTATION>",
 	"expectedType": "Ready",
-	"expectedStatus": "True"
+	"expectedStatus": "False"
   }
 }
 ```
