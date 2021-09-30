@@ -1,28 +1,28 @@
 # Broker Lifecycle 
 
-From: https://github.com/knative/specs/blob/main/specs/eventing/control-plane.md#broker-lifecycle
+From: https://github.com/knative/specs/blob/main/specs/eventing/control-plane.md#trigger-lifecycle
 
 
 From the Spec: 
 
->> A Broker represents an Addressable endpoint (i.e. it MUST have a status.address.url field) which can receive, store, and forward events to multiple recipients based on a set of attribute filters (Triggers). 
+>> A Trigger MAY be created before the referenced Broker indicated by its spec.broker field; if the Broker does not currently exist or the Broker's Ready condition is not true, then the Trigger's Ready condition MUST be false, and the reason SHOULD indicate that the corresponding Broker is missing or not ready.
 
->> Triggers MUST be associated with a Broker based on the spec.broker field on the Trigger; it is expected that the controller for a Broker will also control the associated Triggers. 
+>> The Trigger's controller MUST also set the status.subscriberUri field based on resolving the spec.subscriber field before setting the Ready condition to true. If the spec.subscriber.ref field points to a resource which does not exist or cannot be resolved via Destination resolution, the Trigger MUST set the Ready condition to false, and at least one condition MUST indicate the reason for the error. The Trigger MUST also set status.subscriberUri to the empty string if the spec.subscriber.ref cannot be resolved.
 
->> When the Broker's Ready condition is true, the Broker MUST provide a status.address.url which accepts all valid CloudEvents and MUST attempt to forward the received events for filtering to each associated Trigger whose Ready condition is true. As described in the Trigger Lifecycle section, a Broker MAY forward events to an associated Trigger destination which does not currently have a true Ready condition, including events received by the Broker before the Trigger was created.
+>> If the Trigger's spec.delivery.deadLetterSink field it set, it MUST be resolved to a URI and reported in status.deadLetterSinkUri in the same manner as the spec.subscriber field before setting the Ready condition to true.
 
->> The annotation eventing.knative.dev/broker.class SHOULD be used to select a particular implementation of a Broker, if multiple implementations are available. It is RECOMMENDED to default the eventing.knative.dev/broker.class field on creation if it is unpopulated. Once created, the eventing.knative.dev/broker.class annotation and the spec.config field MUST be immutable; the Broker MUST be deleted and re-created to change the implementation class or spec.config. This pattern is chosen to make it clear that changing the implementation class or spec.config is not an atomic operation and that any implementation would be likely to result in event loss during the transition.
+>> Once created, the Trigger's spec.broker MUST NOT permit updates; to change the spec.broker, the Trigger can instead be deleted and re-created. This pattern is chosen to make it clear that changing the spec.broker is not an atomic operation, as it could span multiple storage systems. Changes to spec.subscriber, spec.filter and other fields SHOULD be permitted, as these could occur within a single storage system.
 
+>> When a Trigger becomes associated with a Broker (either due to creating the Trigger or the Broker), the Trigger MUST only set the Ready condition to true after the Broker has been configured to send all future events matching the spec.filter to the Trigger's spec.subscriber. The Broker MAY send some events to the Trigger's spec.subscriber prior to the Trigger's Readycondition being set to true. When a Trigger is deleted, the Broker MAY send some additional events to the Trigger's spec.subscriber after the deletion.
 
+# Testing Trigger Lifecycle Conformance: 
 
-# Testing Broker Lifecycle Conformance: 
+We are going to be testing the previous paragraphs coming from the Knative Eventing Spec. To do this we will be creating a broker, checking its immutable properties, checking its Ready status and then creating a Broker that reference to it by making a reference. Because this is a Control Plane test, we are not going to be sending Events to these components. 
 
-We are going to be testing the previous paragraphs coming from the Knative Eventing Spec. To do this we will be creating a broker, checking its immutable properties, checking its Ready status and then creating a Trigger that links to it by making a reference. We will also checking the Trigger status, as it depends on the Broker to be ready to work correctly. We will be also checking that the broker is addressable by looking at the status conditions fields. Because this is a Control Plane test, we are not going to be sending Events to these components. 
-
-You can find the resources for running these tests inside the [control-plane/broker-lifecycle/](control-plane/broker-lifecycle/) directory. 
-- A [broker resource](control-plane/broker-lifecycle/broker.yaml)
-- A [trigger resource that references the broker](broker-lifecycle/trigger.yaml)
-- A [trigger resource that doesn't reference the broker](control-plane/broker-lifecycle/trigger-no-broker.yaml)
+You can find the resources for running these tests inside the [control-plane/trigger-lifecycle/](control-plane/broker-lifecycle/) directory. 
+- A [Trigger resource](control-plane/trigger-lifecycle/trigger.yaml)
+- A [Broker resource that references the Broker](trigger-lifecycle/broker.yaml)
+- A [Trigger resource that doesn't reference the Broker](control-plane/trigger-lifecycle/trigger-no-broker.yaml)
 
 
 ## [Pre] Creating a Broker 
