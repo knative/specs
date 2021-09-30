@@ -17,7 +17,7 @@ From the Spec:
 
 # Testing Trigger Lifecycle Conformance: 
 
-We are going to be testing the previous paragraphs coming from the Knative Eventing Spec. To do this we will be creating a Trigger, checking its immutable properties, checking its Ready status and then creating a Broker that is referenced by it. Because this is a Control Plane test, we are not going to be sending Events to these components. 
+We are going to be testing the previous paragraphs coming from the Knative Eventing Spec. To do this we will be creating a Trigger, checking its immutable properties, checking its Ready status and then creating a Broker that is referenced by it. We will be checking the Trigger ref URIs to be created in the status, to see if the associated resources are been resolved. Because this is a Control Plane test, we are not going to be sending Events to these components. 
 
 You can find the resources for running these tests inside the [control-plane/trigger-lifecycle/](control-plane/broker-lifecycle/) directory. 
 - A [Trigger resource](control-plane/trigger-lifecycle/1-trigger.yaml)
