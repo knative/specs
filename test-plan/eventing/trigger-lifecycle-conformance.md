@@ -121,7 +121,7 @@ Tested in eventing:
 Running the following command should return a URI:
 
 ```
-kubectl get trigger conformance-trigger -ojsonpath="{.spec.subscriber}"
+kubectl get trigger conformance-trigger -ojsonpath="{.status.deadLetterSinkUri}"
 ```
 
 Tested in eventing:
