@@ -94,7 +94,7 @@ Tested in eventing:
 }
 ```
 
-## [Test] Trigger subscriber is Addresable
+## [Test] Trigger Subscriber is resolvable
 
 Running the following command should return a URI:
 
@@ -109,7 +109,29 @@ Tested in eventing:
 
 ```
 {
-  "test": "control-plane/trigger-lifecycle/trigger-subscriber-addressable"
+  "test": "control-plane/trigger-lifecycle/trigger-subscriber-resolvable"
+  "output": {
+	"obtainedURI": "<SUBSCRIBER_URI>",
+  }
+}
+```
+
+## [Test] Trigger Sink is resolvable
+
+Running the following command should return a URI:
+
+```
+kubectl get trigger conformance-trigger -ojsonpath="{.spec.subscriber}"
+```
+
+Tested in eventing:
+- 
+
+### [Output]
+
+```
+{
+  "test": "control-plane/trigger-lifecycle/trigger-sink-resolvable"
   "output": {
 	"obtainedURI": "<SUBSCRIBER_URI>",
   }
@@ -149,9 +171,9 @@ Tested in eventing:
 ```
 
 
-## [Pre] Create Trigger with a non addressable Subscriber URI
+## [Pre] Create Trigger with a non resolvable Subscriber URI
 
-Create a Trigger that have a non addressable Subscriber URI:
+Create a Trigger that have a non resolvable Subscriber URI:
 
 ```
 kubectl apply -f control-plane/trigger-lifecycle/trigger-no-subscriber.yaml

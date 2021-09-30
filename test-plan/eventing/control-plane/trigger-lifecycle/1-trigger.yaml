@@ -6,3 +6,9 @@ spec:
   broker: conformance-broker
   subscriber:
     uri: http://events-counter-service.default.svc.cluster.local/events
+  delivery:
+    deadLetterSink:
+      ref:
+        apiVersion: serving.knative.dev/v1
+        kind: Broker
+        name: conformance-broker
