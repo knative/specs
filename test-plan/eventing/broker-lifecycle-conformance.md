@@ -116,7 +116,7 @@ Tested in eventing:
 
 ## [Test] Broker is Addresable
 
-Running the following command should return a URL
+Running the following command should return a URL:
 
 ```
 kubectl get broker conformance-broker -ojsonpath="{.status.address.url}"
@@ -140,7 +140,7 @@ Tested in eventing:
 
 ## [Pre] Create Trigger for Broker
 
-Create a trigger that points to the broker:
+Create a Trigger that points to the Broker:
 
 ```
 kubectl apply -f control-plane/broker-lifecycle/trigger.yaml
@@ -148,7 +148,7 @@ kubectl apply -f control-plane/broker-lifecycle/trigger.yaml
 
 ## [Test] Broker Reference in Trigger
 
-Check that the `Trigger` is making a reference to the `Broker`, this should return the name of the broker.
+Check that the Trigger is making a reference to the Broker, this should return the name of the broker.
 
 ```
 kubectl get trigger conformance-trigger -ojsonpath="{.spec.broker}"

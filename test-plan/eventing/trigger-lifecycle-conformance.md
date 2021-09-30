@@ -1,4 +1,4 @@
-# Broker Lifecycle 
+# Trigger Lifecycle 
 
 From: https://github.com/knative/specs/blob/main/specs/eventing/control-plane.md#trigger-lifecycle
 
@@ -17,12 +17,13 @@ From the Spec:
 
 # Testing Trigger Lifecycle Conformance: 
 
-We are going to be testing the previous paragraphs coming from the Knative Eventing Spec. To do this we will be creating a broker, checking its immutable properties, checking its Ready status and then creating a Broker that reference to it by making a reference. Because this is a Control Plane test, we are not going to be sending Events to these components. 
+We are going to be testing the previous paragraphs coming from the Knative Eventing Spec. To do this we will be creating a Trigger, checking its immutable properties, checking its Ready status and then creating a Broker that is referenced by it. Because this is a Control Plane test, we are not going to be sending Events to these components. 
 
 You can find the resources for running these tests inside the [control-plane/trigger-lifecycle/](control-plane/broker-lifecycle/) directory. 
 - A [Trigger resource](control-plane/trigger-lifecycle/trigger.yaml)
-- A [Broker resource that references the Broker](trigger-lifecycle/broker.yaml)
+- A [Broker resource that is referenced by the Trigger](trigger-lifecycle/broker.yaml)
 - A [Trigger resource that doesn't reference the Broker](control-plane/trigger-lifecycle/trigger-no-broker.yaml)
+- A [Trigger resource that have a non resolvable Subscriber URI](control-plane/trigger-lifecycle/trigger-no-subscriber.yaml)
 
 
 ## [Pre] Creating a Trigger 
@@ -34,13 +35,13 @@ kubectl apply -f control-plane/trigger-lifecycle/trigger.yaml
 
 ## [Test] Immutability
 
-Check for the broker reference in the spec, this must be inmmutable: 
+Check for the Broker reference in the spec, this must be inmmutable: 
 
 ```
 kubectl get trigger conformance-trigger -o jsonpath='{.spec.broker}'
 ```
 
-Try to patch the spec broker reference: `spec.broker` to see if the resource mutates: 
+Try to patch the spec Broker reference: `spec.broker` to see if the resource mutates: 
 
 ```
 kubectl patch trigger conformance-trigger --type merge -p '{"spec":{"broker":"mutable"}}'
@@ -55,16 +56,16 @@ Error from server (BadRequest): admission webhook "validation.webhook.eventing.k
 ```
 
 Tested in eventing:
-- https://github.com/knative/eventing/blob/release-0.26/test/rekt/features/broker/control_plane.go#L90
+- 
 
 ### [Output]
 
 ```
 {
-  "test": "control-plane/broker-lifecycle/immutability-1"
+  "test": "control-plane/trigger-lifecycle/immutability-1"
   "output": {
-    	"brokerReference": "<CONFORMANCE_BROKER>",
-	"expectedError": "<EXPECTED ERROR>"
+    "brokerReference": "<CONFORMANCE_BROKER>",
+	  "expectedError": "<EXPECTED ERROR>"
   }
 }
 ```
@@ -78,78 +79,51 @@ Check for condition type `Ready` with status `False` since there is no Broker re
 ```
 
 Tested in eventing:
-- https://github.com/knative/eventing/blob/release-0.26/test/conformance/helpers/broker_control_plane_test_helper.go#L104
-- https://github.com/knative/eventing/blob/release-0.26/test/rekt/features/broker/control_plane.go#L86
+- 
 
 ### [Output]
 
 ```
 {
-  "test": "control-plane/broker-lifecycle/broker-readiness"
+  "test": "control-plane/trigger-lifecycle/trigger-readiness"
   "output": {
-  	"brokerImplementation": "<BROKER IMPLEMENTATION>",
-	"expectedType": "Ready",
-	"expectedStatus": "False"
+    "expectedType": "Ready",
+    "expectedStatus": "False"
   }
 }
 ```
 
-## [Test] Broker is Addresable
+## [Test] Trigger subscriber is Addresable
 
-Running the following command should return a URL
+Running the following command should return a URI:
 
 ```
-kubectl get broker conformance-broker -ojsonpath="{.status.address.url}"
+kubectl get trigger conformance-trigger -ojsonpath="{.spec.subscriber}"
 ```
 
 Tested in eventing:
-- https://github.com/knative/eventing/blob/release-0.26/test/conformance/helpers/broker_control_plane_test_helper.go#L109
-- https://github.com/knative/eventing/blob/release-0.26/test/rekt/features/broker/control_plane.go#L88
+- 
 
 ### [Output]
 
 ```
 {
-  "test": "control-plane/broker-lifecycle/broker-addressable"
+  "test": "control-plane/trigger-lifecycle/trigger-subscriber-addressable"
   "output": {
-  	"brokerImplementation": "",
-	"obtainedURL": "<BROKER URL>",
+	"obtainedURI": "<SUBSCRIBER_URI>",
   }
 }
 ```
 
-## [Pre] Create Trigger for Broker
+## [Pre] Create Broker for Trigger
 
-Create a trigger that points to the broker:
-
-```
-kubectl apply -f control-plane/broker-lifecycle/trigger.yaml
-```
-
-## [Test] Broker Reference in Trigger
-
-Check that the `Trigger` is making a reference to the `Broker`, this should return the name of the broker.
+Create a Broker to be referenced by the Trigger:
 
 ```
-kubectl get trigger conformance-trigger -ojsonpath="{.spec.broker}"
+kubectl apply -f control-plane/trigger-lifecycle/broker.yaml
 ```
 
-Tested in eventing:
-- https://github.com/knative/eventing/blob/release-0.26/test/rekt/features/broker/control_plane.go#L114
-
-### [Output]
-
-```
-{
-  "test": "control-plane/broker-lifecycle/broker-reference-in-trigger"
-  "output": {
-  	"brokerImplementation": "<BROKER IMPLEMENTATION>",
-	"expectedReference": "conformance-broker"
-  }
-}
-```
-
-## [Test] Trigger for Broker Readiness
+## [Test] Test for Trigger Readiness
 
 Check for condition type `Ready` with status `True`: 
 
@@ -165,11 +139,65 @@ Tested in eventing:
 
 ```
 {
-  "test": "control-plane/broker-lifecycle/trigger-for-broker-readiness"
+  "test": "control-plane/trigger-lifecycle/trigger-for-broker-readiness"
   "output": {
-  	"brokerImplementation": "<BROKER IMPLEMENTATION>",
 	"expectedType": "Ready",
 	"expectedStatus": "True"
+  }
+}
+```
+
+
+## [Pre] Create Trigger with a non addressable Subscriber URI
+
+Create a Trigger that have a non addressable Subscriber URI:
+
+```
+kubectl apply -f control-plane/trigger-lifecycle/trigger-no-subscriber.yaml
+```
+
+## [Test] Trigger subscriber is not resolvable
+
+Running the following command should return a URL
+
+```
+kubectl get trigger conformance-trigger-no-subscriber -ojsonpath="{.spec.subscriber}"
+```
+
+Tested in eventing:
+- 
+
+### [Output]
+
+```
+{
+  "test": "control-plane/trigger-lifecycle/trigger-subscriber-not-resolvable"
+  "output": {
+	"obtainedURI": "<SUBSCRIBER_URI>",
+  }
+}
+```
+
+
+## [Test] Trigger readdiness when subscriber is not resolvable
+
+Check for condition type `Ready` with status `False` since there is no Subscriber resolvable URI related to the Trigger: 
+
+```
+ kubectl get trigger conformance-trigger-no-subscriber -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].status}"
+```
+
+Tested in eventing:
+- 
+
+### [Output]
+
+```
+{
+  "test": "control-plane/trigger-lifecycle/trigger-readiness-subscriber-not-resolvable"
+  "output": {
+    "expectedType": "Ready",
+    "expectedStatus": "False"
   }
 }
 ```
@@ -179,8 +207,8 @@ Tested in eventing:
 Make sure that you clean up all resources created in these tests by running: 
 
 ```
-kubectl delete -f control-plane/broker-lifecycle/
+kubectl delete -f control-plane/trigger-lifecycle/
 ```
 
 
-Congratulations you have tested the **Broker Lifecycle Conformance** :metal: !
+Congratulations you have tested the **Trigger Lifecycle Conformance** :metal: !
