@@ -173,7 +173,7 @@ Tested in eventing:
 {
   "test": "control-plane/trigger-lifecycle/trigger-subscriber-not-resolvable"
   "output": {
-	"obtainedURI": "<SUBSCRIBER_URI>",
+	"obtainedURI": "<SUBSCRIBER_REF>",
   }
 }
 ```
@@ -185,6 +185,7 @@ Check for condition type `Ready` with status `False` since there is no Subscribe
 
 ```
  kubectl get trigger conformance-trigger-no-subscriber -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].status}"
+ kubectl get trigger conformance-trigger-no-subscriber -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].reason}"
 ```
 
 Tested in eventing:
@@ -198,6 +199,7 @@ Tested in eventing:
   "output": {
     "expectedType": "Ready",
     "expectedStatus": "False"
+    "expectedRease: "Unable to get the Subscriber's URI"
   }
 }
 ```
