@@ -24,7 +24,7 @@ The following sections describe the test plans for the different behaviours desc
 
 - [Broker Lifecycle Conformance](broker-lifecycle-conformance.md)
 - [Trigger Lifecycle Conformance TBD]()
-- [Channel Lifecycle Conformance TBD]()
+- [Channel Lifecycle Conformance TBD](channel-lifecycle-conformance.md)
 - [Subscription Lifecycle Conformance TBD]()
 
 

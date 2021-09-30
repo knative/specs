@@ -1,6 +1,6 @@
 # Broker Lifecycle 
 
-From: https://github.com/knative/specs/blob/release-0.26/specs/eventing/control-plane.md#broker-lifecycle
+From: https://github.com/knative/specs/blob/main/specs/eventing/control-plane.md#broker-lifecycle
 
 
 From the Spec: 
