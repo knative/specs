@@ -179,14 +179,24 @@ Tested in eventing:
 }
 ```
 
-
 ## [Test] Trigger readdiness when subscriber is not resolvable
 
 Check for condition type `Ready` with status `False` since there is no Subscriber resolvable URI related to the Trigger: 
 
 ```
  kubectl get trigger conformance-trigger-no-subscriber -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].status}"
+```
+
+Now lets check if there is a clear reason indicating what is wrong"
+
+```
  kubectl get trigger conformance-trigger-no-subscriber -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].reason}"
+```
+
+Finally lets see if the `status.subscriberUri` is empty:
+
+```
+kubectl get trigger conformance-trigger-no-subscriber -ojsonpath="{.status.subscriberUri}"
 ```
 
 Tested in eventing:
@@ -200,7 +210,8 @@ Tested in eventing:
   "output": {
     "expectedType": "Ready",
     "expectedStatus": "False"
-    "expectedRease: "Unable to get the Subscriber's URI"
+    "expectedReason: "Unable to get the Subscriber's URI"
+    "expectedUri": ""
   }
 }
 ```
