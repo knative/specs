@@ -6,15 +6,15 @@ spec:
   channel:
     apiVersion: messaging.knative.dev/v1
     kind: Channel
-    name: <channel-name>
+    name: conformance-channel
   delivery:
     deadLetterSink:
       ref:
         apiVersion: serving.knative.dev/v1
         kind: Service
-        name: <service-name>
+        name: conformance-events
   subscriber:
     ref:
       apiVersion: serving.knative.dev/v1
       kind: Service
-      name: <service-name>
+      name: conformance-events

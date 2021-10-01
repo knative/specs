@@ -31,30 +31,30 @@ You can find the resources for running these tests inside the [control-plane/sub
 kubectl apply -f control-plane/subscription-lifecycle/subscription.yaml
 ```
 
-## [Test] Subscription Readiness
+## [Test] Subscription Inmutability
 
 Check for default annotations, this should return the name of the selected implementation: 
 
 ```
-kubectl get broker conformance-broker -o jsonpath='{.metadata.annotations.eventing\.knative\.dev/broker\.class}'
+kubectl get subscription conformance-subscription -o jsonpath='{.spec.channel}'
 ```
 
-Try to patch the annotation: `eventing.knative.dev/broker.class` to see if the resource mutates: 
+Try to patch the annotation: `spec.channel` to see if the resource mutates: 
 
 ```
-kubectl patch broker conformance-broker --type merge -p '{"metadata":{"annotations":{"eventing.knative.dev/broker.class":"mutable"}}}'
+kubectl patch subscription conformance-subscription --type merge -p '{"spec":{"channel":{"apiVersion":"mutable"}}}'
 ```
 
 You should get the following error: 
 ```
-Error from server (BadRequest): admission webhook "validation.webhook.eventing.knative.dev" denied the request: validation failed: Immutable fields changed (-old +new): annotations
-{string}:
-	-: "MTChannelBasedBroker"
+Error from server (BadRequest): admission webhook "validation.webhook.eventing.knative.dev" denied the request: validation failed: Immutable fields changed (-old +new): spec
+{v1.SubscriptionSpec}.Channel.APIVersion:
+	-: "messaging.knative.dev/v1"
 	+: "mutable"
 ```
 
 Tested in eventing:
-- https://github.com/knative/eventing/blob/release-0.26/test/rekt/features/broker/control_plane.go#L90
+- 
 
 ### [Output]
 
