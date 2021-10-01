@@ -31,8 +31,7 @@ You can find the resources for running these tests inside the [control-plane/sub
 kubectl apply -f control-plane/subscription-lifecycle/subscription.yaml
 ```
 
-
-## [Test] Immutability
+## [Test] Subscription Readiness
 
 Check for default annotations, this should return the name of the selected implementation: 
 
@@ -75,7 +74,6 @@ Try to mutate the `.spec.config` to see if the resource mutates:
 kubectl patch broker conformance-broker --type merge -p '{"spec":{"config":{"apiVersion":"v1"}}}'
 ```
 
-
 ### [Output]
 
 ```
@@ -87,7 +85,6 @@ kubectl patch broker conformance-broker --type merge -p '{"spec":{"config":{"api
   }
 }
 ```
-
 
 ## [Test] Broker Readiness 
 
