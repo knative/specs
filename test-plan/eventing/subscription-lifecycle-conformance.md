@@ -61,9 +61,9 @@ Tested in eventing:
 
 ```
 {
-  "test": "control-plane/subscription-lifecycle/immutability-1"
+  "test": "control-plane/subscription-lifecycle/immutability"
   "output": {
-	  "expectedError": "<EXPECTED ERROR>"
+	  "expectedError": "<EXPECTED_ERROR>"
   }
 }
 ```
@@ -76,6 +76,12 @@ Check for condition type `Ready` with status `False` cause the some of the preco
  kubectl get subscription conformance-subscription -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].status}"
 ```
 
+Lets now check the reason why the Subscription is not ready yet:
+
+```
+ kubectl get subscription conformance-subscription -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].reason}"
+```
+
 Tested in eventing:
 - 
 
@@ -86,7 +92,8 @@ Tested in eventing:
   "test": "control-plane/subscription-lifecycle/subscription-readiness"
   "output": {
     "expectedType": "Ready",
-    "expectedStatus": "False"
+    "expectedStatus": "Unknown",
+    "expectedReason: "ChannelReferenceFailed"
   }
 }
 ```
@@ -166,12 +173,6 @@ Check for condition type `Ready` with status `False` cause with even with the Ch
  kubectl get subscription conformance-subscription -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].status}"
 ```
 
-Lets now check the reason why the Subscription is not ready yet:
-
-```
- kubectl get subscription conformance-subscription -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].reason}"
-```
-
 Tested in eventing:
 - 
 
@@ -182,8 +183,7 @@ Tested in eventing:
   "test": "control-plane/subscription-lifecycle/subscription-readiness-2"
   "output": {
 	  "expectedType": "Ready",
-	  "expectedStatus": "False",
-    "expectedReason: "SubscriberResolveFailed"
+	  "expectedStatus": "True"
   }
 }
 ```
