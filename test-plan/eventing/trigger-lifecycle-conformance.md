@@ -62,7 +62,7 @@ Tested in eventing:
 
 ```
 {
-  "test": "control-plane/trigger-lifecycle/immutability-1"
+  "test": "control-plane/trigger-lifecycle/immutability"
   "output": {
     "brokerReference": "<CONFORMANCE_BROKER>",
 	  "expectedError": "<EXPECTED ERROR>"
@@ -110,7 +110,7 @@ Tested in eventing:
 {
   "test": "control-plane/trigger-lifecycle/trigger-subscriber-resolvable"
   "output": {
-	"obtainedURI": "<SUBSCRIBER_URI>",
+	  "obtainedURI": "<SUBSCRIBER_URI>",
   }
 }
 ```
@@ -132,7 +132,7 @@ Tested in eventing:
 {
   "test": "control-plane/trigger-lifecycle/trigger-sink-resolvable"
   "output": {
-	"obtainedURI": "<SUBSCRIBER_URI>",
+	  "obtainedURI": "<SUBSCRIBER_URI>",
   }
 }
 ```
@@ -163,8 +163,8 @@ Tested in eventing:
 {
   "test": "control-plane/trigger-lifecycle/trigger-for-broker-readiness"
   "output": {
-	"expectedType": "Ready",
-	"expectedStatus": "True"
+    "expectedType": "Ready",
+    "expectedStatus": "True"
   }
 }
 ```
@@ -194,7 +194,7 @@ Tested in eventing:
 {
   "test": "control-plane/trigger-lifecycle/trigger-subscriber-not-resolvable"
   "output": {
-	"obtainedURI": "<SUBSCRIBER_REF>",
+	  "obtainedURI": "<SUBSCRIBER_REF>",
   }
 }
 ```
@@ -229,8 +229,8 @@ Tested in eventing:
   "test": "control-plane/trigger-lifecycle/trigger-readiness-subscriber-not-resolvable"
   "output": {
     "expectedType": "Ready",
-    "expectedStatus": "False"
-    "expectedReason: "Unable to get the Subscriber's URI"
+    "expectedStatus": "False",
+    "expectedReason: "Unable to get the Subscriber's URI",
     "expectedUri": ""
   }
 }

@@ -62,8 +62,8 @@ Tested in eventing:
 {
   "test": "control-plane/broker-lifecycle/immutability-1"
   "output": {
-    	"brokerImplementation": "<BROKER IMPLEMENTATION>",
-	"expectedError": "<EXPECTED ERROR>"
+    "brokerImplementation": "<BROKER_IMPLEMENTATION>",
+	  expectedError": "<EXPECTED_ERROR>"
   }
 }
 ```
@@ -80,8 +80,8 @@ kubectl patch broker conformance-broker --type merge -p '{"spec":{"config":{"api
 {
   "test": "control-plane/broker-lifecycle/immutability-2"
   "output": {
-  	"brokerImplementation": "<BROKER IMPLEMENTATION>",
-	"expectedError": "<EXPECTED ERROR>"
+  	"brokerImplementation": "<BROKER_IMPLEMENTATION>",
+	  "expectedError": "<EXPECTED_ERROR>"
   }
 }
 ```
@@ -104,9 +104,9 @@ Tested in eventing:
 {
   "test": "control-plane/broker-lifecycle/broker-readiness"
   "output": {
-  	"brokerImplementation": "<BROKER IMPLEMENTATION>",
-	"expectedType": "Ready",
-	"expectedStatus": "True"
+  	"brokerImplementation": "<BROKER_IMPLEMENTATION>",
+    "expectedType": "Ready",
+    "expectedStatus": "True"
   }
 }
 ```
@@ -130,7 +130,7 @@ Tested in eventing:
   "test": "control-plane/broker-lifecycle/broker-addressable"
   "output": {
   	"brokerImplementation": "",
-	"obtainedURL": "<BROKER URL>",
+	  "obtainedURL": "<BROKER_URL>",
   }
 }
 ```
@@ -161,8 +161,8 @@ Tested in eventing:
 {
   "test": "control-plane/broker-lifecycle/broker-reference-in-trigger"
   "output": {
-  	"brokerImplementation": "<BROKER IMPLEMENTATION>",
-	"expectedReference": "conformance-broker"
+  	"brokerImplementation": "<BROKER_IMPLEMENTATION>",
+	  "expectedReference": "conformance-broker"
   }
 }
 ```
@@ -185,9 +185,9 @@ Tested in eventing:
 {
   "test": "control-plane/broker-lifecycle/trigger-for-broker-readiness"
   "output": {
-  	"brokerImplementation": "<BROKER IMPLEMENTATION>",
-	"expectedType": "Ready",
-	"expectedStatus": "True"
+  	"brokerImplementation": "<BROKER_IMPLEMENTATION>",
+    "expectedType": "Ready",
+    "expectedStatus": "True"
   }
 }
 ```
