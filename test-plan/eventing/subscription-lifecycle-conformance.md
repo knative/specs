@@ -23,6 +23,7 @@ You can find the resources for running these tests inside the [control-plane/sub
 - A [Subscription resource](control-plane/subscription-lifecycle/subscription.yaml)
 - A [Channel resource that is referenced by the Subscription](subscription-lifecycle/channel.yaml)
 - A [Subscription resource that doesn't reference the Channel](control-plane/subscription-lifecycle/subscription-no-channel.yaml)
+- A [Services resource that creates the DeadLetterSink and the Subscriber for the Subscription](control-plane/subscription-lifecycle/services.yaml)
 
 
 ## [Pre] Creating a Subscription 
@@ -31,7 +32,7 @@ You can find the resources for running these tests inside the [control-plane/sub
 kubectl apply -f control-plane/subscription-lifecycle/subscription.yaml
 ```
 
-## [Test] Subscription Inmutability
+## [Test] Inmutability
 
 Check for default annotations, this should return the name of the selected implementation: 
 
@@ -60,55 +61,40 @@ Tested in eventing:
 
 ```
 {
-  "test": "control-plane/broker-lifecycle/immutability-1"
+  "test": "control-plane/subscription-lifecycle/immutability-1"
   "output": {
-    	"brokerImplementation": "<BROKER IMPLEMENTATION>",
 	"expectedError": "<EXPECTED ERROR>"
   }
 }
 ```
 
-Try to mutate the `.spec.config` to see if the resource mutates: 
+## [Test] Subscription Readiness 
+
+Check for condition type `Ready` with status `False` cause the some of the preconditions on the spec are not met: 
 
 ```
-kubectl patch broker conformance-broker --type merge -p '{"spec":{"config":{"apiVersion":"v1"}}}'
-```
-
-### [Output]
-
-```
-{
-  "test": "control-plane/broker-lifecycle/immutability-2"
-  "output": {
-  	"brokerImplementation": "<BROKER IMPLEMENTATION>",
-	"expectedError": "<EXPECTED ERROR>"
-  }
-}
-```
-
-## [Test] Broker Readiness 
-
-Check for condition type `Ready` with status `True`: 
-
-```
- kubectl get broker conformance-broker -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].status}"
+ kubectl get subscription conformance-subscription -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].status}"
 ```
 
 Tested in eventing:
-- https://github.com/knative/eventing/blob/release-0.26/test/conformance/helpers/broker_control_plane_test_helper.go#L104
-- https://github.com/knative/eventing/blob/release-0.26/test/rekt/features/broker/control_plane.go#L86
+- 
 
 ### [Output]
 
 ```
 {
-  "test": "control-plane/broker-lifecycle/broker-readiness"
+  "test": "control-plane/subscription-lifecycle/subscription-readiness"
   "output": {
-  	"brokerImplementation": "<BROKER IMPLEMENTATION>",
 	"expectedType": "Ready",
-	"expectedStatus": "True"
+	"expectedStatus": "False"
   }
 }
+```
+
+## [Pre] Creating the DeadLetterSink and the Subscriber
+
+```
+kubectl apply -f control-plane/subscription-lifecycle/services.yaml
 ```
 
 ## [Test] Broker is Addresable
