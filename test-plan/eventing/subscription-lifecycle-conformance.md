@@ -22,7 +22,8 @@ We are going to be testing the previous paragraphs coming from the Knative Event
 You can find the resources for running these tests inside the [control-plane/subscription-lifecycle/](control-plane/subscription-lifecycle/) directory. 
 - A [Subscription resource](control-plane/subscription-lifecycle/subscription.yaml)
 - A [Channel resource that is referenced by the Subscription](subscription-lifecycle/channel.yaml)
-- A [Subscription resource that doesn't reference the Channel](control-plane/subscription-lifecycle/subscription-no-channel.yaml)
+- A [Subscription resource that reference a Channel in a different namespace](control-plane/subscription-lifecycle/subscription-channel-namespace.yaml)
+- A [Subscription resource that has no Subscriber defined in the Spec](control-plane/subscription-lifecycle/subscription-no-subscriber.yaml)
 - A [Services resource that creates the DeadLetterSink and the Subscriber for the Subscription](control-plane/subscription-lifecycle/services.yaml)
 
 
@@ -184,6 +185,62 @@ Tested in eventing:
   "output": {
 	  "expectedType": "Ready",
 	  "expectedStatus": "True"
+  }
+}
+```
+
+## [Test] Subscribtion with no Subscriber
+
+Lets try to create a Subscription that have no `spec.subscriber` defined: 
+
+```
+kubectl apply -f control-plane/subscription-lifecycle/subscription-no-subscriber.yaml
+```
+
+You should get the following error: 
+```
+Error from server (BadRequest): error when creating "control-plane/subscription-lifecycle/subscription-no-subscriber.yaml": admission webhook "validation.webhook.eventing.knative.dev" denied the request: validation failed: missing field(s): spec.reply, spec.subscriber
+the Subscription must reference at least one of (reply or a subscriber)
+```
+
+Tested in eventing:
+- 
+
+### [Output]
+
+```
+{
+  "test": "control-plane/subscription-lifecycle/subscriptin-no-subscriber"
+  "output": {
+	  "expectedError": "<EXPECTED_ERROR>"
+  }
+}
+```
+
+## [Test] Subscribtion channel in different namespace
+
+Lets try to create a Subscription that have `spec.channel.namespace` defined and different from `""`: 
+
+```
+kubectl apply -f control-plane/subscription-lifecycle/subscription-channel-namespace.yaml
+```
+
+You should get the following error: 
+```
+Error from server (BadRequest): error when creating "control-plane/subscription-lifecycle/subscription-channel-namespace.yaml": admission webhook "validation.webhook.eventing.knative.dev" denied the request: validation failed: must not set the field(s): spec.channel.namespace
+only name, apiVersion and kind are supported fields
+```
+
+Tested in eventing:
+- 
+
+### [Output]
+
+```
+{
+  "test": "control-plane/subscription-lifecycle/subscriptin-channel-different-namespace"
+  "output": {
+	  "expectedError": "<EXPECTED_ERROR>"
   }
 }
 ```

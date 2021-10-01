@@ -1,12 +1,13 @@
 apiVersion: messaging.knative.dev/v1
 kind: Subscription
 metadata:
-  name: conformance-subscription
+  name: conformance-subscription-channel-namespace
 spec:
   channel:
     apiVersion: messaging.knative.dev/v1
     kind: Channel
     name: conformance-channel
+    namespace: test
   delivery:
     deadLetterSink:
       ref:
