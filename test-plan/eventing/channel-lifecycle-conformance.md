@@ -49,8 +49,8 @@ kubectl patch channel.messaging.knative.dev conformance-channel --type merge -p 
 
 You should get the following error: 
 ```
-Error from server (BadRequest): admission webhook "validation.webhook.eventing.knative.dev" denied the request: validation failed: Immutable fields changed (-old +new): annotations
-{string}:
+Error from server (BadRequest): admission webhook "validation.webhook.eventing.knative.dev" denied the request: validation failed: Immutable fields changed (-old +new): spec
+{v1.ChannelSpec}.ChannelTemplate.TypeMeta.Kind:
 	-: "InMemoryChannel" // or your channel implementation
 	+: "mutable"
 ```
