@@ -63,7 +63,7 @@ Tested in eventing:
 {
   "test": "control-plane/subscription-lifecycle/immutability-1"
   "output": {
-	"expectedError": "<EXPECTED ERROR>"
+	  "expectedError": "<EXPECTED ERROR>"
   }
 }
 ```
@@ -85,8 +85,44 @@ Tested in eventing:
 {
   "test": "control-plane/subscription-lifecycle/subscription-readiness"
   "output": {
-	"expectedType": "Ready",
-	"expectedStatus": "False"
+    "expectedType": "Ready",
+    "expectedStatus": "False"
+  }
+}
+```
+
+## [Pre] Creating the Channel
+
+```
+kubectl apply -f control-plane/subscription-lifecycle/channel.yaml
+```
+
+## [Test] Subscription Readiness 2
+
+Check for condition type `Ready` with status `False` cause with even with the Channel some of the preconditions on the spec are not met: 
+
+```
+ kubectl get subscription conformance-subscription -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].status}"
+```
+
+Lets now check the reason why the Subscription is not ready yet:
+
+```
+ kubectl get subscription conformance-subscription -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].reason}"
+```
+
+Tested in eventing:
+- 
+
+### [Output]
+
+```
+{
+  "test": "control-plane/subscription-lifecycle/subscription-readiness-2"
+  "output": {
+	  "expectedType": "Ready",
+	  "expectedStatus": "False",
+    "expectedReason: "SubscriberResolveFailed"
   }
 }
 ```
@@ -97,82 +133,57 @@ Tested in eventing:
 kubectl apply -f control-plane/subscription-lifecycle/services.yaml
 ```
 
-## [Test] Broker is Addresable
+## [Test] Subscription status update
 
-Running the following command should return a URL
+The `status.physicalSubscription` should have been updated with the 
 
 ```
-kubectl get broker conformance-broker -ojsonpath="{.status.address.url}"
+kubectl get subscription conformance-subscription -ojsonpath="{.status.physicalSubscription}"
 ```
 
 Tested in eventing:
-- https://github.com/knative/eventing/blob/release-0.26/test/conformance/helpers/broker_control_plane_test_helper.go#L109
-- https://github.com/knative/eventing/blob/release-0.26/test/rekt/features/broker/control_plane.go#L88
+- 
 
 ### [Output]
 
 ```
 {
-  "test": "control-plane/broker-lifecycle/broker-addressable"
+  "test": "control-plane/subscription-lifecycle/subscription-status-update"
   "output": {
-  	"brokerImplementation": "",
-	"obtainedURL": "<BROKER URL>",
+	  "obtainedPhysicalSubscription": {
+      "deadLetterSinkUri": "<DEADLETTERSINK_URI>",
+      "subscriberUri": "<SUBSCRIBER_URI>"
+    }
   }
 }
 ```
 
-## [Pre] Create Trigger for Broker
+## [Test] Subscription Readiness 2
 
-Create a trigger that points to the broker:
-
-```
-kubectl apply -f control-plane/broker-lifecycle/trigger.yaml
-```
-
-## [Test] Broker Reference in Trigger
-
-Check that the `Trigger` is making a reference to the `Broker`, this should return the name of the broker.
+Check for condition type `Ready` with status `False` cause with even with the Channel some of the preconditions on the spec are not met: 
 
 ```
-kubectl get trigger conformance-trigger -ojsonpath="{.spec.broker}"
+ kubectl get subscription conformance-subscription -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].status}"
+```
+
+Lets now check the reason why the Subscription is not ready yet:
+
+```
+ kubectl get subscription conformance-subscription -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].reason}"
 ```
 
 Tested in eventing:
-- https://github.com/knative/eventing/blob/release-0.26/test/rekt/features/broker/control_plane.go#L114
+- 
 
 ### [Output]
 
 ```
 {
-  "test": "control-plane/broker-lifecycle/broker-reference-in-trigger"
+  "test": "control-plane/subscription-lifecycle/subscription-readiness-2"
   "output": {
-  	"brokerImplementation": "<BROKER IMPLEMENTATION>",
-	"expectedReference": "conformance-broker"
-  }
-}
-```
-
-## [Test] Trigger for Broker Readiness
-
-Check for condition type `Ready` with status `True`: 
-
-```
-kubectl get trigger conformance-trigger -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].status}"
-```
-
-Tested in eventing:
-- https://github.com/knative/eventing/blob/release-0.26/test/conformance/helpers/broker_control_plane_test_helper.go#L139
-- https://github.com/knative/eventing/blob/release-0.26/test/rekt/features/broker/control_plane.go#L112
-
-### [Output]
-
-```
-{
-  "test": "control-plane/broker-lifecycle/trigger-for-broker-readiness"
-  "output": {
-  	"brokerImplementation": "<BROKER IMPLEMENTATION>",
-	"expectedType": "Ready",
-	"expectedStatus": "True"
+	  "expectedType": "Ready",
+	  "expectedStatus": "False",
+    "expectedReason: "SubscriberResolveFailed"
   }
 }
 ```
@@ -182,8 +193,8 @@ Tested in eventing:
 Make sure that you clean up all resources created in these tests by running: 
 
 ```
-kubectl delete -f control-plane/broker-lifecycle/
+kubectl delete -f control-plane/subscription-lifecycle/
 ```
 
 
-Congratulations you have tested the **Broker Lifecycle Conformance** :metal: !
+Congratulations you have tested the **Subscription Lifecycle Conformance** :metal: !
