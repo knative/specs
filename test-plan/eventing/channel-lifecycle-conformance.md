@@ -62,10 +62,10 @@ Tested in eventing:
 
 ```
 {
-  "test": "control-plane/channel-lifecycle/immutability-1"
+  "test": "control-plane/channel-lifecycle/immutability"
   "output": {
-    	"channel Implementation": "<CHANNEL IMPLEMENTATION>",
-	"expectedError": "<EXPECTED ERROR>"
+    "channel Implementation": "<CHANNEL IMPLEMENTATION>",
+	  "expectedError": "<EXPECTED ERROR>"
   }
 }
 ```
@@ -89,8 +89,8 @@ Tested in eventing:
   "test": "control-plane/channel-lifecycle/channel-readiness"
   "output": {
   	"channelImplementation": "<CHANNEL IMPLEMENTATION>",
-	"expectedType": "Ready",
-	"expectedStatus": "True"
+    "expectedType": "Ready",
+    "expectedStatus": "True"
   }
 }
 ```
@@ -114,7 +114,7 @@ Tested in eventing:
   "test": "control-plane/channel-lifecycle/channel-addressable"
   "output": {
   	"channelImplementation": "",
-	"obtainedURL": "<CHANNEL URL>",
+	  "obtainedURL": "<CHANNEL URL>"
   }
 }
 ```
@@ -151,7 +151,7 @@ Tested in eventing:
   "test": "control-plane/channel-lifecycle/channel-reference-in-subscription"
   "output": {
   	"channelImplementation": "<CHANNEL IMPLEMENTATION>",
-	"expectedReference": "conformance-channel"
+	  "expectedReference": "conformance-channel"
   }
 }
 ```
@@ -174,9 +174,9 @@ Tested in eventing:
 {
   "test": "control-plane/channel-lifecycle/subscription-for-channel-readiness"
   "output": {
-  	"channelImplementation": "<CHANNEL IMPLEMENTATION>",
-	"expectedType": "Ready",
-	"expectedStatus": "True"
+  	"channelImplementation": "<CHANNEL_IMPLEMENTATION>",
+    "expectedType": "Ready",
+    "expectedStatus": "True"
   }
 }
 ```
