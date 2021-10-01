@@ -247,7 +247,7 @@ Tested in eventing:
 
 # Clean up & Congratulations
 
-Make sure that you clean up all resources created in these tests by running: 
+Make sure that you clean up all resources created in these tests by running (ignore the errors :p): 
 
 ```
 kubectl delete -f control-plane/subscription-lifecycle/
