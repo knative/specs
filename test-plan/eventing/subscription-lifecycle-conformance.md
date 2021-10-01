@@ -19,16 +19,16 @@ From the Spec:
 
 We are going to be testing the previous paragraphs coming from the Knative Eventing Spec. To do this we will be creating a Subscription, checking its immutable properties, checking its Ready status and then creating a Channel that is referenced by it. We will also checking the Subscription status, as it depends on the Channel/Ref to be ready to work correctly. We will be also checking that the status is updated with its corresponding URIs. Because this is a Control Plane test, we are not going to be sending Events to these components. 
 
-You can find the resources for running these tests inside the [control-plane/broker-lifecycle/](control-plane/broker-lifecycle/) directory. 
-- A [broker resource](control-plane/broker-lifecycle/broker.yaml)
-- A [trigger resource that references the broker](broker-lifecycle/trigger.yaml)
-- A [trigger resource that doesn't reference the broker](control-plane/broker-lifecycle/trigger-no-broker.yaml)
+You can find the resources for running these tests inside the [control-plane/subscription-lifecycle/](control-plane/subscription-lifecycle/) directory. 
+- A [Subscription resource](control-plane/subscription-lifecycle/subscription.yaml)
+- A [Channel resource that is referenced by the Subscription](subscription-lifecycle/channel.yaml)
+- A [Subscription resource that doesn't reference the Channel](control-plane/subscription-lifecycle/subscription-no-channel.yaml)
 
 
-## [Pre] Creating a Broker 
+## [Pre] Creating a Subscription 
 
 ```
-kubectl apply -f control-plane/broker-lifecycle/broker.yaml
+kubectl apply -f control-plane/subscription-lifecycle/subscription.yaml
 ```
 
 
