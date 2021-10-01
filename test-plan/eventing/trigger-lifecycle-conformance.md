@@ -20,7 +20,7 @@ From the Spec:
 We are going to be testing the previous paragraphs coming from the Knative Eventing Spec. To do this we will be creating a Trigger, checking its immutable properties, checking its Ready status and then creating a Broker that is referenced by it. We will be checking the Trigger ref URIs to be created in the status, to see if the associated resources are been resolved. Because this is a Control Plane test, we are not going to be sending Events to these components. 
 
 You can find the resources for running these tests inside the [control-plane/trigger-lifecycle/](control-plane/broker-lifecycle/) directory. 
-- A [Trigger resource](control-plane/trigger-lifecycle/1-trigger.yaml)
+- A [Trigger resource](control-plane/trigger-lifecycle/trigger.yaml)
 - A [Broker resource that is referenced by the Trigger](trigger-lifecycle/broker.yaml)
 - A [Trigger resource that have a non resolvable Subscriber URI](control-plane/trigger-lifecycle/trigger-no-subscriber.yaml)
 
@@ -30,7 +30,7 @@ You can find the resources for running these tests inside the [control-plane/tri
 Lets create a Trigger that does not have a valid reference to a Broker yet:
 
 ```
-kubectl apply -f control-plane/trigger-lifecycle/1-trigger.yaml
+kubectl apply -f control-plane/trigger-lifecycle/trigger.yaml
 ```
 
 
@@ -181,7 +181,7 @@ kubectl apply -f control-plane/trigger-lifecycle/trigger-no-subscriber.yaml
 
 ## [Test] Trigger subscriber is not resolvable
 
-Running the following command should return a URL
+Running the following command should return a URL, but it doesn't cause the ref is not valid, so it returns the ref object:
 
 ```
 kubectl get trigger conformance-trigger-no-subscriber -ojsonpath="{.spec.subscriber}"
@@ -209,7 +209,7 @@ Check for condition type `Ready` with status `False` since there is no Subscribe
  kubectl get trigger conformance-trigger-no-subscriber -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].status}"
 ```
 
-Now lets check if there is a clear reason indicating what is wrong"
+Now lets check if there is a clear reason indicating what is wrong:
 
 ```
  kubectl get trigger conformance-trigger-no-subscriber -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].reason}"
