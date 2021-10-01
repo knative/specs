@@ -33,7 +33,6 @@ Lets create a Trigger that does not have a valid reference to a Broker yet:
 kubectl apply -f control-plane/trigger-lifecycle/trigger.yaml
 ```
 
-
 ## [Test] Immutability
 
 Check for the Broker reference in the spec, this must be inmmutable: 
@@ -169,7 +168,6 @@ Tested in eventing:
   }
 }
 ```
-
 
 ## [Pre] Create Trigger with a non resolvable Subscriber URI
 

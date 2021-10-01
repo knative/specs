@@ -31,7 +31,6 @@ You can find the resources for running these tests inside the [control-plane/bro
 kubectl apply -f control-plane/broker-lifecycle/broker.yaml
 ```
 
-
 ## [Test] Immutability
 
 Check for default annotations, this should return the name of the selected implementation: 
@@ -75,7 +74,6 @@ Try to mutate the `.spec.config` to see if the resource mutates:
 kubectl patch broker conformance-broker --type merge -p '{"spec":{"config":{"apiVersion":"v1"}}}'
 ```
 
-
 ### [Output]
 
 ```
@@ -87,7 +85,6 @@ kubectl patch broker conformance-broker --type merge -p '{"spec":{"config":{"api
   }
 }
 ```
-
 
 ## [Test] Broker Readiness 
 
@@ -137,6 +134,7 @@ Tested in eventing:
   }
 }
 ```
+
 
 ## [Pre] Create Trigger for Broker
 
