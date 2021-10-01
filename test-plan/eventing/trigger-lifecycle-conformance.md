@@ -49,7 +49,7 @@ kubectl patch trigger conformance-trigger --type merge -p '{"spec":{"broker":"mu
 
 You should get the following error: 
 ```
-Error from server (BadRequest): admission webhook "validation.webhook.eventing.knative.dev" denied the request: validation failed: Immutable fields changed (-old +new): annotations
+Error from server (BadRequest): admission webhook "validation.webhook.eventing.knative.dev" denied the request: validation failed: Immutable fields changed (-old +new): broker, spec
 {string}:
 	-: "conformance-broker"
 	+: "mutable"
