@@ -143,7 +143,7 @@ kubectl apply -f control-plane/trigger-lifecycle/broker.yaml
 Running the following command should return a URI:
 
 ```
-kubectl get trigger conformance-trigger -ojsonpath="{.spec.subscriber}"
+kubectl get trigger conformance-trigger -ojsonpath="{.status.subscriberUri}"
 ```
 
 Tested in eventing:
