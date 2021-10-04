@@ -147,7 +147,7 @@ Tested in eventing:
 {
   "test": "control-plane/trigger-lifecycle/trigger-subscriber-resolvable"
   "output": {
-	  "obtainedURI": "<SUBSCRIBER_URI>",
+	  "subscriberUri": "<SUBSCRIBER_URI>",
   }
 }
 ```
@@ -169,7 +169,7 @@ Tested in eventing:
 {
   "test": "control-plane/trigger-lifecycle/trigger-sink-resolvable"
   "output": {
-	  "obtainedURI": "<DEADLETTERSINK_URI>",
+	  "deadLetterSinkUri": "<DEADLETTERSINK_URI>",
   }
 }
 ```
