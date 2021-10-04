@@ -7,5 +7,7 @@ spec:
   subscriber:
     uri: http://events-counter-service.default.svc.cluster.local/events
   delivery:
-    deadLetterSink:
-      uri: http://events-counter-service.default.svc.cluster.local/events
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: cloudevents-player
