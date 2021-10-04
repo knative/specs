@@ -107,7 +107,7 @@ kubectl apply -f control-plane/subscription-lifecycle/channel.yaml
 
 ## [Test] Subscription Readiness 2
 
-Check for condition type `Ready` with status `False` cause with even with the Channel some of the preconditions on the spec are not met: 
+Check for condition type `Ready` with status `False` cause even with the Channel some of the preconditions on the spec are not met: 
 
 ```
  kubectl get subscription conformance-subscription -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].status}"
