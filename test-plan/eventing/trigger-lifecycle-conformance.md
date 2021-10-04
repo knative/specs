@@ -130,6 +130,14 @@ Tested in eventing:
 }
 ```
 
+## [Pre] Create Broker for Trigger
+
+Create a Broker to be referenced by the Trigger:
+
+```
+kubectl apply -f control-plane/trigger-lifecycle/broker.yaml
+```
+
 ## [Test] Trigger Subscriber is resolvable
 
 Running the following command should return a URI:
@@ -174,14 +182,6 @@ Tested in eventing:
 }
 ```
 
-## [Pre] Create Broker for Trigger
-
-Create a Broker to be referenced by the Trigger:
-
-```
-kubectl apply -f control-plane/trigger-lifecycle/broker.yaml
-```
-
 ## [Test] Test for Trigger Readiness
 
 Check for condition type `Ready` with status `True`: 
@@ -191,8 +191,7 @@ kubectl get trigger conformance-trigger -ojsonpath="{.status.conditions[?(@.type
 ```
 
 Tested in eventing:
-- https://github.com/knative/eventing/blob/release-0.26/test/conformance/helpers/broker_control_plane_test_helper.go#L139
-- https://github.com/knative/eventing/blob/release-0.26/test/rekt/features/broker/control_plane.go#L112
+-
 
 ### [Output]
 
@@ -219,7 +218,7 @@ kubectl apply -f control-plane/trigger-lifecycle/trigger-no-subscriber.yaml
 Running the following command should return a URL, but it doesn't cause the ref is not valid, so it returns the ref object:
 
 ```
-kubectl get trigger conformance-trigger-no-subscriber -ojsonpath="{.spec.subscriber}"
+kubectl get trigger conformance-trigger-no-subscriber -ojsonpath="{.status.subscriberUri}"
 ```
 
 Tested in eventing:
@@ -231,7 +230,7 @@ Tested in eventing:
 {
   "test": "control-plane/trigger-lifecycle/trigger-subscriber-not-resolvable"
   "output": {
-	  "obtainedURI": "<SUBSCRIBER_REF>",
+	  "subscriberURI": "",
   }
 }
 ```
@@ -250,12 +249,6 @@ Now lets check if there is a clear reason indicating what is wrong:
  kubectl get trigger conformance-trigger-no-subscriber -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].reason}"
 ```
 
-Finally lets see if the `status.subscriberUri` is empty:
-
-```
-kubectl get trigger conformance-trigger-no-subscriber -ojsonpath="{.status.subscriberUri}"
-```
-
 Tested in eventing:
 - 
 
@@ -267,8 +260,7 @@ Tested in eventing:
   "output": {
     "expectedType": "Ready",
     "expectedStatus": "False",
-    "expectedReason: "Unable to get the Subscriber's URI",
-    "expectedUri": ""
+    "expectedReason: "Unable to get the Subscriber's URI"
   }
 }
 ```
