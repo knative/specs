@@ -8,7 +8,7 @@ spec:
     ref:
       apiVersion: serving.knative.dev/v1
       kind: Service
-      name: conformance-deadletter
+      name: conformance-events
   delivery:
     deadLetterSink:
       ref:

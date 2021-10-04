@@ -102,7 +102,7 @@ kubectl apply -f control-plane/trigger-lifecycle/services.yaml
 
 ## [Test] Trigger Readiness 2
 
-Check for condition type `Ready` with status `False` cause even with the Channel some of the preconditions on the spec are not met: 
+Check for condition type `Ready` with status `False` cause even with the References created some of the preconditions on the spec are not met: 
 
 ```
  kubectl get trigger conformance-trigger -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].status}"
@@ -125,7 +125,7 @@ Tested in eventing:
   "output": {
 	  "expectedType": "Ready",
 	  "expectedStatus": "False",
-    "expectedReason: "SubscriberResolveFailed"
+    "expectedReason: "BrokerDoesNotExist"
   }
 }
 ```
