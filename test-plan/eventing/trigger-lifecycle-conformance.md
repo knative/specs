@@ -169,7 +169,7 @@ Tested in eventing:
 {
   "test": "control-plane/trigger-lifecycle/trigger-sink-resolvable"
   "output": {
-	  "obtainedURI": "<SUBSCRIBER_URI>",
+	  "obtainedURI": "<DEADLETTERSINK_URI>",
   }
 }
 ```
