@@ -23,6 +23,7 @@ You can find the resources for running these tests inside the [control-plane/tri
 - A [Trigger resource](control-plane/trigger-lifecycle/trigger.yaml)
 - A [Broker resource that is referenced by the Trigger](trigger-lifecycle/broker.yaml)
 - A [Trigger resource that have a non resolvable Subscriber URI](control-plane/trigger-lifecycle/trigger-no-subscriber.yaml)
+- A [Services resource that creates the DeadLetterSink and the Subscriber for the Trigger](control-plane/trigger-lifecycle/services.yaml)
 
 
 ## [Pre] Creating a Trigger
@@ -93,6 +94,42 @@ Tested in eventing:
 }
 ```
 
+## [Pre] Creating the DeadLetterSink and the Subscriber
+
+```
+kubectl apply -f control-plane/trigger-lifecycle/services.yaml
+```
+
+## [Test] Trigger Readiness 2
+
+Check for condition type `Ready` with status `False` cause even with the Channel some of the preconditions on the spec are not met: 
+
+```
+ kubectl get trigger conformance-trigger -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].status}"
+```
+
+Lets now check the reason why the Trigger is not ready yet:
+
+```
+ kubectl get trigger conformance-trigger -ojsonpath="{.status.conditions[?(@.type == \"Ready\")].reason}"
+```
+
+Tested in eventing:
+- 
+
+### [Output]
+
+```
+{
+  "test": "control-plane/trigger-lifecycle/trigger-readiness-2"
+  "output": {
+	  "expectedType": "Ready",
+	  "expectedStatus": "False",
+    "expectedReason: "SubscriberResolveFailed"
+  }
+}
+```
+
 ## [Test] Trigger Subscriber is resolvable
 
 Running the following command should return a URI:
@@ -115,7 +152,7 @@ Tested in eventing:
 }
 ```
 
-## [Test] Trigger Sink is resolvable
+## [Test] Trigger DeadLetterSink is resolvable
 
 Running the following command should return a URI:
 

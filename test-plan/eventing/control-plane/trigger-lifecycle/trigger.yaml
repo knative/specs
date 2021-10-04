@@ -10,7 +10,8 @@ spec:
       kind: Service
       name: conformance-deadletter
   delivery:
-    ref:
-      apiVersion: serving.knative.dev/v1
-      kind: Service
-      name: conformance-deadletter
+    deadLetterSink:
+      ref:
+        apiVersion: serving.knative.dev/v1
+        kind: Service
+        name: conformance-deadletter
