@@ -1,0 +1,75 @@
+# Fails to receive first 3 and logs messages.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sink-retry-exponential-conformance
+  namespace: conformance
+  labels:
+    component: conformance-sink
+    app: sink-retry-exponential-conformance
+spec:
+  containers:
+  - name: sink-retry-exponential-conformance
+    image: pmercado/recordevents
+    env:
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.name
+    - name: SYSTEM_NAMESPACE
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.namespace
+    - name: EVENT_GENERATORS
+      value: receiver
+    - name: EVENT_LOGS
+      value: logger
+    - name: REPLY
+      value: "false"
+      # Return NACK 3 first times. Combining this with a
+      # subscription delivery that retries 3 times will
+      # result in 3 first events NACK, then ACK.
+    - name: SKIP_ALGORITHM
+      value: sequence
+    - name: SKIP_COUNTER
+      value: "3"
+
+    ports:
+    - containerPort: 8080
+
+---
+
+# Expose recordevents as a service
+apiVersion: v1
+kind: Service
+metadata:
+  name: sink-retry-exponential-conformance
+  namespace: conformance
+spec:
+  selector:
+    app: sink-retry-exponential-conformance
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8080
+
+---
+
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: sink-retry-exponential-conformance
+  namespace: conformance
+spec:
+  broker: conformance-broker
+  subscriber:
+    ref:
+      apiVersion: v1
+      kind: Service
+      name: sink-retry-exponential-conformance
+  # Set retries to 3 and backoff to 2 seconds.
+  delivery:
+    retry: 3
+    backoffPolicy: exponential
+    backoffDelay: PT2S

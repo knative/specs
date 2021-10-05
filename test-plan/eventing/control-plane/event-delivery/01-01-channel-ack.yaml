@@ -1,0 +1,44 @@
+# Emits a single event and exits
+apiVersion: v1
+kind: Pod
+metadata:
+  name: emitter-conformance
+  namespace: conformance
+spec:
+  containers:
+  - name: emitter-conformance
+    image: pmercado/recordevents
+    env:
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.name
+    - name: SYSTEM_NAMESPACE
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.namespace
+    - name: EVENT_GENERATORS
+      value: sender
+    - name: EVENT_LOGS
+      value: logger
+    - name: ADD_SEQUENCE
+      value: "true"
+    - name: INCREMENTAL_ID
+      value: "true"
+    - name: SINK
+      value: http://conformance-channel-kn-channel.conformance.svc.cluster.local
+    - name: INPUT_EVENT
+      value: |
+        {
+          "specversion" : "1.0",
+          "type" : "com.example.conformance",
+          "source" : "emitter-conformance",
+          "time" : "2022-04-05T17:31:00Z",
+          "datacontenttype" : "application/json",
+          "data" : {
+              "test" : "sink-ack-conformance"
+          }
+        }
+  restartPolicy: Never
+
+

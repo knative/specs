@@ -1,0 +1,70 @@
+# Receives and logs messages.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sink-ack-conformance
+  namespace: conformance
+  labels:
+    component: conformance-sink
+    app: sink-ack-conformance
+spec:
+  containers:
+  - name: sink-ack-conformance
+    image: pmercado/recordevents
+    env:
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.name
+    - name: SYSTEM_NAMESPACE
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.namespace
+    - name: EVENT_GENERATORS
+      value: receiver
+    - name: EVENT_LOGS
+      value: logger
+    - name: REPLY
+      value: "false"
+    ports:
+    - containerPort: 8080
+
+---
+
+# Expose recordevents as a service
+apiVersion: v1
+kind: Service
+metadata:
+  name: sink-ack-conformance
+  namespace: conformance
+spec:
+  selector:
+    app: sink-ack-conformance
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8080
+
+---
+
+apiVersion: messaging.knative.dev/v1
+kind: Subscription
+metadata:
+  name: sink-ack-conformance
+  namespace: conformance
+spec:
+  channel:
+    apiVersion: messaging.knative.dev/v1
+    kind: InMemoryChannel
+    name: conformance-channel
+  subscriber:
+    ref:
+      apiVersion: v1
+      kind: Service
+      name: sink-ack-conformance
+  # Disable retries to make sure that events make it
+  # through at first try for this test.
+  delivery:
+    retry: 0
+

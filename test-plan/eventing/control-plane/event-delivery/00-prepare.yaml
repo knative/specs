@@ -1,0 +1,56 @@
+# Namespace for executing conformance tests.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: conformance
+
+---
+
+# Role for the recordevents Pod.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: conformance
+  name: conformance-recordevents
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list"]
+
+---
+
+# RoleBinding for the recordevents Pod.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: conformance-recordevents
+  namespace: conformance
+subjects:
+- kind: ServiceAccount
+  namespace: conformance
+  name: default
+roleRef:
+  kind: Role
+  name: conformance-recordevents
+  apiGroup: rbac.authorization.k8s.io
+
+---
+
+# InMemoryChannel for the Channel/Subscription tests.
+#
+# Should be replaced with other Channel implementations
+# that want to be tested for conformance.
+apiVersion: messaging.knative.dev/v1
+kind: InMemoryChannel
+metadata:
+  name: conformance-channel
+  namespace: conformance
+
+---
+
+# Default Broker for the Broker/Trigger tests.
+apiVersion: eventing.knative.dev/v1
+kind: Broker
+metadata:
+  name: conformance-broker
+  namespace: conformance

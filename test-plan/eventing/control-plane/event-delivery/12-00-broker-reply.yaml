@@ -1,0 +1,154 @@
+# Receives and logs messages, producing a reply.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sink-ack-conformance
+  namespace: conformance
+  labels:
+    component: conformance-sink
+    app: sink-ack-conformance
+spec:
+  containers:
+  - name: sink-ack-conformance
+    image: pmercado/recordevents
+    env:
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.name
+    - name: SYSTEM_NAMESPACE
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.namespace
+    - name: EVENT_GENERATORS
+      value: receiver
+    - name: EVENT_LOGS
+      value: logger
+    - name: REPLY
+      value: "true"
+    - name: REPLY_EVENT_TYPE
+      value: "com.example.conformance.reply"
+    - name: REPLY_EVENT_SOURCE
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.name
+    - name: REPLY_EVENT_DATA
+      value: "conformance response message"
+    ports:
+    - containerPort: 8080
+
+---
+
+# Expose recordevents as a service
+apiVersion: v1
+kind: Service
+metadata:
+  name: sink-ack-conformance
+  namespace: conformance
+spec:
+  selector:
+    app: sink-ack-conformance
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8080
+
+---
+
+# Receives and logs messages.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sink-ack-reply-conformance
+  namespace: conformance
+  labels:
+    component: conformance-sink
+    app: sink-ack-reply-conformance
+spec:
+  containers:
+  - name: sink-ack-reply-conformance
+    image: pmercado/recordevents
+    env:
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.name
+    - name: SYSTEM_NAMESPACE
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.namespace
+    - name: EVENT_GENERATORS
+      value: receiver
+    - name: EVENT_LOGS
+      value: logger
+    - name: REPLY
+      value: "false"
+    ports:
+    - containerPort: 8080
+
+---
+
+# Expose recordevents as a service
+apiVersion: v1
+kind: Service
+metadata:
+  name: sink-ack-reply-conformance
+  namespace: conformance
+spec:
+  selector:
+    app: sink-ack-reply-conformance
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8080
+
+---
+
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: sink-ack-conformance
+  namespace: conformance
+spec:
+  broker: conformance-broker
+  subscriber:
+    ref:
+      apiVersion: v1
+      kind: Service
+      name: sink-ack-conformance
+  # Only process events produced from sink-ack-conformance
+  filter:
+    attributes:
+      type: com.example.conformance
+  # Disable retries to make sure that failed events are
+  # not retried.
+  delivery:
+    retry: 0
+
+---
+
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: sink-reply-conformance
+  namespace: conformance
+spec:
+  broker: conformance-broker
+  subscriber:
+    ref:
+      apiVersion: v1
+      kind: Service
+      name: sink-ack-reply-conformance
+  # Only process events produced from sink-ack-conformance
+  filter:
+    attributes:
+      type: com.example.conformance.reply
+  # Disable retries to make sure that failed events are
+  # not retried.
+  delivery:
+    retry: 0
+
+
+
