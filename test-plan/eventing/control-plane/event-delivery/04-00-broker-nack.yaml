@@ -2,15 +2,16 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: sink-nack-conformance
+  generateName: sink-3nack-
   namespace: conformance
   labels:
-    component: conformance-sink
-    app: sink-nack-conformance
+    app: conformance
+    case: broker-nack
+    component: sink-3nack
 spec:
   containers:
-  - name: sink-nack-conformance
-    image: pmercado/recordevents
+  - name: sink-3nack
+    image: gcr.io/knative-nightly/knative.dev/eventing/test/test_images/recordevents@sha256:9daab3dca38eabe00287512a430ef6c378d43ccab707ea7e240ea748c5ac32c5
     env:
     - name: POD_NAME
       valueFrom:
@@ -23,7 +24,7 @@ spec:
     - name: EVENT_GENERATORS
       value: receiver
     - name: EVENT_LOGS
-      value: logger
+      value: logger,recorder
     - name: REPLY
       value: "false"
       # Return NACK 3 first times. Combining this with a
@@ -43,11 +44,16 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: sink-nack-conformance
+  name: sink-3nack
   namespace: conformance
+  labels:
+    app: conformance
+    case: broker-nack
 spec:
   selector:
-    app: sink-nack-conformance
+    app: conformance
+    case: broker-nack
+    component: sink-3nack
   ports:
     - name: http
       protocol: TCP
@@ -59,15 +65,18 @@ spec:
 apiVersion: eventing.knative.dev/v1
 kind: Trigger
 metadata:
-  name: sink-nack-conformance
+  name: broker-nack
   namespace: conformance
+  labels:
+    app: conformance
+    case: broker-nack
 spec:
   broker: conformance-broker
   subscriber:
     ref:
       apiVersion: v1
       kind: Service
-      name: sink-nack-conformance
+      name: sink-3nack
   # Disable retries to make sure that failed events are
   # not retried.
   delivery:

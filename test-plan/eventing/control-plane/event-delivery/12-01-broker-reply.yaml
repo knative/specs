@@ -2,12 +2,16 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: emitter-conformance
+  name: emitter
   namespace: conformance
+  labels:
+    app: conformance
+    case: broker-reply
+    component: emitter
 spec:
   containers:
-  - name: emitter-conformance
-    image: pmercado/recordevents
+  - name: emitter
+    image: gcr.io/knative-nightly/knative.dev/eventing/test/test_images/recordevents@sha256:9daab3dca38eabe00287512a430ef6c378d43ccab707ea7e240ea748c5ac32c5
     env:
     - name: POD_NAME
       valueFrom:
@@ -36,7 +40,7 @@ spec:
           "time" : "2022-04-05T17:31:00Z",
           "datacontenttype" : "application/json",
           "data" : {
-              "test" : "sink-reply-conformance"
+              "test" : "broker-reply"
           }
         }
   restartPolicy: Never

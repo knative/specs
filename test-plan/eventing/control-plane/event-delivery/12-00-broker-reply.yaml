@@ -2,15 +2,16 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: sink-ack-conformance
+  generateName: sink-ack-reply-
   namespace: conformance
   labels:
-    component: conformance-sink
-    app: sink-ack-conformance
+    app: conformance
+    case: broker-reply
+    component: sink-ack-reply
 spec:
   containers:
-  - name: sink-ack-conformance
-    image: pmercado/recordevents
+  - name: sink-ack-reply
+    image: gcr.io/knative-nightly/knative.dev/eventing/test/test_images/recordevents@sha256:9daab3dca38eabe00287512a430ef6c378d43ccab707ea7e240ea748c5ac32c5
     env:
     - name: POD_NAME
       valueFrom:
@@ -23,7 +24,7 @@ spec:
     - name: EVENT_GENERATORS
       value: receiver
     - name: EVENT_LOGS
-      value: logger
+      value: logger,recorder
     - name: REPLY
       value: "true"
     - name: REPLY_EVENT_TYPE
@@ -33,7 +34,7 @@ spec:
         fieldRef:
           fieldPath: metadata.name
     - name: REPLY_EVENT_DATA
-      value: "conformance response message"
+      value: '{"conformance":"response message"}'
     ports:
     - containerPort: 8080
 
@@ -43,11 +44,16 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: sink-ack-conformance
+  name: sink-ack-reply
   namespace: conformance
+  labels:
+    app: conformance
+    case: broker-reply
 spec:
   selector:
-    app: sink-ack-conformance
+    app: conformance
+    case: broker-reply
+    component: sink-ack-reply
   ports:
     - name: http
       protocol: TCP
@@ -60,15 +66,16 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: sink-ack-reply-conformance
+  generateName: sink-ack-
   namespace: conformance
   labels:
-    component: conformance-sink
-    app: sink-ack-reply-conformance
+    app: conformance
+    case: broker-reply
+    component: sink-ack
 spec:
   containers:
-  - name: sink-ack-reply-conformance
-    image: pmercado/recordevents
+  - name: sink-ack
+    image: gcr.io/knative-nightly/knative.dev/eventing/test/test_images/recordevents@sha256:9daab3dca38eabe00287512a430ef6c378d43ccab707ea7e240ea748c5ac32c5
     env:
     - name: POD_NAME
       valueFrom:
@@ -81,7 +88,7 @@ spec:
     - name: EVENT_GENERATORS
       value: receiver
     - name: EVENT_LOGS
-      value: logger
+      value: logger,recorder
     - name: REPLY
       value: "false"
     ports:
@@ -93,11 +100,16 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: sink-ack-reply-conformance
+  name: sink-ack
   namespace: conformance
+  labels:
+    app: conformance
+    case: broker-reply
 spec:
   selector:
-    app: sink-ack-reply-conformance
+    app: conformance
+    case: broker-reply
+    component: sink-ack
   ports:
     - name: http
       protocol: TCP
@@ -109,15 +121,18 @@ spec:
 apiVersion: eventing.knative.dev/v1
 kind: Trigger
 metadata:
-  name: sink-ack-conformance
+  name: sink-reply
   namespace: conformance
+  labels:
+    app: conformance
+    case: broker-reply
 spec:
   broker: conformance-broker
   subscriber:
     ref:
       apiVersion: v1
       kind: Service
-      name: sink-ack-conformance
+      name: sink-ack-reply
   # Only process events produced from sink-ack-conformance
   filter:
     attributes:
@@ -132,15 +147,18 @@ spec:
 apiVersion: eventing.knative.dev/v1
 kind: Trigger
 metadata:
-  name: sink-reply-conformance
+  name: sink-ack
   namespace: conformance
+  labels:
+    app: conformance
+    case: broker-reply
 spec:
   broker: conformance-broker
   subscriber:
     ref:
       apiVersion: v1
       kind: Service
-      name: sink-ack-reply-conformance
+      name: sink-ack
   # Only process events produced from sink-ack-conformance
   filter:
     attributes:

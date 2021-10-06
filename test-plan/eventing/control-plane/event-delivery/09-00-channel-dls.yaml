@@ -2,15 +2,16 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: sink-nack-dls-conformance
+  generateName: sink-3nack-
   namespace: conformance
   labels:
-    component: conformance-sink
-    app: sink-nack-dls-conformance
+    app: conformance
+    case: channel-dls
+    component: sink-3nack
 spec:
   containers:
-  - name: sink-nack-dls-conformance
-    image: pmercado/recordevents
+  - name: sink-3nack
+    image: gcr.io/knative-nightly/knative.dev/eventing/test/test_images/recordevents@sha256:9daab3dca38eabe00287512a430ef6c378d43ccab707ea7e240ea748c5ac32c5
     env:
     - name: POD_NAME
       valueFrom:
@@ -23,7 +24,7 @@ spec:
     - name: EVENT_GENERATORS
       value: receiver
     - name: EVENT_LOGS
-      value: logger
+      value: logger,recorder
     - name: REPLY
       value: "false"
       # Return NACK 3 first times. Combining this with a
@@ -43,11 +44,16 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: sink-nack-dls-conformance
+  name: sink-3nack
   namespace: conformance
+  labels:
+    app: conformance
+    case: channel-dls
 spec:
   selector:
-    app: sink-nack-dls-conformance
+    app: conformance
+    case: channel-dls
+    component: sink-3nack
   ports:
     - name: http
       protocol: TCP
@@ -60,15 +66,16 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: sink-ack-dls-conformance
+  generateName: sink-ack-
   namespace: conformance
   labels:
-    component: conformance-sink
-    app: sink-ack-dls-conformance
+    app: conformance
+    case: channel-dls
+    component: sink-ack
 spec:
   containers:
-  - name: sink-ack-dls-conformance
-    image: pmercado/recordevents
+  - name: sink-ack
+    image: gcr.io/knative-nightly/knative.dev/eventing/test/test_images/recordevents@sha256:9daab3dca38eabe00287512a430ef6c378d43ccab707ea7e240ea748c5ac32c5
     env:
     - name: POD_NAME
       valueFrom:
@@ -81,7 +88,7 @@ spec:
     - name: EVENT_GENERATORS
       value: receiver
     - name: EVENT_LOGS
-      value: logger
+      value: logger,recorder
     - name: REPLY
       value: "false"
     ports:
@@ -93,11 +100,16 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: sink-ack-dls-conformance
+  name: sink-ack
   namespace: conformance
+  labels:
+    app: conformance
+    case: channel-dls
 spec:
   selector:
-    app: sink-ack-dls-conformance
+    app: conformance
+    case: channel-dls
+    component: sink-ack
   ports:
     - name: http
       protocol: TCP
@@ -109,18 +121,21 @@ spec:
 apiVersion: messaging.knative.dev/v1
 kind: Subscription
 metadata:
-  name: sink-dls-conformance
+  name: channel-dls
   namespace: conformance
+  labels:
+    app: conformance
+    case: channel-dls
 spec:
   channel:
     apiVersion: messaging.knative.dev/v1
-    kind: InMemoryChannel
+    kind: Channel
     name: conformance-channel
   subscriber:
     ref:
       apiVersion: v1
       kind: Service
-      name: sink-nack-dls-conformance
+      name: sink-3nack
   # Disable retries to make sure that failed events are
   # not retried.
   # Enable dead letter sink to forward non delivered messages.
@@ -130,4 +145,4 @@ spec:
       ref:
         apiVersion: v1
         kind: Service
-        name: sink-ack-dls-conformance
+        name: sink-ack

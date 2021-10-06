@@ -16,6 +16,9 @@ rules:
 - apiGroups: [""]
   resources: ["pods"]
   verbs: ["get", "list"]
+- apiGroups: [""]
+  resources: ["events"]
+  verbs: ["create", "get"]
 
 ---
 
@@ -36,19 +39,16 @@ roleRef:
 
 ---
 
-# InMemoryChannel for the Channel/Subscription tests.
-#
-# Should be replaced with other Channel implementations
-# that want to be tested for conformance.
+# Default configured channel for the Channel/Subscription tests.
 apiVersion: messaging.knative.dev/v1
-kind: InMemoryChannel
+kind: Channel
 metadata:
   name: conformance-channel
   namespace: conformance
 
 ---
 
-# Default Broker for the Broker/Trigger tests.
+# Default configured Broker for the Broker/Trigger tests.
 apiVersion: eventing.knative.dev/v1
 kind: Broker
 metadata:

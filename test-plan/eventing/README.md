@@ -26,7 +26,7 @@ The following sections describe the test plans for the different behaviours desc
 - [Trigger Lifecycle Conformance TBD]()
 - [Channel Lifecycle Conformance TBD]()
 - [Subscription Lifecycle Conformance TBD]()
-- [Event Delivery Test Plan](event-delivery-conformance.md)
+- [Event Delivery Conformance](event-delivery-conformance.md)
 
 # Data Plane
 
