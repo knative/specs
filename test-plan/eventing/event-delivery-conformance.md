@@ -305,6 +305,9 @@ kubectl get events -n conformance --field-selector reason=CloudEventObserved,inv
 kubectl create -f control-plane/event-delivery/05-01-channel-retry-linear.yaml
 ```
 
+Automated conformance test in Knative Eventing:
+- https://github.com/knative/eventing/blob/27dbb99773a0db7860d14f34df65321e145aaf48/test/rekt/features/channel/data_plane.go#L136-L146
+
 ### [Output]
 
 Output must contain exactly 4 entries for the received events that contain this EventInfo:
@@ -597,6 +600,9 @@ kubectl get events -n conformance --field-selector reason=CloudEventObserved,inv
 kubectl create -f control-plane/event-delivery/09-01-channel-dls.yaml
 ```
 
+Automated conformance test in Knative Eventing:
+- https://github.com/knative/eventing/blob/27dbb99773a0db7860d14f34df65321e145aaf48/test/rekt/features/channel/data_plane.go#L170-L179
+
 ### [Output]
 
 Output for the first Sink must contain exactly one entry for the received event that contains this EventInfo:
@@ -733,6 +739,9 @@ kubectl get events -n conformance --field-selector reason=CloudEventObserved,inv
 ```
 kubectl create -f control-plane/event-delivery/11-01-channel-reply.yaml
 ```
+
+Automated conformance test in Knative Eventing:
+- https://github.com/knative/eventing/blob/27dbb99773a0db7860d14f34df65321e145aaf48/test/rekt/features/channel/data_plane.go#L148-L157
 
 ### [Output]
 
@@ -877,6 +886,9 @@ kubectl get events -n conformance --field-selector reason=CloudEventObserved,inv
 ```
 kubectl create -f control-plane/event-delivery/13-01-channel-reply-retry.yaml
 ```
+
+Automated conformance test in Knative Eventing:
+- https://github.com/knative/eventing/blob/27dbb99773a0db7860d14f34df65321e145aaf48/test/rekt/features/channel/data_plane.go#L159-L167
 
 ### [Output]
 
