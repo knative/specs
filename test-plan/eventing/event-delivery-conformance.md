@@ -61,7 +61,7 @@ Tests are independent from each other and can be run in any other, but not concu
 
 ## [Pre] Creating Channel, Broker, Role and RoleBinding
 
-We will be testing a Channel and Broker using different Subscription and Trigger configurations. Test image [recordevents](https://github.com/knative/eventing/tree/main/test/test_images/recordevents) will be used for sending, receiving and logging events that assert conformance for each test. A Role and RoleBinding needed for the image is created in preparation for tests.
+We will be testing a Channel and Broker using different Subscription and Trigger configurations. The test image [recordevents](https://github.com/knative/eventing/tree/main/test/test_images/recordevents) will be used for sending, receiving and logging events that assert conformance for each test. A Role and RoleBinding needed for the image is created in preparation for tests.
 
 ```
 kubectl create -f control-plane/event-delivery/00-prepare.yaml
@@ -89,7 +89,7 @@ Subscription/channel-ack ready: True
 Pod/sink-ack-qp7rt ready: True
 ```
 
-- At a new shell watch the output for events reported by the Sink.
+- Create a new shell and watch for the events reported by the Sink.
 
 ```
 kubectl get events -n conformance --field-selector reason=CloudEventObserved,involvedObject.name=$(kubectl get pods -n conformance -l component=sink-ack -o jsonpath='{.items[0].metadata.name}') -w --output=custom-columns=:.message
@@ -103,7 +103,7 @@ kubectl create -f control-plane/event-delivery/01-01-channel-ack.yaml
 
 ### [Output]
 
-Output must contain exactly one entry for the received event that contains this EventInfo:
+The output must contain exactly one entry for the received event that contains this EventInfo:
 
 - Kind: Received
 - Sequence: 1
@@ -140,7 +140,7 @@ Trigger/broker-ack ready: True
 Pod/sink-ack-m6768 ready: True
 ```
 
-- At a new shell watch the output for events reported by the Sink.
+- Create a new shell and watch for the events reported by the Sink.
 
 ```
 kubectl get events -n conformance --field-selector reason=CloudEventObserved,involvedObject.name=$(kubectl get pods -n conformance -l component=sink-ack -o jsonpath='{.items[0].metadata.name}') -w --output=custom-columns=:.message
@@ -154,7 +154,7 @@ kubectl create -f control-plane/event-delivery/02-01-broker-ack.yaml
 
 ### [Output]
 
-Output must contain exactly one entry for the received event that contains this EventInfo:
+The output must contain exactly one entry for the received event that contains this EventInfo:
 
 - Kind: Received
 - Sequence: 1
@@ -191,7 +191,7 @@ Subscription/channel-nack ready: True
 Pod/sink-3nack-vvnfb ready: True
 ```
 
-- At a new shell watch the output for events reported by the Sink.
+- Create a new shell and watch for the events reported by the Sink.
 
 ```
 kubectl get events -n conformance --field-selector reason=CloudEventObserved,involvedObject.name=$(kubectl get pods -n conformance -l component=sink-3nack -o jsonpath='{.items[0].metadata.name}') -w --output=custom-columns=:.message
@@ -205,7 +205,7 @@ kubectl create -f control-plane/event-delivery/03-01-channel-nack.yaml
 
 ### [Output]
 
-Output must contain exactly one entry for the received event that contains this EventInfo:
+The output must contain exactly one entry for the received event that contains this EventInfo:
 
 - Kind: Rejected
 - Sequence: 1
@@ -242,7 +242,7 @@ Trigger/broker-nack ready: True
 Pod/sink-3nack-hb8bn ready: True
 ```
 
-- At a new shell watch the output for events reported by the Sink.
+- Create a new shell and watch for the events reported by the Sink.
 
 ```
 kubectl get events -n conformance --field-selector reason=CloudEventObserved,involvedObject.name=$(kubectl get pods -n conformance -l component=sink-3nack -o jsonpath='{.items[0].metadata.name}') -w --output=custom-columns=:.message
@@ -256,7 +256,7 @@ kubectl create -f control-plane/event-delivery/04-01-broker-nack.yaml
 
 ### [Output]
 
-Output must contain exactly one entry for the received event that contains this EventInfo:
+The output must contain exactly one entry for the received event that contains this EventInfo:
 
 - Kind: Rejected
 - Sequence: 1
@@ -293,7 +293,7 @@ Subscription/channel-retry-linear ready: True
 Pod/sink-3nack-47fnn ready: True
 ```
 
-- At a new shell watch the output for events reported by the Sink.
+- Create a new shell and watch for the events reported by the Sink.
 
 ```
 kubectl get events -n conformance --field-selector reason=CloudEventObserved,involvedObject.name=$(kubectl get pods -n conformance -l component=sink-3nack -o jsonpath='{.items[0].metadata.name}') -w --output=custom-columns=:.message
@@ -310,7 +310,7 @@ Automated conformance test in Knative Eventing:
 
 ### [Output]
 
-Output must contain exactly 4 entries for the received events that contain this EventInfo:
+The output must contain exactly 4 entries for the received events that contain this EventInfo:
 
 - Event 1:
   - Kind: Rejected
@@ -366,7 +366,7 @@ Trigger/broker-retry-linear ready: True
 Pod/sink-3nack-jcv2v ready: True
 ```
 
-- At a new shell watch the output for events reported by the Sink.
+- Create a new shell and watch for the events reported by the Sink.
 
 ```
 kubectl get events -n conformance --field-selector reason=CloudEventObserved,involvedObject.name=$(kubectl get pods -n conformance -l component=sink-3nack -o jsonpath='{.items[0].metadata.name}') -w --output=custom-columns=:.message
@@ -380,7 +380,7 @@ kubectl create -f control-plane/event-delivery/06-01-broker-retry-linear.yaml
 
 ### [Output]
 
-Output must contain exactly 4 entries for the received events that contain this EventInfo:
+The output must contain exactly 4 entries for the received events that contain this EventInfo:
 
 - Event 1:
   - Kind: Rejected
@@ -436,7 +436,7 @@ Subscription/channel-retry-exponential ready: True
 Pod/sink-3nack-dcq4q ready: True
 ```
 
-- At a new shell watch the output for events reported by the Sink.
+- Create a new shell and watch for the events reported by the Sink.
 
 ```
 kubectl get events -n conformance --field-selector reason=CloudEventObserved,involvedObject.name=$(kubectl get pods -n conformance -l component=sink-3nack -o jsonpath='{.items[0].metadata.name}') -w --output=custom-columns=:.message
@@ -450,7 +450,7 @@ kubectl create -f control-plane/event-delivery/07-01-channel-retry-exponential.y
 
 ### [Output]
 
-Output must contain exactly 4 entries for the received events that contain this EventInfo:
+The output must contain exactly 4 entries for the received events that contain this EventInfo:
 
 - Event 1:
   - Kind: Rejected
@@ -506,7 +506,7 @@ Trigger/broker-retry-exponential ready: True
 Pod/sink-3nack-nqqx5 ready: True
 ```
 
-- At a new shell watch the output for events reported by the Sink.
+- Create a new shell and watch for the events reported by the Sink.
 
 ```
 kubectl get events -n conformance --field-selector reason=CloudEventObserved,involvedObject.name=$(kubectl get pods -n conformance -l component=sink-3nack -o jsonpath='{.items[0].metadata.name}') -w --output=custom-columns=:.message
@@ -523,7 +523,7 @@ kubectl create -f control-plane/event-delivery/08-01-broker-retry-exponential.ya
 
 ### [Output]
 
-Output must contain exactly 4 entries for the received events that contain this EventInfo:
+The output must contain exactly 4 entries for the received events that contain this EventInfo:
 
 - Event 1:
   - Kind: Rejected
@@ -580,14 +580,13 @@ Subscription/channel-dls ready: True
 Pod/sink-3nack-w9wbc ready: True
 Pod/sink-ack-zfcw8 ready: True
 ```
-
-- Open two shells. At the first one watch the output for events reported by the first rejecting Sink.
+- Create two new shell, at the first one watch for the events reported by the first rejecting Sink.
 
 ```
 kubectl get events -n conformance --field-selector reason=CloudEventObserved,involvedObject.name=$(kubectl get pods -n conformance -l component=sink-3nack -o jsonpath='{.items[0].metadata.name}') -w --output=custom-columns=:.message
 ```
 
-- At the second shell watch the output for events sent to the Dead Letter Sink.
+- At the second shell watch for the events sent to the Dead Letter Sink.
 
 ```
 kubectl get events -n conformance --field-selector reason=CloudEventObserved,involvedObject.name=$(kubectl get pods -n conformance -l component=sink-ack -o jsonpath='{.items[0].metadata.name}') -w --output=custom-columns=:.message
@@ -605,7 +604,7 @@ Automated conformance test in Knative Eventing:
 
 ### [Output]
 
-Output for the first Sink must contain exactly one entry for the received event that contains this EventInfo:
+The output for the first Sink must contain exactly one entry for the received event that contains this EventInfo:
 
 - Kind: Rejected
 - Sequence: 1
@@ -653,13 +652,13 @@ Pod/sink-3nack-vmwl4 ready: True
 Pod/sink-ack-r8bv9 ready: True
 ```
 
-- Open two shells. At the first one watch the output for events reported by the first rejecting Sink.
+- Create two new shell, at the first one watch for the events reported by the first rejecting Sink.
 
 ```
 kubectl get events -n conformance --field-selector reason=CloudEventObserved,involvedObject.name=$(kubectl get pods -n conformance -l component=sink-3nack -o jsonpath='{.items[0].metadata.name}') -w --output=custom-columns=:.message
 ```
 
-- At the second shell watch the output for events sent to the Dead Letter Sink.
+- At the second shell watch for the events sent to the Dead Letter Sink.
 
 ```
 kubectl get events -n conformance --field-selector reason=CloudEventObserved,involvedObject.name=$(kubectl get pods -n conformance -l component=sink-ack -o jsonpath='{.items[0].metadata.name}') -w --output=custom-columns=:.message
@@ -674,7 +673,7 @@ kubectl create -f control-plane/event-delivery/10-01-broker-dls.yaml
 
 ### [Output]
 
-Output for the first Sink must contain exactly one entry for the received event that contains this EventInfo:
+The output for the first Sink must contain exactly one entry for the received event that contains this EventInfo:
 
 - Kind: Rejected
 - Sequence: 1
@@ -722,13 +721,13 @@ Pod/sink-ack-jdfbc ready: True
 Pod/sink-ack-reply-pf6fd ready: True
 ```
 
-- Open two shells. At the first one watch the output for events reported by the first Sink.
+- Create two new shell, at the first one watch for the events reported by the first Sink.
 
 ```
 kubectl get events -n conformance --field-selector reason=CloudEventObserved,involvedObject.name=$(kubectl get pods -n conformance -l component=sink-ack-reply -o jsonpath='{.items[0].metadata.name}') -w --output=custom-columns=:.message
 ```
 
-- At the second shell watch the output for events sent as a response to the second Sink.
+- At the second shell watch for the events sent as a response to the second Sink.
 
 ```
 kubectl get events -n conformance --field-selector reason=CloudEventObserved,involvedObject.name=$(kubectl get pods -n conformance -l component=sink-ack -o jsonpath='{.items[0].metadata.name}') -w --output=custom-columns=:.message
@@ -745,7 +744,7 @@ Automated conformance test in Knative Eventing:
 
 ### [Output]
 
-Output for the first Sink must contain exactly one entry for the received event that contains this EventInfo:
+The output for the first Sink must contain exactly one entry for the received event that contains this EventInfo:
 
 - Kind: Received
 - Sequence: 1
@@ -797,13 +796,13 @@ Pod/sink-ack-reply-j2cf6 ready: True
 Pod/sink-ack-vm9jn ready: True
 ```
 
-- Open two shells. At the first one watch the output for events reported by the first Sink.
+- Create two new shell, at the first one watch for the events reported by the first Sink.
 
 ```
 kubectl get events -n conformance --field-selector reason=CloudEventObserved,involvedObject.name=$(kubectl get pods -n conformance -l component=sink-ack-reply -o jsonpath='{.items[0].metadata.name}') -w --output=custom-columns=:.message
 ```
 
-- At the second shell watch the output for response events reported by the second sink.
+- At the second shell watch for the response events reported by the second sink.
 
 ```
 kubectl get events -n conformance --field-selector reason=CloudEventObserved,involvedObject.name=$(kubectl get pods -n conformance -l component=sink-ack -o jsonpath='{.items[0].metadata.name}') -w --output=custom-columns=:.message
@@ -819,7 +818,7 @@ kubectl create -f control-plane/event-delivery/12-01-broker-reply.yaml
 
 ### [Output]
 
-Output for the first Sink must contain exactly one entry for the received event that contains this EventInfo:
+The output for the first Sink must contain exactly one entry for the received event that contains this EventInfo:
 
 - Kind: Received
 - Sequence: 1
@@ -892,7 +891,7 @@ Automated conformance test in Knative Eventing:
 
 ### [Output]
 
-Output for the first Sink must contain exactly one entry for the received event that contains this EventInfo:
+The output for the first Sink must contain exactly one entry for the received event that contains this EventInfo:
 
 - Kind: Received
 - Sequence: 1
