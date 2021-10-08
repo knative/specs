@@ -101,6 +101,9 @@ kubectl get events -n conformance --field-selector reason=CloudEventObserved,inv
 kubectl create -f control-plane/event-delivery/01-01-channel-ack.yaml
 ```
 
+Automated conformance test in Knative Eventing:
+- https://github.com/knative/eventing/blob/27dbb99773a0db7860d14f34df65321e145aaf48/test/conformance/helpers/channel_data_plane_helper.go#L71
+
 ### [Output]
 
 The output must contain exactly one entry for the received event that contains this EventInfo:
@@ -151,6 +154,10 @@ kubectl get events -n conformance --field-selector reason=CloudEventObserved,inv
 ```
 kubectl create -f control-plane/event-delivery/02-01-broker-ack.yaml
 ```
+
+Automated conformance test in Knative Eventing:
+- https://github.com/knative/eventing/blob/release-0.26/test/conformance/helpers/broker_data_plane_test_helper.go#L404
+- https://github.com/knative/eventing/blob/27dbb99773a0db7860d14f34df65321e145aaf48/test/rekt/features/broker/source_to_sink.go#L41
 
 ### [Output]
 
@@ -306,7 +313,7 @@ kubectl create -f control-plane/event-delivery/05-01-channel-retry-linear.yaml
 ```
 
 Automated conformance test in Knative Eventing:
-- https://github.com/knative/eventing/blob/27dbb99773a0db7860d14f34df65321e145aaf48/test/rekt/features/channel/data_plane.go#L136-L146
+- https://github.com/knative/eventing/blob/27dbb99773a0db7860d14f34df65321e145aaf48/test/rekt/features/channel/data_plane.go#L135
 
 ### [Output]
 
@@ -377,6 +384,9 @@ kubectl get events -n conformance --field-selector reason=CloudEventObserved,inv
 ```
 kubectl create -f control-plane/event-delivery/06-01-broker-retry-linear.yaml
 ```
+
+Automated conformance test in Knative Eventing:
+- https://github.com/knative/eventing/blob/27dbb99773a0db7860d14f34df65321e145aaf48/test/rekt/features/broker/control_plane.go#L305
 
 ### [Output]
 
@@ -670,6 +680,10 @@ kubectl get events -n conformance --field-selector reason=CloudEventObserved,inv
 ```
 kubectl create -f control-plane/event-delivery/10-01-broker-dls.yaml
 ```
+
+Automated conformance test in Knative Eventing:
+- https://github.com/knative/eventing/blob/27dbb99773a0db7860d14f34df65321e145aaf48/test/rekt/features/broker/control_plane.go#L325
+- https://github.com/knative/eventing/blob/27dbb99773a0db7860d14f34df65321e145aaf48/test/rekt/features/broker/source_to_sink.go#L80
 
 ### [Output]
 
