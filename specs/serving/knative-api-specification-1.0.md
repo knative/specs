@@ -1520,7 +1520,7 @@ Max: 1
 <br>
 (Optional)
    </td>
-   <td>In <code>securityContext</code>, only <code>runAsUser</code> MAY be set.
+   <td>As specified in Kubernetes <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/#container-v1-core">core/v1.Container</a>. 
    </td>
    <td>RECOMMENDED
    </td>
