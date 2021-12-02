@@ -201,9 +201,9 @@ events to an associated Subscription which does not currently have a `true`
 `Ready` condition, including events received by the Channel before the
 `Subscription` was created.
 
-If the Channel's `spec.delivery.deadLetterSink` field it set, it MUST be
-resolved to a URI and reported in `status.deadLetterSinkUri` in the same manner
-as the `status.address.url` field before setting the `Ready` condition to `true`.
+If the Channel's `spec.delivery.deadLetterSink` field is set, it MUST be
+resolved to a URI and reported in `status.deadLetterSinkUri` before
+setting the `Ready` condition to `true`.
 
 When a Channel is created, its `spec.channelTemplate` field MAY be populated to
 indicate which of several possible Channel implementations to use. It is
