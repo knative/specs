@@ -135,8 +135,7 @@ an associated Trigger destination which does not currently have a `true`
 was created.
 
 If the Broker's `spec.delivery.deadLetterSink` field it set, it MUST be
-resolved to a URI and reported in `status.deadLetterSinkUri` in the same manner
-as the `status.address.url` field before setting the `Ready` condition to `true`.
+resolved to a URI and reported in `status.deadLetterSinkUri` before setting the `Ready` condition to `true`.
 
 The annotation `eventing.knative.dev/broker.class` SHOULD be used to select a
 particular implementation of a Broker, if multiple implementations are
