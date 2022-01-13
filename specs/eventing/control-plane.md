@@ -134,6 +134,9 @@ an associated Trigger destination which does not currently have a `true`
 `Ready` condition, including events received by the Broker before the Trigger
 was created.
 
+If the Broker's `spec.delivery.deadLetterSink` field it set, it MUST be
+resolved to a URI and reported in `status.deadLetterSinkUri` before setting the `Ready` condition to `true`.
+
 The annotation `eventing.knative.dev/broker.class` SHOULD be used to select a
 particular implementation of a Broker, if multiple implementations are
 available. It is RECOMMENDED to default the `eventing.knative.dev/broker.class`
@@ -197,6 +200,10 @@ attempt to forward the received events to each associated Subscription whose
 events to an associated Subscription which does not currently have a `true`
 `Ready` condition, including events received by the Channel before the
 `Subscription` was created.
+
+If the Channel's `spec.delivery.deadLetterSink` field is set, it MUST be
+resolved to a URI and reported in `status.deadLetterSinkUri` before
+setting the `Ready` condition to `true`.
 
 When a Channel is created, its `spec.channelTemplate` field MAY be populated to
 indicate which of several possible Channel implementations to use. It is
