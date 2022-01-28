@@ -61,8 +61,9 @@ Run conformance tests for API v1:
 ```sh
 go test -v -tags=e2e -count=1 ./test/conformance/api/v1 \
  -kubeconfig ~/kubeconfig_for_cloud_run -disable-logstream=true -disable-optional-api=true \
- -exceeding-memory-limit-size=10000 -test-namespace=my-gcp-project \
- -request-headers="Authorization,Bearer $(gcloud auth print-identity-token)"
+ -resolvabledomain=true -test-namespace=my-gcp-project \
+ -request-headers="Authorization,Bearer $(gcloud auth print-identity-token)" \
+ -exceeding-memory-limit-size=10000 
 ```
 
 Run conformance tests for runtime:
@@ -70,6 +71,30 @@ Run conformance tests for runtime:
 ```sh
 go test -v -tags=e2e -count=1 ./test/conformance/runtime \
   -kubeconfig ~/kubeconfig_for_cloud_run -disable-logstream=true -disable-optional-api=true \
-  -test-namespace=my-gcp-project \
+  -resolvabledomain=true -test-namespace=my-gcp-project \
   -request-headers="Authorization,Bearer $(gcloud auth print-identity-token)"
 ```
+
+Explanations for some flags:
+
+- `kubeconfig`: The kubeconfig file you created in the previouse step.
+
+- `disable-optional-api`: Skip the tests against optional APIs. The optional APIs are not required
+  by Knative Specification. Cloud Run does not support some of them.
+
+- `resolvabledomain`: The URL for a Cloud Run service route is resolvable.
+
+- `test-namespace`: Cloud Run uses Google Cloud Platform project ID as the namespace.
+
+- `request-headers`: Identity token from gcloud is used as authorization header for testing requests to get access to Cloud Run services.
+
+- `exceeding-memory-limit-size`: [Knative runtime contract](https://github.com/knative/specs/blob/main/specs/serving/runtime-contract.md#memory-and-cpu-limits)
+  allows the serverless platform to automatically adjust the resource limits (e.g. memory) based on
+  observed resource usage. Cloud Run does so. When a memory exceeding usage happens, Cloud Run
+  
+  - MAY adjust the limit to a much higher value temporarily to handle a memory
+    usage peak for user applications.
+
+  - sends a warning log to ask the user to increase the memory limit.
+
+  10GB is used here instead of the default 500MB in order to get a non-200 response due to memory usage exceeding the 300MB limit.
