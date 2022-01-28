@@ -10,7 +10,9 @@ TODO(leads): fill in the instructions on:
 - What happens after submitting the documents
 
 ## Running Conformance Tests
-TODO(leads): complete
+
+- [Running Conformance Tests for Serving](run_serving_tests.md)
+- Running Conformance Tests for Eventing(TODO)
 
 ## Uploading Conformance Test Results
 TODO(leads): complete
