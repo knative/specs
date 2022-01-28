@@ -1,4 +1,4 @@
-# Running Knative Serving Conformance Tests against Google Cloud Run
+# Running Serving Conformance Tests against Google Cloud Run
 
 1. Check out your Knative Serving fork
 

@@ -1,9 +1,9 @@
-# Running Knative Serving Conformance Tests
+# Running Serving Conformance Tests
 
 ## Tests
 
-The standard set of conformance tests is currently those under the [Knative
-serving conformance directory](https://github.com/knative/serving/tree/main/test/conformance).
+The standard set of Serving conformance tests is currently under
+[this directory](https://github.com/knative/serving/tree/main/test/conformance).
 
 ## Instructions
 
@@ -31,10 +31,10 @@ serving conformance directory](https://github.com/knative/serving/tree/main/test
     By default the tests will use the
     [kubeconfig file](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
     at `~/.kube/config` to create [client objects](https://github.com/knative/serving/blob/ff30afc5fa738236181f50bc2e480061ad5a097d/test/clients.go#L45)
-    connecting to your Knative platform. If `~/.kube/config` is not the correct
-    config file for you to use, create your own.
+    connecting to your Knative platform. If `~/.kube/config` is not the one you intend to use,
+    create your own config file.
 
-    You might need take other actions to grant authorization for the client objects to access
+    You might need to take other actions to grant authorization for the client objects to access
     your Knative platform.
 
     Please see [examples](#examples) section for details.
