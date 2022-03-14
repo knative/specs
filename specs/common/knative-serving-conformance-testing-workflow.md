@@ -7,8 +7,7 @@ This document covers the workflow steps to gain knative conformance
 2. Open Github PR in knative/specs repo 
   - Use PR template below
   - place in the following directory structure
-    - conformance/tests/results/ directory
-    - conformance/test/results/$vendor directory with a metadata file and test results
+    - conformance/tests/results/$spec_version/${date}-${product} directory with a metadata file and test results
     - ex; .../v1.0/2021-12-18-ibm-code-engine/...
   - Attach Logs from tests
 3. KTC reviews 
