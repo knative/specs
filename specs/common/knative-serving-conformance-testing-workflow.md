@@ -15,7 +15,6 @@ This document covers the workflow steps to gain knative conformance
   - Template
   - logs
 4. KTC provide approval / exception / or non-approval
-  - This can be done with OWNERS files
 5. Post to conformance matrix - consumable by the general public as a table of version, product, vendor and outcomes.
   - Should have a public “conformant implementations” showcase on https://knative.dev/offerings
 
