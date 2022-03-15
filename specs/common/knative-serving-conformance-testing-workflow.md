@@ -13,8 +13,9 @@ This document covers the workflow steps to gain knative conformance
 3. KTC reviews 
   - Template
   - logs
-4. KTC provide approval / exception / or non-approval
-5. Post to conformance matrix - consumable by the general public as a table of version, product, vendor and outcomes.
+4. Knative Trademark Committee (KTC) provide approval / exception / or non-approval
+  - The KTC can be contacted at trademark@knative.team 
+6. Post to conformance matrix - consumable by the general public as a table of version, product, vendor and outcomes.
   - Should have a public “conformant implementations” showcase on https://knative.dev/offerings
 
 
