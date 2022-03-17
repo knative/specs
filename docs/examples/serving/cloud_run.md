@@ -36,7 +36,7 @@
     preferences: {}
     users:
     - name: hosteduser
-        user:
+      user:
         auth-provider:
             config: null
             name: gcp
