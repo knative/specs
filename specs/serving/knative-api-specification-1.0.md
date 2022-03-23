@@ -1530,7 +1530,7 @@ Max: 1
 <br>
 (Optional)
    </td>
-   <td>In <code>securityContext</code>, only <code>runAsUser</code> MAY be set.
+   <td>As specified in Kubernetes <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/#container-v1-core">core/v1.Container</a>. 
    </td>
    <td>RECOMMENDED
    </td>
@@ -2223,6 +2223,26 @@ Max: 1
    <td><strong>Description</strong>
    </td>
    <td><strong>Schema Requirement</strong>
+   </td>
+  </tr>
+  <tr>
+   <td><code>readOnlyRootFilesystem</code>
+   </td>
+   <td>boolean
+   </td>
+   <td>As specified in Kubernetes <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/#securitycontext-v1-core">core/v1.SecurityContext</a>
+   </td>
+   <td>REQUIRED, if securityContext is supported.
+   </td>
+  </tr>
+  <tr>
+   <td><code>runAsGroup</code>
+   </td>
+   <td>int
+   </td>
+   <td>As specified in Kubernetes <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/#securitycontext-v1-core">core/v1.SecurityContext</a>
+   </td>
+   <td>REQUIRED, if securityContext is supported.
    </td>
   </tr>
   <tr>

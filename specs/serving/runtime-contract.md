@@ -18,7 +18,8 @@ properties:
   on relatively stable underlying hardware resources.
 
 This contract does not define the control surfaces over the runtime environment
-except by [reference to the Knative Kubernetes resources](knative-api-specification-1.0.md).
+except by
+[reference to the Knative Kubernetes resources](knative-api-specification-1.0.md).
 Similarly, this contract does not define the implementation of metrics or
 logging aggregation, except to provide a contract for the collection of logging
 data. It is expected that access to the aggregated telemetry will be provided by
@@ -343,8 +344,10 @@ metadata include:
 
 Platform providers MAY set the `readonly` bit on the container to `true` in
 order to reduce the possible disk space provisioning and management of
-serverless workloads. Containers MUST use the provided temporary storage areas
-(see [Default Filesystems](#default-filesystems)) for working files and caches.
+serverless workloads. Additionally, users may set the `readOnlyRootfilesystem`
+field in the SecurityContext to request a read-only filesystem. Containers MUST
+use the provided temporary storage areas (see
+[Default Filesystems](#default-filesystems)) for working files and caches.
 
 ### Mounts
 
