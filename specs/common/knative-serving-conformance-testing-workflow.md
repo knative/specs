@@ -25,7 +25,7 @@ This document covers the workflow steps to gain knative conformance
 | **Title** | *Fill out with* |
 | ------------------ | -------------------------------------------- |
 | **Vendor** | *Name of Company / Entity* |
-| **Product Name** | *Product Name* |
+| **Product Name / Version** | *Product Name / Version* |
 | **Version** | *Knative conformance ver* |
 | **Website URL for Product** | *Website of Product* |
 | **Contact Name** | *Conformance contact for questions* |
