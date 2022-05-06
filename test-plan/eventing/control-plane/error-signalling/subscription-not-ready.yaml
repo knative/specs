@@ -1,0 +1,14 @@
+apiVersion: messaging.knative.dev/v1
+kind: Subscription
+metadata:
+  name: not-ready
+spec:
+  channel:
+    apiVersion: v0
+    kind: Invalid
+    name: invalid
+  subscriber:
+    ref:
+      apiVersion: v0
+      kind: Invalid
+      name: invalid
