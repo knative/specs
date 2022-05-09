@@ -109,6 +109,7 @@ treated as a retriable error.
 | `3xx`         | (Unspecified)                                     | No\*  | No\*               | Yes\* |
 | `400`         | Unparsable event                                  | No    | No                 | Yes   |
 | `404`         | Endpoint does not exist                           | Yes   | No                 | Yes   |
+| `408`         | Request Timeout                                   | Yes   | No                 | Yes   |
 | `409`         | Conflict / Processing in progress                 | Yes   | No                 | Yes   |
 | `429`         | Too Many Requests / Overloaded                    | Yes   | No                 | Yes   |
 | other `4xx`   | Error                                             | No    | No                 | Yes   |
