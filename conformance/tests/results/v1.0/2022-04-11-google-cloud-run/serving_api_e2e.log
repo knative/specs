@@ -1,0 +1,686 @@
+=== RUN   TestBlueGreenRoute
+=== PAUSE TestBlueGreenRoute
+=== RUN   TestConfigurationGetAndList
+=== PAUSE TestConfigurationGetAndList
+=== RUN   TestUpdateConfigurationMetadata
+    configuration_test.go:77: Configuration create/patch/replace APIs are not required by Knative Serving API Specification
+--- SKIP: TestUpdateConfigurationMetadata (0.00s)
+=== RUN   TestContainerErrorMsg
+=== PAUSE TestContainerErrorMsg
+=== RUN   TestContainerExitingMsg
+=== PAUSE TestContainerExitingMsg
+=== RUN   TestServiceGenerateName
+    generatename_test.go:119: Metadata.generateName is not required by Knative Serving API Specification
+--- SKIP: TestServiceGenerateName (0.00s)
+=== RUN   TestRouteAndConfigGenerateName
+    generatename_test.go:158: Metadata.generateName is not required by Knative Serving API Specification
+--- SKIP: TestRouteAndConfigGenerateName (0.00s)
+=== RUN   TestCustomResourcesLimits
+=== PAUSE TestCustomResourcesLimits
+=== RUN   TestRevisionGetAndList
+=== PAUSE TestRevisionGetAndList
+=== RUN   TestRevisionTimeout
+=== PAUSE TestRevisionTimeout
+=== RUN   TestRouteGetAndList
+=== PAUSE TestRouteGetAndList
+=== RUN   TestRouteCreation
+    route_test.go:141: Route create/patch/replace APIs are not required by Knative Serving API Specification
+--- SKIP: TestRouteCreation (0.00s)
+=== RUN   TestServiceAccountValidation
+    service_account_test.go:40: Service.spec.serviceAccountName is not required by Knative Serving API Specification
+--- SKIP: TestServiceAccountValidation (0.00s)
+=== RUN   TestServiceCreateListAndDelete
+=== PAUSE TestServiceCreateListAndDelete
+=== RUN   TestServiceCreateAndUpdate
+=== PAUSE TestServiceCreateAndUpdate
+=== RUN   TestServiceBYOName
+=== PAUSE TestServiceBYOName
+=== RUN   TestServiceWithTrafficSplit
+=== PAUSE TestServiceWithTrafficSplit
+=== RUN   TestAnnotationPropagation
+=== PAUSE TestAnnotationPropagation
+=== RUN   TestServiceCreateWithMultipleContainers
+    service_test.go:699: Multiple containers support is not required by Knative Serving API Specification
+--- SKIP: TestServiceCreateWithMultipleContainers (0.00s)
+=== RUN   TestServiceCreateWithEmptyDir
+    service_test.go:747: Emptydir support is not required by Knative Serving API Specification
+--- SKIP: TestServiceCreateWithEmptyDir (0.00s)
+=== RUN   TestSingleConcurrency
+=== PAUSE TestSingleConcurrency
+=== RUN   TestConfigMapVolume
+    volumes_test.go:45: Service.spec.volumes is not required by Knative Serving API Specification
+--- SKIP: TestConfigMapVolume (0.00s)
+=== RUN   TestProjectedConfigMapVolume
+    volumes_test.go:116: Service.spec.volumes is not required by Knative Serving API Specification
+--- SKIP: TestProjectedConfigMapVolume (0.00s)
+=== RUN   TestSecretVolume
+=== PAUSE TestSecretVolume
+=== RUN   TestProjectedSecretVolume
+=== PAUSE TestProjectedSecretVolume
+=== RUN   TestProjectedComplex
+=== PAUSE TestProjectedComplex
+=== RUN   TestProjectedServiceAccountToken
+=== PAUSE TestProjectedServiceAccountToken
+=== CONT  TestBlueGreenRoute
+=== CONT  TestServiceCreateAndUpdate
+=== CONT  TestRevisionGetAndList
+=== CONT  TestSecretVolume
+=== CONT  TestContainerExitingMsg
+=== CONT  TestSecretVolume
+    volumes_test.go:190: Service.spec.volumes is not required by Knative Serving API Specification
+--- SKIP: TestSecretVolume (0.00s)
+=== CONT  TestServiceCreateListAndDelete
+=== CONT  TestAnnotationPropagation
+=== CONT  TestRouteGetAndList
+=== CONT  TestRevisionTimeout
+=== CONT  TestContainerErrorMsg
+=== CONT  TestConfigurationGetAndList
+=== CONT  TestServiceWithTrafficSplit
+=== CONT  TestProjectedComplex
+    volumes_test.go:326: Service.spec.volumes is not required by Knative Serving API Specification
+--- SKIP: TestProjectedComplex (0.00s)
+=== CONT  TestServiceBYOName
+I0411 12:08:19.524510 3817137 gcp.go:122] WARNING: the gcp auth plugin is deprecated in v1.22+, unavailable in v1.25+; use gcloud instead.
+To learn more, consult https://kubernetes.io/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins
+=== CONT  TestRevisionGetAndList
+    service.go:113: Creating a new Service service revision-get-and-list-oaprubtd
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:revision-get-and-list-oaprubtd,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestAnnotationPropagation
+    service.go:113: Creating a new Service service annotation-propagation-szjndjem
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:annotation-propagation-szjndjem,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestContainerErrorMsg
+    errorcondition_test.go:55: Creating a new Service container-error-msg-pqaqyhjh
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:container-error-msg-pqaqyhjh,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestServiceBYOName
+    service.go:113: Creating a new Service service service-b-y-o-name-rstsrqjy
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-b-y-o-name-rstsrqjy,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:service-b-y-o-name-rstsrqjy-byoname,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestBlueGreenRoute
+    blue_green_test.go:67: Creating a new Service in runLatest
+    service.go:113: Creating a new Service service blue-green-route-ycteokip
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:blue-green-route-ycteokip,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestServiceCreateAndUpdate
+    service.go:113: Creating a new Service service service-create-and-update-jgmjfqks
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-create-and-update-jgmjfqks,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestContainerExitingMsg
+    errorcondition_test.go:132: Creating a new Service 
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:container-exiting-msg-cdwkvncj,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestServiceWithTrafficSplit
+    service.go:113: Creating a new Service service service-with-traffic-split-iptxnynf
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-with-traffic-split-iptxnynf,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== RUN   TestRevisionTimeout/does_not_exceed_timeout_seconds
+=== PAUSE TestRevisionTimeout/does_not_exceed_timeout_seconds
+=== RUN   TestRevisionTimeout/exceeds_timeout_seconds
+=== PAUSE TestRevisionTimeout/exceeds_timeout_seconds
+=== RUN   TestRevisionTimeout/writes_first_byte_before_timeout
+=== PAUSE TestRevisionTimeout/writes_first_byte_before_timeout
+=== CONT  TestProjectedServiceAccountToken
+    volumes_test.go:432: Service.spec.volumes is not required by Knative Serving API Specification
+--- SKIP: TestProjectedServiceAccountToken (0.00s)
+=== CONT  TestProjectedSecretVolume
+    volumes_test.go:256: Service.spec.volumes is not required by Knative Serving API Specification
+--- SKIP: TestProjectedSecretVolume (0.00s)
+=== CONT  TestCustomResourcesLimits
+=== CONT  TestRouteGetAndList
+    service.go:113: Creating a new Service service route-get-and-list-adcuhnti
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:route-get-and-list-adcuhnti,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestServiceCreateListAndDelete
+    service.go:113: Creating a new Service service service-create-list-and-delete-rufpgoql
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-create-list-and-delete-rufpgoql,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestConfigurationGetAndList
+    service.go:113: Creating a new Service service configuration-get-and-list-ayviqdhd
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:configuration-get-and-list-ayviqdhd,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestCustomResourcesLimits
+    resources_test.go:44: Creating a new Route and Configuration
+    service.go:113: Creating a new Service service custom-resources-limits-iuxcowzy
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:custom-resources-limits-iuxcowzy,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestBlueGreenRoute
+    service.go:131: Waiting for Service to transition to Ready. service blue-green-route-ycteokip
+=== CONT  TestAnnotationPropagation
+    service.go:131: Waiting for Service to transition to Ready. service annotation-propagation-szjndjem
+=== CONT  TestServiceCreateListAndDelete
+    service.go:131: Waiting for Service to transition to Ready. service service-create-list-and-delete-rufpgoql
+=== CONT  TestRevisionGetAndList
+    service.go:131: Waiting for Service to transition to Ready. service revision-get-and-list-oaprubtd
+=== CONT  TestCustomResourcesLimits
+    service.go:131: Waiting for Service to transition to Ready. service custom-resources-limits-iuxcowzy
+=== CONT  TestContainerErrorMsg
+    errorcondition_test.go:65: When the imagepath is invalid, the Service should have error status.
+=== CONT  TestContainerExitingMsg
+    errorcondition_test.go:139: When the containers keep crashing, the Service should have error status.
+=== CONT  TestConfigurationGetAndList
+    service.go:131: Waiting for Service to transition to Ready. service configuration-get-and-list-ayviqdhd
+=== CONT  TestServiceBYOName
+    service.go:131: Waiting for Service to transition to Ready. service service-b-y-o-name-rstsrqjy
+=== CONT  TestServiceCreateAndUpdate
+    service.go:131: Waiting for Service to transition to Ready. service service-create-and-update-jgmjfqks
+=== CONT  TestRouteGetAndList
+    service.go:131: Waiting for Service to transition to Ready. service route-get-and-list-adcuhnti
+=== CONT  TestServiceWithTrafficSplit
+    service.go:131: Waiting for Service to transition to Ready. service service-with-traffic-split-iptxnynf
+=== CONT  TestContainerErrorMsg
+    errorcondition_test.go:71: When the imagepath is invalid, the Configuration should have error status.
+    errorcondition_test.go:74: Config container-error-msg-pqaqyhjh Ready status = &{Ready False  {2022-04-11 12:08:20.273465 -0700 PDT} ContainerMissing Image 'gcr.io/yanweiguo-test/invalidhelloworld:latest' not found.}
+    errorcondition_test.go:94: When the imagepath is invalid, the Revision should have error status.
+    errorcondition_test.go:97: Revision container-error-msg-pqaqyhjh-446z7 Ready state = &apis.Condition{Type:"Ready", Status:"False", Severity:"", LastTransitionTime:apis.VolatileTime{Inner:time.Date(2022, time.April, 11, 12, 8, 20, 209451000, time.Local)}, Reason:"ContainerMissing", Message:"Image 'gcr.io/yanweiguo-test/invalidhelloworld:latest' not found."}
+    errorcondition_test.go:110: Checking to ensure Route is in desired state
+--- PASS: TestContainerErrorMsg (3.70s)
+=== CONT  TestSingleConcurrency
+    service.go:113: Creating a new Service service single-concurrency-qzldimss
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:single-concurrency-qzldimss,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+    service.go:131: Waiting for Service to transition to Ready. service single-concurrency-qzldimss
+=== CONT  TestAnnotationPropagation
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestServiceCreateAndUpdate
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestAnnotationPropagation
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestRouteGetAndList
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestServiceCreateAndUpdate
+    service.go:145: Successfully created Service service-create-and-update-jgmjfqks
+    util.go:153: Checking to ensure Revision is in desired state with generation 1
+=== CONT  TestRevisionGetAndList
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestServiceBYOName
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestAnnotationPropagation
+    service.go:145: Successfully created Service annotation-propagation-szjndjem
+    util.go:153: Checking to ensure Revision is in desired state with generation 1
+=== CONT  TestRevisionGetAndList
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestServiceBYOName
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestAnnotationPropagation
+    util.go:173: Checking to ensure Configuration is in desired state.
+=== CONT  TestServiceCreateAndUpdate
+    util.go:173: Checking to ensure Configuration is in desired state.
+=== CONT  TestAnnotationPropagation
+    util.go:188: Checking to ensure Route is in desired state with generation 1
+=== CONT  TestServiceCreateAndUpdate
+    util.go:188: Checking to ensure Route is in desired state with generation 1
+    util.go:131: Checking that the endpoint vends the expected text: What a spaceport!
+    spoof.go:111: Spoofing service-create-and-update-jgmjfqks-whediza7la-uc.a.run.app -> service-create-and-update-jgmjfqks-whediza7la-uc.a.run.app
+=== CONT  TestRouteGetAndList
+    service.go:145: Successfully created Service route-get-and-list-adcuhnti
+=== CONT  TestAnnotationPropagation
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:annotation-propagation-szjndjem,GenerateName:,Namespace:456833510891,SelfLink:/apis/serving.knative.dev/v1/namespaces/456833510891/services/annotation-propagation-szjndjem,UID:e520390b-e65d-445f-ae0a-8400c5782c84,ResourceVersion:AAXcZatU3Ps,Generation:1,CreationTimestamp:2022-04-11 12:08:19.680316 -0700 PDT,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{cloud.googleapis.com/location: us-central1,},Annotations:map[string]string{juicy: jamba,run.googleapis.com/ingress: all,run.googleapis.com/ingress-status: all,serving.knative.dev/creator: yanweiguo@google.com,serving.knative.dev/lastModifier: yanweiguo@google.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{autoscaling.knative.dev/maxScale: 100,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{1 [{Ready True  {2022-04-11 12:08:27.826427 -0700 PDT}  } {ConfigurationsReady True  {2022-04-11 12:08:27.550286 -0700 PDT}  } {RoutesReady True  {2022-04-11 12:08:27.826427 -0700 PDT}  }] <nil>} {annotation-propagation-szjndjem-gfctw annotation-propagation-szjndjem-gfctw} {<*>https://annotation-propagation-szjndjem-whediza7la-uc.a.run.app <*>{<*>https://annotation-propagation-szjndjem-whediza7la-uc.a.run.app} [{ annotation-propagation-szjndjem-gfctw  <*>true <*>100 <nil>}]}}} <nil>}
+=== CONT  TestRouteGetAndList
+    route_test.go:128: Route Returned: single-concurrency-qzldimss
+    route_test.go:128: Route Returned: service-with-traffic-split-iptxnynf
+    route_test.go:128: Route Returned: route-get-and-list-adcuhnti
+    route_test.go:128: Route Returned: service-b-y-o-name-rstsrqjy
+    route_test.go:128: Route Returned: service-create-and-update-jgmjfqks
+    route_test.go:128: Route Returned: container-exiting-msg-cdwkvncj
+    route_test.go:128: Route Returned: configuration-get-and-list-ayviqdhd
+    route_test.go:128: Route Returned: custom-resources-limits-iuxcowzy
+    route_test.go:128: Route Returned: revision-get-and-list-oaprubtd
+    route_test.go:128: Route Returned: blue-green-route-ycteokip
+    route_test.go:128: Route Returned: service-create-list-and-delete-rufpgoql
+    route_test.go:128: Route Returned: annotation-propagation-szjndjem
+    route_test.go:128: Route Returned: revision-timeout-writes-first-byte-before-vksujmpm
+    route_test.go:128: Route Returned: service-create-and-update-povdgssp
+    route_test.go:128: Route Returned: blue-green-route-gzpssfra
+    route_test.go:128: Route Returned: service-with-traffic-split-hkrryohg
+    route_test.go:128: Route Returned: annotation-propagation-zolonnnz
+    route_test.go:128: Route Returned: cloudrun-srv
+    route_test.go:128: Route Returned: label
+    route_test.go:128: Route Returned: helloworld
+    route_test.go:128: Route Returned: cmd
+    route_test.go:128: Route Returned: gcsfuse-no-emerald
+    route_test.go:128: Route Returned: gcsfuse
+=== CONT  TestServiceWithTrafficSplit
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestRevisionGetAndList
+    service.go:145: Successfully created Service revision-get-and-list-oaprubtd
+=== CONT  TestAnnotationPropagation
+    service_test.go:629: Updating the Service to use a different image.
+=== CONT  TestServiceWithTrafficSplit
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestConfigurationGetAndList
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestServiceBYOName
+    service.go:145: Successfully created Service service-b-y-o-name-rstsrqjy
+    util.go:153: Checking to ensure Revision is in desired state with generation 1
+=== CONT  TestServiceCreateAndUpdate
+    util.go:199: Validate Labels on Revision Object
+    util.go:209: Validate Labels on Configuration Object
+    util.go:215: Validate Labels on Route Object
+    prober.go:125: Starting Route prober for https://service-create-and-update-jgmjfqks-whediza7la-uc.a.run.app.
+    service_test.go:142: Updating the Service to use a different image.
+    spoof.go:111: Spoofing service-create-and-update-jgmjfqks-whediza7la-uc.a.run.app -> service-create-and-update-jgmjfqks-whediza7la-uc.a.run.app
+=== CONT  TestConfigurationGetAndList
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestAnnotationPropagation
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:annotation-propagation-szjndjem,GenerateName:,Namespace:456833510891,SelfLink:/apis/serving.knative.dev/v1/namespaces/456833510891/services/annotation-propagation-szjndjem,UID:e520390b-e65d-445f-ae0a-8400c5782c84,ResourceVersion:AAXcZat63Xk,Generation:2,CreationTimestamp:2022-04-11 12:08:19.680316 -0700 PDT,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{cloud.googleapis.com/location: us-central1,},Annotations:map[string]string{juicy: jamba,run.googleapis.com/ingress: all,run.googleapis.com/ingress-status: all,serving.knative.dev/creator: yanweiguo@google.com,serving.knative.dev/lastModifier: yanweiguo@google.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{autoscaling.knative.dev/maxScale: 100,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{2 [{Ready True  {2022-04-11 12:08:30.316921 -0700 PDT}  } {ConfigurationsReady True  {2022-04-11 12:08:27.550286 -0700 PDT}  } {RoutesReady True  {2022-04-11 12:08:30.316921 -0700 PDT}  }] <nil>} {annotation-propagation-szjndjem-gfctw annotation-propagation-szjndjem-gfctw} {<*>https://annotation-propagation-szjndjem-whediza7la-uc.a.run.app <*>{<*>https://annotation-propagation-szjndjem-whediza7la-uc.a.run.app} [{ annotation-propagation-szjndjem-gfctw  <*>true <*>100 <nil>}]}}} <nil>}
+--- PASS: TestRouteGetAndList (10.95s)
+=== CONT  TestRevisionTimeout/does_not_exceed_timeout_seconds
+    revision_timeout_test.go:117: Creating a new Service 
+    service.go:113: Creating a new Service service revision-timeout-does-not-exceed-timeout--ncwcsafx
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:revision-timeout-does-not-exceed-timeout--ncwcsafx,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestRevisionGetAndList
+    revision_test.go:59: Revision Returned: single-concurrency-qzldimss-tbs5w
+    revision_test.go:59: Revision Returned: service-create-and-update-jgmjfqks-p4rbj
+    revision_test.go:59: Revision Returned: service-b-y-o-name-rstsrqjy-byoname
+    revision_test.go:59: Revision Returned: service-with-traffic-split-iptxnynf-xw7mw
+    revision_test.go:59: Revision Returned: route-get-and-list-adcuhnti-rf79g
+    revision_test.go:59: Revision Returned: configuration-get-and-list-ayviqdhd-56klk
+    revision_test.go:59: Revision Returned: container-exiting-msg-cdwkvncj-jq5zh
+    revision_test.go:59: Revision Returned: custom-resources-limits-iuxcowzy-8r4z2
+    revision_test.go:59: Revision Returned: revision-get-and-list-oaprubtd-stwrw
+    revision_test.go:59: Revision Returned: blue-green-route-ycteokip-4pgl2
+    revision_test.go:59: Revision Returned: service-create-list-and-delete-rufpgoql-jr2lg
+    revision_test.go:59: Revision Returned: annotation-propagation-szjndjem-gfctw
+    revision_test.go:59: Revision Returned: annotation-propagation-zolonnnz-bsjhm
+    revision_test.go:59: Revision Returned: service-create-and-update-povdgssp-rtm4g
+    revision_test.go:59: Revision Returned: service-with-traffic-split-hkrryohg-wmqwq
+    revision_test.go:59: Revision Returned: service-create-and-update-povdgssp-gr97n
+    revision_test.go:59: Revision Returned: annotation-propagation-zolonnnz-ct88v
+    revision_test.go:59: Revision Returned: blue-green-route-gzpssfra-6gfgz
+    revision_test.go:59: Revision Returned: blue-green-route-gzpssfra-fnjvk
+    revision_test.go:59: Revision Returned: service-create-and-update-povdgssp-kjj72
+    revision_test.go:59: Revision Returned: service-with-traffic-split-hkrryohg-4mfs6
+    revision_test.go:59: Revision Returned: annotation-propagation-zolonnnz-r49qt
+    revision_test.go:59: Revision Returned: cmd-6s2hd
+    revision_test.go:59: Revision Returned: helloworld-kfkht
+    revision_test.go:59: Revision Returned: cloudrun-srv-tgd4m
+    revision_test.go:59: Revision Returned: label-cxfdm
+    revision_test.go:59: Revision Returned: label-00002-gig
+    revision_test.go:59: Revision Returned: label-00001-biq
+    revision_test.go:59: Revision Returned: helloworld-00003-zeq
+    revision_test.go:59: Revision Returned: helloworld-00002-fuw
+    revision_test.go:59: Revision Returned: helloworld-00001-yer
+    revision_test.go:59: Revision Returned: cmd-4f2qp
+    revision_test.go:59: Revision Returned: gcsfuse-f2scx
+    revision_test.go:59: Revision Returned: gcsfuse-7b8qb
+    revision_test.go:59: Revision Returned: gcsfuse-no-emerald-77r6b
+    revision_test.go:59: Revision Returned: gcsfuse-mwtqw
+=== CONT  TestServiceCreateAndUpdate
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-create-and-update-jgmjfqks,GenerateName:,Namespace:456833510891,SelfLink:/apis/serving.knative.dev/v1/namespaces/456833510891/services/service-create-and-update-jgmjfqks,UID:1bf15873-3a48-4933-8dc3-50effc72f842,ResourceVersion:AAXcZatbaqo,Generation:1,CreationTimestamp:2022-04-11 12:08:19.866179 -0700 PDT,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{cloud.googleapis.com/location: us-central1,},Annotations:map[string]string{run.googleapis.com/ingress: all,run.googleapis.com/ingress-status: all,serving.knative.dev/creator: yanweiguo@google.com,serving.knative.dev/lastModifier: yanweiguo@google.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{autoscaling.knative.dev/maxScale: 100,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{1 [{Ready True  {2022-04-11 12:08:28.255914 -0700 PDT}  } {ConfigurationsReady True  {2022-04-11 12:08:27.943098 -0700 PDT}  } {RoutesReady True  {2022-04-11 12:08:28.255914 -0700 PDT}  }] <nil>} {service-create-and-update-jgmjfqks-p4rbj service-create-and-update-jgmjfqks-p4rbj} {<*>https://service-create-and-update-jgmjfqks-whediza7la-uc.a.run.app <*>{<*>https://service-create-and-update-jgmjfqks-whediza7la-uc.a.run.app} [{ service-create-and-update-jgmjfqks-p4rbj  <*>true <*>100 <nil>}]}}} <nil>}
+=== CONT  TestServiceBYOName
+    util.go:173: Checking to ensure Configuration is in desired state.
+=== CONT  TestServiceWithTrafficSplit
+    service.go:145: Successfully created Service service-with-traffic-split-iptxnynf
+    service_test.go:344: Validating service shape.
+    service_test.go:354: 1. Updating Service to ReleaseType using lastCreatedRevision
+=== CONT  TestAnnotationPropagation
+    service_test.go:635: Service should reflect new revision created and ready in status.
+=== CONT  TestServiceCreateAndUpdate
+    service_test.go:149: Service should reflect new revision created and ready in status.
+=== CONT  TestRevisionTimeout/does_not_exceed_timeout_seconds
+    service.go:131: Waiting for Service to transition to Ready. service revision-timeout-does-not-exceed-timeout--ncwcsafx
+=== CONT  TestServiceWithTrafficSplit
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-with-traffic-split-iptxnynf,GenerateName:,Namespace:456833510891,SelfLink:/apis/serving.knative.dev/v1/namespaces/456833510891/services/service-with-traffic-split-iptxnynf,UID:66109925-a9ed-4c83-a7f9-76e885e4dc2f,ResourceVersion:AAXcZatrsNE,Generation:1,CreationTimestamp:2022-04-11 12:08:19.874505 -0700 PDT,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{cloud.googleapis.com/location: us-central1,},Annotations:map[string]string{run.googleapis.com/ingress: all,run.googleapis.com/ingress-status: all,serving.knative.dev/creator: yanweiguo@google.com,serving.knative.dev/lastModifier: yanweiguo@google.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{autoscaling.knative.dev/maxScale: 100,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{current service-with-traffic-split-iptxnynf-xw7mw  <nil> <*>100 <nil>} {latest   <nil> <nil> <nil>}]}} {{1 [{Ready True  {2022-04-11 12:08:29.322449 -0700 PDT}  } {ConfigurationsReady True  {2022-04-11 12:08:28.573716 -0700 PDT}  } {RoutesReady True  {2022-04-11 12:08:29.322449 -0700 PDT}  }] <nil>} {service-with-traffic-split-iptxnynf-xw7mw service-with-traffic-split-iptxnynf-xw7mw} {<*>https://service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app <*>{<*>https://service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app} [{ service-with-traffic-split-iptxnynf-xw7mw  <*>true <*>100 <nil>}]}}} <nil>}
+=== CONT  TestServiceBYOName
+    util.go:188: Checking to ensure Route is in desired state with generation 1
+=== CONT  TestServiceWithTrafficSplit
+    service_test.go:383: Waiting for Service to become ready with the new shape.
+=== CONT  TestServiceBYOName
+    util.go:131: Checking that the endpoint vends the expected text: What a spaceport!
+    spoof.go:111: Spoofing service-b-y-o-name-rstsrqjy-whediza7la-uc.a.run.app -> service-b-y-o-name-rstsrqjy-whediza7la-uc.a.run.app
+--- PASS: TestRevisionGetAndList (11.62s)
+=== CONT  TestRevisionTimeout/writes_first_byte_before_timeout
+    revision_timeout_test.go:117: Creating a new Service 
+    service.go:113: Creating a new Service service revision-timeout-writes-first-byte-before-gzyqumxf
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:revision-timeout-writes-first-byte-before-gzyqumxf,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestConfigurationGetAndList
+    service.go:145: Successfully created Service configuration-get-and-list-ayviqdhd
+=== CONT  TestBlueGreenRoute
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestCustomResourcesLimits
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestServiceCreateListAndDelete
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestConfigurationGetAndList
+    configuration_test.go:64: Configuration Returned: revision-timeout-does-not-exceed-timeout--ncwcsafx
+    configuration_test.go:64: Configuration Returned: single-concurrency-qzldimss
+    configuration_test.go:64: Configuration Returned: service-with-traffic-split-iptxnynf
+    configuration_test.go:64: Configuration Returned: service-b-y-o-name-rstsrqjy
+    configuration_test.go:64: Configuration Returned: service-create-and-update-jgmjfqks
+    configuration_test.go:64: Configuration Returned: configuration-get-and-list-ayviqdhd
+    configuration_test.go:64: Configuration Returned: container-exiting-msg-cdwkvncj
+    configuration_test.go:64: Configuration Returned: custom-resources-limits-iuxcowzy
+    configuration_test.go:64: Configuration Returned: revision-get-and-list-oaprubtd
+    configuration_test.go:64: Configuration Returned: service-create-list-and-delete-rufpgoql
+    configuration_test.go:64: Configuration Returned: blue-green-route-ycteokip
+    configuration_test.go:64: Configuration Returned: annotation-propagation-szjndjem
+    configuration_test.go:64: Configuration Returned: service-create-and-update-povdgssp
+    configuration_test.go:64: Configuration Returned: blue-green-route-gzpssfra
+    configuration_test.go:64: Configuration Returned: service-with-traffic-split-hkrryohg
+    configuration_test.go:64: Configuration Returned: annotation-propagation-zolonnnz
+    configuration_test.go:64: Configuration Returned: cloudrun-srv
+    configuration_test.go:64: Configuration Returned: label
+    configuration_test.go:64: Configuration Returned: helloworld
+    configuration_test.go:64: Configuration Returned: cmd
+    configuration_test.go:64: Configuration Returned: gcsfuse-no-emerald
+    configuration_test.go:64: Configuration Returned: gcsfuse
+=== CONT  TestServiceCreateListAndDelete
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestCustomResourcesLimits
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestBlueGreenRoute
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestRevisionTimeout/writes_first_byte_before_timeout
+    service.go:131: Waiting for Service to transition to Ready. service revision-timeout-writes-first-byte-before-gzyqumxf
+=== CONT  TestServiceBYOName
+    util.go:199: Validate Labels on Revision Object
+    util.go:209: Validate Labels on Configuration Object
+    util.go:215: Validate Labels on Route Object
+    prober.go:125: Starting Route prober for https://service-b-y-o-name-rstsrqjy-whediza7la-uc.a.run.app.
+    service_test.go:304: Updating the Service to use a different image.
+    spoof.go:111: Spoofing service-b-y-o-name-rstsrqjy-whediza7la-uc.a.run.app -> service-b-y-o-name-rstsrqjy-whediza7la-uc.a.run.app
+=== CONT  TestCustomResourcesLimits
+    service.go:145: Successfully created Service custom-resources-limits-iuxcowzy
+    spoof.go:111: Spoofing custom-resources-limits-iuxcowzy-whediza7la-uc.a.run.app -> custom-resources-limits-iuxcowzy-whediza7la-uc.a.run.app
+    resources_test.go:111: Querying the application to see if the memory limits are enforced.
+    resources_test.go:82: Request https://custom-resources-limits-iuxcowzy-whediza7la-uc.a.run.app?bloat=100
+    spoof.go:111: Spoofing custom-resources-limits-iuxcowzy-whediza7la-uc.a.run.app -> custom-resources-limits-iuxcowzy-whediza7la-uc.a.run.app
+=== CONT  TestBlueGreenRoute
+    service.go:145: Successfully created Service blue-green-route-ycteokip
+    blue_green_test.go:79: Updating the Service to use a different image
+=== CONT  TestServiceBYOName
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-b-y-o-name-rstsrqjy,GenerateName:,Namespace:456833510891,SelfLink:/apis/serving.knative.dev/v1/namespaces/456833510891/services/service-b-y-o-name-rstsrqjy,UID:d83b9001-4c9a-43e0-8d4e-2234a188f457,ResourceVersion:AAXcZathstg,Generation:1,CreationTimestamp:2022-04-11 12:08:19.864349 -0700 PDT,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{cloud.googleapis.com/location: us-central1,},Annotations:map[string]string{run.googleapis.com/ingress: all,run.googleapis.com/ingress-status: all,serving.knative.dev/creator: yanweiguo@google.com,serving.knative.dev/lastModifier: yanweiguo@google.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:service-b-y-o-name-rstsrqjy-byoname,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{autoscaling.knative.dev/maxScale: 100,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{1 [{Ready True  {2022-04-11 12:08:28.667608 -0700 PDT}  } {ConfigurationsReady True  {2022-04-11 12:08:28.313627 -0700 PDT}  } {RoutesReady True  {2022-04-11 12:08:28.667608 -0700 PDT}  }] <nil>} {service-b-y-o-name-rstsrqjy-byoname service-b-y-o-name-rstsrqjy-byoname} {<*>https://service-b-y-o-name-rstsrqjy-whediza7la-uc.a.run.app <*>{<*>https://service-b-y-o-name-rstsrqjy-whediza7la-uc.a.run.app} [{ service-b-y-o-name-rstsrqjy-byoname  <*>true <*>100 <nil>}]}}} <nil>}
+=== CONT  TestBlueGreenRoute
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:blue-green-route-ycteokip,GenerateName:,Namespace:456833510891,SelfLink:/apis/serving.knative.dev/v1/namespaces/456833510891/services/blue-green-route-ycteokip,UID:bfd2c23a-3584-4660-8d38-73d712a47d8d,ResourceVersion:AAXcZat6dKs,Generation:1,CreationTimestamp:2022-04-11 12:08:19.680398 -0700 PDT,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{cloud.googleapis.com/location: us-central1,},Annotations:map[string]string{run.googleapis.com/ingress: all,run.googleapis.com/ingress-status: all,serving.knative.dev/creator: yanweiguo@google.com,serving.knative.dev/lastModifier: yanweiguo@google.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{autoscaling.knative.dev/maxScale: 100,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{1 [{Ready True  {2022-04-11 12:08:30.290091 -0700 PDT}  } {ConfigurationsReady True  {2022-04-11 12:08:29.983041 -0700 PDT}  } {RoutesReady True  {2022-04-11 12:08:30.290091 -0700 PDT}  }] <nil>} {blue-green-route-ycteokip-4pgl2 blue-green-route-ycteokip-4pgl2} {<*>https://blue-green-route-ycteokip-whediza7la-uc.a.run.app <*>{<*>https://blue-green-route-ycteokip-whediza7la-uc.a.run.app} [{ blue-green-route-ycteokip-4pgl2  <*>true <*>100 <nil>}]}}} <nil>}
+=== CONT  TestServiceCreateListAndDelete
+    service.go:145: Successfully created Service service-create-list-and-delete-rufpgoql
+    util.go:153: Checking to ensure Revision is in desired state with generation 1
+=== CONT  TestBlueGreenRoute
+    blue_green_test.go:85: Since the Service was updated a new Revision will be created and the Service will be updated
+=== CONT  TestServiceBYOName
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-b-y-o-name-rstsrqjy,GenerateName:,Namespace:456833510891,SelfLink:/apis/serving.knative.dev/v1/namespaces/456833510891/services/service-b-y-o-name-rstsrqjy,UID:d83b9001-4c9a-43e0-8d4e-2234a188f457,ResourceVersion:AAXcZathstg,Generation:1,CreationTimestamp:2022-04-11 12:08:19.864349 -0700 PDT,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{cloud.googleapis.com/location: us-central1,},Annotations:map[string]string{run.googleapis.com/ingress: all,run.googleapis.com/ingress-status: all,serving.knative.dev/creator: yanweiguo@google.com,serving.knative.dev/lastModifier: yanweiguo@google.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:service-b-y-o-name-rstsrqjy-byoname,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{autoscaling.knative.dev/maxScale: 100,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{1 [{Ready True  {2022-04-11 12:08:28.667608 -0700 PDT}  } {ConfigurationsReady True  {2022-04-11 12:08:28.313627 -0700 PDT}  } {RoutesReady True  {2022-04-11 12:08:28.667608 -0700 PDT}  }] <nil>} {service-b-y-o-name-rstsrqjy-byoname service-b-y-o-name-rstsrqjy-byoname} {<*>https://service-b-y-o-name-rstsrqjy-whediza7la-uc.a.run.app <*>{<*>https://service-b-y-o-name-rstsrqjy-whediza7la-uc.a.run.app} [{ service-b-y-o-name-rstsrqjy-byoname  <*>true <*>100 <nil>}]}}} <nil>}
+=== CONT  TestCustomResourcesLimits
+    resources_test.go:82: Request https://custom-resources-limits-iuxcowzy-whediza7la-uc.a.run.app?bloat=200
+    spoof.go:111: Spoofing custom-resources-limits-iuxcowzy-whediza7la-uc.a.run.app -> custom-resources-limits-iuxcowzy-whediza7la-uc.a.run.app
+--- PASS: TestConfigurationGetAndList (12.82s)
+=== CONT  TestRevisionTimeout/exceeds_timeout_seconds
+    revision_timeout_test.go:117: Creating a new Service 
+    service.go:113: Creating a new Service service revision-timeout-exceeds-timeout-seconds-hdmodrjx
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:revision-timeout-exceeds-timeout-seconds-hdmodrjx,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestServiceCreateListAndDelete
+    util.go:173: Checking to ensure Configuration is in desired state.
+    util.go:188: Checking to ensure Route is in desired state with generation 1
+=== CONT  TestCustomResourcesLimits
+    resources_test.go:82: Request https://custom-resources-limits-iuxcowzy-whediza7la-uc.a.run.app?bloat=10000
+    spoof.go:111: Spoofing custom-resources-limits-iuxcowzy-whediza7la-uc.a.run.app -> custom-resources-limits-iuxcowzy-whediza7la-uc.a.run.app
+=== CONT  TestRevisionTimeout/exceeds_timeout_seconds
+    service.go:131: Waiting for Service to transition to Ready. service revision-timeout-exceeds-timeout-seconds-hdmodrjx
+=== CONT  TestServiceBYOName
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-b-y-o-name-rstsrqjy,GenerateName:,Namespace:456833510891,SelfLink:/apis/serving.knative.dev/v1/namespaces/456833510891/services/service-b-y-o-name-rstsrqjy,UID:d83b9001-4c9a-43e0-8d4e-2234a188f457,ResourceVersion:AAXcZathstg,Generation:1,CreationTimestamp:2022-04-11 12:08:19.864349 -0700 PDT,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{cloud.googleapis.com/location: us-central1,},Annotations:map[string]string{run.googleapis.com/ingress: all,run.googleapis.com/ingress-status: all,serving.knative.dev/creator: yanweiguo@google.com,serving.knative.dev/lastModifier: yanweiguo@google.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:service-b-y-o-name-rstsrqjy-byoname,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{autoscaling.knative.dev/maxScale: 100,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{1 [{Ready True  {2022-04-11 12:08:28.667608 -0700 PDT}  } {ConfigurationsReady True  {2022-04-11 12:08:28.313627 -0700 PDT}  } {RoutesReady True  {2022-04-11 12:08:28.667608 -0700 PDT}  }] <nil>} {service-b-y-o-name-rstsrqjy-byoname service-b-y-o-name-rstsrqjy-byoname} {<*>https://service-b-y-o-name-rstsrqjy-whediza7la-uc.a.run.app <*>{<*>https://service-b-y-o-name-rstsrqjy-whediza7la-uc.a.run.app} [{ service-b-y-o-name-rstsrqjy-byoname  <*>true <*>100 <nil>}]}}} <nil>}
+=== CONT  TestServiceCreateListAndDelete
+    service_test.go:75: Service Returned: revision-timeout-exceeds-timeout-seconds-hdmodrjx
+    service_test.go:75: Service Returned: revision-timeout-writes-first-byte-before-gzyqumxf
+    service_test.go:75: Service Returned: revision-timeout-does-not-exceed-timeout--ncwcsafx
+    service_test.go:75: Service Returned: single-concurrency-qzldimss
+    service_test.go:75: Service Returned: service-with-traffic-split-iptxnynf
+    service_test.go:75: Service Returned: service-create-and-update-jgmjfqks
+    service_test.go:75: Service Returned: service-b-y-o-name-rstsrqjy
+    service_test.go:75: Service Returned: configuration-get-and-list-ayviqdhd
+    service_test.go:75: Service Returned: container-exiting-msg-cdwkvncj
+    service_test.go:75: Service Returned: custom-resources-limits-iuxcowzy
+    service_test.go:75: Service Returned: revision-get-and-list-oaprubtd
+    service_test.go:75: Service Returned: service-create-list-and-delete-rufpgoql
+    service_test.go:75: Service Returned: blue-green-route-ycteokip
+    service_test.go:75: Service Returned: annotation-propagation-szjndjem
+    service_test.go:75: Service Returned: revision-timeout-writes-first-byte-before-vksujmpm
+    service_test.go:75: Service Returned: service-with-traffic-split-hkrryohg
+    service_test.go:75: Service Returned: blue-green-route-gzpssfra
+    service_test.go:75: Service Returned: service-create-and-update-povdgssp
+    service_test.go:75: Service Returned: annotation-propagation-zolonnnz
+    service_test.go:75: Service Returned: cloudrun-srv
+    service_test.go:75: Service Returned: label
+    service_test.go:75: Service Returned: helloworld
+    service_test.go:75: Service Returned: cmd
+    service_test.go:75: Service Returned: gcsfuse-no-emerald
+    service_test.go:75: Service Returned: gcsfuse
+    service_test.go:83: Deleting Service: service-create-list-and-delete-rufpgoql
+=== CONT  TestServiceBYOName
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-b-y-o-name-rstsrqjy,GenerateName:,Namespace:456833510891,SelfLink:/apis/serving.knative.dev/v1/namespaces/456833510891/services/service-b-y-o-name-rstsrqjy,UID:d83b9001-4c9a-43e0-8d4e-2234a188f457,ResourceVersion:AAXcZathstg,Generation:1,CreationTimestamp:2022-04-11 12:08:19.864349 -0700 PDT,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{cloud.googleapis.com/location: us-central1,},Annotations:map[string]string{run.googleapis.com/ingress: all,run.googleapis.com/ingress-status: all,serving.knative.dev/creator: yanweiguo@google.com,serving.knative.dev/lastModifier: yanweiguo@google.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:service-b-y-o-name-rstsrqjy-byoname,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{autoscaling.knative.dev/maxScale: 100,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{1 [{Ready True  {2022-04-11 12:08:28.667608 -0700 PDT}  } {ConfigurationsReady True  {2022-04-11 12:08:28.313627 -0700 PDT}  } {RoutesReady True  {2022-04-11 12:08:28.667608 -0700 PDT}  }] <nil>} {service-b-y-o-name-rstsrqjy-byoname service-b-y-o-name-rstsrqjy-byoname} {<*>https://service-b-y-o-name-rstsrqjy-whediza7la-uc.a.run.app <*>{<*>https://service-b-y-o-name-rstsrqjy-whediza7la-uc.a.run.app} [{ service-b-y-o-name-rstsrqjy-byoname  <*>true <*>100 <nil>}]}}} <nil>}
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-b-y-o-name-rstsrqjy,GenerateName:,Namespace:456833510891,SelfLink:/apis/serving.knative.dev/v1/namespaces/456833510891/services/service-b-y-o-name-rstsrqjy,UID:d83b9001-4c9a-43e0-8d4e-2234a188f457,ResourceVersion:AAXcZathstg,Generation:1,CreationTimestamp:2022-04-11 12:08:19.864349 -0700 PDT,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{cloud.googleapis.com/location: us-central1,},Annotations:map[string]string{run.googleapis.com/ingress: all,run.googleapis.com/ingress-status: all,serving.knative.dev/creator: yanweiguo@google.com,serving.knative.dev/lastModifier: yanweiguo@google.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:service-b-y-o-name-rstsrqjy-byoname,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{autoscaling.knative.dev/maxScale: 100,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{1 [{Ready True  {2022-04-11 12:08:28.667608 -0700 PDT}  } {ConfigurationsReady True  {2022-04-11 12:08:28.313627 -0700 PDT}  } {RoutesReady True  {2022-04-11 12:08:28.667608 -0700 PDT}  }] <nil>} {service-b-y-o-name-rstsrqjy-byoname service-b-y-o-name-rstsrqjy-byoname} {<*>https://service-b-y-o-name-rstsrqjy-whediza7la-uc.a.run.app <*>{<*>https://service-b-y-o-name-rstsrqjy-whediza7la-uc.a.run.app} [{ service-b-y-o-name-rstsrqjy-byoname  <*>true <*>100 <nil>}]}}} <nil>}
+    prober.go:187: Stopping all probers
+--- PASS: TestServiceCreateListAndDelete (14.21s)
+--- PASS: TestServiceBYOName (14.72s)
+=== CONT  TestSingleConcurrency
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+    service.go:142: Getting latest objects Created by Service
+    service.go:145: Successfully created Service single-concurrency-qzldimss
+    single_threaded_test.go:65: Probing https://single-concurrency-qzldimss-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing single-concurrency-qzldimss-whediza7la-uc.a.run.app -> single-concurrency-qzldimss-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing single-concurrency-qzldimss-whediza7la-uc.a.run.app -> single-concurrency-qzldimss-whediza7la-uc.a.run.app
+    single_threaded_test.go:87: Maintaining 5 concurrent requests for 20s.
+    single_threaded_test.go:119: Waiting for all requests to complete.
+=== CONT  TestContainerExitingMsg
+    errorcondition_test.go:146: When the containers keep crashing, the Configuration should have error status.
+=== CONT  TestServiceWithTrafficSplit
+    service_test.go:388: Service traffic should go to the first revision and be available on two names traffic targets: 'current' and 'latest'
+    util.go:97: Checking updated route tags https://current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:91: Checking updated route https://service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:97: Checking updated route tags https://latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+=== CONT  TestContainerExitingMsg
+    errorcondition_test.go:150: Configuration container-exiting-msg-cdwkvncj Ready = &apis.Condition{Type:"Ready", Status:"False", Severity:"", LastTransitionTime:apis.VolatileTime{Inner:time.Date(2022, time.April, 11, 12, 8, 37, 741667000, time.Local)}, Reason:"HealthCheckContainerError", Message:"Cloud Run error: The user-provided container failed to start and listen on the port defined provided by the PORT=8080 environment variable. Logs for this revision might contain more information.\n\nLogs URL: https://console.cloud.google.com/logs/viewer?project=yanweiguo-test&resource=cloud_run_revision/service_name/container-exiting-msg-cdwkvncj/revision_name/container-exiting-msg-cdwkvncj-jq5zh&advancedFilter=resource.type%3D%22cloud_run_revision%22%0Aresource.labels.service_name%3D%22container-exiting-msg-cdwkvncj%22%0Aresource.labels.revision_name%3D%22container-exiting-msg-cdwkvncj-jq5zh%22\nFor more troubleshooting guidance, see https://cloud.google.com/run/docs/troubleshooting#container-failed-to-start"}
+    errorcondition_test.go:163: When the containers keep crashing, the Revision should have error status.
+    errorcondition_test.go:166: Revsion container-exiting-msg-cdwkvncj-jq5zh Ready status = &{Ready False  {2022-04-11 12:08:37.666658 -0700 PDT} HealthCheckContainerError Cloud Run error: The user-provided container failed to start and listen on the port defined provided by the PORT=8080 environment variable. Logs for this revision might contain more information.
+        
+        Logs URL: https://console.cloud.google.com/logs/viewer?project=yanweiguo-test&resource=cloud_run_revision/service_name/container-exiting-msg-cdwkvncj/revision_name/container-exiting-msg-cdwkvncj-jq5zh&advancedFilter=resource.type%3D%22cloud_run_revision%22%0Aresource.labels.service_name%3D%22container-exiting-msg-cdwkvncj%22%0Aresource.labels.revision_name%3D%22container-exiting-msg-cdwkvncj-jq5zh%22
+        For more troubleshooting guidance, see https://cloud.google.com/run/docs/troubleshooting#container-failed-to-start}
+--- PASS: TestContainerExitingMsg (19.55s)
+=== CONT  TestServiceWithTrafficSplit
+    spoof.go:111: Spoofing current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:191: Performing 200 concurrent requests to https://current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:191: Performing 200 concurrent requests to https://service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:191: Performing 200 concurrent requests to https://latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+=== CONT  TestServiceCreateAndUpdate
+    service_test.go:155: Waiting for Service to transition to Ready.
+=== CONT  TestServiceWithTrafficSplit
+    util.go:168: For domain current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app: wanted at least 200, got 200 requests.
+    util.go:168: For domain service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app: wanted at least 200, got 200 requests.
+=== CONT  TestBlueGreenRoute
+    blue_green_test.go:91: Updating RouteSpec
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:blue-green-route-ycteokip,GenerateName:,Namespace:456833510891,SelfLink:/apis/serving.knative.dev/v1/namespaces/456833510891/services/blue-green-route-ycteokip,UID:bfd2c23a-3584-4660-8d38-73d712a47d8d,ResourceVersion:AAXcZawUuH4,Generation:2,CreationTimestamp:2022-04-11 12:08:19.680398 -0700 PDT,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{cloud.googleapis.com/location: us-central1,},Annotations:map[string]string{run.googleapis.com/ingress: all,run.googleapis.com/ingress-status: all,serving.knative.dev/creator: yanweiguo@google.com,serving.knative.dev/lastModifier: yanweiguo@google.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{autoscaling.knative.dev/maxScale: 100,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{blue blue-green-route-ycteokip-4pgl2  <nil> <*>50 <nil>} {green blue-green-route-ycteokip-xq676  <nil> <*>50 <nil>}]}} {{2 [{Ready Unknown  {2022-04-11 12:08:40.399998 -0700 PDT} AssigningTraffic Assigning traffic to latest specified targets.} {ConfigurationsReady True  {2022-04-11 12:08:40.025316 -0700 PDT}  } {RoutesReady Unknown  {2022-04-11 12:08:40.399998 -0700 PDT} AssigningTraffic Assigning traffic to latest specified targets.}] <nil>} {blue-green-route-ycteokip-xq676 blue-green-route-ycteokip-xq676} {<*>https://blue-green-route-ycteokip-whediza7la-uc.a.run.app <*>{<*>https://blue-green-route-ycteokip-whediza7la-uc.a.run.app} [{ blue-green-route-ycteokip-4pgl2  <*>true <*>100 <nil>}]}}} <nil>}
+=== CONT  TestServiceWithTrafficSplit
+    util.go:168: For domain latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app: wanted at least 200, got 200 requests.
+    service_test.go:403: 2. Updating the Service Spec with a new image
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-with-traffic-split-iptxnynf,GenerateName:,Namespace:456833510891,SelfLink:/apis/serving.knative.dev/v1/namespaces/456833510891/services/service-with-traffic-split-iptxnynf,UID:66109925-a9ed-4c83-a7f9-76e885e4dc2f,ResourceVersion:AAXcZavlJvo,Generation:2,CreationTimestamp:2022-04-11 12:08:19.874505 -0700 PDT,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{cloud.googleapis.com/location: us-central1,},Annotations:map[string]string{run.googleapis.com/ingress: all,run.googleapis.com/ingress-status: all,serving.knative.dev/creator: yanweiguo@google.com,serving.knative.dev/lastModifier: yanweiguo@google.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{autoscaling.knative.dev/maxScale: 100,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{current service-with-traffic-split-iptxnynf-xw7mw  <nil> <*>100 <nil>} {latest   <*>true <nil> <nil>}]}} {{2 [{Ready True  {2022-04-11 12:08:37.282554 -0700 PDT}  } {ConfigurationsReady True  {2022-04-11 12:08:28.573716 -0700 PDT}  } {RoutesReady True  {2022-04-11 12:08:37.282554 -0700 PDT}  }] <nil>} {service-with-traffic-split-iptxnynf-xw7mw service-with-traffic-split-iptxnynf-xw7mw} {<*>https://service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app <*>{<*>https://service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app} [{current service-with-traffic-split-iptxnynf-xw7mw  <nil> <*>100 <*>https://current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app} {latest service-with-traffic-split-iptxnynf-xw7mw  <*>true <nil> <*>https://latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app}]}}} <nil>}
+=== CONT  TestBlueGreenRoute
+    blue_green_test.go:106: Wait for the service domains to be ready
+=== CONT  TestServiceWithTrafficSplit
+    service_test.go:408: Since the Service was updated a new Revision will be created
+=== CONT  TestAnnotationPropagation
+    service_test.go:641: Waiting for Service to transition to Ready.
+=== CONT  TestRevisionTimeout/writes_first_byte_before_timeout
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+    service.go:142: Getting latest objects Created by Service
+    service.go:145: Successfully created Service revision-timeout-writes-first-byte-before-gzyqumxf
+    revision_timeout_test.go:125: Probing to force at least one pod https://revision-timeout-writes-first-byte-before-gzyqumx-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing revision-timeout-writes-first-byte-before-gzyqumx-whediza7la-uc.a.run.app -> revision-timeout-writes-first-byte-before-gzyqumx-whediza7la-uc.a.run.app
+=== CONT  TestRevisionTimeout/exceeds_timeout_seconds
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestRevisionTimeout/writes_first_byte_before_timeout
+    spoof.go:111: Spoofing revision-timeout-writes-first-byte-before-gzyqumx-whediza7la-uc.a.run.app -> revision-timeout-writes-first-byte-before-gzyqumx-whediza7la-uc.a.run.app
+=== CONT  TestRevisionTimeout/does_not_exceed_timeout_seconds
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestRevisionTimeout/exceeds_timeout_seconds
+    service.go:145: Successfully created Service revision-timeout-exceeds-timeout-seconds-hdmodrjx
+    revision_timeout_test.go:125: Probing to force at least one pod https://revision-timeout-exceeds-timeout-seconds-hdmodrjx-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing revision-timeout-exceeds-timeout-seconds-hdmodrjx-whediza7la-uc.a.run.app -> revision-timeout-exceeds-timeout-seconds-hdmodrjx-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing revision-timeout-exceeds-timeout-seconds-hdmodrjx-whediza7la-uc.a.run.app -> revision-timeout-exceeds-timeout-seconds-hdmodrjx-whediza7la-uc.a.run.app
+=== CONT  TestRevisionTimeout/does_not_exceed_timeout_seconds
+    service.go:145: Successfully created Service revision-timeout-does-not-exceed-timeout--ncwcsafx
+    revision_timeout_test.go:125: Probing to force at least one pod https://revision-timeout-does-not-exceed-timeout--ncwcsaf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing revision-timeout-does-not-exceed-timeout--ncwcsaf-whediza7la-uc.a.run.app -> revision-timeout-does-not-exceed-timeout--ncwcsaf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing revision-timeout-does-not-exceed-timeout--ncwcsaf-whediza7la-uc.a.run.app -> revision-timeout-does-not-exceed-timeout--ncwcsaf-whediza7la-uc.a.run.app
+=== CONT  TestServiceCreateAndUpdate
+    util.go:153: Checking to ensure Revision is in desired state with generation 2
+    util.go:173: Checking to ensure Configuration is in desired state.
+    util.go:188: Checking to ensure Route is in desired state with generation 2
+    util.go:131: Checking that the endpoint vends the expected text: Re-energize yourself with a slice of pepperoni!
+    spoof.go:111: Spoofing service-create-and-update-jgmjfqks-whediza7la-uc.a.run.app -> service-create-and-update-jgmjfqks-whediza7la-uc.a.run.app
+    service_test.go:169: Updating labels of the RevisionTemplateSpec for service service-create-and-update-jgmjfqks.
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-create-and-update-jgmjfqks,GenerateName:,Namespace:456833510891,SelfLink:/apis/serving.knative.dev/v1/namespaces/456833510891/services/service-create-and-update-jgmjfqks,UID:1bf15873-3a48-4933-8dc3-50effc72f842,ResourceVersion:AAXcZaxRqJg,Generation:2,CreationTimestamp:2022-04-11 12:08:19.866179 -0700 PDT,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{cloud.googleapis.com/location: us-central1,},Annotations:map[string]string{run.googleapis.com/ingress: all,run.googleapis.com/ingress-status: all,serving.knative.dev/creator: yanweiguo@google.com,serving.knative.dev/lastModifier: yanweiguo@google.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{label-x: abc,label-y: def,},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{2 [{Ready True  {2022-04-11 12:08:44.393624 -0700 PDT}  } {ConfigurationsReady True  {2022-04-11 12:08:39.134796 -0700 PDT}  } {RoutesReady True  {2022-04-11 12:08:44.393624 -0700 PDT}  }] <nil>} {service-create-and-update-jgmjfqks-g2jvp service-create-and-update-jgmjfqks-g2jvp} {<*>https://service-create-and-update-jgmjfqks-whediza7la-uc.a.run.app <*>{<*>https://service-create-and-update-jgmjfqks-whediza7la-uc.a.run.app} [{ service-create-and-update-jgmjfqks-g2jvp  <*>true <*>100 <nil>}]}}} <nil>}
+=== CONT  TestRevisionTimeout/does_not_exceed_timeout_seconds
+    revision_timeout_test.go:67: Response status code: 200, expected: 200
+    revision_timeout_test.go:48: URL: https://revision-timeout-does-not-exceed-timeout--ncwcsaf-whediza7la-uc.a.run.app, initialSleep: 2s, sleep: 0s, request elapsed 2131 ms
+=== CONT  TestServiceCreateAndUpdate
+    service_test.go:180: Waiting for the new revision to appear as LatestRevision.
+=== CONT  TestAnnotationPropagation
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:annotation-propagation-szjndjem,GenerateName:,Namespace:456833510891,SelfLink:/apis/serving.knative.dev/v1/namespaces/456833510891/services/annotation-propagation-szjndjem,UID:e520390b-e65d-445f-ae0a-8400c5782c84,ResourceVersion:AAXcZaxy2xU,Generation:3,CreationTimestamp:2022-04-11 12:08:19.680316 -0700 PDT,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{cloud.googleapis.com/location: us-central1,},Annotations:map[string]string{run.googleapis.com/ingress: all,run.googleapis.com/ingress-status: all,serving.knative.dev/creator: yanweiguo@google.com,serving.knative.dev/lastModifier: yanweiguo@google.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{autoscaling.knative.dev/maxScale: 100,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{3 [{Ready True  {2022-04-11 12:08:46.569237 -0700 PDT}  } {ConfigurationsReady True  {2022-04-11 12:08:41.104433 -0700 PDT}  } {RoutesReady True  {2022-04-11 12:08:46.569237 -0700 PDT}  }] <nil>} {annotation-propagation-szjndjem-22vwf annotation-propagation-szjndjem-22vwf} {<*>https://annotation-propagation-szjndjem-whediza7la-uc.a.run.app <*>{<*>https://annotation-propagation-szjndjem-whediza7la-uc.a.run.app} [{ annotation-propagation-szjndjem-22vwf  <*>true <*>100 <nil>}]}}} <nil>}
+    service_test.go:662: Updating the Service to use a different image.
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:annotation-propagation-szjndjem,GenerateName:,Namespace:456833510891,SelfLink:/apis/serving.knative.dev/v1/namespaces/456833510891/services/annotation-propagation-szjndjem,UID:e520390b-e65d-445f-ae0a-8400c5782c84,ResourceVersion:AAXcZayDu8M,Generation:3,CreationTimestamp:2022-04-11 12:08:19.680316 -0700 PDT,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{cloud.googleapis.com/location: us-central1,},Annotations:map[string]string{run.googleapis.com/ingress: all,run.googleapis.com/ingress-status: all,serving.knative.dev/creator: yanweiguo@google.com,serving.knative.dev/lastModifier: yanweiguo@google.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{autoscaling.knative.dev/maxScale: 100,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{3 [{Ready True  {2022-04-11 12:08:46.569237 -0700 PDT}  } {ConfigurationsReady True  {2022-04-11 12:08:41.104433 -0700 PDT}  } {RoutesReady True  {2022-04-11 12:08:46.569237 -0700 PDT}  }] <nil>} {annotation-propagation-szjndjem-22vwf annotation-propagation-szjndjem-22vwf} {<*>https://annotation-propagation-szjndjem-whediza7la-uc.a.run.app <*>{<*>https://annotation-propagation-szjndjem-whediza7la-uc.a.run.app} [{ annotation-propagation-szjndjem-22vwf  <*>true <*>100 <nil>}]}}} <nil>}
+    service_test.go:668: Service should reflect new revision created and ready in status.
+--- PASS: TestCustomResourcesLimits (29.31s)
+=== CONT  TestBlueGreenRoute
+    blue_green_test.go:132: Probing https://green---blue-green-route-ycteokip-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing green---blue-green-route-ycteokip-whediza7la-uc.a.run.app -> green---blue-green-route-ycteokip-whediza7la-uc.a.run.app
+=== CONT  TestServiceWithTrafficSplit
+    service_test.go:421: Waiting for Service to become ready with the new shape.
+=== CONT  TestBlueGreenRoute
+    spoof.go:111: Spoofing blue-green-route-ycteokip-whediza7la-uc.a.run.app -> blue-green-route-ycteokip-whediza7la-uc.a.run.app
+    util.go:191: Performing 200 concurrent requests to https://blue-green-route-ycteokip-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing green---blue-green-route-ycteokip-whediza7la-uc.a.run.app -> green---blue-green-route-ycteokip-whediza7la-uc.a.run.app
+    util.go:191: Performing 200 concurrent requests to https://green---blue-green-route-ycteokip-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing blue---blue-green-route-ycteokip-whediza7la-uc.a.run.app -> blue---blue-green-route-ycteokip-whediza7la-uc.a.run.app
+    util.go:191: Performing 200 concurrent requests to https://blue---blue-green-route-ycteokip-whediza7la-uc.a.run.app
+    util.go:168: For domain green---blue-green-route-ycteokip-whediza7la-uc.a.run.app: wanted at least 200, got 200 requests.
+    util.go:168: For domain blue-green-route-ycteokip-whediza7la-uc.a.run.app: wanted at least 50, got 100 requests.
+    util.go:168: For domain blue-green-route-ycteokip-whediza7la-uc.a.run.app: wanted at least 50, got 100 requests.
+    util.go:168: For domain blue---blue-green-route-ycteokip-whediza7la-uc.a.run.app: wanted at least 200, got 200 requests.
+--- PASS: TestBlueGreenRoute (33.28s)
+=== CONT  TestRevisionTimeout/exceeds_timeout_seconds
+    revision_timeout_test.go:67: Response status code: 504, expected: 504
+    revision_timeout_test.go:48: URL: https://revision-timeout-exceeds-timeout-seconds-hdmodrjx-whediza7la-uc.a.run.app, initialSleep: 12s, sleep: 0s, request elapsed 10128 ms
+=== CONT  TestServiceCreateAndUpdate
+    service_test.go:186: Updating annotations of RevisionTemplateSpec for service service-create-and-update-jgmjfqks
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-create-and-update-jgmjfqks,GenerateName:,Namespace:456833510891,SelfLink:/apis/serving.knative.dev/v1/namespaces/456833510891/services/service-create-and-update-jgmjfqks,UID:1bf15873-3a48-4933-8dc3-50effc72f842,ResourceVersion:AAXcZazsLqc,Generation:3,CreationTimestamp:2022-04-11 12:08:19.866179 -0700 PDT,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{cloud.googleapis.com/location: us-central1,},Annotations:map[string]string{run.googleapis.com/ingress: all,run.googleapis.com/ingress-status: all,serving.knative.dev/creator: yanweiguo@google.com,serving.knative.dev/lastModifier: yanweiguo@google.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{annotation-a: 123,annotation-b: 456,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{3 [{Ready Unknown  {2022-04-11 12:08:54.520487 -0700 PDT} AssigningTraffic Assigning traffic to latest specified targets.} {ConfigurationsReady True  {2022-04-11 12:08:54.171987 -0700 PDT}  } {RoutesReady Unknown  {2022-04-11 12:08:54.520487 -0700 PDT} AssigningTraffic Assigning traffic to latest specified targets.}] <nil>} {service-create-and-update-jgmjfqks-cj9cq service-create-and-update-jgmjfqks-cj9cq} {<*>https://service-create-and-update-jgmjfqks-whediza7la-uc.a.run.app <*>{<*>https://service-create-and-update-jgmjfqks-whediza7la-uc.a.run.app} [{ service-create-and-update-jgmjfqks-g2jvp  <*>true <*>100 <nil>}]}}} <nil>}
+    service_test.go:197: Waiting for the new revision to appear as LatestRevision.
+=== CONT  TestServiceWithTrafficSplit
+    service_test.go:426: Since the Service is using release the Route will not be updated, but new revision will be available at 'latest'
+    util.go:97: Checking updated route tags https://current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:97: Checking updated route tags https://latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:91: Checking updated route https://service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:191: Performing 200 concurrent requests to https://service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:191: Performing 200 concurrent requests to https://current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:191: Performing 200 concurrent requests to https://latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+=== CONT  TestRevisionTimeout/writes_first_byte_before_timeout
+    revision_timeout_test.go:67: Response status code: 200, expected: 200
+    revision_timeout_test.go:48: URL: https://revision-timeout-writes-first-byte-before-gzyqumx-whediza7la-uc.a.run.app, initialSleep: 0s, sleep: 15s, request elapsed 13658 ms
+--- PASS: TestRevisionTimeout (0.03s)
+    --- PASS: TestRevisionTimeout/does_not_exceed_timeout_seconds (16.59s)
+    --- PASS: TestRevisionTimeout/exceeds_timeout_seconds (22.19s)
+    --- PASS: TestRevisionTimeout/writes_first_byte_before_timeout (25.81s)
+--- PASS: TestSingleConcurrency (34.19s)
+=== CONT  TestServiceWithTrafficSplit
+    util.go:168: For domain current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app: wanted at least 200, got 200 requests.
+    util.go:168: For domain service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app: wanted at least 200, got 200 requests.
+    util.go:168: For domain latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app: wanted at least 200, got 200 requests.
+    service_test.go:441: 3. Updating Service to split traffic between two revisions using Release mode
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-with-traffic-split-iptxnynf,GenerateName:,Namespace:456833510891,SelfLink:/apis/serving.knative.dev/v1/namespaces/456833510891/services/service-with-traffic-split-iptxnynf,UID:66109925-a9ed-4c83-a7f9-76e885e4dc2f,ResourceVersion:AAXcZaz64/w,Generation:3,CreationTimestamp:2022-04-11 12:08:19.874505 -0700 PDT,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{cloud.googleapis.com/location: us-central1,},Annotations:map[string]string{run.googleapis.com/ingress: all,run.googleapis.com/ingress-status: all,serving.knative.dev/creator: yanweiguo@google.com,serving.knative.dev/lastModifier: yanweiguo@google.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{autoscaling.knative.dev/maxScale: 100,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{current service-with-traffic-split-iptxnynf-xw7mw  <nil> <*>50 <nil>} {candidate service-with-traffic-split-iptxnynf-cb55j  <nil> <*>50 <nil>} {latest   <nil> <nil> <nil>}]}} {{3 [{Ready True  {2022-04-11 12:08:55.484412 -0700 PDT}  } {ConfigurationsReady True  {2022-04-11 12:08:48.968422 -0700 PDT}  } {RoutesReady True  {2022-04-11 12:08:55.484412 -0700 PDT}  }] <nil>} {service-with-traffic-split-iptxnynf-cb55j service-with-traffic-split-iptxnynf-cb55j} {<*>https://service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app <*>{<*>https://service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app} [{current service-with-traffic-split-iptxnynf-xw7mw  <nil> <*>100 <*>https://current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app} {latest service-with-traffic-split-iptxnynf-cb55j  <*>true <nil> <*>https://latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app}]}}} <nil>}
+    service_test.go:479: Waiting for Service to become ready with the new shape.
+=== CONT  TestAnnotationPropagation
+    service_test.go:674: Waiting for Service to transition to Ready.
+=== CONT  TestServiceCreateAndUpdate
+    service_test.go:203: Waiting for Service to transition to Ready.
+=== CONT  TestServiceWithTrafficSplit
+    service_test.go:484: Traffic should be split between the two revisions and available on three named traffic targets, 'current', 'candidate', and 'latest'
+--- PASS: TestAnnotationPropagation (46.87s)
+=== CONT  TestServiceWithTrafficSplit
+    util.go:97: Checking updated route tags https://current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:97: Checking updated route tags https://latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:97: Checking updated route tags https://candidate---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing candidate---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> candidate---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:91: Checking updated route https://service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:191: Performing 200 concurrent requests to https://latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing candidate---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> candidate---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:191: Performing 200 concurrent requests to https://candidate---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:191: Performing 200 concurrent requests to https://current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:191: Performing 200 concurrent requests to https://service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:168: For domain service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app: wanted at least 50, got 87 requests.
+    util.go:168: For domain service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app: wanted at least 50, got 113 requests.
+    util.go:168: For domain candidate---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app: wanted at least 200, got 200 requests.
+=== CONT  TestServiceCreateAndUpdate
+    util.go:153: Checking to ensure Revision is in desired state with generation 4
+=== CONT  TestServiceWithTrafficSplit
+    util.go:168: For domain current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app: wanted at least 200, got 200 requests.
+    util.go:168: For domain latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app: wanted at least 200, got 200 requests.
+    service_test.go:502: 4. Updating the Service Spec with a new image
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-with-traffic-split-iptxnynf,GenerateName:,Namespace:456833510891,SelfLink:/apis/serving.knative.dev/v1/namespaces/456833510891/services/service-with-traffic-split-iptxnynf,UID:66109925-a9ed-4c83-a7f9-76e885e4dc2f,ResourceVersion:AAXcZa2R7f8,Generation:4,CreationTimestamp:2022-04-11 12:08:19.874505 -0700 PDT,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{cloud.googleapis.com/location: us-central1,},Annotations:map[string]string{run.googleapis.com/ingress: all,run.googleapis.com/ingress-status: all,serving.knative.dev/creator: yanweiguo@google.com,serving.knative.dev/lastModifier: yanweiguo@google.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{autoscaling.knative.dev/maxScale: 100,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{current service-with-traffic-split-iptxnynf-xw7mw  <nil> <*>50 <nil>} {candidate service-with-traffic-split-iptxnynf-cb55j  <nil> <*>50 <nil>} {latest   <*>true <nil> <nil>}]}} {{4 [{Ready True  {2022-04-11 12:09:05.382911 -0700 PDT}  } {ConfigurationsReady True  {2022-04-11 12:08:48.968422 -0700 PDT}  } {RoutesReady True  {2022-04-11 12:09:05.382911 -0700 PDT}  }] <nil>} {service-with-traffic-split-iptxnynf-cb55j service-with-traffic-split-iptxnynf-cb55j} {<*>https://service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app <*>{<*>https://service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app} [{current service-with-traffic-split-iptxnynf-xw7mw  <nil> <*>50 <*>https://current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app} {candidate service-with-traffic-split-iptxnynf-cb55j  <nil> <*>50 <*>https://candidate---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app} {latest service-with-traffic-split-iptxnynf-cb55j  <*>true <nil> <*>https://latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app}]}}} <nil>}
+=== CONT  TestServiceCreateAndUpdate
+    util.go:173: Checking to ensure Configuration is in desired state.
+    util.go:188: Checking to ensure Route is in desired state with generation 4
+=== CONT  TestServiceWithTrafficSplit
+    service_test.go:506: Since the Service was updated a new Revision will be created
+=== CONT  TestServiceCreateAndUpdate
+    util.go:131: Checking that the endpoint vends the expected text: Re-energize yourself with a slice of pepperoni!
+    spoof.go:111: Spoofing service-create-and-update-jgmjfqks-whediza7la-uc.a.run.app -> service-create-and-update-jgmjfqks-whediza7la-uc.a.run.app
+    prober.go:187: Stopping all probers
+--- PASS: TestServiceCreateAndUpdate (51.78s)
+=== CONT  TestServiceWithTrafficSplit
+    service_test.go:518: Waiting for Service to become ready with the new shape.
+    service_test.go:523: Traffic should remain between the two images, and the new revision should be available on the named traffic target 'latest'
+    util.go:97: Checking updated route tags https://current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:97: Checking updated route tags https://latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:97: Checking updated route tags https://candidate---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing candidate---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> candidate---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:91: Checking updated route https://service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:191: Performing 200 concurrent requests to https://current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:191: Performing 200 concurrent requests to https://latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:191: Performing 200 concurrent requests to https://service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing candidate---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> candidate---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:191: Performing 200 concurrent requests to https://candidate---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:168: For domain candidate---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app: wanted at least 200, got 200 requests.
+    util.go:168: For domain latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app: wanted at least 200, got 200 requests.
+    util.go:168: For domain service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app: wanted at least 50, got 108 requests.
+    util.go:168: For domain service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app: wanted at least 50, got 92 requests.
+    util.go:168: For domain current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app: wanted at least 200, got 200 requests.
+    service_test.go:541: 5. Updating Service to split traffic between two `current` and `@latest`
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-with-traffic-split-iptxnynf,GenerateName:,Namespace:456833510891,SelfLink:/apis/serving.knative.dev/v1/namespaces/456833510891/services/service-with-traffic-split-iptxnynf,UID:66109925-a9ed-4c83-a7f9-76e885e4dc2f,ResourceVersion:AAXcZa7EmbQ,Generation:5,CreationTimestamp:2022-04-11 12:08:19.874505 -0700 PDT,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{cloud.googleapis.com/location: us-central1,},Annotations:map[string]string{run.googleapis.com/ingress: all,run.googleapis.com/ingress-status: all,serving.knative.dev/creator: yanweiguo@google.com,serving.knative.dev/lastModifier: yanweiguo@google.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{autoscaling.knative.dev/maxScale: 100,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{current service-with-traffic-split-iptxnynf-xw7mw  <nil> <*>50 <nil>} {candidate   <nil> <*>50 <nil>} {latest   <nil> <nil> <nil>}]}} {{5 [{Ready True  {2022-04-11 12:09:25.480884 -0700 PDT}  } {ConfigurationsReady True  {2022-04-11 12:09:18.401505 -0700 PDT}  } {RoutesReady True  {2022-04-11 12:09:25.480884 -0700 PDT}  }] <nil>} {service-with-traffic-split-iptxnynf-tt946 service-with-traffic-split-iptxnynf-tt946} {<*>https://service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app <*>{<*>https://service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app} [{current service-with-traffic-split-iptxnynf-xw7mw  <nil> <*>50 <*>https://current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app} {candidate service-with-traffic-split-iptxnynf-cb55j  <nil> <*>50 <*>https://candidate---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app} {latest service-with-traffic-split-iptxnynf-tt946  <*>true <nil> <*>https://latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app}]}}} <nil>}
+    service_test.go:572: Waiting for Service to become ready with the new shape.
+    util.go:97: Checking updated route tags https://current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:91: Checking updated route https://service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:97: Checking updated route tags https://candidate---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing candidate---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> candidate---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:97: Checking updated route tags https://latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:191: Performing 200 concurrent requests to https://current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:191: Performing 200 concurrent requests to https://latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing candidate---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> candidate---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:191: Performing 200 concurrent requests to https://candidate---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    spoof.go:111: Spoofing service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app -> service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:191: Performing 200 concurrent requests to https://service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app
+    util.go:168: For domain service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app: wanted at least 50, got 100 requests.
+    util.go:168: For domain service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app: wanted at least 50, got 100 requests.
+    util.go:168: For domain current---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app: wanted at least 200, got 200 requests.
+    util.go:168: For domain candidate---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app: wanted at least 200, got 200 requests.
+    util.go:168: For domain latest---service-with-traffic-split-iptxnynf-whediza7la-uc.a.run.app: wanted at least 200, got 200 requests.
+--- PASS: TestServiceWithTrafficSplit (85.55s)
+PASS
+ok  	knative.dev/serving/test/conformance/api/v1	85.674s

@@ -1,0 +1,336 @@
+=== RUN   TestMustHaveCgroupConfigured
+=== PAUSE TestMustHaveCgroupConfigured
+=== RUN   TestShouldHaveCgroupReadOnly
+=== PAUSE TestShouldHaveCgroupReadOnly
+=== RUN   TestCmdArgs
+=== PAUSE TestCmdArgs
+=== RUN   TestMustNotContainerConstraints
+=== PAUSE TestMustNotContainerConstraints
+=== RUN   TestShouldNotContainerConstraints
+=== PAUSE TestShouldNotContainerConstraints
+=== RUN   TestSecretsViaEnv
+=== PAUSE TestSecretsViaEnv
+=== RUN   TestConfigsViaEnv
+=== PAUSE TestConfigsViaEnv
+=== RUN   TestShouldEnvVars
+=== PAUSE TestShouldEnvVars
+=== RUN   TestMustEnvVars
+=== PAUSE TestMustEnvVars
+=== RUN   TestShouldHaveStdinEOF
+I0411 11:56:57.223035 3808303 gcp.go:122] WARNING: the gcp auth plugin is deprecated in v1.22+, unavailable in v1.25+; use gcloud instead.
+To learn more, consult https://kubernetes.io/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins
+    service.go:113: Creating a new Service service should-have-stdin-e-o-f-jwwvjfgm
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:should-have-stdin-e-o-f-jwwvjfgm,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+    service.go:131: Waiting for Service to transition to Ready. service should-have-stdin-e-o-f-jwwvjfgm
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+    service.go:142: Getting latest objects Created by Service
+    service.go:145: Successfully created Service should-have-stdin-e-o-f-jwwvjfgm
+    spoof.go:111: Spoofing should-have-stdin-e-o-f-jwwvjfgm-whediza7la-uc.a.run.app -> should-have-stdin-e-o-f-jwwvjfgm-whediza7la-uc.a.run.app
+--- PASS: TestShouldHaveStdinEOF (9.70s)
+=== RUN   TestMustHaveFiles
+=== PAUSE TestMustHaveFiles
+=== RUN   TestShouldHaveFiles
+=== PAUSE TestShouldHaveFiles
+=== RUN   TestMustHaveHeadersSet
+=== PAUSE TestMustHaveHeadersSet
+=== RUN   TestShouldHaveHeadersSet
+=== PAUSE TestShouldHaveHeadersSet
+=== RUN   TestProtocols
+=== PAUSE TestProtocols
+=== RUN   TestProbeRuntime
+=== PAUSE TestProbeRuntime
+=== RUN   TestProbeRuntimeAfterStartup
+=== PAUSE TestProbeRuntimeAfterStartup
+=== RUN   TestShouldHaveSysctlReadOnly
+=== PAUSE TestShouldHaveSysctlReadOnly
+=== RUN   TestMustRunAsUser
+    user_test.go:40: Container.securityContext is not required by Knative Serving API Specification
+--- SKIP: TestMustRunAsUser (0.00s)
+=== RUN   TestShouldRunAsUserContainerDefault
+    user_test.go:82: Container.securityContext is not required by Knative Serving API Specification
+--- SKIP: TestShouldRunAsUserContainerDefault (0.00s)
+=== RUN   TestWorkingDirService
+=== PAUSE TestWorkingDirService
+=== CONT  TestMustHaveCgroupConfigured
+=== CONT  TestShouldHaveSysctlReadOnly
+=== CONT  TestMustEnvVars
+=== CONT  TestWorkingDirService
+=== CONT  TestShouldNotContainerConstraints
+=== CONT  TestShouldHaveHeadersSet
+=== CONT  TestConfigsViaEnv
+=== CONT  TestCmdArgs
+=== CONT  TestShouldEnvVars
+=== CONT  TestMustNotContainerConstraints
+=== CONT  TestProbeRuntime
+    readiness_probe_test.go:51: Container.readinessProbe is not required by Knative Serving API Specification
+=== CONT  TestProbeRuntimeAfterStartup
+--- SKIP: TestProbeRuntime (0.00s)
+=== CONT  TestProtocols
+=== CONT  TestProbeRuntimeAfterStartup
+    readiness_probe_test.go:162: Container.readinessProbe behaviour after startup is not defined by Knative Serving API Specification
+=== RUN   TestProtocols/h2c
+--- SKIP: TestProbeRuntimeAfterStartup (0.00s)
+=== PAUSE TestProtocols/h2c
+=== CONT  TestShouldHaveFiles
+=== RUN   TestProtocols/http1
+=== PAUSE TestProtocols/http1
+=== RUN   TestProtocols/default
+=== PAUSE TestProtocols/default
+=== CONT  TestMustHaveHeadersSet
+    service.go:113: Creating a new Service service must-have-headers-set-xxmcvtwh
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:must-have-headers-set-xxmcvtwh,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestMustHaveCgroupConfigured
+    service.go:113: Creating a new Service service must-have-cgroup-configured-loecsqyi
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:must-have-cgroup-configured-loecsqyi,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestMustEnvVars
+    service.go:113: Creating a new Service service must-env-vars-tcgttbgl
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:must-env-vars-tcgttbgl,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestWorkingDirService
+    service.go:113: Creating a new Service service working-dir-service-ztoccxqu
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:working-dir-service-ztoccxqu,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestCmdArgs
+    service.go:113: Creating a new Service service cmd-args-sfigrqsw
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:cmd-args-sfigrqsw,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestShouldHaveSysctlReadOnly
+    service.go:113: Creating a new Service service should-have-sysctl-read-only-pkmabzua
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:should-have-sysctl-read-only-pkmabzua,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== RUN   TestMustNotContainerConstraints/TestArbitraryPortName
+=== PAUSE TestMustNotContainerConstraints/TestArbitraryPortName
+=== RUN   TestMustNotContainerConstraints/TestMountPropagation
+=== PAUSE TestMustNotContainerConstraints/TestMountPropagation
+=== CONT  TestSecretsViaEnv
+=== CONT  TestShouldHaveFiles
+    service.go:113: Creating a new Service service should-have-files-pqkwuhne
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:should-have-files-pqkwuhne,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestShouldHaveHeadersSet
+    service.go:113: Creating a new Service service should-have-headers-set-utoirhna
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:should-have-headers-set-utoirhna,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestShouldEnvVars
+    service.go:113: Creating a new Service service should-env-vars-hiwntwsm
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:should-env-vars-hiwntwsm,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== RUN   TestShouldNotContainerConstraints/TestPoststartHook
+=== PAUSE TestShouldNotContainerConstraints/TestPoststartHook
+=== RUN   TestShouldNotContainerConstraints/TestPrestopHook
+=== PAUSE TestShouldNotContainerConstraints/TestPrestopHook
+=== RUN   TestShouldNotContainerConstraints/TestMultiplePorts
+=== PAUSE TestShouldNotContainerConstraints/TestMultiplePorts
+=== RUN   TestShouldNotContainerConstraints/TestHostPort
+=== PAUSE TestShouldNotContainerConstraints/TestHostPort
+=== RUN   TestShouldNotContainerConstraints/TestStdin
+=== PAUSE TestShouldNotContainerConstraints/TestStdin
+=== RUN   TestShouldNotContainerConstraints/TestStdinOnce
+=== PAUSE TestShouldNotContainerConstraints/TestStdinOnce
+=== RUN   TestShouldNotContainerConstraints/TestTTY
+=== PAUSE TestShouldNotContainerConstraints/TestTTY
+=== RUN   TestShouldNotContainerConstraints/TestInvalidUID
+=== PAUSE TestShouldNotContainerConstraints/TestInvalidUID
+=== CONT  TestMustHaveFiles
+=== RUN   TestSecretsViaEnv/env
+=== PAUSE TestSecretsViaEnv/env
+=== RUN   TestSecretsViaEnv/envFrom
+=== PAUSE TestSecretsViaEnv/envFrom
+=== CONT  TestShouldHaveCgroupReadOnly
+=== RUN   TestConfigsViaEnv/env
+=== PAUSE TestConfigsViaEnv/env
+=== RUN   TestConfigsViaEnv/envFrom
+=== PAUSE TestConfigsViaEnv/envFrom
+=== CONT  TestProtocols/h2c
+    service.go:113: Creating a new Service service protocols-h2c-fjfntlzn
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:protocols-h2c-fjfntlzn,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestShouldHaveCgroupReadOnly
+    service.go:113: Creating a new Service service should-have-cgroup-read-only-ejlobofw
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:should-have-cgroup-read-only-ejlobofw,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestMustHaveFiles
+    service.go:113: Creating a new Service service must-have-files-piqsyrgi
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:must-have-files-piqsyrgi,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestMustHaveCgroupConfigured
+    service.go:131: Waiting for Service to transition to Ready. service must-have-cgroup-configured-loecsqyi
+=== CONT  TestCmdArgs
+    service.go:131: Waiting for Service to transition to Ready. service cmd-args-sfigrqsw
+=== CONT  TestShouldHaveCgroupReadOnly
+    service.go:131: Waiting for Service to transition to Ready. service should-have-cgroup-read-only-ejlobofw
+=== CONT  TestShouldHaveHeadersSet
+    service.go:131: Waiting for Service to transition to Ready. service should-have-headers-set-utoirhna
+=== CONT  TestMustHaveHeadersSet
+    service.go:131: Waiting for Service to transition to Ready. service must-have-headers-set-xxmcvtwh
+=== CONT  TestMustEnvVars
+    service.go:131: Waiting for Service to transition to Ready. service must-env-vars-tcgttbgl
+=== CONT  TestProtocols/h2c
+    service.go:131: Waiting for Service to transition to Ready. service protocols-h2c-fjfntlzn
+=== CONT  TestShouldHaveSysctlReadOnly
+    service.go:131: Waiting for Service to transition to Ready. service should-have-sysctl-read-only-pkmabzua
+=== CONT  TestWorkingDirService
+    service.go:131: Waiting for Service to transition to Ready. service working-dir-service-ztoccxqu
+=== CONT  TestMustHaveFiles
+    service.go:131: Waiting for Service to transition to Ready. service must-have-files-piqsyrgi
+=== CONT  TestShouldHaveFiles
+    service.go:131: Waiting for Service to transition to Ready. service should-have-files-pqkwuhne
+=== CONT  TestShouldEnvVars
+    service.go:131: Waiting for Service to transition to Ready. service should-env-vars-hiwntwsm
+=== CONT  TestMustHaveCgroupConfigured
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+    service.go:142: Getting latest objects Created by Service
+    service.go:145: Successfully created Service must-have-cgroup-configured-loecsqyi
+    spoof.go:111: Spoofing must-have-cgroup-configured-loecsqyi-whediza7la-uc.a.run.app -> must-have-cgroup-configured-loecsqyi-whediza7la-uc.a.run.app
+--- PASS: TestMustHaveCgroupConfigured (8.57s)
+=== CONT  TestProtocols/default
+    service.go:113: Creating a new Service service protocols-default-itajgdxw
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:protocols-default-itajgdxw,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestShouldHaveHeadersSet
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestProtocols/default
+    service.go:131: Waiting for Service to transition to Ready. service protocols-default-itajgdxw
+=== CONT  TestShouldHaveHeadersSet
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestShouldHaveFiles
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestShouldHaveHeadersSet
+    service.go:145: Successfully created Service should-have-headers-set-utoirhna
+    spoof.go:111: Spoofing should-have-headers-set-utoirhna-whediza7la-uc.a.run.app -> should-have-headers-set-utoirhna-whediza7la-uc.a.run.app
+=== CONT  TestShouldHaveFiles
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestShouldHaveCgroupReadOnly
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestWorkingDirService
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestCmdArgs
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestWorkingDirService
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestShouldHaveCgroupReadOnly
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestMustHaveHeadersSet
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestMustEnvVars
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestShouldHaveSysctlReadOnly
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestShouldEnvVars
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestMustHaveHeadersSet
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestShouldHaveSysctlReadOnly
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestCmdArgs
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestProtocols/h2c
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestMustEnvVars
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestShouldEnvVars
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestProtocols/h2c
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestShouldHaveFiles
+    service.go:145: Successfully created Service should-have-files-pqkwuhne
+    spoof.go:111: Spoofing should-have-files-pqkwuhne-whediza7la-uc.a.run.app -> should-have-files-pqkwuhne-whediza7la-uc.a.run.app
+=== CONT  TestWorkingDirService
+    service.go:145: Successfully created Service working-dir-service-ztoccxqu
+    spoof.go:111: Spoofing working-dir-service-ztoccxqu-whediza7la-uc.a.run.app -> working-dir-service-ztoccxqu-whediza7la-uc.a.run.app
+--- PASS: TestShouldHaveHeadersSet (11.33s)
+=== CONT  TestProtocols/http1
+    service.go:113: Creating a new Service service protocols-http1-ccguvhrl
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:protocols-http1-ccguvhrl,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestMustHaveHeadersSet
+    service.go:145: Successfully created Service must-have-headers-set-xxmcvtwh
+    spoof.go:111: Spoofing must-have-headers-set-xxmcvtwh-whediza7la-uc.a.run.app -> must-have-headers-set-xxmcvtwh-whediza7la-uc.a.run.app
+=== CONT  TestShouldEnvVars
+    service.go:145: Successfully created Service should-env-vars-hiwntwsm
+    spoof.go:111: Spoofing should-env-vars-hiwntwsm-whediza7la-uc.a.run.app -> should-env-vars-hiwntwsm-whediza7la-uc.a.run.app
+=== CONT  TestShouldHaveSysctlReadOnly
+    service.go:145: Successfully created Service should-have-sysctl-read-only-pkmabzua
+    spoof.go:111: Spoofing should-have-sysctl-read-only-pkmabzua-whediza7la-uc.a.run.app -> should-have-sysctl-read-only-pkmabzua-whediza7la-uc.a.run.app
+=== CONT  TestShouldHaveCgroupReadOnly
+    service.go:145: Successfully created Service should-have-cgroup-read-only-ejlobofw
+    spoof.go:111: Spoofing should-have-cgroup-read-only-ejlobofw-whediza7la-uc.a.run.app -> should-have-cgroup-read-only-ejlobofw-whediza7la-uc.a.run.app
+=== CONT  TestCmdArgs
+    service.go:145: Successfully created Service cmd-args-sfigrqsw
+    spoof.go:111: Spoofing cmd-args-sfigrqsw-whediza7la-uc.a.run.app -> cmd-args-sfigrqsw-whediza7la-uc.a.run.app
+=== CONT  TestProtocols/http1
+    service.go:131: Waiting for Service to transition to Ready. service protocols-http1-ccguvhrl
+--- PASS: TestShouldHaveFiles (11.79s)
+=== CONT  TestMustNotContainerConstraints/TestArbitraryPortName
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:must-not-container-constraints-test-arbit-cvenfytt,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestProtocols/h2c
+    service.go:145: Successfully created Service protocols-h2c-fjfntlzn
+    spoof.go:111: Spoofing protocols-h2c-fjfntlzn-whediza7la-uc.a.run.app -> protocols-h2c-fjfntlzn-whediza7la-uc.a.run.app
+=== CONT  TestMustNotContainerConstraints/TestMountPropagation
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:must-not-container-constraints-test-mount-djyvcnvd,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestMustEnvVars
+    service.go:145: Successfully created Service must-env-vars-tcgttbgl
+    spoof.go:111: Spoofing must-env-vars-tcgttbgl-whediza7la-uc.a.run.app -> must-env-vars-tcgttbgl-whediza7la-uc.a.run.app
+--- PASS: TestMustNotContainerConstraints (0.04s)
+    --- PASS: TestMustNotContainerConstraints/TestArbitraryPortName (0.12s)
+    --- PASS: TestMustNotContainerConstraints/TestMountPropagation (0.06s)
+=== CONT  TestShouldNotContainerConstraints/TestPoststartHook
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:should-not-container-constraints-test-pos-ieaptcsu,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestMustHaveFiles
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestShouldNotContainerConstraints/TestStdin
+--- PASS: TestShouldEnvVars (12.05s)
+=== CONT  TestShouldNotContainerConstraints/TestStdin
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:should-not-container-constraints-test-std-dvedgibn,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestMustHaveFiles
+    service.go:142: Getting latest objects Created by Service
+--- PASS: TestShouldHaveSysctlReadOnly (12.18s)
+=== CONT  TestShouldNotContainerConstraints/TestInvalidUID
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:should-not-container-constraints-test-inv-autyuhqa,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+--- PASS: TestWorkingDirService (12.19s)
+=== CONT  TestShouldNotContainerConstraints/TestTTY
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:should-not-container-constraints-test-t-t-kzgaqtss,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestShouldNotContainerConstraints/TestStdinOnce
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:should-not-container-constraints-test-std-psjptrbg,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestShouldNotContainerConstraints/TestMultiplePorts
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:should-not-container-constraints-test-mul-smehvaai,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+--- PASS: TestShouldHaveCgroupReadOnly (12.21s)
+=== CONT  TestShouldNotContainerConstraints/TestPrestopHook
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:should-not-container-constraints-test-pre-qncrezta,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestShouldNotContainerConstraints/TestHostPort
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:should-not-container-constraints-test-hos-gwquksmb,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestSecretsViaEnv/env
+    envpropagation_test.go:40: Container.env.valueFrom is not required by Knative Serving API Specification
+=== CONT  TestSecretsViaEnv/envFrom
+    envpropagation_test.go:62: Container.envFrom is not required by Knative Serving API Specification
+=== CONT  TestConfigsViaEnv/env
+--- PASS: TestSecretsViaEnv (0.01s)
+    --- SKIP: TestSecretsViaEnv/env (0.00s)
+    --- SKIP: TestSecretsViaEnv/envFrom (0.00s)
+=== CONT  TestConfigsViaEnv/env
+    envpropagation_test.go:86: Container.env.valueFrom is not required by Knative Serving API Specification
+=== CONT  TestConfigsViaEnv/envFrom
+    envpropagation_test.go:108: Container.envFrom is not required by Knative Serving API Specification
+--- PASS: TestConfigsViaEnv (0.05s)
+    --- SKIP: TestConfigsViaEnv/env (0.00s)
+    --- SKIP: TestConfigsViaEnv/envFrom (0.00s)
+--- PASS: TestShouldNotContainerConstraints (0.04s)
+    --- PASS: TestShouldNotContainerConstraints/TestPoststartHook (0.24s)
+    --- PASS: TestShouldNotContainerConstraints/TestTTY (0.06s)
+    --- PASS: TestShouldNotContainerConstraints/TestStdin (0.25s)
+    --- PASS: TestShouldNotContainerConstraints/TestHostPort (0.06s)
+    --- PASS: TestShouldNotContainerConstraints/TestStdinOnce (0.25s)
+    --- PASS: TestShouldNotContainerConstraints/TestPrestopHook (0.23s)
+    --- PASS: TestShouldNotContainerConstraints/TestInvalidUID (0.31s)
+    --- PASS: TestShouldNotContainerConstraints/TestMultiplePorts (0.29s)
+=== CONT  TestMustHaveFiles
+    service.go:145: Successfully created Service must-have-files-piqsyrgi
+    spoof.go:111: Spoofing must-have-files-piqsyrgi-whediza7la-uc.a.run.app -> must-have-files-piqsyrgi-whediza7la-uc.a.run.app
+--- PASS: TestCmdArgs (12.78s)
+--- PASS: TestMustHaveHeadersSet (12.82s)
+--- PASS: TestMustEnvVars (13.57s)
+--- PASS: TestMustHaveFiles (14.05s)
+=== CONT  TestProtocols/http1
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+    service.go:142: Getting latest objects Created by Service
+    service.go:145: Successfully created Service protocols-http1-ccguvhrl
+    spoof.go:111: Spoofing protocols-http1-ccguvhrl-whediza7la-uc.a.run.app -> protocols-http1-ccguvhrl-whediza7la-uc.a.run.app
+=== CONT  TestProtocols/default
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+    service.go:142: Getting latest objects Created by Service
+    service.go:145: Successfully created Service protocols-default-itajgdxw
+    spoof.go:111: Spoofing protocols-default-itajgdxw-whediza7la-uc.a.run.app -> protocols-default-itajgdxw-whediza7la-uc.a.run.app
+--- PASS: TestProtocols (0.00s)
+    --- PASS: TestProtocols/h2c (13.48s)
+    --- PASS: TestProtocols/default (9.95s)
+    --- PASS: TestProtocols/http1 (7.28s)
+PASS
+ok  	knative.dev/serving/test/conformance/runtime	28.435s
