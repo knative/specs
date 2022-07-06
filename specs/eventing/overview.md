@@ -89,7 +89,7 @@ Eventing.
 
 ### Addressable
 
-[**Addressable**](./control-plane.md#addressable-v1) resources expose a resource
+[**Addressable**](./control-plane.md#addressable) resources expose a resource
 `address` (HTTP URL) in their `status` object. The URL is used as a destination
 for delivery of events to the resource; the exposed URL must implement the
 [data plane contract](data-plane.md) for receiving events.
@@ -120,7 +120,7 @@ time.
 
 ### Broker
 
-[**Broker**](./control-plane.md#broker-v1) provides a central event-routing hub
+[**Broker**](./control-plane.md#broker) provides a central event-routing hub
 which exposes a URL address which event senders may use to submit events to the
 broker. A Broker may be implemented using many different underlying
 event-forwarding mechanisms; the broker defines a small set of common
@@ -131,7 +131,7 @@ the external objects is intentionally not standardized.
 
 ### Trigger
 
-[**Trigger**](./control-plane.md#trigger-v1) defines a filtered delivery option
+[**Trigger**](./control-plane.md#trigger) defines a filtered delivery option
 to select events delivered to a **Broker** and route them to a **Destination**.
 Trigger implements uniform event filtering based on the CloudEvents attributes
 associated with the event, ignoring the payload (which might be large and/or
@@ -143,7 +143,7 @@ external resources.
 
 ### Channel
 
-[**Channel**](./control-plane.md#channel-v1) provides an abstract interface
+[**Channel**](./control-plane.md#channel) provides an abstract interface
 which may be fulfilled by several concrete implementations of a backing
 asynchronous fan-out queue. The common abstraction provided by channel allows
 both the composition of higher-level constructs for chained or parallel
@@ -153,7 +153,7 @@ channel compared with the production environment).
 
 ### Subscription
 
-[**Subscription**](./control-plane.md#subscription-v1) defines a delivery
+[**Subscription**](./control-plane.md#subscription) defines a delivery
 destination for all events sent to a **Channel**. Events sent to a channel are
 delivered to _each_ subscription _independently_ -- a subscription maintains its
 own list of undelivered events and will manage retries independently of any
