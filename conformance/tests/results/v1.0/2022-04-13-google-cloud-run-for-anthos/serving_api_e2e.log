@@ -1,0 +1,1620 @@
+?   	knative.dev/serving/test/conformance/api/shared	[no test files]
+=== RUN   TestBlueGreenRoute
+=== PAUSE TestBlueGreenRoute
+=== RUN   TestConfigurationGetAndList
+=== PAUSE TestConfigurationGetAndList
+=== RUN   TestUpdateConfigurationMetadata
+=== PAUSE TestUpdateConfigurationMetadata
+=== RUN   TestContainerErrorMsg
+=== PAUSE TestContainerErrorMsg
+=== RUN   TestContainerExitingMsg
+=== PAUSE TestContainerExitingMsg
+=== RUN   TestServiceGenerateName
+=== PAUSE TestServiceGenerateName
+=== RUN   TestRouteAndConfigGenerateName
+=== PAUSE TestRouteAndConfigGenerateName
+=== RUN   TestCustomResourcesLimits
+=== PAUSE TestCustomResourcesLimits
+=== RUN   TestRevisionGetAndList
+=== PAUSE TestRevisionGetAndList
+=== RUN   TestRevisionTimeout
+=== PAUSE TestRevisionTimeout
+=== RUN   TestRouteGetAndList
+=== PAUSE TestRouteGetAndList
+=== RUN   TestRouteCreation
+=== PAUSE TestRouteCreation
+=== RUN   TestServiceAccountValidation
+=== PAUSE TestServiceAccountValidation
+=== RUN   TestServiceCreateListAndDelete
+=== PAUSE TestServiceCreateListAndDelete
+=== RUN   TestServiceCreateAndUpdate
+=== PAUSE TestServiceCreateAndUpdate
+=== RUN   TestServiceBYOName
+=== PAUSE TestServiceBYOName
+=== RUN   TestServiceWithTrafficSplit
+=== PAUSE TestServiceWithTrafficSplit
+=== RUN   TestAnnotationPropagation
+=== PAUSE TestAnnotationPropagation
+=== RUN   TestServiceCreateWithMultipleContainers
+    service_test.go:692:
+--- SKIP: TestServiceCreateWithMultipleContainers (0.00s)
+=== RUN   TestServiceCreateWithEmptyDir
+    service_test.go:740:
+--- SKIP: TestServiceCreateWithEmptyDir (0.00s)
+=== RUN   TestSingleConcurrency
+=== PAUSE TestSingleConcurrency
+=== RUN   TestConfigMapVolume
+=== PAUSE TestConfigMapVolume
+=== RUN   TestProjectedConfigMapVolume
+=== PAUSE TestProjectedConfigMapVolume
+=== RUN   TestSecretVolume
+=== PAUSE TestSecretVolume
+=== RUN   TestProjectedSecretVolume
+=== PAUSE TestProjectedSecretVolume
+=== RUN   TestProjectedComplex
+=== PAUSE TestProjectedComplex
+=== RUN   TestProjectedServiceAccountToken
+=== PAUSE TestProjectedServiceAccountToken
+=== CONT  TestServiceCreateListAndDelete
+    service.go:113: Creating a new Service service service-create-list-and-delete-ajilcwva
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-create-list-and-delete-ajilcwva,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestUpdateConfigurationMetadata
+    configuration_test.go:90: Creating new configuration update-configuration-metadata-uuraugxb
+    crd.go:36:  resource {<nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:update-configuration-metadata-uuraugxb,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {{0 <nil> <nil>} { }}} <nil> <nil>}
+=== CONT  TestProjectedServiceAccountToken
+    service.go:113: Creating a new Service service projected-service-account-token-zfrqzgmv
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:projected-service-account-token-zfrqzgmv,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestServiceBYOName
+    service.go:113: Creating a new Service service service-b-y-o-name-vzteseru
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-b-y-o-name-vzteseru,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:service-b-y-o-name-vzteseru-byoname,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestConfigurationGetAndList
+    service.go:113: Creating a new Service service configuration-get-and-list-cymasdwr
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:configuration-get-and-list-cymasdwr,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== RUN   TestRevisionTimeout/does_not_exceed_timeout_seconds
+=== PAUSE TestRevisionTimeout/does_not_exceed_timeout_seconds
+=== RUN   TestRevisionTimeout/exceeds_timeout_seconds
+=== PAUSE TestRevisionTimeout/exceeds_timeout_seconds
+=== RUN   TestRevisionTimeout/writes_first_byte_before_timeout
+=== PAUSE TestRevisionTimeout/writes_first_byte_before_timeout
+=== CONT  TestRevisionTimeout/writes_first_byte_before_timeout
+    revision_timeout_test.go:114: Creating a new Service
+    service.go:113: Creating a new Service service revision-timeout-writes-first-byte-before-ipjbxplh
+=== CONT  TestRevisionTimeout/exceeds_timeout_seconds
+    revision_timeout_test.go:114: Creating a new Service
+    service.go:113: Creating a new Service service revision-timeout-exceeds-timeout-seconds-hahsdnfq
+=== CONT  TestRevisionTimeout/does_not_exceed_timeout_seconds
+    revision_timeout_test.go:114: Creating a new Service
+    service.go:113: Creating a new Service service revision-timeout-does-not-exceed-timeout--bxqdfjbz
+=== CONT  TestRevisionTimeout/writes_first_byte_before_timeout
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:revision-timeout-writes-first-byte-before-ipjbxplh,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestRevisionTimeout/exceeds_timeout_seconds
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:revision-timeout-exceeds-timeout-seconds-hahsdnfq,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestRevisionTimeout/does_not_exceed_timeout_seconds
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:revision-timeout-does-not-exceed-timeout--bxqdfjbz,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestProjectedComplex
+    volumes_test.go:352: Successfully created configMap: &ConfigMap{ObjectMeta:{projected-complex-axnxirue  serving-tests  00121c72-b8ad-4924-8362-2d091b23c389 10529 0 2022-04-05 20:23:10 +0000 UTC <nil> <nil> map[] map[] [] []  [{v1.test Update v1 2022-04-05 20:23:10 +0000 UTC FieldsV1 {"f:data":{".":{},"f:other":{},"f:world":{}}}}]},Data:map[string]string{other: projected-complex-dxspuqwr,world: projected-complex-rzvemfdp,},BinaryData:map[string][]byte{},Immutable:nil,}
+=== CONT  TestRouteAndConfigGenerateName
+    generatename_test.go:169: Creating new configuration with generateName route-and-config-generate-name-qriadgiy-
+=== CONT  TestSingleConcurrency
+    service.go:113: Creating a new Service service single-concurrency-esjvidva
+=== CONT  TestRouteAndConfigGenerateName
+    crd.go:36:  resource {<nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:,GenerateName:route-and-config-generate-name-qriadgiy-,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {{0 <nil> <nil>} { }}} <nil> <nil>}
+=== CONT  TestSingleConcurrency
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:single-concurrency-esjvidva,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestRouteGetAndList
+    service.go:113: Creating a new Service service route-get-and-list-jqeqqtli
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:route-get-and-list-jqeqqtli,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestRevisionGetAndList
+    service.go:113: Creating a new Service service revision-get-and-list-iansyksf
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:revision-get-and-list-iansyksf,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestAnnotationPropagation
+    service.go:113: Creating a new Service service annotation-propagation-fykmbrho
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:annotation-propagation-fykmbrho,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestContainerErrorMsg
+    errorcondition_test.go:55: Creating a new Service container-error-msg-mftbndyi
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:container-error-msg-mftbndyi,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestCustomResourcesLimits
+    resources_test.go:44: Creating a new Route and Configuration
+=== CONT  TestServiceAccountValidation
+    service_account_test.go:53: Creating a new Service service-account-validation-jmtaolze
+=== CONT  TestRouteCreation
+    route_test.go:157: Creating a new Route and Configuration
+=== CONT  TestServiceGenerateName
+    generatename_test.go:132: Creating new service with generateName service-generate-name-tyqxpdbn-
+=== CONT  TestServiceWithTrafficSplit
+    service.go:113: Creating a new Service service service-with-traffic-split-nhszylrk
+=== CONT  TestContainerExitingMsg
+    errorcondition_test.go:132: Creating a new Service
+=== CONT  TestServiceGenerateName
+    service.go:113: Creating a new Service service
+=== CONT  TestServiceCreateAndUpdate
+    service.go:113: Creating a new Service service service-create-and-update-rdgwabks
+=== CONT  TestRouteCreation
+    crd.go:36:  resource {<nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:route-creation-mluuqhhx,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {{0 <nil> <nil>} { }}} <nil> <nil>}
+=== CONT  TestBlueGreenRoute
+    blue_green_test.go:67: Creating a new Service in runLatest
+    service.go:113: Creating a new Service service blue-green-route-hcanxhcb
+=== CONT  TestCustomResourcesLimits
+    service.go:113: Creating a new Service service custom-resources-limits-dnxjtqpy
+=== CONT  TestServiceAccountValidation
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-account-validation-jmtaolze,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestServiceWithTrafficSplit
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-with-traffic-split-nhszylrk,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestServiceCreateAndUpdate
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-create-and-update-rdgwabks,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestContainerExitingMsg
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:container-exiting-msg-bdjfjlff,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestCustomResourcesLimits
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:custom-resources-limits-dnxjtqpy,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestBlueGreenRoute
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:blue-green-route-hcanxhcb,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestServiceGenerateName
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:,GenerateName:service-generate-name-tyqxpdbn-,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestProjectedComplex
+    volumes_test.go:366: Successfully created secret: &Secret{ObjectMeta:{projected-complex-axnxirue  serving-tests  65c7bede-e06d-4d0a-974b-99c39e935b44 10534 0 2022-04-05 20:23:10 +0000 UTC <nil> <nil> map[] map[] [] []  [{v1.test Update v1 2022-04-05 20:23:10 +0000 UTC FieldsV1 {"f:data":{".":{},"f:world":{}},"f:type":{}}}]},Data:map[string][]byte{world: [112 114 111 106 101 99 116 101 100 45 99 111 109 112 108 101 120 45 99 118 109 99 106 113 99 97],},Type:Opaque,StringData:map[string]string{},Immutable:nil,}
+    service.go:113: Creating a new Service service projected-complex-axnxirue
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:projected-complex-axnxirue,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestSecretVolume
+    volumes_test.go:213: Successfully created secret: &Secret{ObjectMeta:{secret-volume-hicdhvdb  serving-tests  0a4bbd0a-f1b9-488d-8e97-b4a269824362 10543 0 2022-04-05 20:23:10 +0000 UTC <nil> <nil> map[] map[] [] []  [{v1.test Update v1 2022-04-05 20:23:10 +0000 UTC FieldsV1 {"f:data":{".":{},"f:world":{}},"f:type":{}}}]},Data:map[string][]byte{world: [115 101 99 114 101 116 45 118 111 108 117 109 101 45 103 109 111 99 103 116 114 113],},Type:Opaque,StringData:map[string]string{},Immutable:nil,}
+    service.go:113: Creating a new Service service secret-volume-hicdhvdb
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:secret-volume-hicdhvdb,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestServiceCreateListAndDelete
+    service.go:131: Waiting for Service to transition to Ready. service service-create-list-and-delete-ajilcwva
+=== CONT  TestProjectedServiceAccountToken
+    service.go:131: Waiting for Service to transition to Ready. service projected-service-account-token-zfrqzgmv
+=== CONT  TestAnnotationPropagation
+    service.go:131: Waiting for Service to transition to Ready. service annotation-propagation-fykmbrho
+=== CONT  TestRouteGetAndList
+    service.go:131: Waiting for Service to transition to Ready. service route-get-and-list-jqeqqtli
+=== CONT  TestConfigurationGetAndList
+    service.go:131: Waiting for Service to transition to Ready. service configuration-get-and-list-cymasdwr
+=== CONT  TestRevisionTimeout/exceeds_timeout_seconds
+    service.go:131: Waiting for Service to transition to Ready. service revision-timeout-exceeds-timeout-seconds-hahsdnfq
+=== CONT  TestProjectedConfigMapVolume
+    volumes_test.go:141: Successfully created configMap: &ConfigMap{ObjectMeta:{projected-config-map-volume-zfnlykfu  serving-tests  48469b8e-e640-4649-9403-c6227c62cb86 10553 0 2022-04-05 20:23:10 +0000 UTC <nil> <nil> map[] map[] [] []  [{v1.test Update v1 2022-04-05 20:23:10 +0000 UTC FieldsV1 {"f:data":{".":{},"f:world":{}}}}]},Data:map[string]string{world: hello-volumes--cxprsngb,},BinaryData:map[string][]byte{},Immutable:nil,}
+    service.go:113: Creating a new Service service projected-config-map-volume-zfnlykfu
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:projected-config-map-volume-zfnlykfu,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestRouteCreation
+    crd.go:36:  resource {<*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:route-creation-mluuqhhx,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {[{route-creation-mluuqhhx  route-creation-mluuqhhx <nil> <*>100 <nil>}]} {{0 <nil> <nil>} {<nil> <nil> <nil>}}} <nil> <nil> <nil>}
+=== CONT  TestSingleConcurrency
+    service.go:131: Waiting for Service to transition to Ready. service single-concurrency-esjvidva
+=== CONT  TestRevisionTimeout/writes_first_byte_before_timeout
+    service.go:131: Waiting for Service to transition to Ready. service revision-timeout-writes-first-byte-before-ipjbxplh
+=== CONT  TestRevisionTimeout/does_not_exceed_timeout_seconds
+    service.go:131: Waiting for Service to transition to Ready. service revision-timeout-does-not-exceed-timeout--bxqdfjbz
+=== CONT  TestRevisionGetAndList
+    service.go:131: Waiting for Service to transition to Ready. service revision-get-and-list-iansyksf
+=== CONT  TestContainerErrorMsg
+    errorcondition_test.go:65: When the imagepath is invalid, the Service should have error status.
+=== CONT  TestBlueGreenRoute
+    service.go:131: Waiting for Service to transition to Ready. service blue-green-route-hcanxhcb
+=== CONT  TestServiceWithTrafficSplit
+    service.go:131: Waiting for Service to transition to Ready. service service-with-traffic-split-nhszylrk
+=== CONT  TestConfigMapVolume
+    volumes_test.go:70: Successfully created configMap: &ConfigMap{ObjectMeta:{config-map-volume-sjunzdil  serving-tests  781da625-8e2a-48fb-8540-e65f785c3dc8 10563 0 2022-04-05 20:23:10 +0000 UTC <nil> <nil> map[] map[] [] []  [{v1.test Update v1 2022-04-05 20:23:10 +0000 UTC FieldsV1 {"f:data":{".":{},"f:world":{}}}}]},Data:map[string]string{world: hello-volumes--uewwohwh,},BinaryData:map[string][]byte{},Immutable:nil,}
+    service.go:113: Creating a new Service service config-map-volume-sjunzdil
+=== CONT  TestProjectedSecretVolume
+    volumes_test.go:279: Successfully created secret: &Secret{ObjectMeta:{projected-secret-volume-yfbutfmz  serving-tests  23fbb397-0405-493f-8b0e-957281f8739c 10562 0 2022-04-05 20:23:10 +0000 UTC <nil> <nil> map[] map[] [] []  [{v1.test Update v1 2022-04-05 20:23:10 +0000 UTC FieldsV1 {"f:data":{".":{},"f:world":{}},"f:type":{}}}]},Data:map[string][]byte{world: [112 114 111 106 101 99 116 101 100 45 115 101 99 114 101 116 45 118 111 108 117 109 101 45 121 118 116 99 118 110 115 108],},Type:Opaque,StringData:map[string]string{},Immutable:nil,}
+    service.go:113: Creating a new Service service projected-secret-volume-yfbutfmz
+=== CONT  TestConfigMapVolume
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:config-map-volume-sjunzdil,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestProjectedSecretVolume
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:projected-secret-volume-yfbutfmz,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestSecretVolume
+    service.go:131: Waiting for Service to transition to Ready. service secret-volume-hicdhvdb
+=== CONT  TestCustomResourcesLimits
+    service.go:131: Waiting for Service to transition to Ready. service custom-resources-limits-dnxjtqpy
+=== CONT  TestServiceBYOName
+    service.go:131: Waiting for Service to transition to Ready. service service-b-y-o-name-vzteseru
+=== CONT  TestProjectedComplex
+    service.go:131: Waiting for Service to transition to Ready. service projected-complex-axnxirue
+=== CONT  TestContainerExitingMsg
+    errorcondition_test.go:139: When the containers keep crashing, the Service should have error status.
+=== CONT  TestServiceGenerateName
+    service.go:131: Waiting for Service to transition to Ready. service service-generate-name-tyqxpdbn-gjdjr
+=== CONT  TestRouteAndConfigGenerateName
+    generatename_test.go:177: The configuration will be updated with the name of the associated Revision once it is created.
+=== CONT  TestProjectedConfigMapVolume
+    service.go:131: Waiting for Service to transition to Ready. service projected-config-map-volume-zfnlykfu
+=== CONT  TestProjectedServiceAccountToken
+--- PASS: TestServiceAccountValidation (0.34s)
+=== CONT  TestRouteCreation
+    route_test.go:170: The Configuration will be updated with the name of the Revision
+=== CONT  TestServiceCreateAndUpdate
+    service.go:131: Waiting for Service to transition to Ready. service service-create-and-update-rdgwabks
+=== CONT  TestConfigMapVolume
+    service.go:131: Waiting for Service to transition to Ready. service config-map-volume-sjunzdil
+=== CONT  TestProjectedSecretVolume
+    service.go:131: Waiting for Service to transition to Ready. service projected-secret-volume-yfbutfmz
+=== CONT  TestContainerErrorMsg
+    errorcondition_test.go:71: When the imagepath is invalid, the Configuration should have error status.
+    errorcondition_test.go:74: Config container-error-msg-mftbndyi Ready status = &{Ready False  {2022-04-05 20:23:13 +0000 UTC} RevisionFailed Revision "container-error-msg-mftbndyi-00001" failed with message: Unable to fetch image "gcr.io/cr-gke-boskos-179/invalidhelloworld:latest": failed to resolve image to digest: HEAD https://gcr.io/v2/cr-gke-boskos-179/invalidhelloworld/manifests/latest: unexpected status code 404 Not Found (HEAD responses have no body, use GET for details).}
+    errorcondition_test.go:94: When the imagepath is invalid, the Revision should have error status.
+=== CONT  TestCustomResourcesLimits
+=== CONT  TestContainerErrorMsg
+    errorcondition_test.go:97: Revision container-error-msg-mftbndyi-00001 Ready state = &apis.Condition{Type:"Ready", Status:"False", Severity:"", LastTransitionTime:apis.VolatileTime{Inner:v1.Time{Time:time.Time{wall:0x0, ext:63784786993, loc:(*time.Location)(0x36d64a0)}}}, Reason:"ContainerMissing", Message:"Unable to fetch image \"gcr.io/cr-gke-boskos-179/invalidhelloworld:latest\": failed to resolve image to digest: HEAD https://gcr.io/v2/cr-gke-boskos-179/invalidhelloworld/manifests/latest: unexpected status code 404 Not Found (HEAD responses have no body, use GET for details)"}
+    errorcondition_test.go:110: Checking to ensure Route is in desired state
+--- PASS: TestContainerErrorMsg (3.52s)
+=== CONT  TestUpdateConfigurationMetadata
+    configuration_test.go:103: Updating labels of Configuration update-configuration-metadata-uuraugxb
+=== CONT  TestUpdateConfigurationMetadata
+    configuration_test.go:127: Validating labels were not propagated to Revision update-configuration-metadata-uuraugxb-00001
+    configuration_test.go:136: Updating annotations of Configuration update-configuration-metadata-uuraugxb
+=== CONT  TestUpdateConfigurationMetadata
+    configuration_test.go:158: Validating annotations were not propagated to Revision update-configuration-metadata-uuraugxb-00001
+--- PASS: TestUpdateConfigurationMetadata (8.44s)
+=== CONT  TestServiceCreateListAndDelete
+          v1alpha1.PodAutoscalerSpec{
+          	ContainerConcurrency: 0,
+          	ScaleTargetRef:       {Kind: "Deployment", Name: "service-create-list-and-delete-ajilcwva-00001-deployment", APIVersion: "apps/v1"},
+        - 	Reachability:         "Reachable",
+        + 	Reachability:         "",
+          	ProtocolType:         "http1",
+          }
+=== CONT  TestRevisionGetAndList
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestRevisionGetAndList
+    service.go:145: Successfully created Service revision-get-and-list-iansyksf
+=== CONT  TestRevisionGetAndList
+    revision_test.go:59: Revision Returned: annotation-propagation-fykmbrho-00001
+    revision_test.go:59: Revision Returned: blue-green-route-hcanxhcb-00001
+    revision_test.go:59: Revision Returned: config-map-volume-sjunzdil-00001
+    revision_test.go:59: Revision Returned: configuration-get-and-list-cymasdwr-00001
+    revision_test.go:59: Revision Returned: container-exiting-msg-bdjfjlff-00001
+    revision_test.go:59: Revision Returned: custom-resources-limits-dnxjtqpy-00001
+    revision_test.go:59: Revision Returned: projected-complex-axnxirue-00001
+    revision_test.go:59: Revision Returned: projected-config-map-volume-zfnlykfu-00001
+    revision_test.go:59: Revision Returned: projected-secret-volume-yfbutfmz-00001
+    revision_test.go:59: Revision Returned: projected-service-account-token-zfrqzgmv-00001
+    revision_test.go:59: Revision Returned: revision-get-and-list-iansyksf-00001
+    revision_test.go:59: Revision Returned: revision-timeout-does-not-exceed-timeout--bxqdfjbz-00001
+    revision_test.go:59: Revision Returned: revision-timeout-exceeds-timeout-seconds-hahsdnfq-00001
+    revision_test.go:59: Revision Returned: revision-timeout-writes-first-byte-before-ipjbxplh-00001
+    revision_test.go:59: Revision Returned: route-and-config-generate-name-qriadgiy-8w857-00001
+    revision_test.go:59: Revision Returned: route-creation-mluuqhhx-00001
+    revision_test.go:59: Revision Returned: route-get-and-list-jqeqqtli-00001
+    revision_test.go:59: Revision Returned: secret-volume-hicdhvdb-00001
+    revision_test.go:59: Revision Returned: service-b-y-o-name-vzteseru-byoname
+    revision_test.go:59: Revision Returned: service-create-and-update-rdgwabks-00001
+    revision_test.go:59: Revision Returned: service-create-list-and-delete-ajilcwva-00001
+    revision_test.go:59: Revision Returned: service-generate-name-tyqxpdbn-gjdjr-00001
+    revision_test.go:59: Revision Returned: service-with-traffic-split-nhszylrk-00001
+    revision_test.go:59: Revision Returned: single-concurrency-esjvidva-00001
+    revision_test.go:59: Revision Returned: update-configuration-metadata-uuraugxb-00001
+--- PASS: TestRevisionGetAndList (10.57s)
+=== CONT  TestConfigurationGetAndList
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestConfigurationGetAndList
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestConfigurationGetAndList
+    service.go:145: Successfully created Service configuration-get-and-list-cymasdwr
+=== CONT  TestConfigurationGetAndList
+    configuration_test.go:64: Configuration Returned: annotation-propagation-fykmbrho
+    configuration_test.go:64: Configuration Returned: blue-green-route-hcanxhcb
+    configuration_test.go:64: Configuration Returned: config-map-volume-sjunzdil
+    configuration_test.go:64: Configuration Returned: configuration-get-and-list-cymasdwr
+    configuration_test.go:64: Configuration Returned: container-exiting-msg-bdjfjlff
+    configuration_test.go:64: Configuration Returned: custom-resources-limits-dnxjtqpy
+    configuration_test.go:64: Configuration Returned: projected-complex-axnxirue
+    configuration_test.go:64: Configuration Returned: projected-config-map-volume-zfnlykfu
+    configuration_test.go:64: Configuration Returned: projected-secret-volume-yfbutfmz
+    configuration_test.go:64: Configuration Returned: projected-service-account-token-zfrqzgmv
+    configuration_test.go:64: Configuration Returned: revision-get-and-list-iansyksf
+    configuration_test.go:64: Configuration Returned: revision-timeout-does-not-exceed-timeout--bxqdfjbz
+    configuration_test.go:64: Configuration Returned: revision-timeout-exceeds-timeout-seconds-hahsdnfq
+    configuration_test.go:64: Configuration Returned: revision-timeout-writes-first-byte-before-ipjbxplh
+    configuration_test.go:64: Configuration Returned: route-and-config-generate-name-qriadgiy-8w857
+    configuration_test.go:64: Configuration Returned: route-creation-mluuqhhx
+    configuration_test.go:64: Configuration Returned: route-get-and-list-jqeqqtli
+    configuration_test.go:64: Configuration Returned: secret-volume-hicdhvdb
+    configuration_test.go:64: Configuration Returned: service-b-y-o-name-vzteseru
+    configuration_test.go:64: Configuration Returned: service-create-and-update-rdgwabks
+    configuration_test.go:64: Configuration Returned: service-create-list-and-delete-ajilcwva
+    configuration_test.go:64: Configuration Returned: service-generate-name-tyqxpdbn-gjdjr
+    configuration_test.go:64: Configuration Returned: service-with-traffic-split-nhszylrk
+    configuration_test.go:64: Configuration Returned: single-concurrency-esjvidva
+    configuration_test.go:64: Configuration Returned: update-configuration-metadata-uuraugxb
+=== CONT  TestConfigurationGetAndList
+          v1alpha1.PodAutoscalerSpec{
+          	ContainerConcurrency: 0,
+          	ScaleTargetRef:       {Kind: "Deployment", Name: "configuration-get-and-list-cymasdwr-00001-deployment", APIVersion: "apps/v1"},
+        - 	Reachability:         "Reachable",
+        + 	Reachability:         "",
+          	ProtocolType:         "http1",
+          }
+--- PASS: TestConfigurationGetAndList (11.51s)
+=== CONT  TestRevisionTimeout/exceeds_timeout_seconds
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestServiceCreateListAndDelete
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestServiceCreateListAndDelete
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestRevisionTimeout/exceeds_timeout_seconds
+    service.go:145: Successfully created Service revision-timeout-exceeds-timeout-seconds-hahsdnfq
+    revision_timeout_test.go:122: Probing to force at least one pod http://revision-timeout-exceeds-timeout-seconds-hahsdnfq.serving-tests.kuberun.34.145.127.205.nip.io
+=== CONT  TestServiceCreateListAndDelete
+    service.go:145: Successfully created Service service-create-list-and-delete-ajilcwva
+    util.go:151: Checking to ensure Revision is in desired state with generation 1
+=== CONT  TestRevisionTimeout/exceeds_timeout_seconds
+    spoof.go:111: Spoofing revision-timeout-exceeds-timeout-seconds-hahsdnfq.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestServiceCreateListAndDelete
+    util.go:171: Checking to ensure Configuration is in desired state.
+=== CONT  TestSingleConcurrency
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestServiceCreateListAndDelete
+    util.go:186: Checking to ensure Route is in desired state with generation 1
+=== CONT  TestRevisionTimeout/exceeds_timeout_seconds
+    spoof.go:111: Spoofing revision-timeout-exceeds-timeout-seconds-hahsdnfq.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestSingleConcurrency
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestServiceBYOName
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestServiceBYOName
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestRouteGetAndList
+          v1alpha1.PodAutoscalerSpec{
+          	ContainerConcurrency: 0,
+          	ScaleTargetRef:       {Kind: "Deployment", Name: "route-get-and-list-jqeqqtli-00001-deployment", APIVersion: "apps/v1"},
+        - 	Reachability:         "Reachable",
+        + 	Reachability:         "",
+          	ProtocolType:         "http1",
+          }
+=== CONT  TestRouteAndConfigGenerateName
+    generatename_test.go:184: When the configuration is created, the name is generated using the provided generateName
+=== CONT  TestRouteAndConfigGenerateName
+    generatename_test.go:190: Create new Route with generateName route-and-config-generate-name-qriadgiy-
+=== CONT  TestRouteAndConfigGenerateName
+    crd.go:36:  resource {<*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:,GenerateName:route-and-config-generate-name-qriadgiy-,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},} {[{  route-and-config-generate-name-qriadgiy-8w857 <nil> <*>100 <nil>}]} {{0 <nil> <nil>} {<nil> <nil> <nil>}}} <nil> <nil> <nil>}
+=== CONT  TestSingleConcurrency
+    service.go:145: Successfully created Service single-concurrency-esjvidva
+=== CONT  TestSingleConcurrency
+    single_threaded_test.go:65: Probing http://single-concurrency-esjvidva.serving-tests.kuberun.34.145.127.205.nip.io
+=== CONT  TestServiceBYOName
+    service.go:145: Successfully created Service service-b-y-o-name-vzteseru
+    util.go:151: Checking to ensure Revision is in desired state with generation 1
+=== CONT  TestRouteAndConfigGenerateName
+    generatename_test.go:197: When the route is created, it will become ready
+=== CONT  TestSingleConcurrency
+    spoof.go:111: Spoofing single-concurrency-esjvidva.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestServiceCreateListAndDelete
+    service_test.go:74: Service Returned: annotation-propagation-fykmbrho
+    service_test.go:74: Service Returned: blue-green-route-hcanxhcb
+    service_test.go:74: Service Returned: config-map-volume-sjunzdil
+    service_test.go:74: Service Returned: configuration-get-and-list-cymasdwr
+    service_test.go:74: Service Returned: container-exiting-msg-bdjfjlff
+    service_test.go:74: Service Returned: custom-resources-limits-dnxjtqpy
+    service_test.go:74: Service Returned: projected-complex-axnxirue
+    service_test.go:74: Service Returned: projected-config-map-volume-zfnlykfu
+    service_test.go:74: Service Returned: projected-secret-volume-yfbutfmz
+    service_test.go:74: Service Returned: projected-service-account-token-zfrqzgmv
+    service_test.go:74: Service Returned: revision-get-and-list-iansyksf
+    service_test.go:74: Service Returned: revision-timeout-does-not-exceed-timeout--bxqdfjbz
+    service_test.go:74: Service Returned: revision-timeout-exceeds-timeout-seconds-hahsdnfq
+    service_test.go:74: Service Returned: revision-timeout-writes-first-byte-before-ipjbxplh
+    service_test.go:74: Service Returned: route-get-and-list-jqeqqtli
+    service_test.go:74: Service Returned: secret-volume-hicdhvdb
+    service_test.go:74: Service Returned: service-b-y-o-name-vzteseru
+    service_test.go:74: Service Returned: service-create-and-update-rdgwabks
+    service_test.go:74: Service Returned: service-create-list-and-delete-ajilcwva
+    service_test.go:74: Service Returned: service-generate-name-tyqxpdbn-gjdjr
+    service_test.go:74: Service Returned: service-with-traffic-split-nhszylrk
+    service_test.go:74: Service Returned: single-concurrency-esjvidva
+    service_test.go:82: Deleting Service: service-create-list-and-delete-ajilcwva
+=== CONT  TestServiceBYOName
+    util.go:171: Checking to ensure Configuration is in desired state.
+=== CONT  TestServiceBYOName
+    util.go:186: Checking to ensure Route is in desired state with generation 1
+=== CONT  TestServiceBYOName
+    util.go:130: Checking that the endpoint vends the expected text: What a spaceport!
+=== CONT  TestServiceBYOName
+    spoof.go:111: Spoofing service-b-y-o-name-vzteseru.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestServiceBYOName
+    util.go:197: Validate Labels on Revision Object
+    util.go:207: Validate Labels on Configuration Object
+=== CONT  TestServiceBYOName
+    util.go:213: Validate Labels on Route Object
+    prober.go:124: Starting Route prober for http://service-b-y-o-name-vzteseru.serving-tests.kuberun.34.145.127.205.nip.io.
+=== CONT  TestServiceBYOName
+    service_test.go:294: Updating the Service to use a different image.
+=== CONT  TestServiceBYOName
+    spoof.go:111: Spoofing service-b-y-o-name-vzteseru.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestServiceBYOName
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-b-y-o-name-vzteseru,GenerateName:,Namespace:serving-tests,SelfLink:,UID:bb8d079a-8d0d-45fc-b801-9beb405c725e,ResourceVersion:12420,Generation:1,CreationTimestamp:2022-04-05 20:23:10 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{serving.knative.dev/creator: boskos@prow-build-crgke.iam.gserviceaccount.com,serving.knative.dev/lastModifier: boskos@prow-build-crgke.iam.gserviceaccount.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:10 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{},"f:name":{}},"f:spec":{".":{},"f:containers":{}}}}},},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:22 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:status":{"f:conditions":{}}},},},} {{&ObjectMeta{Name:service-b-y-o-name-vzteseru-byoname,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{1 [{ConfigurationsReady True  {2022-04-05 20:23:19 +0000 UTC}  } {Ready True  {2022-04-05 20:23:22 +0000 UTC}  } {RoutesReady True  {2022-04-05 20:23:22 +0000 UTC}  }] <nil>} {service-b-y-o-name-vzteseru-byoname service-b-y-o-name-vzteseru-byoname} {<*>http://service-b-y-o-name-vzteseru.serving-tests.kuberun.34.145.127.205.nip.io <*>{<*>http://service-b-y-o-name-vzteseru.serving-tests.svc.cluster.local} [{ service-b-y-o-name-vzteseru-byoname  <*>true <*>100 <nil>}]}}} <nil>}
+--- PASS: TestServiceCreateListAndDelete (12.57s)
+=== CONT  TestServiceBYOName
+    prober.go:183: Stopping all probers
+=== CONT  TestServiceCreateAndUpdate
+--- PASS: TestServiceBYOName (12.64s)
+=== CONT  TestSingleConcurrency
+    spoof.go:111: Spoofing single-concurrency-esjvidva.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestSingleConcurrency
+    single_threaded_test.go:86: Maintaining 5 concurrent requests for 20s.
+=== CONT  TestSingleConcurrency
+    single_threaded_test.go:117: Waiting for all requests to complete.
+=== CONT  TestRouteGetAndList
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestRouteGetAndList
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestRevisionTimeout/does_not_exceed_timeout_seconds
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestRevisionTimeout/does_not_exceed_timeout_seconds
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestRouteGetAndList
+    service.go:145: Successfully created Service route-get-and-list-jqeqqtli
+=== CONT  TestServiceWithTrafficSplit
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestServiceWithTrafficSplit
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestRevisionTimeout/does_not_exceed_timeout_seconds
+    service.go:145: Successfully created Service revision-timeout-does-not-exceed-timeout--bxqdfjbz
+    revision_timeout_test.go:122: Probing to force at least one pod http://revision-timeout-does-not-exceed-timeout--bxqdfjbz.serving-tests.kuberun.34.145.127.205.nip.io
+=== CONT  TestRevisionTimeout/does_not_exceed_timeout_seconds
+    spoof.go:111: Spoofing revision-timeout-does-not-exceed-timeout--bxqdfjbz.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestConfigMapVolume
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestRevisionTimeout/does_not_exceed_timeout_seconds
+    spoof.go:111: Spoofing revision-timeout-does-not-exceed-timeout--bxqdfjbz.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestConfigMapVolume
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestProjectedSecretVolume
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestRouteGetAndList
+    route_test.go:127: Route Returned: annotation-propagation-fykmbrho
+    route_test.go:127: Route Returned: blue-green-route-hcanxhcb
+    route_test.go:127: Route Returned: config-map-volume-sjunzdil
+=== CONT  TestServiceGenerateName
+=== CONT  TestRouteGetAndList
+    route_test.go:127: Route Returned: configuration-get-and-list-cymasdwr
+    route_test.go:127: Route Returned: container-exiting-msg-bdjfjlff
+    route_test.go:127: Route Returned: custom-resources-limits-dnxjtqpy
+    route_test.go:127: Route Returned: projected-complex-axnxirue
+    route_test.go:127: Route Returned: projected-config-map-volume-zfnlykfu
+    route_test.go:127: Route Returned: projected-secret-volume-yfbutfmz
+    route_test.go:127: Route Returned: projected-service-account-token-zfrqzgmv
+    route_test.go:127: Route Returned: revision-get-and-list-iansyksf
+    route_test.go:127: Route Returned: revision-timeout-does-not-exceed-timeout--bxqdfjbz
+    route_test.go:127: Route Returned: revision-timeout-exceeds-timeout-seconds-hahsdnfq
+    route_test.go:127: Route Returned: revision-timeout-writes-first-byte-before-ipjbxplh
+    route_test.go:127: Route Returned: route-and-config-generate-name-qriadgiy-nqgk5
+    route_test.go:127: Route Returned: route-creation-mluuqhhx
+    route_test.go:127: Route Returned: route-get-and-list-jqeqqtli
+    route_test.go:127: Route Returned: secret-volume-hicdhvdb
+    route_test.go:127: Route Returned: service-b-y-o-name-vzteseru
+    route_test.go:127: Route Returned: service-create-and-update-rdgwabks
+    route_test.go:127: Route Returned: service-create-list-and-delete-ajilcwva
+    route_test.go:127: Route Returned: service-generate-name-tyqxpdbn-gjdjr
+    route_test.go:127: Route Returned: service-with-traffic-split-nhszylrk
+    route_test.go:127: Route Returned: single-concurrency-esjvidva
+=== CONT  TestProjectedSecretVolume
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestServiceWithTrafficSplit
+    service.go:145: Successfully created Service service-with-traffic-split-nhszylrk
+    service_test.go:334: Validating service shape.
+    service_test.go:344: 1. Updating Service to ReleaseType using lastCreatedRevision
+=== CONT  TestServiceWithTrafficSplit
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-with-traffic-split-nhszylrk,GenerateName:,Namespace:serving-tests,SelfLink:,UID:007f15e6-6b9e-45cf-9fa3-dc431c7ad881,ResourceVersion:12655,Generation:1,CreationTimestamp:2022-04-05 20:23:10 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{serving.knative.dev/creator: boskos@prow-build-crgke.iam.gserviceaccount.com,serving.knative.dev/lastModifier: boskos@prow-build-crgke.iam.gserviceaccount.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:10 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{}},"f:spec":{".":{},"f:containers":{}}}}},},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:23 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:status":{"f:conditions":{}}},},},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{current service-with-traffic-split-nhszylrk-00001  <nil> <*>100 <nil>} {latest   <nil> <nil> <nil>}]}} {{1 [{ConfigurationsReady True  {2022-04-05 20:23:22 +0000 UTC}  } {Ready True  {2022-04-05 20:23:23 +0000 UTC}  } {RoutesReady True  {2022-04-05 20:23:23 +0000 UTC}  }] <nil>} {service-with-traffic-split-nhszylrk-00001 service-with-traffic-split-nhszylrk-00001} {<*>http://service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io <*>{<*>http://service-with-traffic-split-nhszylrk.serving-tests.svc.cluster.local} [{ service-with-traffic-split-nhszylrk-00001  <*>true <*>100 <nil>}]}}} <nil>}
+=== CONT  TestRouteAndConfigGenerateName
+    generatename_test.go:203: When the route is created, the name is generated using the provided generateName
+    generatename_test.go:82: Route route-and-config-generate-name-qriadgiy-nqgk5 has a domain set in its status
+=== CONT  TestServiceWithTrafficSplit
+    service_test.go:373: Waiting for Service to become ready with the new shape.
+=== CONT  TestRouteAndConfigGenerateName
+    generatename_test.go:96: Route route-and-config-generate-name-qriadgiy-nqgk5 can serve the expected data at http://route-and-config-generate-name-qriadgiy-nqgk5.serving-tests.kuberun.34.145.127.205.nip.io
+=== CONT  TestConfigMapVolume
+    service.go:145: Successfully created Service config-map-volume-sjunzdil
+    util.go:151: Checking to ensure Revision is in desired state with generation 1
+=== CONT  TestRouteAndConfigGenerateName
+    spoof.go:111: Spoofing route-and-config-generate-name-qriadgiy-nqgk5.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestProjectedSecretVolume
+    service.go:145: Successfully created Service projected-secret-volume-yfbutfmz
+    util.go:151: Checking to ensure Revision is in desired state with generation 1
+=== CONT  TestServiceWithTrafficSplit
+          v1.RouteSpec{
+          	Traffic: []v1.TrafficTarget{
+        - 		{
+        - 			Tag:            "current",
+        - 			RevisionName:   "service-with-traffic-split-nhszylrk-00001",
+        - 			LatestRevision: &false,
+        - 			Percent:        &100,
+        - 		},
+          		{
+        - 			Tag:               "latest",
+        + 			Tag:               "",
+          			RevisionName:      "",
+          			ConfigurationName: "service-with-traffic-split-nhszylrk",
+          			LatestRevision:    &true,
+        - 			Percent:           &0,
+        + 			Percent:           &100,
+          			URL:               nil,
+          		},
+          	},
+          }
+--- PASS: TestRouteGetAndList (13.56s)
+=== CONT  TestConfigMapVolume
+    util.go:171: Checking to ensure Configuration is in desired state.
+=== CONT  TestProjectedSecretVolume
+    util.go:171: Checking to ensure Configuration is in desired state.
+=== CONT  TestConfigMapVolume
+    util.go:186: Checking to ensure Route is in desired state with generation 1
+=== CONT  TestProjectedSecretVolume
+    util.go:186: Checking to ensure Route is in desired state with generation 1
+=== CONT  TestConfigMapVolume
+    util.go:130: Checking that the endpoint vends the expected text: hello-volumes--uewwohwh
+=== CONT  TestServiceCreateAndUpdate
+--- PASS: TestRouteAndConfigGenerateName (13.61s)
+=== CONT  TestConfigMapVolume
+    spoof.go:111: Spoofing config-map-volume-sjunzdil.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestProjectedSecretVolume
+    util.go:130: Checking that the endpoint vends the expected text: projected-secret-volume-yvtcvnsl
+=== CONT  TestProjectedSecretVolume
+    spoof.go:111: Spoofing projected-secret-volume-yfbutfmz.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+--- PASS: TestConfigMapVolume (13.72s)
+--- PASS: TestProjectedSecretVolume (13.73s)
+=== CONT  TestRevisionTimeout
+          v1alpha1.PodAutoscalerSpec{
+          	ContainerConcurrency: 0,
+          	ScaleTargetRef:       {Kind: "Deployment", Name: "revision-timeout-exc5e93511b117b62c396d2a2fbbfe94533-deployment", APIVersion: "apps/v1"},
+        - 	Reachability:         "Reachable",
+        + 	Reachability:         "",
+          	ProtocolType:         "http1",
+          }
+=== CONT  TestSingleConcurrency
+          v1alpha1.PodAutoscalerSpec{
+          	ContainerConcurrency: 1,
+          	ScaleTargetRef:       {Kind: "Deployment", Name: "single-concurrency-esjvidva-00001-deployment", APIVersion: "apps/v1"},
+        - 	Reachability:         "Reachable",
+        + 	Reachability:         "",
+          	ProtocolType:         "http1",
+          }
+=== CONT  TestProjectedServiceAccountToken
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestProjectedComplex
+          v1alpha1.PodAutoscalerSpec{
+          	ContainerConcurrency: 0,
+          	ScaleTargetRef:       {Kind: "Deployment", Name: "projected-complex-axnxirue-00001-deployment", APIVersion: "apps/v1"},
+        - 	Reachability:         "Reachable",
+        + 	Reachability:         "",
+          	ProtocolType:         "http1",
+          }
+=== CONT  TestProjectedServiceAccountToken
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestBlueGreenRoute
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestServiceCreateAndUpdate
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestProjectedConfigMapVolume
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestProjectedComplex
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestBlueGreenRoute
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestCustomResourcesLimits
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestServiceCreateAndUpdate
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestServiceGenerateName
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestProjectedComplex
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestProjectedConfigMapVolume
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestServiceGenerateName
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestCustomResourcesLimits
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestProjectedServiceAccountToken
+    service.go:145: Successfully created Service projected-service-account-token-zfrqzgmv
+    util.go:151: Checking to ensure Revision is in desired state with generation 1
+=== CONT  TestBlueGreenRoute
+    service.go:145: Successfully created Service blue-green-route-hcanxhcb
+    blue_green_test.go:79: Updating the Service to use a different image
+=== CONT  TestServiceCreateAndUpdate
+    service.go:145: Successfully created Service service-create-and-update-rdgwabks
+    util.go:151: Checking to ensure Revision is in desired state with generation 1
+=== CONT  TestBlueGreenRoute
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:blue-green-route-hcanxhcb,GenerateName:,Namespace:serving-tests,SelfLink:,UID:f4e1e65a-318c-4a8a-b42d-211404478f59,ResourceVersion:12709,Generation:1,CreationTimestamp:2022-04-05 20:23:10 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{serving.knative.dev/creator: boskos@prow-build-crgke.iam.gserviceaccount.com,serving.knative.dev/lastModifier: boskos@prow-build-crgke.iam.gserviceaccount.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:10 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{}},"f:spec":{".":{},"f:containers":{}}}}},},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:23 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:status":{"f:conditions":{}}},},},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{1 [{ConfigurationsReady True  {2022-04-05 20:23:22 +0000 UTC}  } {Ready True  {2022-04-05 20:23:23 +0000 UTC}  } {RoutesReady True  {2022-04-05 20:23:23 +0000 UTC}  }] <nil>} {blue-green-route-hcanxhcb-00001 blue-green-route-hcanxhcb-00001} {<*>http://blue-green-route-hcanxhcb.serving-tests.kuberun.34.145.127.205.nip.io <*>{<*>http://blue-green-route-hcanxhcb.serving-tests.svc.cluster.local} [{ blue-green-route-hcanxhcb-00001  <*>true <*>100 <nil>}]}}} <nil>}
+=== CONT  TestProjectedServiceAccountToken
+    util.go:171: Checking to ensure Configuration is in desired state.
+=== CONT  TestProjectedComplex
+    service.go:145: Successfully created Service projected-complex-axnxirue
+    util.go:151: Checking to ensure Revision is in desired state with generation 1
+=== CONT  TestCustomResourcesLimits
+    service.go:145: Successfully created Service custom-resources-limits-dnxjtqpy
+=== CONT  TestServiceGenerateName
+    service.go:145: Successfully created Service service-generate-name-tyqxpdbn-gjdjr
+    generatename_test.go:139: When the service is created, the name is generated using the provided generateName
+=== CONT  TestServiceGenerateName
+    generatename_test.go:82: Route service-generate-name-tyqxpdbn-gjdjr has a domain set in its status
+=== CONT  TestProjectedConfigMapVolume
+    service.go:145: Successfully created Service projected-config-map-volume-zfnlykfu
+    util.go:151: Checking to ensure Revision is in desired state with generation 1
+=== CONT  TestProjectedServiceAccountToken
+    util.go:186: Checking to ensure Route is in desired state with generation 1
+=== CONT  TestRouteCreation
+    route_test.go:181: The Route URL is: http://route-creation-mluuqhhx.serving-tests.kuberun.34.145.127.205.nip.io
+=== CONT  TestServiceCreateAndUpdate
+    util.go:171: Checking to ensure Configuration is in desired state.
+=== CONT  TestRouteCreation
+    route_test.go:36: Updates the Route to route traffic to the Revision
+=== CONT  TestCustomResourcesLimits
+    spoof.go:111: Spoofing custom-resources-limits-dnxjtqpy.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestBlueGreenRoute
+    blue_green_test.go:85: Since the Service was updated a new Revision will be created and the Service will be updated
+=== CONT  TestRouteCreation
+    route_test.go:41: When the Route reports as Ready, everything should be ready.
+=== CONT  TestServiceGenerateName
+    generatename_test.go:96: Route service-generate-name-tyqxpdbn-gjdjr can serve the expected data at http://service-generate-name-tyqxpdbn-gjdjr.serving-tests.kuberun.34.145.127.205.nip.io
+=== CONT  TestServiceCreateAndUpdate
+    util.go:186: Checking to ensure Route is in desired state with generation 1
+=== CONT  TestServiceGenerateName
+    spoof.go:111: Spoofing service-generate-name-tyqxpdbn-gjdjr.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestCustomResourcesLimits
+    resources_test.go:109: Querying the application to see if the memory limits are enforced.
+    resources_test.go:81: Request http://custom-resources-limits-dnxjtqpy.serving-tests.kuberun.34.145.127.205.nip.io?bloat=100
+=== CONT  TestProjectedComplex
+    util.go:171: Checking to ensure Configuration is in desired state.
+=== CONT  TestServiceCreateAndUpdate
+    util.go:130: Checking that the endpoint vends the expected text: What a spaceport!
+=== CONT  TestBlueGreenRoute
+          v1.ConfigurationSpec{
+          	Template: v1.RevisionTemplateSpec{
+          		ObjectMeta: {},
+          		Spec: v1.RevisionSpec{
+          			PodSpec: v1.PodSpec{
+          				Volumes:        nil,
+          				InitContainers: nil,
+          				Containers: []v1.Container{
+          					{
+          						Name:    "user-container",
+        - 						Image:   "gcr.io/cr-gke-boskos-179/pizzaplanetv2:latest",
+        + 						Image:   "gcr.io/cr-gke-boskos-179/pizzaplanetv1:latest",
+          						Command: nil,
+          						Args:    nil,
+          						... // 18 identical fields
+          					},
+          				},
+          				EphemeralContainers: nil,
+          				RestartPolicy:       "",
+          				... // 30 identical fields
+          			},
+          			ContainerConcurrency: &0,
+          			TimeoutSeconds:       &300,
+          		},
+          	},
+          }
+=== CONT  TestCustomResourcesLimits
+    spoof.go:111: Spoofing custom-resources-limits-dnxjtqpy.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestProjectedServiceAccountToken
+    spoof.go:111: Spoofing projected-service-account-token-zfrqzgmv.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestProjectedConfigMapVolume
+    util.go:171: Checking to ensure Configuration is in desired state.
+=== CONT  TestProjectedComplex
+    util.go:186: Checking to ensure Route is in desired state with generation 1
+=== CONT  TestServiceCreateAndUpdate
+    spoof.go:111: Spoofing service-create-and-update-rdgwabks.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestProjectedComplex
+    util.go:130: Checking that the endpoint vends the expected text: projected-complex-cvmcjqca
+=== CONT  TestProjectedConfigMapVolume
+    util.go:186: Checking to ensure Route is in desired state with generation 1
+=== CONT  TestServiceCreateAndUpdate
+    util.go:197: Validate Labels on Revision Object
+    util.go:207: Validate Labels on Configuration Object
+    util.go:213: Validate Labels on Route Object
+    prober.go:124: Starting Route prober for http://service-create-and-update-rdgwabks.serving-tests.kuberun.34.145.127.205.nip.io.
+=== CONT  TestServiceCreateAndUpdate
+    service_test.go:137: Updating the Service to use a different image.
+=== CONT  TestProjectedComplex
+    spoof.go:111: Spoofing projected-complex-axnxirue.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestServiceCreateAndUpdate
+    spoof.go:111: Spoofing service-create-and-update-rdgwabks.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestProjectedConfigMapVolume
+    util.go:130: Checking that the endpoint vends the expected text: hello-volumes--cxprsngb
+=== CONT  TestServiceCreateAndUpdate
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-create-and-update-rdgwabks,GenerateName:,Namespace:serving-tests,SelfLink:,UID:d73d199b-7294-4f8e-a681-ed855e71e76f,ResourceVersion:12779,Generation:1,CreationTimestamp:2022-04-05 20:23:10 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{serving.knative.dev/creator: boskos@prow-build-crgke.iam.gserviceaccount.com,serving.knative.dev/lastModifier: boskos@prow-build-crgke.iam.gserviceaccount.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:10 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{}},"f:spec":{".":{},"f:containers":{}}}}},},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:24 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:status":{"f:conditions":{}}},},},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{1 [{ConfigurationsReady True  {2022-04-05 20:23:23 +0000 UTC}  } {Ready True  {2022-04-05 20:23:24 +0000 UTC}  } {RoutesReady True  {2022-04-05 20:23:24 +0000 UTC}  }] <nil>} {service-create-and-update-rdgwabks-00001 service-create-and-update-rdgwabks-00001} {<*>http://service-create-and-update-rdgwabks.serving-tests.kuberun.34.145.127.205.nip.io <*>{<*>http://service-create-and-update-rdgwabks.serving-tests.svc.cluster.local} [{ service-create-and-update-rdgwabks-00001  <*>true <*>100 <nil>}]}}} <nil>}
+=== CONT  TestProjectedConfigMapVolume
+    spoof.go:111: Spoofing projected-config-map-volume-zfnlykfu.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestProjectedComplex
+    util.go:130: Checking that the endpoint vends the expected text: projected-complex-dxspuqwr
+=== CONT  TestProjectedComplex
+    spoof.go:111: Spoofing projected-complex-axnxirue.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestServiceCreateAndUpdate
+    service_test.go:144: Service should reflect new revision created and ready in status.
+--- PASS: TestServiceGenerateName (14.65s)
+=== CONT  TestCustomResourcesLimits
+    resources_test.go:81: Request http://custom-resources-limits-dnxjtqpy.serving-tests.kuberun.34.145.127.205.nip.io?bloat=200
+=== CONT  TestCustomResourcesLimits
+    spoof.go:111: Spoofing custom-resources-limits-dnxjtqpy.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestServiceWithTrafficSplit
+--- PASS: TestProjectedServiceAccountToken (14.68s)
+--- PASS: TestProjectedConfigMapVolume (14.72s)
+--- PASS: TestProjectedComplex (14.72s)
+=== CONT  TestServiceCreateAndUpdate
+          v1.ConfigurationSpec{
+          	Template: v1.RevisionTemplateSpec{
+          		ObjectMeta: {},
+          		Spec: v1.RevisionSpec{
+          			PodSpec: v1.PodSpec{
+          				Volumes:        nil,
+          				InitContainers: nil,
+          				Containers: []v1.Container{
+          					{
+          						Name:    "user-container",
+        - 						Image:   "gcr.io/cr-gke-boskos-179/pizzaplanetv2:latest",
+        + 						Image:   "gcr.io/cr-gke-boskos-179/pizzaplanetv1:latest",
+          						Command: nil,
+          						Args:    nil,
+          						... // 18 identical fields
+          					},
+          				},
+          				EphemeralContainers: nil,
+          				RestartPolicy:       "",
+          				... // 30 identical fields
+          			},
+          			ContainerConcurrency: &0,
+          			TimeoutSeconds:       &300,
+          		},
+          	},
+          }
+=== CONT  TestCustomResourcesLimits
+    resources_test.go:81: Request http://custom-resources-limits-dnxjtqpy.serving-tests.kuberun.34.145.127.205.nip.io?bloat=500
+=== CONT  TestCustomResourcesLimits
+    spoof.go:111: Spoofing custom-resources-limits-dnxjtqpy.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestCustomResourcesLimits
+          v1alpha1.PodAutoscalerSpec{
+          	ContainerConcurrency: 0,
+          	ScaleTargetRef:       {Kind: "Deployment", Name: "custom-resources-limits-dnxjtqpy-00001-deployment", APIVersion: "apps/v1"},
+        - 	Reachability:         "Reachable",
+        + 	Reachability:         "",
+          	ProtocolType:         "http1",
+          }
+=== CONT  TestRouteCreation
+--- PASS: TestCustomResourcesLimits (15.29s)
+=== CONT  TestAnnotationPropagation
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestAnnotationPropagation
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestRevisionTimeout/writes_first_byte_before_timeout
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestAnnotationPropagation
+    service.go:145: Successfully created Service annotation-propagation-fykmbrho
+    util.go:151: Checking to ensure Revision is in desired state with generation 1
+=== CONT  TestRevisionTimeout/writes_first_byte_before_timeout
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestBlueGreenRoute
+          v1alpha1.PodAutoscalerSpec{
+          	ContainerConcurrency: 0,
+          	ScaleTargetRef:       {Kind: "Deployment", Name: "blue-green-route-hcanxhcb-00001-deployment", APIVersion: "apps/v1"},
+        - 	Reachability:         "Reachable",
+        + 	Reachability:         "",
+          	ProtocolType:         "http1",
+          }
+=== CONT  TestAnnotationPropagation
+    util.go:171: Checking to ensure Configuration is in desired state.
+=== CONT  TestSecretVolume
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestAnnotationPropagation
+    util.go:186: Checking to ensure Route is in desired state with generation 1
+=== CONT  TestSecretVolume
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestRevisionTimeout/writes_first_byte_before_timeout
+    service.go:145: Successfully created Service revision-timeout-writes-first-byte-before-ipjbxplh
+    revision_timeout_test.go:122: Probing to force at least one pod http://revision-timeout-writes-first-byte-before-ipjbxplh.serving-tests.kuberun.34.145.127.205.nip.io
+=== CONT  TestAnnotationPropagation
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:annotation-propagation-fykmbrho,GenerateName:,Namespace:serving-tests,SelfLink:,UID:805d2664-9aef-4e4a-b17b-1184422c8b5a,ResourceVersion:12902,Generation:1,CreationTimestamp:2022-04-05 20:23:10 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{juicy: jamba,serving.knative.dev/creator: boskos@prow-build-crgke.iam.gserviceaccount.com,serving.knative.dev/lastModifier: boskos@prow-build-crgke.iam.gserviceaccount.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:10 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{}},"f:spec":{".":{},"f:containers":{}}}}},},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:25 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:status":{"f:conditions":{}}},},},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{1 [{ConfigurationsReady True  {2022-04-05 20:23:23 +0000 UTC}  } {Ready True  {2022-04-05 20:23:25 +0000 UTC}  } {RoutesReady True  {2022-04-05 20:23:25 +0000 UTC}  }] <nil>} {annotation-propagation-fykmbrho-00001 annotation-propagation-fykmbrho-00001} {<*>http://annotation-propagation-fykmbrho.serving-tests.kuberun.34.145.127.205.nip.io <*>{<*>http://annotation-propagation-fykmbrho.serving-tests.svc.cluster.local} [{ annotation-propagation-fykmbrho-00001  <*>true <*>100 <nil>}]}}} <nil>}
+=== CONT  TestRevisionTimeout/writes_first_byte_before_timeout
+    spoof.go:111: Spoofing revision-timeout-writes-first-byte-before-ipjbxplh.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestSecretVolume
+    service.go:145: Successfully created Service secret-volume-hicdhvdb
+    util.go:151: Checking to ensure Revision is in desired state with generation 1
+=== CONT  TestAnnotationPropagation
+    service_test.go:619: Updating the Service to use a different image.
+=== CONT  TestRevisionTimeout/writes_first_byte_before_timeout
+    spoof.go:111: Spoofing revision-timeout-writes-first-byte-before-ipjbxplh.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestAnnotationPropagation
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:annotation-propagation-fykmbrho,GenerateName:,Namespace:serving-tests,SelfLink:,UID:805d2664-9aef-4e4a-b17b-1184422c8b5a,ResourceVersion:12938,Generation:1,CreationTimestamp:2022-04-05 20:23:10 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{juicy: jamba,serving.knative.dev/creator: boskos@prow-build-crgke.iam.gserviceaccount.com,serving.knative.dev/lastModifier: boskos@prow-build-crgke.iam.gserviceaccount.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:25 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:status":{"f:conditions":{}}},},ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:25 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:metadata":{"f:annotations":{"f:juicy":{}}},"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{}},"f:spec":{".":{},"f:containers":{}}}}},},},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{1 [{ConfigurationsReady True  {2022-04-05 20:23:23 +0000 UTC}  } {Ready True  {2022-04-05 20:23:25 +0000 UTC}  } {RoutesReady True  {2022-04-05 20:23:25 +0000 UTC}  }] <nil>} {annotation-propagation-fykmbrho-00001 annotation-propagation-fykmbrho-00001} {<*>http://annotation-propagation-fykmbrho.serving-tests.kuberun.34.145.127.205.nip.io <*>{<*>http://annotation-propagation-fykmbrho.serving-tests.svc.cluster.local} [{ annotation-propagation-fykmbrho-00001  <*>true <*>100 <nil>}]}}} <nil>}
+=== CONT  TestSecretVolume
+    util.go:171: Checking to ensure Configuration is in desired state.
+=== CONT  TestRevisionTimeout/does_not_exceed_timeout_seconds
+    revision_timeout_test.go:66: Response status code: 200, expected: 200
+    revision_timeout_test.go:48: URL: http://revision-timeout-does-not-exceed-timeout--bxqdfjbz.serving-tests.kuberun.34.145.127.205.nip.io, initialSleep: 2s, sleep: 0s, request elapsed 2006 ms
+=== CONT  TestSecretVolume
+    util.go:186: Checking to ensure Route is in desired state with generation 1
+=== CONT  TestAnnotationPropagation
+    service_test.go:625: Service should reflect new revision created and ready in status.
+=== CONT  TestSecretVolume
+    util.go:130: Checking that the endpoint vends the expected text: secret-volume-gmocgtrq
+=== CONT  TestSecretVolume
+    spoof.go:111: Spoofing secret-volume-hicdhvdb.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestAnnotationPropagation
+          v1.ConfigurationSpec{
+          	Template: v1.RevisionTemplateSpec{
+          		ObjectMeta: {},
+          		Spec: v1.RevisionSpec{
+          			PodSpec: v1.PodSpec{
+          				Volumes:        nil,
+          				InitContainers: nil,
+          				Containers: []v1.Container{
+          					{
+          						Name:    "user-container",
+        - 						Image:   "gcr.io/cr-gke-boskos-179/pizzaplanetv2:latest",
+        + 						Image:   "gcr.io/cr-gke-boskos-179/pizzaplanetv1:latest",
+          						Command: nil,
+          						Args:    nil,
+          						... // 18 identical fields
+          					},
+          				},
+          				EphemeralContainers: nil,
+          				RestartPolicy:       "",
+          				... // 30 identical fields
+          			},
+          			ContainerConcurrency: &0,
+          			TimeoutSeconds:       &300,
+          		},
+          	},
+          }
+=== CONT  TestServiceWithTrafficSplit
+    service_test.go:378: Service traffic should go to the first revision and be available on two names traffic targets: 'current' and 'latest'
+=== CONT  TestServiceWithTrafficSplit
+    util.go:96: Checking updated route tags http://current-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+    util.go:96: Checking updated route tags http://latest-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+    util.go:90: Checking updated route http://service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+=== CONT  TestServiceWithTrafficSplit
+    spoof.go:111: Spoofing current-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    spoof.go:111: Spoofing service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestServiceWithTrafficSplit
+    spoof.go:111: Spoofing latest-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestRouteCreation
+    route_test.go:46: Serves the expected data at the endpoint
+=== CONT  TestRouteCreation
+    spoof.go:111: Spoofing route-creation-mluuqhhx.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestServiceWithTrafficSplit
+          v1alpha1.PodAutoscalerSpec{
+          	ContainerConcurrency: 0,
+          	ScaleTargetRef:       {Kind: "Deployment", Name: "service-with-traffic-split-nhszylrk-00001-deployment", APIVersion: "apps/v1"},
+        - 	Reachability:         "Reachable",
+        + 	Reachability:         "",
+          	ProtocolType:         "http1",
+          }
+=== CONT  TestServiceWithTrafficSplit
+    spoof.go:111: Spoofing latest-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    spoof.go:111: Spoofing service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    util.go:190: Performing 200 concurrent requests to http://service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+    spoof.go:111: Spoofing current-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    util.go:190: Performing 200 concurrent requests to http://current-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+    util.go:190: Performing 200 concurrent requests to http://latest-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+--- PASS: TestSecretVolume (15.62s)
+=== CONT  TestRouteCreation
+    route_test.go:61: The Revision will be marked as Ready when it can serve traffic
+=== CONT  TestRouteCreation
+    route_test.go:66: The Revision will be annotated with the generation
+=== CONT  TestRouteCreation
+    route_test.go:71: Updates the Configuration that the Revision is ready
+=== CONT  TestRouteCreation
+    prober.go:124: Starting Route prober for http://route-creation-mluuqhhx.serving-tests.kuberun.34.145.127.205.nip.io.
+    route_test.go:188: Updating the Configuration to use a different image
+    crd.go:36:  resource {<nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:route-creation-mluuqhhx,GenerateName:,Namespace:serving-tests,SelfLink:,UID:0debcf9a-6a7f-447e-866c-8a87ef2b09e6,ResourceVersion:10554,Generation:1,CreationTimestamp:2022-04-05 20:23:10 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{serving.knative.dev/creator: boskos@prow-build-crgke.iam.gserviceaccount.com,serving.knative.dev/lastModifier: boskos@prow-build-crgke.iam.gserviceaccount.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:10 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{}},"f:spec":{".":{},"f:containers":{}}}}},},},} {&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {{0 <nil> <nil>} { }}} <nil> <nil>}
+=== CONT  TestRouteCreation
+    spoof.go:111: Spoofing route-creation-mluuqhhx.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestRouteCreation
+    route_test.go:194: Since the Configuration was updated a new Revision will be created and the Configuration will be updated
+=== CONT  TestServiceWithTrafficSplit
+    util.go:167: For domain service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io: wanted at least 200, got 200 requests.
+    util.go:167: For domain current-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io: wanted at least 200, got 200 requests.
+    util.go:167: For domain latest-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io: wanted at least 200, got 200 requests.
+    service_test.go:393: 2. Updating the Service Spec with a new image
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-with-traffic-split-nhszylrk,GenerateName:,Namespace:serving-tests,SelfLink:,UID:007f15e6-6b9e-45cf-9fa3-dc431c7ad881,ResourceVersion:12889,Generation:2,CreationTimestamp:2022-04-05 20:23:10 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{serving.knative.dev/creator: boskos@prow-build-crgke.iam.gserviceaccount.com,serving.knative.dev/lastModifier: boskos@prow-build-crgke.iam.gserviceaccount.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:23 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{}},"f:spec":{".":{},"f:containers":{}}},"f:traffic":{}}},},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:25 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:status":{"f:conditions":{}}},},},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{current service-with-traffic-split-nhszylrk-00001  <*>false <*>100 <nil>} {latest   <*>true <*>0 <nil>}]}} {{2 [{ConfigurationsReady True  {2022-04-05 20:23:22 +0000 UTC}  } {Ready True  {2022-04-05 20:23:25 +0000 UTC}  } {RoutesReady True  {2022-04-05 20:23:25 +0000 UTC}  }] <nil>} {service-with-traffic-split-nhszylrk-00001 service-with-traffic-split-nhszylrk-00001} {<*>http://service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io <*>{<*>http://service-with-traffic-split-nhszylrk.serving-tests.svc.cluster.local} [{current service-with-traffic-split-nhszylrk-00001  <*>false <*>100 <*>http://current-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io} {latest service-with-traffic-split-nhszylrk-00001  <*>true <*>0 <*>http://latest-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io}]}}} <nil>}
+=== CONT  TestRevisionTimeout
+          v1alpha1.PodAutoscalerSpec{
+          	ContainerConcurrency: 0,
+          	ScaleTargetRef:       {Kind: "Deployment", Name: "revision-timeout-doe11030b050097787a6dcbbc9e58f66142-deployment", APIVersion: "apps/v1"},
+        - 	Reachability:         "Unreachable",
+        + 	Reachability:         "",
+          	ProtocolType:         "http1",
+          }
+=== CONT  TestServiceWithTrafficSplit
+    service_test.go:398: Since the Service was updated a new Revision will be created
+          v1.ConfigurationSpec{
+          	Template: v1.RevisionTemplateSpec{
+          		ObjectMeta: {},
+          		Spec: v1.RevisionSpec{
+          			PodSpec: v1.PodSpec{
+          				Volumes:        nil,
+          				InitContainers: nil,
+          				Containers: []v1.Container{
+          					{
+          						Name:    "user-container",
+        - 						Image:   "gcr.io/cr-gke-boskos-179/pizzaplanetv2:latest",
+        + 						Image:   "gcr.io/cr-gke-boskos-179/pizzaplanetv1:latest",
+          						Command: nil,
+          						Args:    nil,
+          						... // 18 identical fields
+          					},
+          				},
+          				EphemeralContainers: nil,
+          				RestartPolicy:       "",
+          				... // 30 identical fields
+          			},
+          			ContainerConcurrency: &0,
+          			TimeoutSeconds:       &300,
+          		},
+          	},
+          }
+=== CONT  TestServiceCreateAndUpdate
+          v1alpha1.PodAutoscalerSpec{
+          	ContainerConcurrency: 0,
+          	ScaleTargetRef:       {Kind: "Deployment", Name: "service-create-and-update-rdgwabks-00001-deployment", APIVersion: "apps/v1"},
+        - 	Reachability:         "Reachable",
+        + 	Reachability:         "",
+          	ProtocolType:         "http1",
+          }
+=== CONT  TestAnnotationPropagation
+          v1alpha1.PodAutoscalerSpec{
+          	ContainerConcurrency: 0,
+          	ScaleTargetRef:       {Kind: "Deployment", Name: "annotation-propagation-fykmbrho-00001-deployment", APIVersion: "apps/v1"},
+        - 	Reachability:         "Reachable",
+        + 	Reachability:         "",
+          	ProtocolType:         "http1",
+          }
+=== CONT  TestRevisionTimeout
+          v1alpha1.PodAutoscalerSpec{
+          	ContainerConcurrency: 0,
+          	ScaleTargetRef:       {Kind: "Deployment", Name: "revision-timeout-wri7154f2fc45f0366c07457a18b6014331-deployment", APIVersion: "apps/v1"},
+        - 	Reachability:         "Reachable",
+        + 	Reachability:         "",
+          	ProtocolType:         "http1",
+          }
+=== CONT  TestRouteCreation
+          v1alpha1.PodAutoscalerSpec{
+          	ContainerConcurrency: 0,
+          	ScaleTargetRef:       {Kind: "Deployment", Name: "route-creation-mluuqhhx-00001-deployment", APIVersion: "apps/v1"},
+        - 	Reachability:         "Reachable",
+        + 	Reachability:         "",
+          	ProtocolType:         "http1",
+          }
+=== CONT  TestServiceCreateAndUpdate
+          	{
+          		Tag:               "",
+        - 		RevisionName:      "service-create-and-update-rdgwabks-00001",
+        + 		RevisionName:      "service-create-and-update-rdgwabks-00002",
+          		ConfigurationName: "",
+          		... // 2 ignored and 1 identical fields
+          	},
+          }
+          	{
+          		Tag:               "",
+        - 		RevisionName:      "service-create-and-update-rdgwabks-00001",
+        + 		RevisionName:      "service-create-and-update-rdgwabks-00002",
+          		ConfigurationName: "",
+          		... // 2 ignored and 1 identical fields
+          	},
+          }
+          v1alpha1.PodAutoscalerSpec{
+          	ContainerConcurrency: 0,
+          	ScaleTargetRef:       {Kind: "Deployment", Name: "service-create-and-update-rdgwabks-00002-deployment", APIVersion: "apps/v1"},
+        - 	Reachability:         "Reachable",
+        + 	Reachability:         "",
+          	ProtocolType:         "http1",
+          }
+=== CONT  TestServiceCreateAndUpdate
+          v1alpha1.PodAutoscalerSpec{
+          	ContainerConcurrency: 0,
+          	ScaleTargetRef:       {Kind: "Deployment", Name: "service-create-and-update-rdgwabks-00001-deployment", APIVersion: "apps/v1"},
+        - 	Reachability:         "Unreachable",
+        + 	Reachability:         "Reachable",
+          	ProtocolType:         "http1",
+          }
+=== CONT  TestServiceCreateAndUpdate
+    service_test.go:150: Waiting for Service to transition to Ready.
+=== CONT  TestBlueGreenRoute
+          	{
+          		Tag:               "",
+        - 		RevisionName:      "blue-green-route-hcanxhcb-00001",
+        + 		RevisionName:      "blue-green-route-hcanxhcb-00002",
+          		ConfigurationName: "",
+          		... // 2 ignored and 1 identical fields
+          	},
+          }
+=== CONT  TestBlueGreenRoute
+          	{
+          		Tag:               "",
+        - 		RevisionName:      "blue-green-route-hcanxhcb-00001",
+        + 		RevisionName:      "blue-green-route-hcanxhcb-00002",
+          		ConfigurationName: "",
+          		... // 2 ignored and 1 identical fields
+          	},
+          }
+=== CONT  TestBlueGreenRoute
+    blue_green_test.go:91: Updating RouteSpec
+=== CONT  TestBlueGreenRoute
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:blue-green-route-hcanxhcb,GenerateName:,Namespace:serving-tests,SelfLink:,UID:f4e1e65a-318c-4a8a-b42d-211404478f59,ResourceVersion:13503,Generation:2,CreationTimestamp:2022-04-05 20:23:10 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{serving.knative.dev/creator: boskos@prow-build-crgke.iam.gserviceaccount.com,serving.knative.dev/lastModifier: boskos@prow-build-crgke.iam.gserviceaccount.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:10 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{}},"f:spec":{".":{},"f:containers":{}}}}},},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:25 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:status":{"f:latestCreatedRevisionName":{}}},},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:31 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:status":{"f:conditions":{},"f:latestReadyRevisionName":{}}},},},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{blue blue-green-route-hcanxhcb-00001  <nil> <*>50 <nil>} {green blue-green-route-hcanxhcb-00002  <nil> <*>50 <nil>}]}} {{2 [{ConfigurationsReady True  {2022-04-05 20:23:31 +0000 UTC}  } {Ready Unknown  {2022-04-05 20:23:31 +0000 UTC} TrafficNotMigrated Traffic is not yet migrated to the latest revision.} {RoutesReady Unknown  {2022-04-05 20:23:31 +0000 UTC} TrafficNotMigrated Traffic is not yet migrated to the latest revision.}] <nil>} {blue-green-route-hcanxhcb-00002 blue-green-route-hcanxhcb-00002} {<*>http://blue-green-route-hcanxhcb.serving-tests.kuberun.34.145.127.205.nip.io <*>{<*>http://blue-green-route-hcanxhcb.serving-tests.svc.cluster.local} [{ blue-green-route-hcanxhcb-00001  <*>true <*>100 <nil>}]}}} <nil>}
+=== CONT  TestBlueGreenRoute
+    blue_green_test.go:106: Wait for the service domains to be ready
+=== CONT  TestRouteCreation
+          v1alpha1.PodAutoscalerSpec{
+          	ContainerConcurrency: 0,
+          	ScaleTargetRef:       {Kind: "Deployment", Name: "route-creation-mluuqhhx-00002-deployment", APIVersion: "apps/v1"},
+        - 	Reachability:         "Reachable",
+        + 	Reachability:         "",
+          	ProtocolType:         "http1",
+          }
+=== CONT  TestServiceCreateAndUpdate
+    util.go:151: Checking to ensure Revision is in desired state with generation 2
+=== CONT  TestServiceCreateAndUpdate
+    util.go:171: Checking to ensure Configuration is in desired state.
+=== CONT  TestServiceCreateAndUpdate
+    util.go:186: Checking to ensure Route is in desired state with generation 2
+=== CONT  TestSingleConcurrency
+=== CONT  TestRouteCreation
+    route_test.go:36: Updates the Route to route traffic to the Revision
+=== CONT  TestServiceCreateAndUpdate
+    util.go:130: Checking that the endpoint vends the expected text: Re-energize yourself with a slice of pepperoni!
+=== CONT  TestRouteCreation
+    route_test.go:41: When the Route reports as Ready, everything should be ready.
+=== CONT  TestServiceCreateAndUpdate
+    spoof.go:111: Spoofing service-create-and-update-rdgwabks.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestBlueGreenRoute
+          v1.RouteSpec{
+          	Traffic: []v1.TrafficTarget{
+        - 		{
+        - 			Tag:            "blue",
+        - 			RevisionName:   "blue-green-route-hcanxhcb-00001",
+        - 			LatestRevision: &false,
+        - 			Percent:        &50,
+        - 		},
+        - 		{
+        - 			Tag:            "green",
+        - 			RevisionName:   "blue-green-route-hcanxhcb-00002",
+        - 			LatestRevision: &false,
+        - 			Percent:        &50,
+        - 		},
+        + 		{
+        + 			ConfigurationName: "blue-green-route-hcanxhcb",
+        + 			LatestRevision:    &true,
+        + 			Percent:           &100,
+        + 		},
+          	},
+          }
+=== CONT  TestServiceCreateAndUpdate
+    service_test.go:164: Updating labels of the RevisionTemplateSpec for service service-create-and-update-rdgwabks.
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-create-and-update-rdgwabks,GenerateName:,Namespace:serving-tests,SelfLink:,UID:d73d199b-7294-4f8e-a681-ed855e71e76f,ResourceVersion:13440,Generation:2,CreationTimestamp:2022-04-05 20:23:10 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{serving.knative.dev/creator: boskos@prow-build-crgke.iam.gserviceaccount.com,serving.knative.dev/lastModifier: boskos@prow-build-crgke.iam.gserviceaccount.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:10 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{}},"f:spec":{".":{},"f:containers":{}}}}},},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:31 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:status":{"f:conditions":{}}},},},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{label-x: abc,label-y: def,},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{2 [{ConfigurationsReady True  {2022-04-05 20:23:30 +0000 UTC}  } {Ready True  {2022-04-05 20:23:31 +0000 UTC}  } {RoutesReady True  {2022-04-05 20:23:31 +0000 UTC}  }] <nil>} {service-create-and-update-rdgwabks-00002 service-create-and-update-rdgwabks-00002} {<*>http://service-create-and-update-rdgwabks.serving-tests.kuberun.34.145.127.205.nip.io <*>{<*>http://service-create-and-update-rdgwabks.serving-tests.svc.cluster.local} [{ service-create-and-update-rdgwabks-00002  <*>true <*>100 <nil>}]}}} <nil>}
+=== CONT  TestServiceCreateAndUpdate
+    service_test.go:175: Waiting for the new revision to appear as LatestRevision.
+=== CONT  TestRouteCreation
+          v1alpha1.PodAutoscalerSpec{
+          	ContainerConcurrency: 0,
+          	ScaleTargetRef:       {Kind: "Deployment", Name: "route-creation-mluuqhhx-00001-deployment", APIVersion: "apps/v1"},
+        - 	Reachability:         "Unreachable",
+        + 	Reachability:         "Reachable",
+          	ProtocolType:         "http1",
+          }
+=== CONT  TestBlueGreenRoute
+          v1alpha1.PodAutoscalerSpec{
+          	ContainerConcurrency: 0,
+          	ScaleTargetRef:       {Kind: "Deployment", Name: "blue-green-route-hcanxhcb-00002-deployment", APIVersion: "apps/v1"},
+        - 	Reachability:         "Reachable",
+        + 	Reachability:         "",
+          	ProtocolType:         "http1",
+          }
+=== CONT  TestServiceCreateAndUpdate
+          v1.ConfigurationSpec{
+          	Template: v1.RevisionTemplateSpec{
+          		ObjectMeta: v1.ObjectMeta{
+          			... // 8 identical fields
+          			DeletionTimestamp:          nil,
+          			DeletionGracePeriodSeconds: nil,
+        - 			Labels:                     map[string]string{"label-x": "abc", "label-y": "def"},
+        + 			Labels:                     nil,
+          			Annotations:                nil,
+          			OwnerReferences:            nil,
+          			... // 3 identical fields
+          		},
+          		Spec: {PodSpec: {Containers: {{Name: "user-container", Image: "gcr.io/cr-gke-boskos-179/pizzaplanetv2:latest", Resources: {Limits: {}, Requests: {}}, ReadinessProbe: &{Handler: {TCPSocket: &{}}, SuccessThreshold: 1}, ...}}, EnableServiceLinks: &false}, ContainerConcurrency: &0, TimeoutSeconds: &300},
+          	},
+          }
+=== CONT  TestRevisionTimeout/exceeds_timeout_seconds
+    revision_timeout_test.go:66: Response status code: 504, expected: 504
+    revision_timeout_test.go:48: URL: http://revision-timeout-exceeds-timeout-seconds-hahsdnfq.serving-tests.kuberun.34.145.127.205.nip.io, initialSleep: 12s, sleep: 0s, request elapsed 10010 ms
+=== CONT  TestRevisionTimeout
+          v1alpha1.PodAutoscalerSpec{
+          	ContainerConcurrency: 0,
+          	ScaleTargetRef:       {Kind: "Deployment", Name: "revision-timeout-exc5e93511b117b62c396d2a2fbbfe94533-deployment", APIVersion: "apps/v1"},
+        - 	Reachability:         "Unreachable",
+        + 	Reachability:         "Reachable",
+          	ProtocolType:         "http1",
+          }
+=== CONT  TestBlueGreenRoute
+    blue_green_test.go:132: Probing http://green-blue-green-route-hcanxhcb.serving-tests.kuberun.34.145.127.205.nip.io
+    spoof.go:111: Spoofing green-blue-green-route-hcanxhcb.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestBlueGreenRoute
+    spoof.go:111: Spoofing blue-blue-green-route-hcanxhcb.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    util.go:190: Performing 200 concurrent requests to http://blue-blue-green-route-hcanxhcb.serving-tests.kuberun.34.145.127.205.nip.io
+    spoof.go:111: Spoofing blue-green-route-hcanxhcb.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    util.go:190: Performing 200 concurrent requests to http://blue-green-route-hcanxhcb.serving-tests.kuberun.34.145.127.205.nip.io
+    spoof.go:111: Spoofing green-blue-green-route-hcanxhcb.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    util.go:190: Performing 200 concurrent requests to http://green-blue-green-route-hcanxhcb.serving-tests.kuberun.34.145.127.205.nip.io
+=== CONT  TestRouteCreation
+    route_test.go:46: Serves the expected data at the endpoint
+    spoof.go:111: Spoofing route-creation-mluuqhhx.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    route_test.go:61: The Revision will be marked as Ready when it can serve traffic
+    route_test.go:66: The Revision will be annotated with the generation
+    route_test.go:71: Updates the Configuration that the Revision is ready
+=== CONT  TestRouteCreation
+    prober.go:183: Stopping all probers
+--- PASS: TestRouteCreation (22.84s)
+=== CONT  TestBlueGreenRoute
+    util.go:167: For domain blue-blue-green-route-hcanxhcb.serving-tests.kuberun.34.145.127.205.nip.io: wanted at least 200, got 200 requests.
+=== CONT  TestBlueGreenRoute
+    util.go:167: For domain blue-green-route-hcanxhcb.serving-tests.kuberun.34.145.127.205.nip.io: wanted at least 50, got 91 requests.
+    util.go:167: For domain blue-green-route-hcanxhcb.serving-tests.kuberun.34.145.127.205.nip.io: wanted at least 50, got 109 requests.
+=== CONT  TestBlueGreenRoute
+    util.go:167: For domain green-blue-green-route-hcanxhcb.serving-tests.kuberun.34.145.127.205.nip.io: wanted at least 200, got 200 requests.
+=== CONT  TestServiceWithTrafficSplit
+          	{Tag: "current", RevisionName: "service-with-traffic-split-nhszylrk-00001", Percent: &100, ...},
+          	{
+          		Tag:               "latest",
+        - 		RevisionName:      "service-with-traffic-split-nhszylrk-00001",
+        + 		RevisionName:      "service-with-traffic-split-nhszylrk-00002",
+          		ConfigurationName: "",
+          		... // 2 ignored and 1 identical fields
+          	},
+          }
+=== CONT  TestServiceWithTrafficSplit
+          v1alpha1.PodAutoscalerSpec{
+          	ContainerConcurrency: 0,
+          	ScaleTargetRef:       {Kind: "Deployment", Name: "service-with-traffic-split-nhszylrk-00002-deployment", APIVersion: "apps/v1"},
+        - 	Reachability:         "Reachable",
+        + 	Reachability:         "",
+          	ProtocolType:         "http1",
+          }
+          	{Tag: "current", RevisionName: "service-with-traffic-split-nhszylrk-00001", Percent: &100, ...},
+          	{
+          		Tag:               "latest",
+        - 		RevisionName:      "service-with-traffic-split-nhszylrk-00001",
+        + 		RevisionName:      "service-with-traffic-split-nhszylrk-00002",
+          		ConfigurationName: "",
+          		... // 2 ignored and 1 identical fields
+          	},
+          }
+--- PASS: TestBlueGreenRoute (22.98s)
+=== CONT  TestAnnotationPropagation
+          	{
+          		Tag:               "",
+        - 		RevisionName:      "annotation-propagation-fykmbrho-00001",
+        + 		RevisionName:      "annotation-propagation-fykmbrho-00002",
+          		ConfigurationName: "",
+          		... // 2 ignored and 1 identical fields
+          	},
+          }
+          	{
+          		Tag:               "",
+        - 		RevisionName:      "annotation-propagation-fykmbrho-00001",
+        + 		RevisionName:      "annotation-propagation-fykmbrho-00002",
+          		ConfigurationName: "",
+          		... // 2 ignored and 1 identical fields
+          	},
+          }
+=== CONT  TestAnnotationPropagation
+          v1alpha1.PodAutoscalerSpec{
+          	ContainerConcurrency: 0,
+          	ScaleTargetRef:       {Kind: "Deployment", Name: "annotation-propagation-fykmbrho-00002-deployment", APIVersion: "apps/v1"},
+        - 	Reachability:         "Reachable",
+        + 	Reachability:         "",
+          	ProtocolType:         "http1",
+          }
+=== CONT  TestAnnotationPropagation
+    service_test.go:631: Waiting for Service to transition to Ready.
+=== CONT  TestAnnotationPropagation
+          v1alpha1.PodAutoscalerSpec{
+          	ContainerConcurrency: 0,
+          	ScaleTargetRef:       {Kind: "Deployment", Name: "annotation-propagation-fykmbrho-00001-deployment", APIVersion: "apps/v1"},
+        - 	Reachability:         "Unreachable",
+        + 	Reachability:         "Reachable",
+          	ProtocolType:         "http1",
+          }
+=== CONT  TestServiceWithTrafficSplit
+    service_test.go:411: Waiting for Service to become ready with the new shape.
+    service_test.go:416: Since the Service is using release the Route will not be updated, but new revision will be available at 'latest'
+    util.go:90: Checking updated route http://service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+    util.go:96: Checking updated route tags http://latest-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+    util.go:96: Checking updated route tags http://current-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+=== CONT  TestServiceWithTrafficSplit
+    spoof.go:111: Spoofing latest-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    spoof.go:111: Spoofing service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    spoof.go:111: Spoofing current-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestServiceWithTrafficSplit
+    spoof.go:111: Spoofing service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    util.go:190: Performing 200 concurrent requests to http://service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+    spoof.go:111: Spoofing current-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    util.go:190: Performing 200 concurrent requests to http://current-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+    spoof.go:111: Spoofing latest-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    util.go:190: Performing 200 concurrent requests to http://latest-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+=== CONT  TestServiceWithTrafficSplit
+    util.go:167: For domain latest-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io: wanted at least 200, got 200 requests.
+    util.go:167: For domain service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io: wanted at least 200, got 200 requests.
+    util.go:167: For domain current-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io: wanted at least 200, got 200 requests.
+    service_test.go:431: 3. Updating Service to split traffic between two revisions using Release mode
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-with-traffic-split-nhszylrk,GenerateName:,Namespace:serving-tests,SelfLink:,UID:007f15e6-6b9e-45cf-9fa3-dc431c7ad881,ResourceVersion:13725,Generation:3,CreationTimestamp:2022-04-05 20:23:10 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{serving.knative.dev/creator: boskos@prow-build-crgke.iam.gserviceaccount.com,serving.knative.dev/lastModifier: boskos@prow-build-crgke.iam.gserviceaccount.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:23 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{}},"f:spec":{".":{},"f:containers":{}}},"f:traffic":{}}},},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:33 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:status":{"f:conditions":{}}},},},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{current service-with-traffic-split-nhszylrk-00001  <nil> <*>50 <nil>} {candidate service-with-traffic-split-nhszylrk-00002  <nil> <*>50 <nil>} {latest   <nil> <nil> <nil>}]}} {{3 [{ConfigurationsReady True  {2022-04-05 20:23:33 +0000 UTC}  } {Ready True  {2022-04-05 20:23:33 +0000 UTC}  } {RoutesReady True  {2022-04-05 20:23:33 +0000 UTC}  }] <nil>} {service-with-traffic-split-nhszylrk-00002 service-with-traffic-split-nhszylrk-00002} {<*>http://service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io <*>{<*>http://service-with-traffic-split-nhszylrk.serving-tests.svc.cluster.local} [{current service-with-traffic-split-nhszylrk-00001  <*>false <*>100 <*>http://current-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io} {latest service-with-traffic-split-nhszylrk-00002  <*>true <*>0 <*>http://latest-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io}]}}} <nil>}
+    service_test.go:469: Waiting for Service to become ready with the new shape.
+          v1.RouteSpec{
+          	Traffic: []v1.TrafficTarget{
+          		{
+          			... // 2 identical fields
+          			ConfigurationName: "",
+          			LatestRevision:    &false,
+        - 			Percent:           &50,
+        + 			Percent:           &100,
+          			URL:               nil,
+          		},
+        - 		{
+        - 			Tag:            "candidate",
+        - 			RevisionName:   "service-with-traffic-split-nhszylrk-00002",
+        - 			LatestRevision: &false,
+        - 			Percent:        &50,
+        - 		},
+          		{Tag: "latest", ConfigurationName: "service-with-traffic-split-nhszylrk", LatestRevision: &true, Percent: &0, ...},
+          	},
+          }
+=== CONT  TestAnnotationPropagation
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:annotation-propagation-fykmbrho,GenerateName:,Namespace:serving-tests,SelfLink:,UID:805d2664-9aef-4e4a-b17b-1184422c8b5a,ResourceVersion:13752,Generation:2,CreationTimestamp:2022-04-05 20:23:10 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{serving.knative.dev/creator: boskos@prow-build-crgke.iam.gserviceaccount.com,serving.knative.dev/lastModifier: boskos@prow-build-crgke.iam.gserviceaccount.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:25 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:metadata":{"f:annotations":{"f:juicy":{}}},"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{}},"f:spec":{".":{},"f:containers":{}}}}},},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:33 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:status":{"f:conditions":{}}},},},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{2 [{ConfigurationsReady True  {2022-04-05 20:23:33 +0000 UTC}  } {Ready True  {2022-04-05 20:23:33 +0000 UTC}  } {RoutesReady True  {2022-04-05 20:23:33 +0000 UTC}  }] <nil>} {annotation-propagation-fykmbrho-00002 annotation-propagation-fykmbrho-00002} {<*>http://annotation-propagation-fykmbrho.serving-tests.kuberun.34.145.127.205.nip.io <*>{<*>http://annotation-propagation-fykmbrho.serving-tests.svc.cluster.local} [{ annotation-propagation-fykmbrho-00002  <*>true <*>100 <nil>}]}}} <nil>}
+=== CONT  TestAnnotationPropagation
+    service_test.go:652: Updating the Service to use a different image.
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:annotation-propagation-fykmbrho,GenerateName:,Namespace:serving-tests,SelfLink:,UID:805d2664-9aef-4e4a-b17b-1184422c8b5a,ResourceVersion:13825,Generation:2,CreationTimestamp:2022-04-05 20:23:10 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{serving.knative.dev/creator: boskos@prow-build-crgke.iam.gserviceaccount.com,serving.knative.dev/lastModifier: boskos@prow-build-crgke.iam.gserviceaccount.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:25 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{}},"f:spec":{".":{},"f:containers":{}}}}},},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:33 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:status":{"f:conditions":{}}},},},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{2 [{ConfigurationsReady True  {2022-04-05 20:23:33 +0000 UTC}  } {Ready True  {2022-04-05 20:23:33 +0000 UTC}  } {RoutesReady True  {2022-04-05 20:23:33 +0000 UTC}  }] <nil>} {annotation-propagation-fykmbrho-00002 annotation-propagation-fykmbrho-00002} {<*>http://annotation-propagation-fykmbrho.serving-tests.kuberun.34.145.127.205.nip.io <*>{<*>http://annotation-propagation-fykmbrho.serving-tests.svc.cluster.local} [{ annotation-propagation-fykmbrho-00002  <*>true <*>100 <nil>}]}}} <nil>}
+=== CONT  TestAnnotationPropagation
+    service_test.go:658: Service should reflect new revision created and ready in status.
+=== CONT  TestAnnotationPropagation
+          v1.ConfigurationSpec{
+          	Template: v1.RevisionTemplateSpec{
+          		ObjectMeta: {},
+          		Spec: v1.RevisionSpec{
+          			PodSpec: v1.PodSpec{
+          				Volumes:        nil,
+          				InitContainers: nil,
+          				Containers: []v1.Container{
+          					{
+          						Name:    "user-container",
+        - 						Image:   "gcr.io/cr-gke-boskos-179/helloworld:latest",
+        + 						Image:   "gcr.io/cr-gke-boskos-179/pizzaplanetv2:latest",
+          						Command: nil,
+          						Args:    nil,
+          						... // 18 identical fields
+          					},
+          				},
+          				EphemeralContainers: nil,
+          				RestartPolicy:       "",
+          				... // 30 identical fields
+          			},
+          			ContainerConcurrency: &0,
+          			TimeoutSeconds:       &300,
+          		},
+          	},
+          }
+=== CONT  TestServiceWithTrafficSplit
+    service_test.go:474: Traffic should be split between the two revisions and available on three named traffic targets, 'current', 'candidate', and 'latest'
+    util.go:90: Checking updated route http://service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+    util.go:96: Checking updated route tags http://candidate-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+    util.go:96: Checking updated route tags http://current-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+    util.go:96: Checking updated route tags http://latest-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+    spoof.go:111: Spoofing latest-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    spoof.go:111: Spoofing service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    spoof.go:111: Spoofing current-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    spoof.go:111: Spoofing candidate-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestServiceWithTrafficSplit
+    spoof.go:111: Spoofing latest-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    util.go:190: Performing 200 concurrent requests to http://latest-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+    spoof.go:111: Spoofing current-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    util.go:190: Performing 200 concurrent requests to http://current-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+    spoof.go:111: Spoofing candidate-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    util.go:190: Performing 200 concurrent requests to http://candidate-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+    spoof.go:111: Spoofing service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    util.go:190: Performing 200 concurrent requests to http://service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+=== CONT  TestServiceWithTrafficSplit
+    util.go:167: For domain latest-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io: wanted at least 200, got 200 requests.
+=== CONT  TestServiceWithTrafficSplit
+    util.go:167: For domain candidate-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io: wanted at least 200, got 200 requests.
+=== CONT  TestServiceWithTrafficSplit
+    util.go:167: For domain service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io: wanted at least 50, got 94 requests.
+    util.go:167: For domain service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io: wanted at least 50, got 106 requests.
+    util.go:167: For domain current-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io: wanted at least 200, got 200 requests.
+    service_test.go:492: 4. Updating the Service Spec with a new image
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-with-traffic-split-nhszylrk,GenerateName:,Namespace:serving-tests,SelfLink:,UID:007f15e6-6b9e-45cf-9fa3-dc431c7ad881,ResourceVersion:13830,Generation:4,CreationTimestamp:2022-04-05 20:23:10 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{serving.knative.dev/creator: boskos@prow-build-crgke.iam.gserviceaccount.com,serving.knative.dev/lastModifier: boskos@prow-build-crgke.iam.gserviceaccount.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:23 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{}},"f:spec":{".":{},"f:containers":{}}},"f:traffic":{}}},},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:34 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:status":{"f:conditions":{}}},},},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{current service-with-traffic-split-nhszylrk-00001  <*>false <*>50 <nil>} {candidate service-with-traffic-split-nhszylrk-00002  <*>false <*>50 <nil>} {latest   <*>true <*>0 <nil>}]}} {{4 [{ConfigurationsReady True  {2022-04-05 20:23:33 +0000 UTC}  } {Ready True  {2022-04-05 20:23:34 +0000 UTC}  } {RoutesReady True  {2022-04-05 20:23:34 +0000 UTC}  }] <nil>} {service-with-traffic-split-nhszylrk-00002 service-with-traffic-split-nhszylrk-00002} {<*>http://service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io <*>{<*>http://service-with-traffic-split-nhszylrk.serving-tests.svc.cluster.local} [{current service-with-traffic-split-nhszylrk-00001  <*>false <*>50 <*>http://current-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io} {candidate service-with-traffic-split-nhszylrk-00002  <*>false <*>50 <*>http://candidate-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io} {latest service-with-traffic-split-nhszylrk-00002  <*>true <*>0 <*>http://latest-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io}]}}} <nil>}
+    service_test.go:496: Since the Service was updated a new Revision will be created
+          v1.ConfigurationSpec{
+          	Template: v1.RevisionTemplateSpec{
+          		ObjectMeta: {},
+          		Spec: v1.RevisionSpec{
+          			PodSpec: v1.PodSpec{
+          				Volumes:        nil,
+          				InitContainers: nil,
+          				Containers: []v1.Container{
+          					{
+          						Name:    "user-container",
+        - 						Image:   "gcr.io/cr-gke-boskos-179/helloworld:latest",
+        + 						Image:   "gcr.io/cr-gke-boskos-179/pizzaplanetv2:latest",
+          						Command: nil,
+          						Args:    nil,
+          						... // 18 identical fields
+          					},
+          				},
+          				EphemeralContainers: nil,
+          				RestartPolicy:       "",
+          				... // 30 identical fields
+          			},
+          			ContainerConcurrency: &0,
+          			TimeoutSeconds:       &300,
+          		},
+          	},
+          }
+=== CONT  TestServiceCreateAndUpdate
+          	{
+          		Tag:               "",
+        - 		RevisionName:      "service-create-and-update-rdgwabks-00002",
+        + 		RevisionName:      "service-create-and-update-rdgwabks-00003",
+          		ConfigurationName: "",
+          		... // 2 ignored and 1 identical fields
+          	},
+          }
+=== CONT  TestServiceCreateAndUpdate
+          	{
+          		Tag:               "",
+        - 		RevisionName:      "service-create-and-update-rdgwabks-00002",
+        + 		RevisionName:      "service-create-and-update-rdgwabks-00003",
+          		ConfigurationName: "",
+          		... // 2 ignored and 1 identical fields
+          	},
+          }
+          v1alpha1.PodAutoscalerSpec{
+          	ContainerConcurrency: 0,
+          	ScaleTargetRef:       {Kind: "Deployment", Name: "service-create-and-update-rdgwabks-00003-deployment", APIVersion: "apps/v1"},
+        - 	Reachability:         "Reachable",
+        + 	Reachability:         "",
+          	ProtocolType:         "http1",
+          }
+=== CONT  TestServiceCreateAndUpdate
+          v1alpha1.PodAutoscalerSpec{
+          	ContainerConcurrency: 0,
+          	ScaleTargetRef:       {Kind: "Deployment", Name: "service-create-and-update-rdgwabks-00002-deployment", APIVersion: "apps/v1"},
+        - 	Reachability:         "Unreachable",
+        + 	Reachability:         "Reachable",
+          	ProtocolType:         "http1",
+          }
+=== CONT  TestServiceCreateAndUpdate
+    service_test.go:181: Updating annotations of RevisionTemplateSpec for service service-create-and-update-rdgwabks
+=== CONT  TestServiceCreateAndUpdate
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-create-and-update-rdgwabks,GenerateName:,Namespace:serving-tests,SelfLink:,UID:d73d199b-7294-4f8e-a681-ed855e71e76f,ResourceVersion:13999,Generation:3,CreationTimestamp:2022-04-05 20:23:10 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{serving.knative.dev/creator: boskos@prow-build-crgke.iam.gserviceaccount.com,serving.knative.dev/lastModifier: boskos@prow-build-crgke.iam.gserviceaccount.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:32 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{},"f:labels":{".":{},"f:label-x":{},"f:label-y":{}}},"f:spec":{".":{},"f:containers":{}}}}},},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:37 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:status":{"f:conditions":{}}},},},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{annotation-a: 123,annotation-b: 456,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{3 [{ConfigurationsReady True  {2022-04-05 20:23:37 +0000 UTC}  } {Ready True  {2022-04-05 20:23:37 +0000 UTC}  } {RoutesReady True  {2022-04-05 20:23:37 +0000 UTC}  }] <nil>} {service-create-and-update-rdgwabks-00003 service-create-and-update-rdgwabks-00003} {<*>http://service-create-and-update-rdgwabks.serving-tests.kuberun.34.145.127.205.nip.io <*>{<*>http://service-create-and-update-rdgwabks.serving-tests.svc.cluster.local} [{ service-create-and-update-rdgwabks-00003  <*>true <*>100 <nil>}]}}} <nil>}
+=== CONT  TestServiceCreateAndUpdate
+    service_test.go:192: Waiting for the new revision to appear as LatestRevision.
+          v1.ConfigurationSpec{
+          	Template: v1.RevisionTemplateSpec{
+          		ObjectMeta: v1.ObjectMeta{
+          			... // 8 identical fields
+          			DeletionTimestamp:          nil,
+          			DeletionGracePeriodSeconds: nil,
+        - 			Labels:                     nil,
+        + 			Labels:                     map[string]string{"label-x": "abc", "label-y": "def"},
+        - 			Annotations:                map[string]string{"annotation-a": "123", "annotation-b": "456"},
+        + 			Annotations:                nil,
+          			OwnerReferences:            nil,
+          			Finalizers:                 nil,
+          			... // 2 identical fields
+          		},
+          		Spec: {PodSpec: {Containers: {{Name: "user-container", Image: "gcr.io/cr-gke-boskos-179/pizzaplanetv2:latest", Resources: {Limits: {}, Requests: {}}, ReadinessProbe: &{Handler: {TCPSocket: &{}}, SuccessThreshold: 1}, ...}}, EnableServiceLinks: &false}, ContainerConcurrency: &0, TimeoutSeconds: &300},
+          	},
+          }
+=== CONT  TestAnnotationPropagation
+          	{
+          		Tag:               "",
+        - 		RevisionName:      "annotation-propagation-fykmbrho-00002",
+        + 		RevisionName:      "annotation-propagation-fykmbrho-00003",
+          		ConfigurationName: "",
+          		... // 2 ignored and 1 identical fields
+          	},
+          }
+          	{
+          		Tag:               "",
+        - 		RevisionName:      "annotation-propagation-fykmbrho-00002",
+        + 		RevisionName:      "annotation-propagation-fykmbrho-00003",
+          		ConfigurationName: "",
+          		... // 2 ignored and 1 identical fields
+          	},
+          }
+          v1alpha1.PodAutoscalerSpec{
+          	ContainerConcurrency: 0,
+          	ScaleTargetRef:       {Kind: "Deployment", Name: "annotation-propagation-fykmbrho-00003-deployment", APIVersion: "apps/v1"},
+        - 	Reachability:         "Reachable",
+        + 	Reachability:         "",
+          	ProtocolType:         "http1",
+          }
+=== CONT  TestAnnotationPropagation
+          v1alpha1.PodAutoscalerSpec{
+          	ContainerConcurrency: 0,
+          	ScaleTargetRef:       {Kind: "Deployment", Name: "annotation-propagation-fykmbrho-00002-deployment", APIVersion: "apps/v1"},
+        - 	Reachability:         "Unreachable",
+        + 	Reachability:         "Reachable",
+          	ProtocolType:         "http1",
+          }
+    service_test.go:664: Waiting for Service to transition to Ready.
+=== CONT  TestServiceWithTrafficSplit
+          	{Tag: "current", RevisionName: "service-with-traffic-split-nhszylrk-00001", Percent: &50, ...},
+          	{Tag: "candidate", RevisionName: "service-with-traffic-split-nhszylrk-00002", Percent: &50, ...},
+          	{
+          		Tag:               "latest",
+        - 		RevisionName:      "service-with-traffic-split-nhszylrk-00002",
+        + 		RevisionName:      "service-with-traffic-split-nhszylrk-00003",
+          		ConfigurationName: "",
+          		... // 2 ignored and 1 identical fields
+          	},
+          }
+          v1alpha1.PodAutoscalerSpec{
+          	ContainerConcurrency: 0,
+          	ScaleTargetRef:       {Kind: "Deployment", Name: "service-with-traffic-split-nhszylrk-00003-deployment", APIVersion: "apps/v1"},
+        - 	Reachability:         "Reachable",
+        + 	Reachability:         "",
+          	ProtocolType:         "http1",
+          }
+          	{Tag: "current", RevisionName: "service-with-traffic-split-nhszylrk-00001", Percent: &50, ...},
+          	{Tag: "candidate", RevisionName: "service-with-traffic-split-nhszylrk-00002", Percent: &50, ...},
+          	{
+          		Tag:               "latest",
+        - 		RevisionName:      "service-with-traffic-split-nhszylrk-00002",
+        + 		RevisionName:      "service-with-traffic-split-nhszylrk-00003",
+          		ConfigurationName: "",
+          		... // 2 ignored and 1 identical fields
+          	},
+          }
+    service_test.go:508: Waiting for Service to become ready with the new shape.
+--- PASS: TestAnnotationPropagation (29.76s)
+=== CONT  TestRevisionTimeout/writes_first_byte_before_timeout
+    revision_timeout_test.go:66: Response status code: 200, expected: 200
+    revision_timeout_test.go:48: URL: http://revision-timeout-writes-first-byte-before-ipjbxplh.serving-tests.kuberun.34.145.127.205.nip.io, initialSleep: 0s, sleep: 15s, request elapsed 15006 ms
+=== CONT  TestServiceWithTrafficSplit
+    service_test.go:513: Traffic should remain between the two images, and the new revision should be available on the named traffic target 'latest'
+    util.go:96: Checking updated route tags http://latest-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+    util.go:90: Checking updated route http://service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+    util.go:96: Checking updated route tags http://candidate-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+    util.go:96: Checking updated route tags http://current-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+=== CONT  TestRevisionTimeout
+--- PASS: TestRevisionTimeout (0.13s)
+    --- PASS: TestRevisionTimeout/does_not_exceed_timeout_seconds (15.42s)
+    --- PASS: TestRevisionTimeout/exceeds_timeout_seconds (22.35s)
+    --- PASS: TestRevisionTimeout/writes_first_byte_before_timeout (30.39s)
+=== CONT  TestServiceWithTrafficSplit
+    spoof.go:111: Spoofing service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    spoof.go:111: Spoofing current-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    spoof.go:111: Spoofing candidate-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    spoof.go:111: Spoofing latest-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestServiceWithTrafficSplit
+    spoof.go:111: Spoofing service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    util.go:190: Performing 200 concurrent requests to http://service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+    spoof.go:111: Spoofing candidate-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    util.go:190: Performing 200 concurrent requests to http://candidate-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+    spoof.go:111: Spoofing current-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    util.go:190: Performing 200 concurrent requests to http://current-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+    spoof.go:111: Spoofing latest-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    util.go:190: Performing 200 concurrent requests to http://latest-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+    util.go:167: For domain candidate-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io: wanted at least 200, got 200 requests.
+    util.go:167: For domain latest-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io: wanted at least 200, got 200 requests.
+=== CONT  TestServiceWithTrafficSplit
+    util.go:167: For domain service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io: wanted at least 50, got 94 requests.
+    util.go:167: For domain service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io: wanted at least 50, got 106 requests.
+    util.go:167: For domain current-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io: wanted at least 200, got 200 requests.
+    service_test.go:531: 5. Updating Service to split traffic between two `current` and `@latest`
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-with-traffic-split-nhszylrk,GenerateName:,Namespace:serving-tests,SelfLink:,UID:007f15e6-6b9e-45cf-9fa3-dc431c7ad881,ResourceVersion:14210,Generation:5,CreationTimestamp:2022-04-05 20:23:10 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{serving.knative.dev/creator: boskos@prow-build-crgke.iam.gserviceaccount.com,serving.knative.dev/lastModifier: boskos@prow-build-crgke.iam.gserviceaccount.com,},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:23 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{}},"f:spec":{".":{},"f:containers":{}}},"f:traffic":{}}},},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-04-05 20:23:40 +0000 UTC,FieldsType:FieldsV1,FieldsV1:{"f:status":{"f:conditions":{}}},},},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ClusterName:,ManagedFields:[]ManagedFieldsEntry{},}} {[{current service-with-traffic-split-nhszylrk-00001  <nil> <*>50 <nil>} {candidate   <nil> <*>50 <nil>} {latest   <nil> <nil> <nil>}]}} {{5 [{ConfigurationsReady True  {2022-04-05 20:23:39 +0000 UTC}  } {Ready True  {2022-04-05 20:23:40 +0000 UTC}  } {RoutesReady True  {2022-04-05 20:23:40 +0000 UTC}  }] <nil>} {service-with-traffic-split-nhszylrk-00003 service-with-traffic-split-nhszylrk-00003} {<*>http://service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io <*>{<*>http://service-with-traffic-split-nhszylrk.serving-tests.svc.cluster.local} [{current service-with-traffic-split-nhszylrk-00001  <*>false <*>50 <*>http://current-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io} {candidate service-with-traffic-split-nhszylrk-00002  <*>false <*>50 <*>http://candidate-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io} {latest service-with-traffic-split-nhszylrk-00003  <*>true <*>0 <*>http://latest-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io}]}}} <nil>}
+          v1.RouteSpec{
+          	Traffic: []v1.TrafficTarget{
+          		{Tag: "current", RevisionName: "service-with-traffic-split-nhszylrk-00001", LatestRevision: &false, Percent: &50, ...},
+          		{
+          			Tag:               "candidate",
+        - 			RevisionName:      "",
+        + 			RevisionName:      "service-with-traffic-split-nhszylrk-00002",
+        - 			ConfigurationName: "service-with-traffic-split-nhszylrk",
+        + 			ConfigurationName: "",
+        - 			LatestRevision:    &true,
+        + 			LatestRevision:    &false,
+          			Percent:           &50,
+          			URL:               nil,
+          		},
+          		{Tag: "latest", ConfigurationName: "service-with-traffic-split-nhszylrk", LatestRevision: &true, Percent: &0, ...},
+          	},
+          }
+    service_test.go:562: Waiting for Service to become ready with the new shape.
+=== CONT  TestServiceWithTrafficSplit
+          v1alpha1.PodAutoscalerSpec{
+          	ContainerConcurrency: 0,
+          	ScaleTargetRef:       {Kind: "Deployment", Name: "service-with-traffic-split-nhszylrk-00002-deployment", APIVersion: "apps/v1"},
+        - 	Reachability:         "Unreachable",
+        + 	Reachability:         "Reachable",
+          	ProtocolType:         "http1",
+          }
+=== CONT  TestServiceWithTrafficSplit
+    util.go:96: Checking updated route tags http://candidate-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+    util.go:96: Checking updated route tags http://current-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+    util.go:90: Checking updated route http://service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+    util.go:96: Checking updated route tags http://latest-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+    spoof.go:111: Spoofing candidate-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    spoof.go:111: Spoofing current-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    spoof.go:111: Spoofing latest-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    spoof.go:111: Spoofing service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+=== CONT  TestServiceCreateAndUpdate
+          	{
+          		Tag:               "",
+        - 		RevisionName:      "service-create-and-update-rdgwabks-00003",
+        + 		RevisionName:      "service-create-and-update-rdgwabks-00004",
+          		ConfigurationName: "",
+          		... // 2 ignored and 1 identical fields
+          	},
+          }
+          	{
+          		Tag:               "",
+        - 		RevisionName:      "service-create-and-update-rdgwabks-00003",
+        + 		RevisionName:      "service-create-and-update-rdgwabks-00004",
+          		ConfigurationName: "",
+          		... // 2 ignored and 1 identical fields
+          	},
+          }
+=== CONT  TestServiceCreateAndUpdate
+--- PASS: TestSingleConcurrency (33.32s)
+=== CONT  TestServiceCreateAndUpdate
+          v1alpha1.PodAutoscalerSpec{
+          	ContainerConcurrency: 0,
+          	ScaleTargetRef:       {Kind: "Deployment", Name: "service-create-and-update-rdgwabks-00004-deployment", APIVersion: "apps/v1"},
+        - 	Reachability:         "Reachable",
+        + 	Reachability:         "",
+          	ProtocolType:         "http1",
+          }
+=== CONT  TestServiceCreateAndUpdate
+          v1alpha1.PodAutoscalerSpec{
+          	ContainerConcurrency: 0,
+          	ScaleTargetRef:       {Kind: "Deployment", Name: "service-create-and-update-rdgwabks-00003-deployment", APIVersion: "apps/v1"},
+        - 	Reachability:         "Unreachable",
+        + 	Reachability:         "Reachable",
+          	ProtocolType:         "http1",
+          }
+=== CONT  TestServiceWithTrafficSplit
+    spoof.go:111: Spoofing service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    util.go:190: Performing 200 concurrent requests to http://service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+    spoof.go:111: Spoofing latest-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    util.go:190: Performing 200 concurrent requests to http://latest-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+    spoof.go:111: Spoofing current-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    util.go:190: Performing 200 concurrent requests to http://current-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+    spoof.go:111: Spoofing candidate-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    util.go:190: Performing 200 concurrent requests to http://candidate-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io
+=== CONT  TestServiceCreateAndUpdate
+    service_test.go:198: Waiting for Service to transition to Ready.
+    util.go:151: Checking to ensure Revision is in desired state with generation 4
+    util.go:171: Checking to ensure Configuration is in desired state.
+    util.go:186: Checking to ensure Route is in desired state with generation 4
+    util.go:130: Checking that the endpoint vends the expected text: Re-energize yourself with a slice of pepperoni!
+    spoof.go:111: Spoofing service-create-and-update-rdgwabks.serving-tests.kuberun.34.145.127.205.nip.io -> 34.145.127.205
+    prober.go:183: Stopping all probers
+=== CONT  TestServiceWithTrafficSplit
+    util.go:167: For domain candidate-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io: wanted at least 200, got 200 requests.
+    util.go:167: For domain latest-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io: wanted at least 200, got 200 requests.
+    util.go:167: For domain service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io: wanted at least 50, got 100 requests.
+    util.go:167: For domain service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io: wanted at least 50, got 100 requests.
+    util.go:167: For domain current-service-with-traffic-split-nhszylrk.serving-tests.kuberun.34.145.127.205.nip.io: wanted at least 200, got 200 requests.
+--- PASS: TestServiceCreateAndUpdate (34.04s)
+--- PASS: TestServiceWithTrafficSplit (34.06s)
+=== CONT  TestContainerExitingMsg
+        2022/04/05 20:23:58 Crashed...
+        2022/04/05 20:23:58 Crashed...
+    errorcondition_test.go:146: When the containers keep crashing, the Configuration should have error status.
+    errorcondition_test.go:150: Configuration container-exiting-msg-bdjfjlff Ready = &apis.Condition{Type:"Ready", Status:"False", Severity:"", LastTransitionTime:apis.VolatileTime{Inner:v1.Time{Time:time.Time{wall:0x0, ext:63784787055, loc:(*time.Location)(0x36d64a0)}}}, Reason:"RevisionFailed", Message:"Revision \"container-exiting-msg-bdjfjlff-00001\" failed with message: Container failed with: 2022/04/05 20:23:48 Started...\n2022/04/05 20:23:58 Crashed...\n."}
+    errorcondition_test.go:163: When the containers keep crashing, the Revision should have error status.
+    errorcondition_test.go:166: Revsion container-exiting-msg-bdjfjlff-00001 Ready status = &{Ready False  {2022-04-05 20:24:15 +0000 UTC} ExitCode5 Container failed with: 2022/04/05 20:23:48 Started...
+        2022/04/05 20:23:58 Crashed...
+        }
+--- PASS: TestContainerExitingMsg (65.49s)
+PASS
+ok  	knative.dev/serving/test/conformance/api/v1	65.643s
+=== RUN   TestDomainMapping
+    domain_mapping_test.go:40: Beta features not enabled
+--- SKIP: TestDomainMapping (0.00s)
+PASS
+ok  	knative.dev/serving/test/conformance/api/v1alpha1	0.145s
+=== RUN   TestDomainMapping
+    domain_mapping_test.go:40: Beta features not enabled
+--- SKIP: TestDomainMapping (0.00s)
+PASS
+ok  	knative.dev/serving/test/conformance/api/v1beta1	0.158s
