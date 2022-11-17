@@ -1,0 +1,633 @@
+=== RUN   TestBlueGreenRoute
+=== PAUSE TestBlueGreenRoute
+=== RUN   TestConfigurationGetAndList
+=== PAUSE TestConfigurationGetAndList
+=== RUN   TestUpdateConfigurationMetadata
+    configuration_test.go:77: Configuration create/patch/replace APIs are not required by Knative Serving API Specification
+--- SKIP: TestUpdateConfigurationMetadata (0.00s)
+=== RUN   TestContainerErrorMsg
+=== PAUSE TestContainerErrorMsg
+=== RUN   TestContainerExitingMsg
+=== PAUSE TestContainerExitingMsg
+=== RUN   TestServiceGenerateName
+    generatename_test.go:119: Metadata.generateName is not required by Knative Serving API Specification
+--- SKIP: TestServiceGenerateName (0.00s)
+=== RUN   TestRouteAndConfigGenerateName
+    generatename_test.go:158: Metadata.generateName is not required by Knative Serving API Specification
+--- SKIP: TestRouteAndConfigGenerateName (0.00s)
+=== RUN   TestCustomResourcesLimits
+=== PAUSE TestCustomResourcesLimits
+=== RUN   TestRevisionGetAndList
+=== PAUSE TestRevisionGetAndList
+=== RUN   TestRevisionTimeout
+=== PAUSE TestRevisionTimeout
+=== RUN   TestRouteGetAndList
+=== PAUSE TestRouteGetAndList
+=== RUN   TestRouteCreation
+    route_test.go:141: Route create/patch/replace APIs are not required by Knative Serving API Specification
+--- SKIP: TestRouteCreation (0.00s)
+=== RUN   TestServiceAccountValidation
+    service_account_test.go:40: Service.spec.serviceAccountName is not required by Knative Serving API Specification
+--- SKIP: TestServiceAccountValidation (0.00s)
+=== RUN   TestServiceCreateListAndDelete
+=== PAUSE TestServiceCreateListAndDelete
+=== RUN   TestServiceCreateAndUpdate
+=== PAUSE TestServiceCreateAndUpdate
+=== RUN   TestServiceBYOName
+=== PAUSE TestServiceBYOName
+=== RUN   TestServiceWithTrafficSplit
+=== PAUSE TestServiceWithTrafficSplit
+=== RUN   TestAnnotationPropagation
+=== PAUSE TestAnnotationPropagation
+=== RUN   TestServiceCreateWithMultipleContainers
+    service_test.go:699: Multiple containers support is not required by Knative Serving API Specification
+--- SKIP: TestServiceCreateWithMultipleContainers (0.00s)
+=== RUN   TestServiceCreateWithEmptyDir
+    service_test.go:747: Emptydir support is not required by Knative Serving API Specification
+--- SKIP: TestServiceCreateWithEmptyDir (0.00s)
+=== RUN   TestSingleConcurrency
+=== PAUSE TestSingleConcurrency
+=== RUN   TestConfigMapVolume
+    volumes_test.go:45: Service.spec.volumes is not required by Knative Serving API Specification
+--- SKIP: TestConfigMapVolume (0.00s)
+=== RUN   TestProjectedConfigMapVolume
+    volumes_test.go:116: Service.spec.volumes is not required by Knative Serving API Specification
+--- SKIP: TestProjectedConfigMapVolume (0.00s)
+=== RUN   TestSecretVolume
+=== PAUSE TestSecretVolume
+=== RUN   TestProjectedSecretVolume
+=== PAUSE TestProjectedSecretVolume
+=== RUN   TestProjectedComplex
+=== PAUSE TestProjectedComplex
+=== RUN   TestProjectedServiceAccountToken
+=== PAUSE TestProjectedServiceAccountToken
+=== CONT  TestBlueGreenRoute
+=== CONT  TestServiceCreateAndUpdate
+=== CONT  TestSecretVolume
+    volumes_test.go:190: Service.spec.volumes is not required by Knative Serving API Specification
+--- SKIP: TestSecretVolume (0.00s)
+=== CONT  TestProjectedSecretVolume
+    volumes_test.go:256: Service.spec.volumes is not required by Knative Serving API Specification
+=== CONT  TestProjectedComplex
+--- SKIP: TestProjectedSecretVolume (0.00s)
+=== CONT  TestRevisionGetAndList
+=== CONT  TestProjectedComplex
+    volumes_test.go:326: Service.spec.volumes is not required by Knative Serving API Specification
+=== CONT  TestContainerExitingMsg
+=== CONT  TestProjectedServiceAccountToken
+    volumes_test.go:432: Service.spec.volumes is not required by Knative Serving API Specification
+=== CONT  TestServiceBYOName
+--- SKIP: TestProjectedComplex (0.00s)
+--- SKIP: TestProjectedServiceAccountToken (0.00s)
+=== CONT  TestServiceWithTrafficSplit
+=== CONT  TestSingleConcurrency
+=== CONT  TestRouteGetAndList
+=== CONT  TestServiceCreateListAndDelete
+=== CONT  TestContainerErrorMsg
+=== CONT  TestConfigurationGetAndList
+=== CONT  TestRevisionTimeout
+=== CONT  TestContainerExitingMsg
+    errorcondition_test.go:132: Creating a new Service 
+=== CONT  TestServiceBYOName
+    service.go:113: Creating a new Service service service-b-y-o-name-mtjnwcsv
+=== CONT  TestServiceCreateAndUpdate
+    service.go:113: Creating a new Service service service-create-and-update-hfygzrnk
+=== CONT  TestRevisionGetAndList
+    service.go:113: Creating a new Service service revision-get-and-list-swaqxskt
+=== CONT  TestBlueGreenRoute
+    blue_green_test.go:67: Creating a new Service in runLatest
+    service.go:113: Creating a new Service service blue-green-route-uvcqxovz
+=== CONT  TestServiceWithTrafficSplit
+    service.go:113: Creating a new Service service service-with-traffic-split-tfzhypyb
+=== CONT  TestRevisionGetAndList
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:revision-get-and-list-swaqxskt,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestServiceWithTrafficSplit
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-with-traffic-split-tfzhypyb,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestServiceBYOName
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-b-y-o-name-mtjnwcsv,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:service-b-y-o-name-mtjnwcsv-byoname,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestContainerExitingMsg
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:container-exiting-msg-svsgghdw,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestBlueGreenRoute
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:blue-green-route-uvcqxovz,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestSingleConcurrency
+    service.go:113: Creating a new Service service single-concurrency-kjzoyhef
+=== CONT  TestContainerErrorMsg
+    errorcondition_test.go:55: Creating a new Service container-error-msg-ubixwkqv
+=== CONT  TestConfigurationGetAndList
+    service.go:113: Creating a new Service service configuration-get-and-list-jvzwpplk
+=== CONT  TestSingleConcurrency
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:single-concurrency-kjzoyhef,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestConfigurationGetAndList
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:configuration-get-and-list-jvzwpplk,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestContainerErrorMsg
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:container-error-msg-ubixwkqv,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestServiceCreateAndUpdate
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-create-and-update-hfygzrnk,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestServiceCreateListAndDelete
+    service.go:113: Creating a new Service service service-create-list-and-delete-woojaksk
+=== CONT  TestRouteGetAndList
+    service.go:113: Creating a new Service service route-get-and-list-abqdnqkf
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:route-get-and-list-abqdnqkf,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== RUN   TestRevisionTimeout/does_not_exceed_timeout_seconds
+=== PAUSE TestRevisionTimeout/does_not_exceed_timeout_seconds
+=== CONT  TestServiceCreateListAndDelete
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-create-list-and-delete-woojaksk,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== RUN   TestRevisionTimeout/exceeds_timeout_seconds
+=== PAUSE TestRevisionTimeout/exceeds_timeout_seconds
+=== RUN   TestRevisionTimeout/writes_first_byte_before_timeout
+=== PAUSE TestRevisionTimeout/writes_first_byte_before_timeout
+=== CONT  TestCustomResourcesLimits
+    resources_test.go:44: Creating a new Route and Configuration
+    service.go:113: Creating a new Service service custom-resources-limits-nwmdlmwk
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:custom-resources-limits-nwmdlmwk,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestServiceWithTrafficSplit
+    service.go:131: Waiting for Service to transition to Ready. service service-with-traffic-split-tfzhypyb
+=== CONT  TestRevisionGetAndList
+    service.go:131: Waiting for Service to transition to Ready. service revision-get-and-list-swaqxskt
+=== CONT  TestRouteGetAndList
+    service.go:131: Waiting for Service to transition to Ready. service route-get-and-list-abqdnqkf
+=== CONT  TestContainerErrorMsg
+    errorcondition_test.go:65: When the imagepath is invalid, the Service should have error status.
+=== CONT  TestServiceCreateListAndDelete
+    service.go:131: Waiting for Service to transition to Ready. service service-create-list-and-delete-woojaksk
+=== CONT  TestServiceCreateAndUpdate
+    service.go:131: Waiting for Service to transition to Ready. service service-create-and-update-hfygzrnk
+=== CONT  TestContainerExitingMsg
+    errorcondition_test.go:139: When the containers keep crashing, the Service should have error status.
+=== CONT  TestConfigurationGetAndList
+    service.go:131: Waiting for Service to transition to Ready. service configuration-get-and-list-jvzwpplk
+=== CONT  TestSingleConcurrency
+    service.go:131: Waiting for Service to transition to Ready. service single-concurrency-kjzoyhef
+=== CONT  TestBlueGreenRoute
+    service.go:131: Waiting for Service to transition to Ready. service blue-green-route-uvcqxovz
+=== CONT  TestServiceBYOName
+    service.go:131: Waiting for Service to transition to Ready. service service-b-y-o-name-mtjnwcsv
+=== CONT  TestCustomResourcesLimits
+    service.go:131: Waiting for Service to transition to Ready. service custom-resources-limits-nwmdlmwk
+=== CONT  TestContainerErrorMsg
+    errorcondition_test.go:71: When the imagepath is invalid, the Configuration should have error status.
+    errorcondition_test.go:74: Config container-error-msg-ubixwkqv Ready status = &{Ready False  {2022-11-15 08:09:21 +0100 CET} RevisionFailed Revision "container-error-msg-ubixwkqv-00001" failed with message: Unable to fetch image "docker.io/eeeoo/invalidhelloworld:latest": failed to resolve image to digest: HEAD https://index.docker.io/v2/eeeoo/invalidhelloworld/manifests/latest: unexpected status code 401 Unauthorized (HEAD responses have no body, use GET for details).}
+    errorcondition_test.go:94: When the imagepath is invalid, the Revision should have error status.
+    errorcondition_test.go:97: Revision container-error-msg-ubixwkqv-00001 Ready state = &apis.Condition{Type:"Ready", Status:"False", Severity:"", LastTransitionTime:apis.VolatileTime{Inner:time.Date(2022, time.November, 15, 8, 9, 21, 0, time.Local)}, Reason:"ContainerMissing", Message:"Unable to fetch image \"docker.io/eeeoo/invalidhelloworld:latest\": failed to resolve image to digest: HEAD https://index.docker.io/v2/eeeoo/invalidhelloworld/manifests/latest: unexpected status code 401 Unauthorized (HEAD responses have no body, use GET for details)"}
+    errorcondition_test.go:110: Checking to ensure Route is in desired state
+--- PASS: TestContainerErrorMsg (4.65s)
+=== CONT  TestAnnotationPropagation
+    service.go:113: Creating a new Service service annotation-propagation-kyhhxrvo
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:annotation-propagation-kyhhxrvo,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+    service.go:131: Waiting for Service to transition to Ready. service annotation-propagation-kyhhxrvo
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestSingleConcurrency
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestAnnotationPropagation
+    service.go:145: Successfully created Service annotation-propagation-kyhhxrvo
+    util.go:153: Checking to ensure Revision is in desired state with generation 1
+=== CONT  TestServiceCreateAndUpdate
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestSingleConcurrency
+    service.go:145: Successfully created Service single-concurrency-kjzoyhef
+    single_threaded_test.go:65: Probing https://single-concurrency-kjzoyhef.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing single-concurrency-kjzoyhef.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> single-concurrency-kjzoyhef.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+=== CONT  TestServiceBYOName
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestAnnotationPropagation
+    util.go:173: Checking to ensure Configuration is in desired state.
+=== CONT  TestServiceCreateAndUpdate
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestServiceBYOName
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestAnnotationPropagation
+    util.go:188: Checking to ensure Route is in desired state with generation 1
+=== CONT  TestServiceWithTrafficSplit
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestRevisionGetAndList
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestRouteGetAndList
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestServiceWithTrafficSplit
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestRevisionGetAndList
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestAnnotationPropagation
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:annotation-propagation-kyhhxrvo,GenerateName:,Namespace:vaw30wzxpbk,SelfLink:,UID:1cd020d1-a30b-4bba-a38c-6f50cba013e6,ResourceVersion:1514551454,Generation:1,CreationTimestamp:2022-11-15 08:09:23 +0100 CET,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{juicy: jamba,serving.knative.dev/creator: <email>,serving.knative.dev/lastModifier: <email>,},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:23 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{}},"f:spec":{".":{},"f:containers":{}}}}},Subresource:,},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:36 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:status":{".":{},"f:address":{".":{},"f:url":{}},"f:conditions":{},"f:latestCreatedRevisionName":{},"f:latestReadyRevisionName":{},"f:observedGeneration":{},"f:traffic":{},"f:url":{}}},Subresource:status,},},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{1 [{ConfigurationsReady True  {2022-11-15 08:09:36 +0100 CET}  } {Ready True  {2022-11-15 08:09:39 +0100 CET}  } {RoutesReady True  {2022-11-15 08:09:39 +0100 CET}  }] <nil>} {annotation-propagation-kyhhxrvo-00001 annotation-propagation-kyhhxrvo-00001} {<*>https://annotation-propagation-kyhhxrvo.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud <*>{<*>http://annotation-propagation-kyhhxrvo.vaw30wzxpbk.svc.cluster.local} [{ annotation-propagation-kyhhxrvo-00001  <*>true <*>100 <nil>}]}}} <nil>}
+=== CONT  TestRouteGetAndList
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestBlueGreenRoute
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestServiceCreateAndUpdate
+    service.go:145: Successfully created Service service-create-and-update-hfygzrnk
+    util.go:153: Checking to ensure Revision is in desired state with generation 1
+=== CONT  TestBlueGreenRoute
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestAnnotationPropagation
+    service_test.go:629: Updating the Service to use a different image.
+=== CONT  TestServiceBYOName
+    service.go:145: Successfully created Service service-b-y-o-name-mtjnwcsv
+    util.go:153: Checking to ensure Revision is in desired state with generation 1
+=== CONT  TestSingleConcurrency
+    spoof.go:110: Spoofing single-concurrency-kjzoyhef.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> single-concurrency-kjzoyhef.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    single_threaded_test.go:87: Maintaining 5 concurrent requests for 20s.
+    single_threaded_test.go:119: Waiting for all requests to complete.
+=== CONT  TestAnnotationPropagation
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:annotation-propagation-kyhhxrvo,GenerateName:,Namespace:vaw30wzxpbk,SelfLink:,UID:1cd020d1-a30b-4bba-a38c-6f50cba013e6,ResourceVersion:1514551556,Generation:1,CreationTimestamp:2022-11-15 08:09:23 +0100 CET,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{juicy: jamba,serving.knative.dev/creator: <email>,serving.knative.dev/lastModifier: <email>,},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:36 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:status":{".":{},"f:address":{".":{},"f:url":{}},"f:conditions":{},"f:latestCreatedRevisionName":{},"f:latestReadyRevisionName":{},"f:observedGeneration":{},"f:traffic":{},"f:url":{}}},Subresource:,},ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:41 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:metadata":{"f:annotations":{"f:juicy":{}}},"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{}},"f:spec":{".":{},"f:containers":{}}}}},Subresource:,},},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{1 [{ConfigurationsReady True  {2022-11-15 08:09:36 +0100 CET}  } {Ready True  {2022-11-15 08:09:39 +0100 CET}  } {RoutesReady True  {2022-11-15 08:09:39 +0100 CET}  }] <nil>} {annotation-propagation-kyhhxrvo-00001 annotation-propagation-kyhhxrvo-00001} {<*>https://annotation-propagation-kyhhxrvo.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud <*>{<*>http://annotation-propagation-kyhhxrvo.vaw30wzxpbk.svc.cluster.local} [{ annotation-propagation-kyhhxrvo-00001  <*>true <*>100 <nil>}]}}} <nil>}
+=== CONT  TestServiceCreateAndUpdate
+    util.go:173: Checking to ensure Configuration is in desired state.
+=== CONT  TestServiceWithTrafficSplit
+    service.go:145: Successfully created Service service-with-traffic-split-tfzhypyb
+    service_test.go:344: Validating service shape.
+    service_test.go:354: 1. Updating Service to ReleaseType using lastCreatedRevision
+=== CONT  TestServiceCreateAndUpdate
+    util.go:188: Checking to ensure Route is in desired state with generation 1
+=== CONT  TestRevisionGetAndList
+    service.go:145: Successfully created Service revision-get-and-list-swaqxskt
+=== CONT  TestServiceBYOName
+    util.go:173: Checking to ensure Configuration is in desired state.
+=== CONT  TestRouteGetAndList
+    service.go:145: Successfully created Service route-get-and-list-abqdnqkf
+=== CONT  TestServiceWithTrafficSplit
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-with-traffic-split-tfzhypyb,GenerateName:,Namespace:vaw30wzxpbk,SelfLink:,UID:824c1252-afdb-4a86-b098-5d55eda50c9d,ResourceVersion:1514551527,Generation:1,CreationTimestamp:2022-11-15 08:09:19 +0100 CET,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{serving.knative.dev/creator: <email>,serving.knative.dev/lastModifier: <email>,},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:19 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{}},"f:spec":{".":{},"f:containers":{}}}}},Subresource:,},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:34 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:status":{".":{},"f:address":{".":{},"f:url":{}},"f:conditions":{},"f:latestCreatedRevisionName":{},"f:latestReadyRevisionName":{},"f:observedGeneration":{},"f:traffic":{},"f:url":{}}},Subresource:status,},},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {[{current service-with-traffic-split-tfzhypyb-00001  <nil> <*>100 <nil>} {latest   <nil> <nil> <nil>}]}} {{1 [{ConfigurationsReady True  {2022-11-15 08:09:34 +0100 CET}  } {Ready True  {2022-11-15 08:09:41 +0100 CET}  } {RoutesReady True  {2022-11-15 08:09:41 +0100 CET}  }] <nil>} {service-with-traffic-split-tfzhypyb-00001 service-with-traffic-split-tfzhypyb-00001} {<*>https://service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud <*>{<*>http://service-with-traffic-split-tfzhypyb.vaw30wzxpbk.svc.cluster.local} [{ service-with-traffic-split-tfzhypyb-00001  <*>true <*>100 <nil>}]}}} <nil>}
+=== CONT  TestAnnotationPropagation
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:annotation-propagation-kyhhxrvo,GenerateName:,Namespace:vaw30wzxpbk,SelfLink:,UID:1cd020d1-a30b-4bba-a38c-6f50cba013e6,ResourceVersion:1514551610,Generation:1,CreationTimestamp:2022-11-15 08:09:23 +0100 CET,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{juicy: jamba,serving.knative.dev/creator: <email>,serving.knative.dev/lastModifier: <email>,},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:36 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:status":{".":{},"f:address":{".":{},"f:url":{}},"f:latestCreatedRevisionName":{},"f:latestReadyRevisionName":{},"f:observedGeneration":{},"f:traffic":{},"f:url":{}}},Subresource:,},ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:41 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:metadata":{"f:annotations":{"f:juicy":{}}},"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{}},"f:spec":{".":{},"f:containers":{}}}}},Subresource:,},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:42 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:status":{"f:conditions":{}}},Subresource:status,},},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{1 [{ConfigurationsReady True  {2022-11-15 08:09:36 +0100 CET}  } {Ready True  {2022-11-15 08:09:42 +0100 CET}  } {RoutesReady True  {2022-11-15 08:09:42 +0100 CET}  }] <nil>} {annotation-propagation-kyhhxrvo-00001 annotation-propagation-kyhhxrvo-00001} {<*>https://annotation-propagation-kyhhxrvo.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud <*>{<*>http://annotation-propagation-kyhhxrvo.vaw30wzxpbk.svc.cluster.local} [{ annotation-propagation-kyhhxrvo-00001  <*>true <*>100 <nil>}]}}} <nil>}
+=== CONT  TestServiceCreateListAndDelete
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestServiceCreateAndUpdate
+    util.go:131: Checking that the endpoint vends the expected text: What a spaceport!
+    spoof.go:110: Spoofing service-create-and-update-hfygzrnk.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> service-create-and-update-hfygzrnk.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+=== CONT  TestConfigurationGetAndList
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+=== CONT  TestServiceBYOName
+    util.go:188: Checking to ensure Route is in desired state with generation 1
+=== CONT  TestBlueGreenRoute
+    service.go:145: Successfully created Service blue-green-route-uvcqxovz
+    blue_green_test.go:79: Updating the Service to use a different image
+=== CONT  TestServiceWithTrafficSplit
+    service_test.go:383: Waiting for Service to become ready with the new shape.
+=== CONT  TestBlueGreenRoute
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:blue-green-route-uvcqxovz,GenerateName:,Namespace:vaw30wzxpbk,SelfLink:,UID:7cfd72ae-902f-4059-b133-e082895a0ae2,ResourceVersion:1514551513,Generation:1,CreationTimestamp:2022-11-15 08:09:20 +0100 CET,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{serving.knative.dev/creator: <email>,serving.knative.dev/lastModifier: <email>,},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:20 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{}},"f:spec":{".":{},"f:containers":{}}}}},Subresource:,},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:34 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:status":{".":{},"f:address":{".":{},"f:url":{}},"f:conditions":{},"f:latestCreatedRevisionName":{},"f:latestReadyRevisionName":{},"f:observedGeneration":{},"f:traffic":{},"f:url":{}}},Subresource:status,},},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{1 [{ConfigurationsReady True  {2022-11-15 08:09:33 +0100 CET}  } {Ready True  {2022-11-15 08:09:40 +0100 CET}  } {RoutesReady True  {2022-11-15 08:09:40 +0100 CET}  }] <nil>} {blue-green-route-uvcqxovz-00001 blue-green-route-uvcqxovz-00001} {<*>https://blue-green-route-uvcqxovz.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud <*>{<*>http://blue-green-route-uvcqxovz.vaw30wzxpbk.svc.cluster.local} [{ blue-green-route-uvcqxovz-00001  <*>true <*>100 <nil>}]}}} <nil>}
+=== CONT  TestServiceCreateListAndDelete
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestConfigurationGetAndList
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestServiceBYOName
+    util.go:131: Checking that the endpoint vends the expected text: What a spaceport!
+    spoof.go:110: Spoofing service-b-y-o-name-mtjnwcsv.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> service-b-y-o-name-mtjnwcsv.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+=== CONT  TestAnnotationPropagation
+    service_test.go:635: Service should reflect new revision created and ready in status.
+=== CONT  TestRouteGetAndList
+    route_test.go:128: Route Returned: annotation-propagation-kyhhxrvo
+    route_test.go:128: Route Returned: blue-green-route-uvcqxovz
+    route_test.go:128: Route Returned: configuration-get-and-list-jvzwpplk
+    route_test.go:128: Route Returned: container-exiting-msg-svsgghdw
+    route_test.go:128: Route Returned: custom-resources-limits-nwmdlmwk
+    route_test.go:128: Route Returned: revision-get-and-list-swaqxskt
+    route_test.go:128: Route Returned: route-get-and-list-abqdnqkf
+    route_test.go:128: Route Returned: service-b-y-o-name-mtjnwcsv
+    route_test.go:128: Route Returned: service-create-and-update-hfygzrnk
+    route_test.go:128: Route Returned: service-create-list-and-delete-woojaksk
+    route_test.go:128: Route Returned: service-with-traffic-split-tfzhypyb
+    route_test.go:128: Route Returned: single-concurrency-kjzoyhef
+=== CONT  TestBlueGreenRoute
+    blue_green_test.go:85: Since the Service was updated a new Revision will be created and the Service will be updated
+=== CONT  TestServiceCreateAndUpdate
+    util.go:199: Validate Labels on Revision Object
+    util.go:209: Validate Labels on Configuration Object
+    util.go:215: Validate Labels on Route Object
+    prober.go:125: Starting Route prober for https://service-create-and-update-hfygzrnk.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud.
+    service_test.go:142: Updating the Service to use a different image.
+    spoof.go:110: Spoofing service-create-and-update-hfygzrnk.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> service-create-and-update-hfygzrnk.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+=== CONT  TestRevisionGetAndList
+    revision_test.go:59: Revision Returned: annotation-propagation-kyhhxrvo-00001
+    revision_test.go:59: Revision Returned: blue-green-route-uvcqxovz-00001
+    revision_test.go:59: Revision Returned: configuration-get-and-list-jvzwpplk-00001
+    revision_test.go:59: Revision Returned: container-exiting-msg-svsgghdw-00001
+    revision_test.go:59: Revision Returned: custom-resources-limits-nwmdlmwk-00001
+    revision_test.go:59: Revision Returned: revision-get-and-list-swaqxskt-00001
+    revision_test.go:59: Revision Returned: route-get-and-list-abqdnqkf-00001
+    revision_test.go:59: Revision Returned: service-b-y-o-name-mtjnwcsv-byoname
+    revision_test.go:59: Revision Returned: service-create-and-update-hfygzrnk-00001
+    revision_test.go:59: Revision Returned: service-create-list-and-delete-woojaksk-00001
+    revision_test.go:59: Revision Returned: service-with-traffic-split-tfzhypyb-00001
+    revision_test.go:59: Revision Returned: single-concurrency-kjzoyhef-00001
+=== CONT  TestServiceCreateAndUpdate
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-create-and-update-hfygzrnk,GenerateName:,Namespace:vaw30wzxpbk,SelfLink:,UID:3947249b-c452-4c9d-967e-68d628fa9b45,ResourceVersion:1514551499,Generation:1,CreationTimestamp:2022-11-15 08:09:19 +0100 CET,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{serving.knative.dev/creator: <email>,serving.knative.dev/lastModifier: <email>,},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:19 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{}},"f:spec":{".":{},"f:containers":{}}}}},Subresource:,},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:33 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:status":{".":{},"f:address":{".":{},"f:url":{}},"f:conditions":{},"f:latestCreatedRevisionName":{},"f:latestReadyRevisionName":{},"f:observedGeneration":{},"f:traffic":{},"f:url":{}}},Subresource:status,},},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{1 [{ConfigurationsReady True  {2022-11-15 08:09:33 +0100 CET}  } {Ready True  {2022-11-15 08:09:40 +0100 CET}  } {RoutesReady True  {2022-11-15 08:09:40 +0100 CET}  }] <nil>} {service-create-and-update-hfygzrnk-00001 service-create-and-update-hfygzrnk-00001} {<*>https://service-create-and-update-hfygzrnk.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud <*>{<*>http://service-create-and-update-hfygzrnk.vaw30wzxpbk.svc.cluster.local} [{ service-create-and-update-hfygzrnk-00001  <*>true <*>100 <nil>}]}}} <nil>}
+=== CONT  TestServiceBYOName
+    util.go:199: Validate Labels on Revision Object
+    util.go:209: Validate Labels on Configuration Object
+    util.go:215: Validate Labels on Route Object
+    prober.go:125: Starting Route prober for https://service-b-y-o-name-mtjnwcsv.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud.
+    service_test.go:304: Updating the Service to use a different image.
+    spoof.go:110: Spoofing service-b-y-o-name-mtjnwcsv.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> service-b-y-o-name-mtjnwcsv.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+=== CONT  TestServiceCreateAndUpdate
+    service_test.go:149: Service should reflect new revision created and ready in status.
+=== CONT  TestServiceCreateListAndDelete
+    service.go:145: Successfully created Service service-create-list-and-delete-woojaksk
+    util.go:153: Checking to ensure Revision is in desired state with generation 1
+=== CONT  TestConfigurationGetAndList
+    service.go:145: Successfully created Service configuration-get-and-list-jvzwpplk
+=== CONT  TestServiceBYOName
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-b-y-o-name-mtjnwcsv,GenerateName:,Namespace:vaw30wzxpbk,SelfLink:,UID:0a299760-4b56-4a22-af65-47b5d61b5c90,ResourceVersion:1514551480,Generation:1,CreationTimestamp:2022-11-15 08:09:20 +0100 CET,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{serving.knative.dev/creator: <email>,serving.knative.dev/lastModifier: <email>,},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:20 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{},"f:name":{}},"f:spec":{".":{},"f:containers":{}}}}},Subresource:,},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:35 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:status":{".":{},"f:address":{".":{},"f:url":{}},"f:conditions":{},"f:latestCreatedRevisionName":{},"f:latestReadyRevisionName":{},"f:observedGeneration":{},"f:traffic":{},"f:url":{}}},Subresource:status,},},} {{&ObjectMeta{Name:service-b-y-o-name-mtjnwcsv-byoname,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{1 [{ConfigurationsReady True  {2022-11-15 08:09:35 +0100 CET}  } {Ready True  {2022-11-15 08:09:39 +0100 CET}  } {RoutesReady True  {2022-11-15 08:09:39 +0100 CET}  }] <nil>} {service-b-y-o-name-mtjnwcsv-byoname service-b-y-o-name-mtjnwcsv-byoname} {<*>https://service-b-y-o-name-mtjnwcsv.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud <*>{<*>http://service-b-y-o-name-mtjnwcsv.vaw30wzxpbk.svc.cluster.local} [{ service-b-y-o-name-mtjnwcsv-byoname  <*>true <*>100 <nil>}]}}} <nil>}
+--- PASS: TestRouteGetAndList (25.17s)
+=== CONT  TestRevisionTimeout/does_not_exceed_timeout_seconds
+    revision_timeout_test.go:117: Creating a new Service 
+    service.go:113: Creating a new Service service revision-timeout-does-not-exceed-timeout--aktaxcxf
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:revision-timeout-does-not-exceed-timeout--aktaxcxf,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+--- PASS: TestRevisionGetAndList (25.30s)
+=== CONT  TestRevisionTimeout/writes_first_byte_before_timeout
+    revision_timeout_test.go:117: Creating a new Service 
+    service.go:113: Creating a new Service service revision-timeout-writes-first-byte-before-cjarypdj
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:revision-timeout-writes-first-byte-before-cjarypdj,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+=== CONT  TestRevisionTimeout/does_not_exceed_timeout_seconds
+    service.go:131: Waiting for Service to transition to Ready. service revision-timeout-does-not-exceed-timeout--aktaxcxf
+=== CONT  TestServiceBYOName
+    prober.go:187: Stopping all probers
+=== CONT  TestRevisionTimeout/writes_first_byte_before_timeout
+    service.go:131: Waiting for Service to transition to Ready. service revision-timeout-writes-first-byte-before-cjarypdj
+=== CONT  TestServiceCreateListAndDelete
+    util.go:173: Checking to ensure Configuration is in desired state.
+=== CONT  TestConfigurationGetAndList
+    configuration_test.go:64: Configuration Returned: annotation-propagation-kyhhxrvo
+    configuration_test.go:64: Configuration Returned: blue-green-route-uvcqxovz
+    configuration_test.go:64: Configuration Returned: configuration-get-and-list-jvzwpplk
+    configuration_test.go:64: Configuration Returned: container-exiting-msg-svsgghdw
+    configuration_test.go:64: Configuration Returned: custom-resources-limits-nwmdlmwk
+    configuration_test.go:64: Configuration Returned: revision-get-and-list-swaqxskt
+    configuration_test.go:64: Configuration Returned: route-get-and-list-abqdnqkf
+    configuration_test.go:64: Configuration Returned: service-b-y-o-name-mtjnwcsv
+    configuration_test.go:64: Configuration Returned: service-create-and-update-hfygzrnk
+    configuration_test.go:64: Configuration Returned: service-create-list-and-delete-woojaksk
+    configuration_test.go:64: Configuration Returned: service-with-traffic-split-tfzhypyb
+    configuration_test.go:64: Configuration Returned: single-concurrency-kjzoyhef
+=== CONT  TestServiceCreateListAndDelete
+    util.go:188: Checking to ensure Route is in desired state with generation 1
+    service_test.go:75: Service Returned: annotation-propagation-kyhhxrvo
+    service_test.go:75: Service Returned: blue-green-route-uvcqxovz
+    service_test.go:75: Service Returned: configuration-get-and-list-jvzwpplk
+    service_test.go:75: Service Returned: container-exiting-msg-svsgghdw
+    service_test.go:75: Service Returned: custom-resources-limits-nwmdlmwk
+    service_test.go:75: Service Returned: revision-get-and-list-swaqxskt
+    service_test.go:75: Service Returned: revision-timeout-does-not-exceed-timeout--aktaxcxf
+    service_test.go:75: Service Returned: revision-timeout-writes-first-byte-before-cjarypdj
+    service_test.go:75: Service Returned: route-get-and-list-abqdnqkf
+    service_test.go:75: Service Returned: service-b-y-o-name-mtjnwcsv
+    service_test.go:75: Service Returned: service-create-and-update-hfygzrnk
+    service_test.go:75: Service Returned: service-create-list-and-delete-woojaksk
+    service_test.go:75: Service Returned: service-with-traffic-split-tfzhypyb
+    service_test.go:75: Service Returned: single-concurrency-kjzoyhef
+    service_test.go:83: Deleting Service: service-create-list-and-delete-woojaksk
+--- PASS: TestConfigurationGetAndList (26.45s)
+=== CONT  TestRevisionTimeout/exceeds_timeout_seconds
+    revision_timeout_test.go:117: Creating a new Service 
+    service.go:113: Creating a new Service service revision-timeout-exceeds-timeout-seconds-gvoavgds
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:revision-timeout-exceeds-timeout-seconds-gvoavgds,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {<nil>}} {{0 <nil> <nil>} { } {<nil> <nil> <nil>}}} <nil>}
+    service.go:131: Waiting for Service to transition to Ready. service revision-timeout-exceeds-timeout-seconds-gvoavgds
+--- PASS: TestServiceCreateListAndDelete (27.18s)
+=== CONT  TestCustomResourcesLimits
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+    service.go:142: Getting latest objects Created by Service
+--- PASS: TestServiceBYOName (27.89s)
+=== CONT  TestCustomResourcesLimits
+    service.go:145: Successfully created Service custom-resources-limits-nwmdlmwk
+    spoof.go:110: Spoofing custom-resources-limits-nwmdlmwk.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> custom-resources-limits-nwmdlmwk.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    resources_test.go:104: Querying the application to see if the memory limits are enforced.
+    resources_test.go:75: Request https://custom-resources-limits-nwmdlmwk.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud?bloat=100
+    spoof.go:110: Spoofing custom-resources-limits-nwmdlmwk.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> custom-resources-limits-nwmdlmwk.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    resources_test.go:75: Request https://custom-resources-limits-nwmdlmwk.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud?bloat=200
+    spoof.go:110: Spoofing custom-resources-limits-nwmdlmwk.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> custom-resources-limits-nwmdlmwk.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+=== CONT  TestServiceWithTrafficSplit
+    service_test.go:388: Service traffic should go to the first revision and be available on two names traffic targets: 'current' and 'latest'
+    util.go:97: Checking updated route tags https://current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:91: Checking updated route https://service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:97: Checking updated route tags https://latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+=== CONT  TestCustomResourcesLimits
+    resources_test.go:75: Request https://custom-resources-limits-nwmdlmwk.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud?bloat=500
+    spoof.go:110: Spoofing custom-resources-limits-nwmdlmwk.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> custom-resources-limits-nwmdlmwk.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+=== CONT  TestServiceWithTrafficSplit
+    spoof.go:110: Spoofing current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:169: Performing 200 concurrent requests to https://current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:169: Performing 200 concurrent requests to https://service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:169: Performing 200 concurrent requests to https://latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+=== CONT  TestBlueGreenRoute
+    blue_green_test.go:91: Updating RouteSpec
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:blue-green-route-uvcqxovz,GenerateName:,Namespace:vaw30wzxpbk,SelfLink:,UID:7cfd72ae-902f-4059-b133-e082895a0ae2,ResourceVersion:1514552925,Generation:2,CreationTimestamp:2022-11-15 08:09:20 +0100 CET,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{serving.knative.dev/creator: <email>,serving.knative.dev/lastModifier: <email>,},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:20 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{}},"f:spec":{".":{},"f:containers":{}}}}},Subresource:,},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:34 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:status":{".":{},"f:address":{".":{},"f:url":{}},"f:url":{}}},Subresource:,},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:54 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:status":{"f:conditions":{},"f:latestCreatedRevisionName":{},"f:latestReadyRevisionName":{},"f:observedGeneration":{},"f:traffic":{}}},Subresource:status,},},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {[{blue blue-green-route-uvcqxovz-00001  <nil> <*>50 <nil>} {green blue-green-route-uvcqxovz-00002  <nil> <*>50 <nil>}]}} {{2 [{ConfigurationsReady True  {2022-11-15 08:09:54 +0100 CET}  } {Ready Unknown  {2022-11-15 08:09:54 +0100 CET} Uninitialized Waiting for load balancer to be ready} {RoutesReady Unknown  {2022-11-15 08:09:54 +0100 CET} Uninitialized Waiting for load balancer to be ready}] <nil>} {blue-green-route-uvcqxovz-00002 blue-green-route-uvcqxovz-00002} {<*>https://blue-green-route-uvcqxovz.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud <*>{<*>http://blue-green-route-uvcqxovz.vaw30wzxpbk.svc.cluster.local} [{ blue-green-route-uvcqxovz-00002  <*>true <*>100 <nil>}]}}} <nil>}
+    blue_green_test.go:106: Wait for the service domains to be ready
+=== CONT  TestServiceCreateAndUpdate
+    service_test.go:155: Waiting for Service to transition to Ready.
+=== CONT  TestServiceWithTrafficSplit
+    util.go:146: For domain current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud: wanted at least 200, got 200 requests.
+    util.go:146: For domain service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud: wanted at least 200, got 200 requests.
+    util.go:146: For domain latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud: wanted at least 200, got 200 requests.
+    service_test.go:403: 2. Updating the Service Spec with a new image
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-with-traffic-split-tfzhypyb,GenerateName:,Namespace:vaw30wzxpbk,SelfLink:,UID:824c1252-afdb-4a86-b098-5d55eda50c9d,ResourceVersion:1514552596,Generation:2,CreationTimestamp:2022-11-15 08:09:19 +0100 CET,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{serving.knative.dev/creator: <email>,serving.knative.dev/lastModifier: <email>,},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:34 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:status":{".":{},"f:address":{".":{},"f:url":{}},"f:latestCreatedRevisionName":{},"f:latestReadyRevisionName":{},"f:url":{}}},Subresource:,},ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:42 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{}},"f:spec":{".":{},"f:containers":{}}},"f:traffic":{}}},Subresource:,},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:43 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:status":{"f:conditions":{},"f:observedGeneration":{},"f:traffic":{}}},Subresource:status,},},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {[{current service-with-traffic-split-tfzhypyb-00001  <*>false <*>100 <nil>} {latest   <*>true <*>0 <nil>}]}} {{2 [{ConfigurationsReady True  {2022-11-15 08:09:34 +0100 CET}  } {Ready True  {2022-11-15 08:09:49 +0100 CET}  } {RoutesReady True  {2022-11-15 08:09:49 +0100 CET}  }] <nil>} {service-with-traffic-split-tfzhypyb-00001 service-with-traffic-split-tfzhypyb-00001} {<*>https://service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud <*>{<*>http://service-with-traffic-split-tfzhypyb.vaw30wzxpbk.svc.cluster.local} [{current service-with-traffic-split-tfzhypyb-00001  <*>false <*>100 <*>https://current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud} {latest service-with-traffic-split-tfzhypyb-00001  <*>true <*>0 <*>https://latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud}]}}} <nil>}
+    service_test.go:408: Since the Service was updated a new Revision will be created
+=== CONT  TestAnnotationPropagation
+    service_test.go:641: Waiting for Service to transition to Ready.
+--- PASS: TestCustomResourcesLimits (41.45s)
+=== CONT  TestRevisionTimeout/writes_first_byte_before_timeout
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestBlueGreenRoute
+    blue_green_test.go:132: Probing https://green-blue-green-route-uvcqxovz.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing green-blue-green-route-uvcqxovz.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> green-blue-green-route-uvcqxovz.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+=== CONT  TestRevisionTimeout/does_not_exceed_timeout_seconds
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+--- PASS: TestSingleConcurrency (45.90s)
+=== CONT  TestBlueGreenRoute
+    spoof.go:110: Spoofing green-blue-green-route-uvcqxovz.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> green-blue-green-route-uvcqxovz.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:169: Performing 200 concurrent requests to https://green-blue-green-route-uvcqxovz.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing blue-green-route-uvcqxovz.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> blue-green-route-uvcqxovz.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:169: Performing 200 concurrent requests to https://blue-green-route-uvcqxovz.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing blue-blue-green-route-uvcqxovz.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> blue-blue-green-route-uvcqxovz.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:169: Performing 200 concurrent requests to https://blue-blue-green-route-uvcqxovz.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+=== CONT  TestRevisionTimeout/does_not_exceed_timeout_seconds
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestRevisionTimeout/writes_first_byte_before_timeout
+    service.go:145: Successfully created Service revision-timeout-writes-first-byte-before-cjarypdj
+    revision_timeout_test.go:125: Probing to force at least one pod https://revision-timeout-writes-first-byte-before-cjarypdj.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing revision-timeout-writes-first-byte-before-cjarypdj.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> revision-timeout-writes-first-byte-before-cjarypdj.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+=== CONT  TestRevisionTimeout/exceeds_timeout_seconds
+    service.go:136: Checking to ensure Service Status is populated for Ready service
+    service.go:142: Getting latest objects Created by Service
+=== CONT  TestRevisionTimeout/writes_first_byte_before_timeout
+    spoof.go:110: Spoofing revision-timeout-writes-first-byte-before-cjarypdj.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> revision-timeout-writes-first-byte-before-cjarypdj.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+=== CONT  TestRevisionTimeout/does_not_exceed_timeout_seconds
+    service.go:145: Successfully created Service revision-timeout-does-not-exceed-timeout--aktaxcxf
+    revision_timeout_test.go:125: Probing to force at least one pod https://revision-timeout-does-not-exceed-timeout--aktaxcxf.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing revision-timeout-does-not-exceed-timeout--aktaxcxf.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> revision-timeout-does-not-exceed-timeout--aktaxcxf.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+=== CONT  TestRevisionTimeout/exceeds_timeout_seconds
+    service.go:145: Successfully created Service revision-timeout-exceeds-timeout-seconds-gvoavgds
+    revision_timeout_test.go:125: Probing to force at least one pod https://revision-timeout-exceeds-timeout-seconds-gvoavgds.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing revision-timeout-exceeds-timeout-seconds-gvoavgds.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> revision-timeout-exceeds-timeout-seconds-gvoavgds.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+=== CONT  TestAnnotationPropagation
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:annotation-propagation-kyhhxrvo,GenerateName:,Namespace:vaw30wzxpbk,SelfLink:,UID:1cd020d1-a30b-4bba-a38c-6f50cba013e6,ResourceVersion:1514553852,Generation:2,CreationTimestamp:2022-11-15 08:09:23 +0100 CET,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{serving.knative.dev/creator: <email>,serving.knative.dev/lastModifier: <email>,},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:41 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:metadata":{"f:annotations":{"f:juicy":{}}},"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{}},"f:spec":{".":{},"f:containers":{}}}}},Subresource:,},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:58 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:status":{"f:conditions":{},"f:latestCreatedRevisionName":{},"f:latestReadyRevisionName":{},"f:observedGeneration":{},"f:traffic":{}}},Subresource:status,},},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{2 [{ConfigurationsReady True  {2022-11-15 08:09:58 +0100 CET}  } {Ready True  {2022-11-15 08:10:05 +0100 CET}  } {RoutesReady True  {2022-11-15 08:10:05 +0100 CET}  }] <nil>} {annotation-propagation-kyhhxrvo-00002 annotation-propagation-kyhhxrvo-00002} {<*>https://annotation-propagation-kyhhxrvo.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud <*>{<*>http://annotation-propagation-kyhhxrvo.vaw30wzxpbk.svc.cluster.local} [{ annotation-propagation-kyhhxrvo-00002  <*>true <*>100 <nil>}]}}} <nil>}
+=== CONT  TestRevisionTimeout/does_not_exceed_timeout_seconds
+    spoof.go:110: Spoofing revision-timeout-does-not-exceed-timeout--aktaxcxf.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> revision-timeout-does-not-exceed-timeout--aktaxcxf.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+=== CONT  TestAnnotationPropagation
+    service_test.go:662: Updating the Service to use a different image.
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:annotation-propagation-kyhhxrvo,GenerateName:,Namespace:vaw30wzxpbk,SelfLink:,UID:1cd020d1-a30b-4bba-a38c-6f50cba013e6,ResourceVersion:1514553891,Generation:2,CreationTimestamp:2022-11-15 08:09:23 +0100 CET,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{serving.knative.dev/creator: <email>,serving.knative.dev/lastModifier: <email>,},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:41 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{}},"f:spec":{".":{},"f:containers":{}}}}},Subresource:,},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:58 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:status":{"f:conditions":{},"f:latestCreatedRevisionName":{},"f:latestReadyRevisionName":{},"f:observedGeneration":{},"f:traffic":{}}},Subresource:,},},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{2 [{ConfigurationsReady True  {2022-11-15 08:09:58 +0100 CET}  } {Ready True  {2022-11-15 08:10:05 +0100 CET}  } {RoutesReady True  {2022-11-15 08:10:05 +0100 CET}  }] <nil>} {annotation-propagation-kyhhxrvo-00002 annotation-propagation-kyhhxrvo-00002} {<*>https://annotation-propagation-kyhhxrvo.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud <*>{<*>http://annotation-propagation-kyhhxrvo.vaw30wzxpbk.svc.cluster.local} [{ annotation-propagation-kyhhxrvo-00002  <*>true <*>100 <nil>}]}}} <nil>}
+=== CONT  TestRevisionTimeout/exceeds_timeout_seconds
+    spoof.go:110: Spoofing revision-timeout-exceeds-timeout-seconds-gvoavgds.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> revision-timeout-exceeds-timeout-seconds-gvoavgds.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+=== CONT  TestAnnotationPropagation
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:annotation-propagation-kyhhxrvo,GenerateName:,Namespace:vaw30wzxpbk,SelfLink:,UID:1cd020d1-a30b-4bba-a38c-6f50cba013e6,ResourceVersion:1514553918,Generation:2,CreationTimestamp:2022-11-15 08:09:23 +0100 CET,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{serving.knative.dev/creator: <email>,serving.knative.dev/lastModifier: <email>,},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:41 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{}},"f:spec":{".":{},"f:containers":{}}}}},Subresource:,},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:58 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:status":{"f:latestCreatedRevisionName":{},"f:latestReadyRevisionName":{},"f:observedGeneration":{},"f:traffic":{}}},Subresource:,},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:10:06 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:status":{"f:conditions":{}}},Subresource:status,},},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{2 [{ConfigurationsReady True  {2022-11-15 08:09:58 +0100 CET}  } {Ready True  {2022-11-15 08:10:07 +0100 CET}  } {RoutesReady True  {2022-11-15 08:10:07 +0100 CET}  }] <nil>} {annotation-propagation-kyhhxrvo-00002 annotation-propagation-kyhhxrvo-00002} {<*>https://annotation-propagation-kyhhxrvo.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud <*>{<*>http://annotation-propagation-kyhhxrvo.vaw30wzxpbk.svc.cluster.local} [{ annotation-propagation-kyhhxrvo-00002  <*>true <*>100 <nil>}]}}} <nil>}
+    service_test.go:668: Service should reflect new revision created and ready in status.
+=== CONT  TestRevisionTimeout/does_not_exceed_timeout_seconds
+    revision_timeout_test.go:67: Response status code: 200, expected: 200
+    revision_timeout_test.go:48: URL: https://revision-timeout-does-not-exceed-timeout--aktaxcxf.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud, initialSleep: 2s, sleep: 0s, request elapsed 2518 ms
+=== CONT  TestServiceCreateAndUpdate
+    util.go:153: Checking to ensure Revision is in desired state with generation 2
+    util.go:173: Checking to ensure Configuration is in desired state.
+=== CONT  TestBlueGreenRoute
+    util.go:146: For domain green-blue-green-route-uvcqxovz.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud: wanted at least 200, got 200 requests.
+    util.go:146: For domain blue-green-route-uvcqxovz.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud: wanted at least 50, got 96 requests.
+    util.go:146: For domain blue-green-route-uvcqxovz.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud: wanted at least 50, got 104 requests.
+    util.go:146: For domain blue-blue-green-route-uvcqxovz.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud: wanted at least 200, got 200 requests.
+=== CONT  TestServiceCreateAndUpdate
+    util.go:188: Checking to ensure Route is in desired state with generation 2
+    util.go:131: Checking that the endpoint vends the expected text: Re-energize yourself with a slice of pepperoni!
+    spoof.go:110: Spoofing service-create-and-update-hfygzrnk.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> service-create-and-update-hfygzrnk.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+--- PASS: TestBlueGreenRoute (51.76s)
+=== CONT  TestServiceCreateAndUpdate
+    service_test.go:169: Updating labels of the RevisionTemplateSpec for service service-create-and-update-hfygzrnk.
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-create-and-update-hfygzrnk,GenerateName:,Namespace:vaw30wzxpbk,SelfLink:,UID:3947249b-c452-4c9d-967e-68d628fa9b45,ResourceVersion:1514553968,Generation:2,CreationTimestamp:2022-11-15 08:09:19 +0100 CET,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{serving.knative.dev/creator: <email>,serving.knative.dev/lastModifier: <email>,},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:19 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{}},"f:spec":{".":{},"f:containers":{}}}}},Subresource:,},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:33 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:status":{".":{},"f:address":{".":{},"f:url":{}},"f:url":{}}},Subresource:,},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:55 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:status":{"f:conditions":{},"f:latestCreatedRevisionName":{},"f:latestReadyRevisionName":{},"f:observedGeneration":{},"f:traffic":{}}},Subresource:status,},},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{label-x: abc,label-y: def,},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{2 [{ConfigurationsReady True  {2022-11-15 08:09:54 +0100 CET}  } {Ready True  {2022-11-15 08:10:08 +0100 CET}  } {RoutesReady True  {2022-11-15 08:10:08 +0100 CET}  }] <nil>} {service-create-and-update-hfygzrnk-00002 service-create-and-update-hfygzrnk-00002} {<*>https://service-create-and-update-hfygzrnk.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud <*>{<*>http://service-create-and-update-hfygzrnk.vaw30wzxpbk.svc.cluster.local} [{ service-create-and-update-hfygzrnk-00002  <*>true <*>100 <nil>}]}}} <nil>}
+    service_test.go:180: Waiting for the new revision to appear as LatestRevision.
+=== CONT  TestServiceWithTrafficSplit
+    service_test.go:421: Waiting for Service to become ready with the new shape.
+    service_test.go:426: Since the Service is using release the Route will not be updated, but new revision will be available at 'latest'
+    util.go:97: Checking updated route tags https://current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:91: Checking updated route https://service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:97: Checking updated route tags https://latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:169: Performing 200 concurrent requests to https://current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:169: Performing 200 concurrent requests to https://service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:169: Performing 200 concurrent requests to https://latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+=== CONT  TestAnnotationPropagation
+    service_test.go:674: Waiting for Service to transition to Ready.
+=== CONT  TestRevisionTimeout/writes_first_byte_before_timeout
+    revision_timeout_test.go:67: Response status code: 200, expected: 200
+    revision_timeout_test.go:48: URL: https://revision-timeout-writes-first-byte-before-cjarypdj.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud, initialSleep: 0s, sleep: 15s, request elapsed 15482 ms
+=== CONT  TestServiceCreateAndUpdate
+    service_test.go:186: Updating annotations of RevisionTemplateSpec for service service-create-and-update-hfygzrnk
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-create-and-update-hfygzrnk,GenerateName:,Namespace:vaw30wzxpbk,SelfLink:,UID:3947249b-c452-4c9d-967e-68d628fa9b45,ResourceVersion:1514554881,Generation:3,CreationTimestamp:2022-11-15 08:09:19 +0100 CET,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{serving.knative.dev/creator: <email>,serving.knative.dev/lastModifier: <email>,},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:10:11 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{},"f:labels":{".":{},"f:label-x":{},"f:label-y":{}}},"f:spec":{".":{},"f:containers":{}}}}},Subresource:,},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:10:22 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:status":{"f:conditions":{},"f:latestCreatedRevisionName":{},"f:latestReadyRevisionName":{},"f:observedGeneration":{},"f:traffic":{}}},Subresource:status,},},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{annotation-a: 123,annotation-b: 456,},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {[{   <*>true <*>100 <nil>}]}} {{3 [{ConfigurationsReady True  {2022-11-15 08:10:22 +0100 CET}  } {Ready Unknown  {2022-11-15 08:10:22 +0100 CET} Uninitialized Waiting for load balancer to be ready} {RoutesReady Unknown  {2022-11-15 08:10:22 +0100 CET} Uninitialized Waiting for load balancer to be ready}] <nil>} {service-create-and-update-hfygzrnk-00003 service-create-and-update-hfygzrnk-00003} {<*>https://service-create-and-update-hfygzrnk.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud <*>{<*>http://service-create-and-update-hfygzrnk.vaw30wzxpbk.svc.cluster.local} [{ service-create-and-update-hfygzrnk-00003  <*>true <*>100 <nil>}]}}} <nil>}
+    service_test.go:197: Waiting for the new revision to appear as LatestRevision.
+=== CONT  TestServiceWithTrafficSplit
+    util.go:146: For domain latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud: wanted at least 200, got 200 requests.
+    util.go:146: For domain current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud: wanted at least 200, got 200 requests.
+    util.go:146: For domain service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud: wanted at least 200, got 200 requests.
+    service_test.go:441: 3. Updating Service to split traffic between two revisions using Release mode
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-with-traffic-split-tfzhypyb,GenerateName:,Namespace:vaw30wzxpbk,SelfLink:,UID:824c1252-afdb-4a86-b098-5d55eda50c9d,ResourceVersion:1514554571,Generation:3,CreationTimestamp:2022-11-15 08:09:19 +0100 CET,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{serving.knative.dev/creator: <email>,serving.knative.dev/lastModifier: <email>,},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:42 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{}},"f:spec":{".":{},"f:containers":{}}},"f:traffic":{}}},Subresource:,},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:10:11 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:status":{"f:conditions":{},"f:latestCreatedRevisionName":{},"f:latestReadyRevisionName":{},"f:observedGeneration":{},"f:traffic":{}}},Subresource:status,},},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {[{current service-with-traffic-split-tfzhypyb-00001  <nil> <*>50 <nil>} {candidate service-with-traffic-split-tfzhypyb-00002  <nil> <*>50 <nil>} {latest   <nil> <nil> <nil>}]}} {{3 [{ConfigurationsReady True  {2022-11-15 08:10:11 +0100 CET}  } {Ready True  {2022-11-15 08:10:18 +0100 CET}  } {RoutesReady True  {2022-11-15 08:10:18 +0100 CET}  }] <nil>} {service-with-traffic-split-tfzhypyb-00002 service-with-traffic-split-tfzhypyb-00002} {<*>https://service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud <*>{<*>http://service-with-traffic-split-tfzhypyb.vaw30wzxpbk.svc.cluster.local} [{current service-with-traffic-split-tfzhypyb-00001  <*>false <*>100 <*>https://current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud} {latest service-with-traffic-split-tfzhypyb-00002  <*>true <*>0 <*>https://latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud}]}}} <nil>}
+--- PASS: TestAnnotationPropagation (61.22s)
+=== CONT  TestServiceWithTrafficSplit
+    service_test.go:479: Waiting for Service to become ready with the new shape.
+=== CONT  TestContainerExitingMsg
+    errorcondition_test.go:146: When the containers keep crashing, the Configuration should have error status.
+    errorcondition_test.go:150: Configuration container-exiting-msg-svsgghdw Ready = &apis.Condition{Type:"Ready", Status:"False", Severity:"", LastTransitionTime:apis.VolatileTime{Inner:time.Date(2022, time.November, 15, 8, 10, 25, 0, time.Local)}, Reason:"RevisionFailed", Message:"Revision \"container-exiting-msg-svsgghdw-00001\" failed with message: Container failed with: 2022/11/15 07:09:42 Started...\n2022/11/15 07:09:52 Crashed...\n."}
+    errorcondition_test.go:163: When the containers keep crashing, the Revision should have error status.
+    errorcondition_test.go:166: Revsion container-exiting-msg-svsgghdw-00001 Ready status = &{Ready False  {2022-11-15 08:10:25 +0100 CET} ExitCode5 Container failed with: 2022/11/15 07:09:42 Started...
+        2022/11/15 07:09:52 Crashed...
+        }
+--- PASS: TestContainerExitingMsg (67.71s)
+=== CONT  TestServiceWithTrafficSplit
+    service_test.go:484: Traffic should be split between the two revisions and available on three named traffic targets, 'current', 'candidate', and 'latest'
+    util.go:97: Checking updated route tags https://current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:97: Checking updated route tags https://candidate-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing candidate-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> candidate-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:91: Checking updated route https://service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:97: Checking updated route tags https://latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:169: Performing 200 concurrent requests to https://current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing candidate-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> candidate-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:169: Performing 200 concurrent requests to https://candidate-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:169: Performing 200 concurrent requests to https://latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:169: Performing 200 concurrent requests to https://service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+=== CONT  TestServiceCreateAndUpdate
+    service_test.go:203: Waiting for Service to transition to Ready.
+=== CONT  TestServiceWithTrafficSplit
+    util.go:146: For domain service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud: wanted at least 50, got 101 requests.
+    util.go:146: For domain service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud: wanted at least 50, got 99 requests.
+    util.go:146: For domain current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud: wanted at least 200, got 200 requests.
+    util.go:146: For domain candidate-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud: wanted at least 200, got 200 requests.
+    util.go:146: For domain latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud: wanted at least 200, got 200 requests.
+    service_test.go:502: 4. Updating the Service Spec with a new image
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-with-traffic-split-tfzhypyb,GenerateName:,Namespace:vaw30wzxpbk,SelfLink:,UID:824c1252-afdb-4a86-b098-5d55eda50c9d,ResourceVersion:1514555204,Generation:4,CreationTimestamp:2022-11-15 08:09:19 +0100 CET,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{serving.knative.dev/creator: <email>,serving.knative.dev/lastModifier: <email>,},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:42 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{}},"f:spec":{".":{},"f:containers":{}}},"f:traffic":{}}},Subresource:,},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:10:11 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:status":{"f:latestCreatedRevisionName":{},"f:latestReadyRevisionName":{}}},Subresource:,},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:10:25 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:status":{"f:conditions":{},"f:observedGeneration":{},"f:traffic":{}}},Subresource:status,},},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {[{current service-with-traffic-split-tfzhypyb-00001  <*>false <*>50 <nil>} {candidate service-with-traffic-split-tfzhypyb-00002  <*>false <*>50 <nil>} {latest   <*>true <*>0 <nil>}]}} {{4 [{ConfigurationsReady True  {2022-11-15 08:10:11 +0100 CET}  } {Ready True  {2022-11-15 08:10:27 +0100 CET}  } {RoutesReady True  {2022-11-15 08:10:27 +0100 CET}  }] <nil>} {service-with-traffic-split-tfzhypyb-00002 service-with-traffic-split-tfzhypyb-00002} {<*>https://service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud <*>{<*>http://service-with-traffic-split-tfzhypyb.vaw30wzxpbk.svc.cluster.local} [{current service-with-traffic-split-tfzhypyb-00001  <*>false <*>50 <*>https://current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud} {candidate service-with-traffic-split-tfzhypyb-00002  <*>false <*>50 <*>https://candidate-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud} {latest service-with-traffic-split-tfzhypyb-00002  <*>true <*>0 <*>https://latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud}]}}} <nil>}
+    service_test.go:506: Since the Service was updated a new Revision will be created
+=== CONT  TestServiceCreateAndUpdate
+    util.go:153: Checking to ensure Revision is in desired state with generation 4
+    util.go:173: Checking to ensure Configuration is in desired state.
+    util.go:188: Checking to ensure Route is in desired state with generation 4
+    util.go:131: Checking that the endpoint vends the expected text: Re-energize yourself with a slice of pepperoni!
+    spoof.go:110: Spoofing service-create-and-update-hfygzrnk.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> service-create-and-update-hfygzrnk.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    prober.go:187: Stopping all probers
+--- PASS: TestServiceCreateAndUpdate (82.08s)
+=== CONT  TestServiceWithTrafficSplit
+    service_test.go:518: Waiting for Service to become ready with the new shape.
+    service_test.go:523: Traffic should remain between the two images, and the new revision should be available on the named traffic target 'latest'
+    util.go:97: Checking updated route tags https://current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:97: Checking updated route tags https://latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:97: Checking updated route tags https://candidate-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing candidate-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> candidate-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:91: Checking updated route https://service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:169: Performing 200 concurrent requests to https://current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:169: Performing 200 concurrent requests to https://service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:169: Performing 200 concurrent requests to https://latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing candidate-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> candidate-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:169: Performing 200 concurrent requests to https://candidate-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:146: For domain latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud: wanted at least 200, got 200 requests.
+    util.go:146: For domain service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud: wanted at least 50, got 100 requests.
+    util.go:146: For domain service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud: wanted at least 50, got 100 requests.
+    util.go:146: For domain candidate-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud: wanted at least 200, got 200 requests.
+    util.go:146: For domain current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud: wanted at least 200, got 200 requests.
+    service_test.go:541: 5. Updating Service to split traffic between two `current` and `@latest`
+    crd.go:36:  resource {<nil> <nil> <*>{&TypeMeta{Kind:,APIVersion:,} &ObjectMeta{Name:service-with-traffic-split-tfzhypyb,GenerateName:,Namespace:vaw30wzxpbk,SelfLink:,UID:824c1252-afdb-4a86-b098-5d55eda50c9d,ResourceVersion:1514556401,Generation:5,CreationTimestamp:2022-11-15 08:09:19 +0100 CET,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{serving.knative.dev/creator: <email>,serving.knative.dev/lastModifier: <email>,},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{ManagedFieldsEntry{Manager:v1.test,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:09:42 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{}},"f:spec":{".":{},"f:containers":{}}},"f:traffic":{}}},Subresource:,},ManagedFieldsEntry{Manager:controller,Operation:Update,APIVersion:serving.knative.dev/v1,Time:2022-11-15 08:10:52 +0100 CET,FieldsType:FieldsV1,FieldsV1:{"f:status":{"f:conditions":{},"f:latestCreatedRevisionName":{},"f:latestReadyRevisionName":{},"f:observedGeneration":{},"f:traffic":{}}},Subresource:status,},},} {{&ObjectMeta{Name:,GenerateName:,Namespace:,SelfLink:,UID:,ResourceVersion:,Generation:0,CreationTimestamp:0001-01-01 00:00:00 +0000 UTC,DeletionTimestamp:<nil>,DeletionGracePeriodSeconds:nil,Labels:map[string]string{},Annotations:map[string]string{},OwnerReferences:[]OwnerReference{},Finalizers:[],ManagedFields:[]ManagedFieldsEntry{},}} {[{current service-with-traffic-split-tfzhypyb-00001  <nil> <*>50 <nil>} {candidate   <nil> <*>50 <nil>} {latest   <nil> <nil> <nil>}]}} {{5 [{ConfigurationsReady True  {2022-11-15 08:10:52 +0100 CET}  } {Ready True  {2022-11-15 08:10:54 +0100 CET}  } {RoutesReady True  {2022-11-15 08:10:54 +0100 CET}  }] <nil>} {service-with-traffic-split-tfzhypyb-00003 service-with-traffic-split-tfzhypyb-00003} {<*>https://service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud <*>{<*>http://service-with-traffic-split-tfzhypyb.vaw30wzxpbk.svc.cluster.local} [{current service-with-traffic-split-tfzhypyb-00001  <*>false <*>50 <*>https://current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud} {candidate service-with-traffic-split-tfzhypyb-00002  <*>false <*>50 <*>https://candidate-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud} {latest service-with-traffic-split-tfzhypyb-00003  <*>true <*>0 <*>https://latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud}]}}} <nil>}
+    service_test.go:572: Waiting for Service to become ready with the new shape.
+    util.go:97: Checking updated route tags https://current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:97: Checking updated route tags https://latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:97: Checking updated route tags https://candidate-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing candidate-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> candidate-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:91: Checking updated route https://service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:169: Performing 200 concurrent requests to https://current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:169: Performing 200 concurrent requests to https://service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:169: Performing 200 concurrent requests to https://latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    spoof.go:110: Spoofing candidate-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud -> candidate-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:169: Performing 200 concurrent requests to https://candidate-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud
+    util.go:146: For domain service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud: wanted at least 50, got 101 requests.
+    util.go:146: For domain service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud: wanted at least 50, got 99 requests.
+    util.go:146: For domain candidate-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud: wanted at least 200, got 200 requests.
+    util.go:146: For domain current-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud: wanted at least 200, got 200 requests.
+    util.go:146: For domain latest-service-with-traffic-split-tfzhypyb.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud: wanted at least 200, got 200 requests.
+--- PASS: TestServiceWithTrafficSplit (121.59s)
+=== CONT  TestRevisionTimeout/exceeds_timeout_seconds
+    revision_timeout_test.go:67: Response status code: 504, expected: 504
+    revision_timeout_test.go:48: URL: https://revision-timeout-exceeds-timeout-seconds-gvoavgds.vaw30wzxpbk.ca-tor.codeengine.appdomain.cloud, initialSleep: 12s, sleep: 0s, request elapsed 112034 ms
+--- PASS: TestRevisionTimeout (0.00s)
+    --- PASS: TestRevisionTimeout/does_not_exceed_timeout_seconds (25.75s)
+    --- PASS: TestRevisionTimeout/writes_first_byte_before_timeout (37.67s)
+    --- PASS: TestRevisionTimeout/exceeds_timeout_seconds (134.29s)
+PASS
+ok  	knative.dev/serving/test/conformance/api/v1	160.765s
