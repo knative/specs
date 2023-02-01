@@ -1066,7 +1066,7 @@ Additionally, implementations MAY enforce an upper bound (≥ 1).
 <br>
 (Optional)
    </td>
-   <td>The maximum duration in seconds that the request routing layer will wait for a request delivered to a container to progress (send network traffic). If unspecified, a system default will be provided.
+   <td>The maximum duration in seconds that the instance is allowed to respond to a request. If unspecified, a system default will be provided.
    </td>
    <td>REQUIRED
    </td>
