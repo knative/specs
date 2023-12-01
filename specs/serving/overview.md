@@ -5,7 +5,7 @@ Configurations, and Services:
 
 - A **Route** provides a named endpoint and a mechanism for routing traffic to
 
-- **Revisions**, which are immutable snapshots of code + config, created by a
+- **Revisions**, which are immutable snapshots of code + config, created by a Configuration.
 
 - **Configuration**, which acts as a stream of environments for Revisions.
 
