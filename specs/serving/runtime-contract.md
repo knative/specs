@@ -474,9 +474,16 @@ based on observed resource usage. The limits enforced to a container
 [SHOULD](https://github.com/knative/serving/blob/main/test/conformance/runtime/cgroup_test.go)
 be exposed in
 
+cgroup v1:
 - `/sys/fs/cgroup/memory/memory.limit_in_bytes`
+- `/sys/fs/cgroup/cpu/cpu.shares`
 - `/sys/fs/cgroup/cpu/cpu.cfs_period_us`
 - `/sys/fs/cgroup/cpu/cpu.cfs_quota_us`
+
+cgroup v2:
+- `/sys/fs/cgroup/memory.max`
+- `/sys/fs/cgroup/cpu.weight`
+- `/sys/fs/cgroup/cpu.max`
 
 Additionally, operators or the platform MAY restrict or prevent CPU scheduling
 for instances when no requests are active,
