@@ -1,5 +1,14 @@
 # Knative Specs Repository
 
+## End of life
+
+This repository is being retired and will be archived. Its specifications and
+conformance documentation will no longer receive updates here. Existing documents
+and repository history will remain available for reference.
+
+This retirement applies to this repository, not to Knative Serving or Eventing.
+See [knative/community#1802](https://github.com/knative/community/issues/1802) for details.
+
 This repository contains the specifications for Knative components, along with
 policies and procedures around conformance and certification.
 
